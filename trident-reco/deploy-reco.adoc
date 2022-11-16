@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/deploy-reco.html 
+keywords: deployment, deploy, trident, namespace 
+summary: Utilisez les recommandations indiquées ici pour déployer Astra Trident. 
+---
+= Déploiement
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilisez les recommandations indiquées ici pour déployer Astra Trident.
+
+
+
+== Déploiement dans un namespace dédié
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["Espaces de noms"^] séparation des tâches administratives entre les différentes applications et barrière au partage des ressources. Par exemple, un volume persistant ne peut pas être consommé depuis un autre espace de noms. Astra Trident fournit des ressources PV à tous les namespaces du cluster Kubernetes et exploite par conséquent un compte de service avec des privilèges élevés.
+
+L'accès au pod Trident peut également permettre à un utilisateur d'accéder aux identifiants du système de stockage et à d'autres informations sensibles. Il est important de s'assurer que les utilisateurs d'applications et les applications de gestion ne peuvent pas accéder aux définitions d'objets Trident ou aux pods eux-mêmes.
+
+
+
+== Utilisez les quotas et les limites des plages pour contrôler la consommation du stockage
+
+Kubernetes dispose de deux fonctionnalités qui, lorsqu'elles sont combinées, fournissent un mécanisme puissant pour limiter la consommation des ressources par les applications. Le https://kubernetes.io/docs/concepts/policy/resource-quotas/#storage-resource-quota["mécanisme de quotas de stockage"^] permet à l'administrateur d'implémenter des limites d'utilisation globales et spécifiques aux classes de stockage, à la capacité et au nombre d'objets, sur la base de chaque espace de noms. En outre, à l'aide d'un https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage["limite de plage"^] Veille à ce que les demandes de volume persistant se situent dans une valeur minimale et maximale avant que la requête ne soit transférée au mécanisme de provisionnement.
+
+Ces valeurs sont définies par espace de noms, ce qui signifie que chaque espace de noms doit avoir des valeurs définies qui correspondent à leurs besoins en ressources. Voir ici pour plus d'informations sur https://netapp.io/2017/06/09/self-provisioning-storage-kubernetes-without-worry["comment exploiter les quotas"^].

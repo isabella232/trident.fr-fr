@@ -1,0 +1,15 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/k8s-concepts.html 
+keywords: kubernetes, clusters, master, compute, architecture 
+summary: En savoir plus sur les composants du système Kubernetes. 
+---
+= Concepts relatifs à Kubernetes
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En savoir plus sur les parties du https://kubernetes.io/docs/concepts/["Système Kubernetes"^].

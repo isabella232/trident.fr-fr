@@ -1,0 +1,151 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/upgrade-tridentctl.html 
+keywords: upgrade, trident, methods, operator, tridentctl, helm 
+summary: 'Vous pouvez facilement mettre à niveau une installation Astra Trident existante à l"aide de `tridentctl`.' 
+---
+= Mise à niveau avec tridentctl
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez facilement mettre à niveau une installation Astra Trident existante à l'aide de `tridentctl`.
+
+
+
+== Considérations avant la mise à niveau
+
+Lorsque vous mettez à niveau vers la dernière version d'Astra Trident, prenez en compte les points suivants :
+
+* Depuis Trident 20.01, seule la version bêta de https://kubernetes.io/docs/concepts/storage/volume-snapshots/["snapshots de volume"^] est pris en charge. Les administrateurs Kubernetes doivent veiller à sauvegarder ou convertir en version bêta les objets de snapshot alpha en toute sécurité, afin de conserver les snapshots alpha hérités.
+* La version bêta de snapshots de volume introduit un ensemble modifié de CRD et un contrôleur de snapshot, qui doivent tous deux être configurés avant d'installer Astra Trident. https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["De ce blog"^] décrit les étapes de migration des instantanés de volume alpha vers le format bêta.
+* La désinstallation et la réinstallation d'Astra Trident fait office de mise à niveau. Lorsque vous désinstallez Trident, la demande de volume persistant et le volume persistant utilisés par l'Astra Trident. Les volumes persistants ayant déjà été provisionnés restent disponibles pendant la mise hors ligne d'Astra Trident, et Astra Trident provisionne les volumes pour les demandes de volume persistant créées dans l'intervalle une fois de nouveau en ligne.
+
+
+
+IMPORTANT: Pour la mise à niveau d'Astra Trident, n'interrompez pas le processus. Assurez-vous que le programme d'installation s'exécute jusqu'à la fin.
+
+
+
+== Étapes suivantes après la mise à niveau
+
+Pour utiliser le riche ensemble de fonctionnalités disponibles dans les dernières versions de Trident (par exemple, les copies Snapshot de volume à la demande), vous pouvez mettre à niveau les volumes à l'aide du `tridentctl upgrade` commande.
+
+S'il existe des volumes hérités, il est conseillé de les mettre à niveau d'un type NFS/iSCSI vers un type CSI pour pouvoir utiliser l'ensemble des nouvelles fonctionnalités d'Astra Trident. Un volume persistant existant provisionné par Trident prend en charge l'ensemble classique de fonctionnalités.
+
+Tenez compte des éléments suivants lorsque vous décidez de mettre à niveau des volumes vers le type CSI :
+
+* Vous n'avez peut-être pas besoin de mettre à niveau tous les volumes. Les volumes déjà créés continuent à être accessibles et fonctionneront normalement.
+* Un PV peut être monté dans le cadre d'un déploiement/StatefulSet lors de la mise à niveau. Il n'est pas nécessaire de faire descendre le déploiement/StatefulSet.
+* Vous *ne pouvez pas* connecter un PV à un pod autonome lors de la mise à niveau. Vous devez arrêter le pod avant de mettre à niveau le volume.
+* Vous pouvez mettre à niveau uniquement un volume lié à un volume persistant. Les volumes qui ne sont pas liés à des demandes de volume persistant doivent être supprimés et importés avant la mise à niveau.
+
+
+
+
+=== Exemple de mise à niveau de volume
+
+Voici un exemple illustrant le mode d'exécution d'une mise à niveau de volume.
+
+. Courez `kubectl get pv` Pour répertorier les volumes persistants.
++
+[listing]
+----
+kubectl get pv
+NAME                         CAPACITY     ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                  STORAGECLASS    REASON   AGE
+default-pvc-1-a8475          1073741824   RWO            Delete           Bound    default/pvc-1          standard                 19h
+default-pvc-2-a8486          1073741824   RWO            Delete           Bound    default/pvc-2          standard                 19h
+default-pvc-3-a849e          1073741824   RWO            Delete           Bound    default/pvc-3          standard                 19h
+default-pvc-4-a84de          1073741824   RWO            Delete           Bound    default/pvc-4          standard                 19h
+trident                      2Gi          RWO            Retain           Bound    trident/trident                                 19h
+----
++
+Actuellement, quatre volumes persistants ont été créés par Trident 20.07, à l'aide de `netapp.io/trident` provisionnement.
+
+. Courez `kubectl describe pv` Pour en savoir plus sur le volume persistant.
++
+[listing]
+----
+kubectl describe pv default-pvc-2-a8486
+
+Name:            default-pvc-2-a8486
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: netapp.io/trident
+                 volume.beta.kubernetes.io/storage-class: standard
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Bound
+Claim:           default/pvc-2
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1073741824
+Node Affinity:   <none>
+Message:
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    10.xx.xx.xx
+    Path:      /trid_1907_alpha_default_pvc_2_a8486
+    ReadOnly:  false
+----
++
+Le volume persistant a été créé à l'aide du `netapp.io/trident` de type provisionnement et en mode NFS. Pour prendre en charge toutes les nouvelles fonctionnalités proposées par Astra Trident, ce PV doit être mis à niveau vers le type CSI.
+
+. Exécutez le `tridenctl upgrade volume <name-of-trident-volume>` Commande de mise à niveau d'un volume Astra Trident hérité vers les spécifications CSI.
++
+[listing]
+----
+./tridentctl get volumes -n trident
++---------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|            NAME     |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++---------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| default-pvc-2-a8486 | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | true    |
+| default-pvc-3-a849e | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | true    |
+| default-pvc-1-a8475 | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | true    |
+| default-pvc-4-a84de | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | true    |
++---------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+
+./tridentctl upgrade volume default-pvc-2-a8486 -n trident
++---------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+|            NAME     |  SIZE   | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++---------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+| default-pvc-2-a8486 | 1.0 GiB | standard      | file     | c5a6f6a4-b052-423b-80d4-8fb491a14a22 | online | true    |
++---------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+. Exécutez un `kubectl describe pv` Pour vérifier que le volume est un volume CSI.
++
+[listing]
+----
+kubectl describe pv default-pvc-2-a8486
+Name:            default-pvc-2-a8486
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.trident.netapp.io
+                 volume.beta.kubernetes.io/storage-class: standard
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Bound
+Claim:           default/pvc-2
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1073741824
+Node Affinity:   <none>
+Message:
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.trident.netapp.io
+    VolumeHandle:      default-pvc-2-a8486
+    ReadOnly:          false
+    VolumeAttributes:      backendUUID=c5a6f6a4-b052-423b-80d4-8fb491a14a22
+                           internalName=trid_1907_alpha_default_pvc_2_a8486
+                           name=default-pvc-2-a8486
+                           protocol=file
+Events:                <none>
+----
++
+Ainsi, vous pouvez mettre à niveau des volumes de type NFS/iSCSI créés par Astra Trident vers un type CSI, sur la base du volume.
+
+

@@ -1,0 +1,14 @@
+---
+section: trident-managing-k8s
+title: Gérez Astra Trident
+entries:
+- title: Mettez à niveau Astra Trident
+  url: "/trident-managing-k8s/upgrade-trident.html"
+- title: Mise à niveau avec l'opérateur
+  url: "/trident-managing-k8s/upgrade-operator.html"
+- title: Mise à niveau avec tridentctl
+  url: "/trident-managing-k8s/upgrade-tridentctl.html"
+- title: Désinstaller Astra Trident
+  url: "/trident-managing-k8s/uninstall-trident.html"
+- title: Revenir à la version antérieure d'Astra Trident
+  url: "/trident-managing-k8s/downgrade-trident.html"

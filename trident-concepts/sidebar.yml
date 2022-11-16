@@ -1,0 +1,16 @@
+---
+section: trident-concepts
+title: Concepts
+entries:
+- title: Découvrez Astra Trident
+  url: "/trident-concepts/intro.html"
+- title: Pilotes ONTAP
+  url: "/trident-concepts/ontap-drivers.html"
+- title: Provisionnement
+  url: "/trident-concepts/provisioning.html"
+- title: Snapshots de volume
+  url: "/trident-concepts/snapshots.html"
+- title: Pools de stockage virtuel
+  url: "/trident-concepts/virtual-storage-pool.html"
+- title: Groupes d'accès de volume
+  url: "/trident-concepts/vol-access-groups.html"

@@ -1,0 +1,133 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/volumes-docker.html 
+keywords: create volumes, astra trident, trident for docker, docker, docker volume 
+summary: 'Pour créer des volumes, utilisez la norme `docker volume` Commandes avec le nom de pilote Astra Trident spécifié le cas échéant.' 
+---
+= Utilisation de volumes
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez facilement créer, cloner et supprimer des volumes à l'aide de la norme `docker volume` Commandes avec le nom de pilote Astra Trident spécifié le cas échéant.
+
+
+
+== Créer un volume
+
+* Créez un volume avec un pilote à l'aide du nom par défaut :
++
+[listing]
+----
+docker volume create -d netapp --name firstVolume
+----
+* Créez un volume avec une instance Astra Trident spécifique :
++
+[listing]
+----
+docker volume create -d ntap_bronze --name bronzeVolume
+----
++
+
+NOTE: Si vous n'en spécifiez aucun link:volume-driver-options.html["options"^], les valeurs par défaut du pilote sont utilisées.
+
+* Remplacer la taille du volume par défaut. Voir l'exemple suivant pour créer un volume de 20 Gio avec un pilote :
++
+[listing]
+----
+docker volume create -d netapp --name my_vol --opt size=20G
+----
++
+
+TIP: Les tailles de volume sont exprimées en chaînes contenant une valeur entière avec des unités facultatives (par exemple : 10G, 20 Go, Tio). Si aucune unité n'est spécifiée, la valeur par défaut est G. Les unités de taille peuvent être exprimées en puissances de 2 (B, Kio, Mio, Gio, Tio) ou 10 (B, Ko, Mo, Go, To). Les unités de raccourci utilisent des puissances de 2 (G = Gio, T = Tio, …).
+
+
+
+
+
+== Supprimer un volume
+
+* Supprimez le volume comme n'importe quel autre volume Docker :
++
+[listing]
+----
+docker volume rm firstVolume
+----
++
+
+IMPORTANT: Lorsque vous utilisez le `solidfire-san` pilote, l'exemple ci-dessus supprime et purge le volume.
+
+
+
+Suivez les étapes ci-dessous pour mettre à niveau Astra Trident pour Docker.
+
+
+
+== Clonez un volume
+
+Lorsque vous utilisez le `ontap-nas`, `ontap-san`, `solidfire-san`, et `gcp-cvs storage drivers`, Astra Trident peut cloner des volumes. Lorsque vous utilisez le `ontap-nas-flexgroup` ou `ontap-nas-economy` le clonage des pilotes n'est pas pris en charge. La création d'un nouveau volume à partir d'un volume existant entraîne la création d'un nouveau snapshot.
+
+* Inspectez le volume pour énumérer les instantanés :
++
+[listing]
+----
+docker volume inspect <volume_name>
+----
+* Créer un nouveau volume à partir d'un volume existant. Cela entraîne la création d'un nouvel instantané :
++
+[listing]
+----
+docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume>
+----
+* Créer un nouveau volume à partir d'un snapshot existant sur un volume. Cette opération ne crée pas de nouvel instantané :
++
+[listing]
+----
+docker volume create -d <driver_name> --name <new_name> -o from=<source_docker_volume> -o fromSnapshot=<source_snap_name>
+----
+
+
+
+
+=== Exemple
+
+[listing]
+----
+docker volume inspect firstVolume
+
+[
+    {
+        "Driver": "ontap-nas",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker-volumes/ontap-nas/netappdvp_firstVolume",
+        "Name": "firstVolume",
+        "Options": {},
+        "Scope": "global",
+        "Status": {
+            "Snapshots": [
+                {
+                    "Created": "2017-02-10T19:05:00Z",
+                    "Name": "hourly.2017-02-10_1505"
+                }
+            ]
+        }
+    }
+]
+
+docker volume create -d ontap-nas --name clonedVolume -o from=firstVolume
+clonedVolume
+
+docker volume rm clonedVolume
+docker volume create -d ontap-nas --name volFromSnap -o from=firstVolume -o fromSnapshot=hourly.2017-02-10_1505
+volFromSnap
+
+docker volume rm volFromSnap
+----
+
+
+== Accéder aux volumes créés en externe
+
+Vous pouvez accéder aux périphériques de blocs créés en externe (ou à leurs clones) à l'aide de conteneurs utilisant Trident *uniquement*, s'ils ne possèdent aucune partition et si leur système de fichiers est pris en charge par Astra Trident (par exemple, un `ext4`-formaté `/dev/sdc1` Ne sera pas accessible via Astra Trident).

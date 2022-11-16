@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/collect-logs-docker.html 
+keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+summary: 'Vous pouvez recueillir des journaux pour obtenir de l"aide en matière de dépannage. La méthode que vous utilisez pour collecter les journaux varie en fonction de l"exécution du plug-in Docker.' 
+---
+= Collecte des journaux
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez recueillir des journaux pour obtenir de l'aide en matière de dépannage. La méthode que vous utilisez pour collecter les journaux varie en fonction de l'exécution du plug-in Docker.
+
+
+
+== Collecte des journaux pour le dépannage
+
+.Étapes
+. Si vous exécutez Astra Trident à l'aide de la méthode de plug-in géré recommandée (par exemple, à l'aide de `docker plugin` les commandes), les afficher comme suit :
++
+[listing]
+----
+docker plugin ls
+ID                  NAME                DESCRIPTION                          ENABLED
+4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
+journalctl -u docker | grep 4fb97d2b956b
+----
++
+Le niveau d'enregistrement standard devrait vous permettre de diagnostiquer la plupart des problèmes. Si cela ne suffit pas, vous pouvez activer la journalisation de débogage.
+
+. Pour activer la journalisation de débogage, installez le plug-in avec la journalisation de débogage activée :
++
+[listing]
+----
+docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
+----
++
+Ou activez la journalisation de débogage lorsque le plug-in est déjà installé :
+
++
+[listing]
+----
+docker plugin disable <plugin>
+docker plugin set <plugin> debug=true
+docker plugin enable <plugin>
+----
+. Si vous exécutez le binaire lui-même sur l’hôte, les journaux sont disponibles dans celui-ci `/var/log/netappdvp` répertoire. Pour activer la journalisation de débogage, spécifiez `-debug` lorsque vous exécutez le plug-in.
+
+
+
+
+== Conseils généraux de dépannage
+
+* Le problème le plus courant auquel les nouveaux utilisateurs se sont exécutés est une mauvaise configuration qui empêche le plug-in de s'initialiser. Lorsque cela se produit, vous verrez probablement un message tel que celui-ci lorsque vous essayez d'installer ou d'activer le plug-in :
++
+`Error response from daemon: dial unix /run/docker/plugins/<id>/netapp.sock: connect: no such file or directory`
+
++
+Cela signifie que le plug-in n'a pas démarré. Heureusement, le plug-in a été conçu avec une fonctionnalité de journalisation complète qui devrait vous aider à diagnostiquer la plupart des problèmes que vous êtes susceptible de venir.
+
+* En cas de problème de montage d'un PV sur un conteneur, vérifiez que `rpcbind` est installé et en cours d'exécution. Utilisez le gestionnaire de packages requis pour le système d'exploitation hôte et vérifiez si `rpcbind` est en cours d'exécution. Vous pouvez vérifier l'état du service rpcbind en exécutant un `systemctl status rpcbind` ou son équivalent.
+

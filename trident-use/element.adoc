@@ -1,0 +1,264 @@
+---
+sidebar: sidebar 
+permalink: trident-use/element.html 
+keywords: trident backend, solidfire, netapp hci 
+summary: 'Découvrez comment créer et utiliser un système Element backend avec votre installation d"Astra Trident.' 
+---
+= Configurer un système NetApp HCI ou SolidFire backend
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Découvrez comment créer et utiliser un système Element backend avec votre installation d'Astra Trident.
+
+.Ce dont vous avez besoin, 8217;ll
+* Système de stockage pris en charge exécutant le logiciel Element.
+* Identifiants de locataire ou administrateur de cluster NetApp HCI/SolidFire pouvant gérer les volumes
+* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"^].
+
+
+Le `solidfire-san` le pilote de stockage prend en charge les deux modes de volume : fichier et bloc. Pour le `Filesystem` En mode volume, Astra Trident crée un volume et crée un système de fichiers. Le type de système de fichiers est spécifié par la classe de stockage.
+
+[cols="5"]
+|===
+| Conducteur | Protocole | Mode Volume | Modes d'accès pris en charge | Systèmes de fichiers pris en charge 
+
+
+| `solidfire-san`  a| 
+ISCSI
+ a| 
+Bloc
+ a| 
+RWO,ROX,RWX
+ a| 
+Aucun système de fichiers. Périphérique de bloc brut.
+
+
+
+| `solidfire-san`  a| 
+ISCSI
+ a| 
+Bloc
+ a| 
+RWO,ROX,RWX
+ a| 
+Aucun système de fichiers. Périphérique de bloc brut.
+
+
+
+| `solidfire-san`  a| 
+ISCSI
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
+| `solidfire-san`  a| 
+ISCSI
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX
+ a| 
+`xfs`, `ext3`, `ext4`
+
+|===
+
+NOTE: Astra Trident utilise le protocole CHAP lorsqu'il fonctionne comme un mécanisme de provisionnement CSI amélioré. Si vous utilisez CHAP (qui est la valeur par défaut pour CSI), aucune autre préparation n'est requise. Il est recommandé de définir explicitement le `UseCHAP` Possibilité d'utiliser CHAP avec Trident non CSI. Sinon, voir link:../trident-concepts/vol-access-groups.html["ici"^].
+
+
+WARNING: Les groupes d'accès aux volumes sont uniquement pris en charge par le framework classique non CSI pour Astra Trident. Lorsqu'il est configuré pour fonctionner en mode CSI, Astra Trident utilise le protocole CHAP.
+
+Si aucun de ces deux cas `AccessGroups` ou `UseCHAP` sont définies, l'une des règles suivantes s'applique :
+
+* Si la valeur par défaut `trident` groupe d'accès détecté, groupes d'accès utilisés.
+* Si aucun groupe d'accès n'est détecté et que la version de Kubernetes est 1.7 ou ultérieure, CHAP est utilisé.
+
+
+
+
+== Options de configuration du back-end
+
+Voir le tableau suivant pour les options de configuration du back-end :
+
+[cols="3"]
+|===
+| Paramètre | Description | Valeur par défaut 
+
+
+| `version` |  | Toujours 1 
+
+
+| `storageDriverName` | Nom du pilote de stockage | Toujours « solidfire-san ». 
+
+
+| `backendName` | Nom personnalisé ou système back-end de stockage | “SolidFire_” + adresse IP de stockage (iSCSI) 
+
+
+| `Endpoint` | MVIP pour le cluster SolidFire avec les identifiants de locataire |  
+
+
+| `SVIP` | Port et adresse IP de stockage (iSCSI) |  
+
+
+| `labels` | Ensemble d'étiquettes arbitraires au format JSON à appliquer aux volumes. | « » 
+
+
+| `TenantName` | Nom du locataire à utiliser (créé si introuvable) |  
+
+
+| `InitiatorIFace` | Limitez le trafic iSCSI à une interface hôte spécifique | « par défaut » 
+
+
+| `UseCHAP` | Utilisez CHAP pour authentifier iSCSI | vrai 
+
+
+| `AccessGroups` | Liste des ID de groupes d'accès à utiliser | Recherche l'ID d'un groupe d'accès nommé « trident » 
+
+
+| `Types` | Spécifications de QoS |  
+
+
+| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur | « » (non appliqué par défaut) 
+
+
+| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {“api”:false, “méthode”:true} | nul 
+|===
+
+WARNING: Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépanner et que vous ayez besoin d'un vidage détaillé des journaux.
+
+
+NOTE: Pour tous les volumes créés, Astra Trident copie tous les libellés présents dans un pool de stockage vers le LUN de stockage back-end au moment du provisionnement. Les administrateurs de stockage peuvent définir des étiquettes par pool de stockage et regrouper tous les volumes créés dans un pool de stockage. Cela permet de différencier facilement les volumes en fonction d'un ensemble d'étiquettes personnalisables fournies dans la configuration back-end.
+
+
+
+== Exemple 1 : configuration back-end pour le pilote solidfire-san avec trois types de volumes
+
+Cet exemple montre un fichier back-end utilisant l'authentification CHAP et la modélisation de trois types de volumes avec des garanties de QoS spécifiques. Il est fort probable que vous définiriez ensuite des classes de stockage pour consommer chacune de ces catégories à l'aide de l' `IOPS` paramètre de classe de stockage.
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "solidfire-san",
+    "Endpoint": "https://<user>:<password>@<mvip>/json-rpc/8.0",
+    "SVIP": "<svip>:3260",
+    "TenantName": "<tenant>",
+    "labels": {"k8scluster": "dev1", "backend": "dev1-element-cluster"},
+    "UseCHAP": true,
+    "Types": [{"Type": "Bronze", "Qos": {"minIOPS": 1000, "maxIOPS": 2000, "burstIOPS": 4000}},
+              {"Type": "Silver", "Qos": {"minIOPS": 4000, "maxIOPS": 6000, "burstIOPS": 8000}},
+              {"Type": "Gold", "Qos": {"minIOPS": 6000, "maxIOPS": 8000, "burstIOPS": 10000}}]
+}
+----
+
+
+== Exemple 2 : configuration back-end et classe de stockage pour le pilote SolidFire-san avec des pools de stockage virtuels
+
+Cet exemple représente le fichier de définition back-end configuré avec des pools de stockage virtuel et des classes de stockage qui les renvoient.
+
+Dans l'exemple de fichier de définition de back-end illustré ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, qui définissent le `type` Du niveau Silver. Les pools de stockage virtuels sont définis dans le `storage` section. Dans cet exemple, certains pools de stockage définissent leur propre type et certains pools remplacent les valeurs par défaut définies ci-dessus.
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "solidfire-san",
+    "Endpoint": "https://<user>:<password>@<mvip>/json-rpc/8.0",
+    "SVIP": "<svip>:3260",
+    "TenantName": "<tenant>",
+    "UseCHAP": true,
+    "Types": [{"Type": "Bronze", "Qos": {"minIOPS": 1000, "maxIOPS": 2000, "burstIOPS": 4000}},
+              {"Type": "Silver", "Qos": {"minIOPS": 4000, "maxIOPS": 6000, "burstIOPS": 8000}},
+              {"Type": "Gold", "Qos": {"minIOPS": 6000, "maxIOPS": 8000, "burstIOPS": 10000}}],
+
+    "type": "Silver",
+    "labels":{"store":"solidfire", "k8scluster": "dev-1-cluster"},
+    "region": "us-east-1",
+
+    "storage": [
+        {
+            "labels":{"performance":"gold", "cost":"4"},
+            "zone":"us-east-1a",
+            "type":"Gold"
+        },
+        {
+            "labels":{"performance":"silver", "cost":"3"},
+            "zone":"us-east-1b",
+            "type":"Silver"
+        },
+        {
+            "labels":{"performance":"bronze", "cost":"2"},
+            "zone":"us-east-1c",
+            "type":"Bronze"
+        },
+        {
+            "labels":{"performance":"silver", "cost":"1"},
+            "zone":"us-east-1d"
+        }
+    ]
+}
+----
+Les définitions de classe de stockage suivantes font référence aux pools de stockage virtuels ci-dessus. À l'aide du `parameters.selector` Chaque classe de stockage indique quel(s) pool(s) virtuel(s) peut(s) être utilisé(s) pour héberger un volume. Les aspects définis dans le pool virtuel sélectionné seront définis pour le volume.
+
+La première classe de stockage (`solidfire-gold-four`) sera mappé sur le premier pool de stockage virtuel. Il s'agit du seul pool offrant des performances Gold avec un `Volume Type QoS` De l'or. La dernière classe de stockage (`solidfire-silver`) appelle n'importe quel pool de stockage qui offre une performance silver. Astra Trident va décider du pool de stockage virtuel sélectionné et s'assurer que les besoins en stockage sont satisfaits.
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: solidfire-gold-four
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=gold; cost=4"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: solidfire-silver-three
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=silver; cost=3"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: solidfire-bronze-two
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=bronze; cost=2"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: solidfire-silver-one
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=silver; cost=1"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: solidfire-silver
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "performance=silver"
+  fsType: "ext4"
+----
+
+
+== Trouvez plus d'informations
+
+* link:../trident-concepts/vol-access-groups.html["Groupes d'accès de volume"^]
+

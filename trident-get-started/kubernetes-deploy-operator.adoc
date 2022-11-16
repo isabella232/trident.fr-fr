@@ -1,0 +1,331 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-deploy-operator.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, helm 
+summary: 'Vous pouvez déployer Astra Trident avec l"opérateur Trident. Vous pouvez déployer l"opérateur Trident manuellement ou à l"aide de Helm.' 
+---
+= Déployez-le avec l'opérateur Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez déployer Astra Trident avec l'opérateur Trident.
+
+
+
+== Découvrez Astra Trident 22.10, un document essentiel
+
+*Vous devez lire les informations essentielles suivantes avant de passer à Astra Trident 22.10.*
+
+[WARNING]
+.<strong>, la protection des données essentielles d'Astra Trident 22.10</strong>
+====
+* Kubernetes 1.25 est désormais pris en charge par Trident. Vous devez effectuer la mise à niveau vers Astra Trident 22.10 avant la mise à niveau vers Kubernetes 1.25.
+* Astra Trident applique désormais rigoureusement la configuration des chemins d'accès multiples dans les environnements SAN, avec la valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
++
+Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
+
+
+
+====
+
+
+== Options de déploiement de l'opérateur Trident
+
+Vous pouvez déployer l'opérateur Trident de deux manières :
+
+* Avec Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Graphique Helm"^]: Le graphique Helm déploie l'opérateur Trident et installe Trident en une étape.
+* Manuellement : Trident fournit un link:https://github.com/NetApp/trident/blob/master/deploy/bundle.yaml["pack.yaml"^] fichier pouvant être utilisé pour installer l'opérateur et créer des objets associés.
+
+
+
+TIP: Si vous ne vous êtes pas déjà familiarisé avec le link:../trident-concepts/intro.html["concepts de base"^], c'est le moment idéal pour le faire.
+
+
+
+== Vérifiez les prérequis
+
+Pour déployer Astra Trident, les prérequis suivants doivent être respectés :
+
+* Vous disposez de privilèges complets pour un cluster Kubernetes pris en charge exécutant une version de Kubernetes prise en charge. Vérifiez le link:requirements.html["de formation"].
+* Vous avez accès à un système de stockage NetApp pris en charge.
+* Vous avez la possibilité de monter des volumes à partir de tous les nœuds workers Kubernetes.
+* Vous avez un hôte Linux avec `kubectl` (ou `oc`, Si vous utilisez OpenShift) installé et configuré pour gérer le cluster Kubernetes que vous souhaitez utiliser.
+* Vous avez défini le `KUBECONFIG` Variable d'environnement qui pointe vers votre configuration de cluster Kubernetes.
+* Vous avez activé link:requirements.html["Portails requis par Astra Trident"^].
+* Si vous utilisez Kubernetes avec Docker Enterprise, https://docs.docker.com/ee/ucp/user-access/cli/["Suivez les étapes indiquées pour activer l'accès à l'interface de ligne de commande"^].
+
+
+Vous avez tout ça ? Parfait ! Nous allons commencer.
+
+
+
+== Déployer l'opérateur Trident et installer Astra Trident à l'aide de Helm
+
+Effectuer les étapes énumérées pour déployer l'opérateur Trident à l'aide de Helm.
+
+En plus des prérequis répertoriés ci-dessus, pour déployer l'opérateur Trident à l'aide de Helm, vous devez :
+
+* A link:requirements.html["Version Kubernetes prise en charge"]
+* Version 3 de Helm
+
+
+.Étapes
+. Ajouter le référentiel Helm de Trident :
++
+[listing]
+----
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+----
+. Utilisez le `helm install` et spécifiez un nom pour votre déploiement. Voir l'exemple suivant :
++
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 22.10.0 --create-namespace --namespace <trident-namespace>
+----
++
+
+NOTE: Si vous avez déjà créé un namespace pour Trident, le `--create-namespace` le paramètre ne crée pas d'espace de noms supplémentaire.
+
+
+
+Il existe deux façons de passer les données de configuration au cours de l'installation :
+
+* `--values` (ou `-f`) : Spécifiez un fichier YAML avec les remplacements. Ceci peut être spécifié plusieurs fois et le fichier le plus à droite sera prioritaire.
+* `--set`: Spécifiez les remplacements sur la ligne de commande.
+
+
+Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande :
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 22.10.0 --create-namespace --namespace --set tridentDebug=true
+----
+Le `values.yaml` Le fichier, qui fait partie du graphique Helm, fournit la liste des clés et leurs valeurs par défaut.
+
+`helm list` affiche des informations détaillées sur l'installation, telles que nom, espace de noms, graphique, état, version de l'application, numéro de révision, etc.
+
+
+
+== Déployez l'opérateur Trident manuellement et installez Trident
+
+Effectuer les étapes énumérées pour déployer manuellement l'opérateur Trident.
+
+
+
+=== Étape 1 : qualifier le cluster Kubernetes
+
+La première chose à faire est de se connecter à l'hôte Linux et de vérifier qu'il gère un _working_, link:requirements.html["Cluster Kubernetes pris en charge"^] que vous disposez des privilèges nécessaires à.
+
+
+NOTE: Avec OpenShift, utilisez `oc` au lieu de `kubectl` dans tous les exemples qui suivent, et connectez-vous en tant que *system:admin* en premier lieu en cours d'exécution `oc login -u system:admin` ou `oc login -u kube-admin`.
+
+Pour vérifier votre version de Kubernetes, exécutez la commande suivante :
+
+[listing]
+----
+kubectl version
+----
+Pour vérifier si vous disposez des privilèges d'administrateur de cluster Kubernetes, exécutez la commande suivante :
+
+[listing]
+----
+kubectl auth can-i '*' '*' --all-namespaces
+----
+Pour vérifier si vous pouvez lancer un pod qui utilise une image de Docker Hub et atteindre votre système de stockage sur le réseau pod, exécutez la commande suivante :
+
+[listing]
+----
+kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
+  ping <management IP>
+----
+
+
+=== Étape 2 : télécharger et configurer l'opérateur
+
+
+NOTE: Depuis la version 21.01, l'opérateur de Trident se trouve dans le périmètre du cluster. Pour installer Trident, vous devez créer le `TridentOrchestrator` Définition de ressource personnalisée (CRD) et définition d'autres ressources. Vous devez effectuer ces étapes pour configurer l'opérateur avant de pouvoir installer Astra Trident.
+
+. Téléchargez et extrayez la dernière version du programme d'installation de Trident sur link:https://github.com/NetApp/trident/releases/latest["La section _Assets_ sur GitHub"^].
++
+[listing]
+----
+wget https://github.com/NetApp/trident/releases/download/v22.10.0/trident-installer-22.10.0.tar.gz
+tar -xf trident-installer-22.10.0.tar.gz
+cd trident-installer
+----
+. Utilisez le manifeste CRD approprié pour créer le `TridentOrchestrator` CRD. Vous créez ensuite un `TridentOrchestrator` Ressource personnalisée plus tard pour instancier une installation par l'opérateur.
++
+Exécutez la commande suivante :
+
++
+[listing]
+----
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
+----
+. Après le `TridentOrchestrator` Le service CRD est créé et crée les ressources suivantes nécessaires au déploiement de l'opérateur :
++
+** Un ServiceAccount pour l'opérateur
+** A ClusterRole et ClusterRoleBinding au ServiceAccount
+** Une stratégie de sécurité de PodSecurityPolicy dédiée
+** L'opérateur lui-même
++
+Le programme d'installation Trident contient des manifestes pour définir ces ressources. Par défaut, l'opérateur est déployé dans le `trident` espace de noms. Si le `trident` l'espace de noms n'existe pas, utilisez le manifeste suivant pour en créer un.
+
++
+[listing]
+----
+kubectl apply -f deploy/namespace.yaml
+----
+
+
+. Pour déployer l'opérateur dans un espace de noms autre que celui par défaut `trident` espace de noms, vous devez mettre à jour le `serviceaccount.yaml`, `clusterrolebinding.yaml` et `operator.yaml` manifeste et génère votre `bundle.yaml`.
++
+Exécutez la commande suivante pour mettre à jour les manifestes YAML et générer votre `bundle.yaml` à l'aide du `kustomization.yaml`:
+
++
+[listing]
+----
+kubectl kustomize deploy/ > deploy/bundle.yaml
+----
++
+Exécutez la commande suivante pour créer les ressources et déployer l'opérateur :
+
++
+[listing]
+----
+kubectl create -f deploy/bundle.yaml
+----
+. Pour vérifier l'état de l'opérateur après le déploiement, procédez comme suit :
++
+[listing]
+----
+kubectl get deployment -n <operator-namespace>
+
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+trident-operator   1/1     1            1           3m
+----
++
+[listing]
+----
+kubectl get pods -n <operator-namespace>
+
+NAME                              READY   STATUS             RESTARTS   AGE
+trident-operator-54cb664d-lnjxh   1/1     Running            0          3m
+----
+
+
+Le déploiement de l'opérateur a réussi à créer un pod exécuté sur l'un des nœuds worker de votre cluster.
+
+
+IMPORTANT: Il ne doit y avoir que *une instance* de l'opérateur dans un cluster Kubernetes. Ne créez pas plusieurs déploiements de l'opérateur Trident.
+
+
+
+=== Étape 3 : création de TridentOrchestrator et installation de Trident
+
+Vous êtes maintenant prêt à installer Astra Trident avec l'opérateur ! Cela nécessitera la création `TridentOrchestrator`. Le programme d'installation Trident est fourni avec des exemples de définitions à créer `TridentOrchestrator`. Cela déclenche une installation dans le `trident` espace de noms.
+
+[listing]
+----
+kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
+tridentorchestrator.trident.netapp.io/trident created
+
+kubectl describe torc trident
+Name:        trident
+Namespace:
+Labels:      <none>
+Annotations: <none>
+API Version: trident.netapp.io/v1
+Kind:        TridentOrchestrator
+...
+Spec:
+  Debug:     true
+  Namespace: trident
+Status:
+  Current Installation Params:
+    IPv6:                      false
+    Autosupport Hostname:
+    Autosupport Image:         netapp/trident-autosupport:22.10
+    Autosupport Proxy:
+    Autosupport Serial Number:
+    Debug:                     true
+    Image Pull Secrets:
+    Image Registry:
+    k8sTimeout:           30
+    Kubelet Dir:          /var/lib/kubelet
+    Log Format:           text
+    Silence Autosupport:  false
+    Trident Image:        netapp/trident:21.04.0
+  Message:                  Trident installed  Namespace:                trident
+  Status:                   Installed
+  Version:                  v21.04.0
+Events:
+    Type Reason Age From Message ---- ------ ---- ---- -------Normal
+    Installing 74s trident-operator.netapp.io Installing Trident Normal
+    Installed 67s trident-operator.netapp.io Trident installed
+----
+L'opérateur Trident vous permet de personnaliser l'installation d'Astra Trident à l'aide des attributs du `TridentOrchestrator` spécifications Voir link:kubernetes-customize-deploy.html["Personnalisez votre déploiement Trident"^].
+
+Le statut de `TridentOrchestrator` Indique si l'installation a réussi et affiche la version de Trident installée.
+
+[cols="2"]
+|===
+| État | Description 
+
+
+| Installation | L'opérateur installe Astra Trident à l'aide de ce module `TridentOrchestrator` CR. 
+
+
+| Installé | Astra Trident a été installé avec succès. 
+
+
+| Désinstallation | L'opérateur désinstallant Astra Trident, car
+`spec.uninstall=true`. 
+
+
+| Désinstallé | Astra Trident est désinstallé. 
+
+
+| Échec | L'opérateur n'a pas pu installer, corriger, mettre à jour ou désinstaller Astra Trident. L'opérateur essaiera automatiquement de récupérer cet état. Si cet état persiste, vous devrez effectuer un dépannage. 
+
+
+| Mise à jour | L'opérateur met à jour une installation existante. 
+
+
+| Erreur | Le `TridentOrchestrator` n'est pas utilisé. Un autre existe déjà. 
+|===
+Pendant l'installation, l'état de `TridentOrchestrator` modifications de `Installing` à `Installed`. Si vous observez l' `Failed` statut et l'opérateur ne peut pas récupérer lui-même, il est recommandé de vérifier les journaux de l'opérateur. Voir la link:../troubleshooting.html["dépannage"^] section.
+
+Vous pouvez vérifier que l'installation d'Astra Trident est terminée en consultant les pods qui ont été créés :
+
+[listing]
+----
+kubectl get pod -n trident
+
+NAME                                READY   STATUS    RESTARTS   AGE
+trident-csi-7d466bf5c7-v4cpw        5/5     Running   0           1m
+trident-csi-mr6zc                   2/2     Running   0           1m
+trident-csi-xrp7w                   2/2     Running   0           1m
+trident-csi-zh2jt                   2/2     Running   0           1m
+trident-operator-766f7b8658-ldzsv   1/1     Running   0           3m
+----
+Vous pouvez également utiliser `tridentctl` Pour vérifier la version d'Astra Trident installée.
+
+[listing]
+----
+./tridentctl -n trident version
+
++----------------+----------------+
+| SERVER VERSION | CLIENT VERSION |
++----------------+----------------+
+| 21.04.0        | 21.04.0        |
++----------------+----------------+
+----
+Maintenant, vous pouvez avancer et créer un back-end. Voir link:kubernetes-postdeployment.html["tâches post-déploiement"^].
+
+
+TIP: Pour résoudre les problèmes pendant le déploiement, reportez-vous au link:../troubleshooting.html["dépannage"^] section.

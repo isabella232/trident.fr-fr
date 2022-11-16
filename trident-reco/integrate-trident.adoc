@@ -1,0 +1,437 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/integrate-trident.html 
+keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual storage pool, cvs, gcp, volumes 
+summary: Un cluster Kubernetes se compose généralement de deux types de nœuds, chacun responsable des différents aspects des fonctionnalités. 
+---
+= Intégrez Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Pour intégrer Astra Trident, les éléments de conception et d'architecture suivants nécessitent l'intégration : sélection des pilotes et déploiement, conception de la classe de stockage, conception de pool de stockage virtuel, impact de la demande de volume persistant sur le provisionnement du stockage, les opérations de volumes et le déploiement de services OpenShift avec Astra Trident.
+
+
+
+== Choix et déploiement du conducteur
+
+
+
+=== Choisir un pilote back-end pour ONTAP
+
+Les systèmes ONTAP intègrent quatre pilotes de système back-end différents. Ces pilotes sont différenciés par le protocole utilisé et le mode de provisionnement des volumes sur le système de stockage. Par conséquent, prenez garde à prendre en compte le pilote à déployer.
+
+À un niveau plus élevé, si votre application dispose de composants qui nécessitent un stockage partagé (plusieurs modules accédant au même volume de demande de volume persistant), les pilotes NAS seraient la solution par défaut, tandis que les pilotes iSCSI basés sur les blocs répondent aux besoins d'un stockage non partagé. Choisir le protocole en fonction des besoins de l'application et du niveau de confort des équipes chargées du stockage et de l'infrastructure. En règle générale, ces différences sont peu nombreuses pour la plupart des applications. La décision dépend donc souvent de la nécessité d'un stockage partagé (dans lequel plusieurs pods auront besoin d'un accès simultané).
+
+Les cinq pilotes des systèmes ONTAP back-end sont répertoriés ci-dessous :
+
+* `ontap-nas`: Chaque volume persistant provisionné est un volume flexible ONTAP complet.
+* `ontap-nas-economy`: Chaque volume persistant provisionné est un qtree, avec un nombre configurable de qtrees par FlexVolume (la valeur par défaut est 200).
+* `ontap-nas-flexgroup`: Chaque volume persistant provisionné en tant que ONTAP FlexGroup complet et tous les agrégats affectés à un SVM sont utilisés.
+* `ontap-san`: Chaque volume persistant provisionné est un LUN au sein de son propre volume FlexVolume.
+* `ontap-san-economy`: Chaque volume persistant provisionné est une LUN, avec un nombre configurable de LUN par FlexVolume (la valeur par défaut est 100).
+
+
+Le choix entre les trois pilotes NAS a des ramifications sur les fonctionnalités mises à disposition de l'application.
+
+Il est à noter que dans les tableaux ci-dessous, toutes les fonctionnalités ne sont pas exposées par Astra Trident. L'administrateur du stockage doit appliquer une partie après le provisionnement si cette fonctionnalité est souhaitée. Les notes de bas de page en exposant distinguent les fonctionnalités par fonction et pilote.
+
+[cols="20,10,10,10,10,10,10,10"]
+|===
+| Pilotes NAS ONTAP | Snapshots | Clones | Règles d'exportation dynamiques | Multi-attacher | La QoS | Redimensionner | La réplication 
+
+
+| `ontap-nas` | Oui. | Oui. | Yesfootnote:5[] | Oui. | Yesfootnote:1[] | Oui. | Yesfootnote:1[] 
+
+
+| `ontap-nas-economy` | Yesfootnote:3[] | Yesfootnote:3[] | Yesfootnote:5[] | Oui. | Yesfootnote:3[] | Oui. | Yesfootnote:3[] 
+
+
+| `ontap-nas-flexgroup` | Yesfootnote:1[] | Non | Yesfootnote:5[] | Oui. | Yesfootnote:1[] | Oui. | Yesfootnote:1[] 
+|===
+Astra Trident propose 2 pilotes SAN pour ONTAP dont les fonctionnalités sont présentées ci-dessous.
+
+[cols="20,10,10,10,10,10,10,10"]
+|===
+| Pilotes SAN de ONTAP | Snapshots | Clones | Multi-attacher | Chap bi-directionnel | La QoS | Redimensionner | La réplication 
+
+
+| `ontap-san` | Oui. | Oui. | Yesfootnote:4[] | Oui. | Yesfootnote:1[] | Oui. | Yesfootnote:1[] 
+
+
+| `ontap-san-economy` | Oui. | Oui. | Yesfootnote:4[] | Oui. | Yesfootnote:3[] | Oui. | Yesfootnote:3[] 
+|===
+[verse]
+Note de bas de page pour les tableaux ci-dessus : Yesfootnote:1[]: Non géré par Astra Trident Yesfootnote:2[]: Géré par Astra Trident, mais pas PV granulaire Yesfootnote:3[]: Non géré par Astra Trident et non PV granulaire Yesfootnote:4[]: Supporté par 5 Trident pour les volumes en mode bloc brut[]: Supporté par Trident
+
+Les fonctionnalités qui ne sont pas granulaires volume persistant sont appliquées à l'ensemble du volume flexible et tous les volumes persistants (qtrees ou LUN inclus dans les volumes FlexVol partagés) partageront une planification commune.
+
+Comme on peut le voir dans les tableaux ci-dessus, une grande partie des fonctionnalités entre `ontap-nas` et `ontap-nas-economy` est identique. Cependant, parce que le `ontap-nas-economy` Le pilote limite la capacité à contrôler la planification à la granularité par volume persistant, ce qui peut affecter en particulier la reprise après incident et la planification des sauvegardes. Pour les équipes de développement qui souhaitent exploiter la fonctionnalité de clonage PVC sur le stockage ONTAP, ce n'est possible que lorsque vous utilisez le `ontap-nas`, `ontap-san` ou `ontap-san-economy` pilotes.
+
+
+NOTE: Le `solidfire-san` Le pilote est également capable de cloner des demandes de volume persistant.
+
+
+
+=== Choisir un pilote back-end pour Cloud Volumes ONTAP
+
+Cloud Volumes ONTAP assure le contrôle des données et des fonctionnalités de stockage haute performance dans divers cas d'utilisation, notamment pour les partages de fichiers et le stockage de niveau bloc qui servent les protocoles NAS et SAN (NFS, SMB/CIFS et iSCSI). Les pilotes compatibles avec Cloud Volume ONTAP sont les `ontap-nas`, `ontap-nas-economy`, `ontap-san` et `ontap-san-economy`. Applicable à Cloud Volume ONTAP pour Azure, Cloud Volume ONTAP pour GCP.
+
+
+
+=== Choisissez un pilote back-end pour Amazon FSX pour ONTAP
+
+Avec Amazon FSX pour ONTAP, les clients peuvent exploiter les fonctions, les performances et les fonctionnalités d'administration NetApp qu'ils connaissent bien, tout en bénéficiant de la simplicité, de l'agilité, de la sécurité et de l'évolutivité du stockage de données sur AWS. FSX pour ONTAP prend en charge de nombreuses fonctionnalités de système de fichiers et API d'administration d'ONTAP. Les pilotes compatibles avec Cloud Volume ONTAP sont les `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san` et `ontap-san-economy`.
+
+
+
+=== Choisissez un pilote back-end pour NetApp HCI/SolidFire
+
+Le `solidfire-san` Pilote utilisé avec les plateformes NetApp HCI/SolidFire pour aider l'administrateur à configurer un back-end Element pour Trident sur la base des limites de QoS. Si vous voulez concevoir votre système back-end pour définir les limites de QoS spécifiques sur les volumes provisionnés par Trident, utilisez la `type` paramètre dans le fichier backend. L'administrateur peut également restreindre la taille du volume pouvant être créé sur le stockage à l'aide de `limitVolumeSize` paramètre. Pour le moment, les fonctionnalités de stockage Element telles que le redimensionnement des volumes et la réplication des volumes ne sont pas prises en charge via le `solidfire-san` conducteur. Ces opérations doivent être effectuées manuellement via l'interface utilisateur Web du logiciel Element.
+
+[cols="20,10,10,10,10,10,10,10"]
+|===
+| Pilote SolidFire | Snapshots | Clones | Multi-attacher | CHAP | La QoS | Redimensionner | La réplication 
+
+
+| `solidfire-san` | Oui. | Oui. | Yesfootnote:2[] | Oui. | Oui. | Oui. | Yesfootnote:1[] 
+|===
+[verse]
+Note de bas de page: Yesfootnote:1[]: Non géré par Astra Trident Yesfootnote:2[]: Pris en charge pour les volumes en blocs bruts
+
+
+
+=== Choisir un pilote back-end pour Azure NetApp Files
+
+Astra Trident utilise le `azure-netapp-files` pilote pour gérer le link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] services.
+
+Vous trouverez plus d'informations sur ce pilote et sa configuration dans le link:https://azure.microsoft.com/en-us/services/netapp/["Configuration back-end d'Astra Trident pour Azure NetApp Files"^].
+
+[cols="20,10,10,10,10,10,10"]
+|===
+| Pilote Azure NetApp Files | Snapshots | Clones | Multi-attacher | La QoS | Développement | La réplication 
+
+
+| `azure-netapp-files` | Oui. | Oui. | Oui. | Oui. | Oui. | Yesfootnote:1[] 
+|===
+[verse]
+Note de bas de page: Yesfootnote:1[]: Non géré par Astra Trident
+
+
+
+=== Choisir un pilote back-end pour Cloud Volumes Service avec GCP
+
+Astra Trident utilise le `gcp-cvs` Pilote à lier à Cloud Volumes Service sur le back-end GCP. Pour configurer le back-end GCP sur Trident, vous devez spécifier `projectNumber`, `apiRegion`, et `apiKey` dans le fichier backend. Le numéro de projet est disponible sur le portail Web GCP, tandis que la clé d'API doit être prise depuis le fichier de clé privée du compte de service que vous avez créé lors de la configuration de l'accès aux API pour Cloud volumes sur GCP. Astra Trident peut créer des volumes CVS dans un des deux link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["types de service"^]:
+
+. *CVS*: Le type de service CVS de base, qui fournit une haute disponibilité zonale avec des niveaux de performance limités/modérés.
+. *CVS-Performance* : le type de service optimisé pour les performances est le mieux adapté aux charges de travail de production qui exigent des performances élevées. Choisissez parmi trois niveaux de service uniques [`standard`, `premium`, et `extreme`].
+
+
+La taille minimale des volumes CVS et CVS-Performance est de 100 Gio.
+
+
+CAUTION: Lors du déploiement des systèmes back-end avec le type de service CVS par défaut [`storageClass=software`], les utilisateurs *doivent obtenir un accès* à la fonctionnalité de volumes de sous-Tio dans GCP pour le(s) numéro(s) de projet et ID de projet en question. Il est nécessaire que Trident provisionne les volumes de sous-Tio. Si ce n'est pas le cas, les créations de volume *échoueront* pour les ESV de <600 Gio. Utiliser link:https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform["ce formulaire"^] Pour obtenir l'accès aux volumes de sous-Tio.
+
+[cols="20,10,10,10,10,10,10"]
+|===
+| Pilote CVS pour GCP | Snapshots | Clones | Multi-attacher | La QoS | Développement | La réplication 
+
+
+| `gcp-cvs` | Oui. | Oui. | Oui. | Oui. | Oui. | Yesfootnote:1[] 
+|===
+[verse]
+Note de bas de page: Yesfootnote:1[]: Non géré par Astra Trident
+
+Le `gcp-cvs` le pilote utilise des pools de stockage virtuel. Avec les pools de stockage virtuel, Astra Trident peut extraire le système back-end et décider du placement des volumes. L'administrateur définit les pools de stockage virtuels dans le(s) fichier(s) backend(s).json. Les classes de stockage identifient les pools de stockage virtuels à l'aide d'étiquettes.
+
+
+
+== Conception de classe de stockage
+
+Chaque classe de stockage doit être configurée et appliquée pour créer un objet de classe de stockage Kubernetes. Cette section décrit comment concevoir un système de stockage pour votre application.
+
+
+
+=== Conception de la classe de stockage pour une utilisation back-end spécifique
+
+Le filtrage peut être utilisé au sein d'un objet de classe de stockage spécifique pour déterminer le pool de stockage ou l'ensemble de pools à utiliser avec cette classe de stockage spécifique. Trois ensembles de filtres peuvent être définis dans la classe de stockage : `storagePools`, `additionalStoragePools`, et/ou `excludeStoragePools`.
+
+Le `storagePools` paramètre permet de limiter le stockage à l'ensemble de pools correspondant à tous les attributs spécifiés. Le `additionalStoragePools` Le paramètre est utilisé pour étendre l'ensemble de pools qu'Astra Trident utilisera pour le provisionnement ainsi que l'ensemble de pools sélectionnés par les attributs et `storagePools` paramètres. Vous pouvez utiliser l'un ou l'autre paramètre seul ou les deux ensemble pour vous assurer que l'ensemble approprié de pools de stockage est sélectionné.
+
+Le `excludeStoragePools` le paramètre est utilisé pour exclure spécifiquement l'ensemble de pools répertoriés qui correspondent aux attributs.
+
+
+
+=== Conception de classe de stockage pour émuler les règles de QoS
+
+Si vous souhaitez concevoir des classes de stockage pour émuler les règles de qualité de service, créez une classe de stockage avec le `media` attribut en tant que `hdd` ou `ssd`. Basé sur `media` Attribut mentionné dans la classe de stockage, Trident sélectionne le back-end approprié qui sert `hdd` ou `ssd` les agrégats correspondent à l'attribut du support, puis dirigent le provisionnement des volumes sur l'agrégat spécifique. Nous pouvons donc créer une PRIME de classe de stockage qui aurait été nécessaire `media` attribut défini comme `ssd` Qui peuvent être classées comme politique DE qualité de service PREMIUM. Nous pouvons créer une autre NORME de classe de stockage dont l'attribut de support est défini comme `hdd', qui pourrait être classé comme règle de QoS STANDARD. Nous pourrions également utiliser l'attribut « IOPS » de la classe de stockage pour rediriger le provisionnement vers une appliance Element qui peut être définie comme une règle de QoS.
+
+
+
+=== La conception des classes de stockage permettant d'utiliser le système back-end en fonction de fonctionnalités spécifiques
+
+Les classes de stockage peuvent être conçues pour diriger le provisionnement des volumes sur un système back-end spécifique, où des fonctionnalités telles que le provisionnement fin et lourd, les copies Snapshot, les clones et le chiffrement sont activées. Pour spécifier le stockage à utiliser, créez des classes de stockage qui spécifient le back-end approprié avec la fonction requise activée.
+
+
+
+=== Conception de la classe de stockage pour les pools de stockage virtuel
+
+Tous les systèmes back-end Trident utilisent des pools de stockage virtuel. Vous pouvez définir des pools de stockage virtuel pour tout système back-end, à l'aide de tout pilote fourni par Astra Trident.
+
+Les pools de stockage virtuel permettent à un administrateur de créer un niveau d'abstraction sur les systèmes back-end, que l'on peut référencer via des classes de stockage, pour une plus grande flexibilité et un placement efficace des volumes dans les systèmes back-end. Différents systèmes back-end peuvent être définis avec la même classe de service. En outre, plusieurs pools de stockage peuvent être créés sur le même back-end, mais avec des caractéristiques différentes. Lorsqu'une classe de stockage est configurée avec un sélecteur portant les étiquettes spécifiques, Astra Trident choisit un système back-end correspondant à toutes les étiquettes de sélection pour placer le volume. Si les étiquettes de sélection de classe de stockage correspondent à plusieurs pools de stockage, Astra Trident choisira l'un d'entre eux pour provisionner le volume.
+
+
+
+== Conception du pool de stockage virtuel
+
+Lors de la création d'un backend, vous pouvez généralement spécifier un ensemble de paramètres. Il était impossible pour l'administrateur de créer un autre système back-end avec les mêmes identifiants de stockage et avec un ensemble de paramètres différent. Grâce à l'introduction de Virtual Storage pools, ce problème a été résolu. Les pools de stockage virtuel sont une abstraction de niveau introduit entre le back-end et la classe de stockage Kubernetes. L'administrateur peut ainsi définir des paramètres et des étiquettes qui peuvent être référencés par les classes de stockage Kubernetes comme sélecteur, de façon indépendante du back-end. Il est possible de définir des pools de stockage virtuel pour tous les systèmes back-end NetApp pris en charge avec Astra Trident. Il s'agit notamment des systèmes SolidFire/NetApp HCI, ONTAP, Cloud Volumes Service sur GCP et Azure NetApp Files.
+
+
+NOTE: Lors de la définition des pools de stockage virtuel, il est recommandé de ne pas tenter de réorganiser l'ordre des pools virtuels existants dans une définition backend. Il est également conseillé de ne pas modifier/modifier les attributs d'un pool virtuel existant et de définir un nouveau pool virtuel à la place.
+
+
+
+=== Concevoir des pools de stockage virtuel pour émuler différents niveaux de services/QoS
+
+Il est possible de concevoir des pools de stockage virtuel pour émuler des classes de service. Grâce à l'implémentation du pool virtuel pour Cloud volumes Service pour Azure NetApp Files, examinons comment nous pouvons configurer différentes classes de service. Configurez le back-end ANF avec plusieurs étiquettes représentant différents niveaux de performance. Réglez `servicelevel` aspect au niveau de performance approprié et ajouter d'autres aspects requis sous chaque étiquette. Créez désormais différentes classes de stockage Kubernetes qui seraient mappées sur différents pools de stockage virtuels. À l'aide du `parameters.selector` Chaque classe de stockage indique quel(s) pool(s) virtuel(s) peut(s) être utilisé(s) pour héberger un volume.
+
+
+
+=== Concevoir des pools virtuels pour l'attribution d'un ensemble spécifique d'aspects
+
+Il est possible de concevoir plusieurs pools de stockage virtuel comprenant un ensemble spécifique d'aspects à partir d'un système back-end unique. Pour ce faire, configurez le back-end avec plusieurs étiquettes et définissez les aspects requis sous chaque étiquette. Créez désormais des classes de stockage Kubernetes différentes avec le `parameters.selector` Champ correspondant aux différents pools de stockage virtuel. Les volumes provisionnés sur le back-end possèdent les aspects définis dans le pool de stockage virtuel choisi.
+
+
+
+=== Caractéristiques des PVC qui affectent le provisionnement du stockage
+
+Certains paramètres au-delà de la classe de stockage demandée peuvent affecter le processus de décision d'approvisionnement d'Astra Trident lors de la création d'un volume persistant.
+
+
+
+=== Mode d'accès
+
+Lors de la demande de stockage via un PVC, l'un des champs obligatoires est le mode d'accès. Le mode désiré peut affecter le back-end sélectionné pour héberger la demande de stockage.
+
+Astra Trident tentera de correspondre au protocole de stockage utilisé avec la méthode d'accès spécifiée dans la matrice suivante. Cette technologie est indépendante de la plateforme de stockage sous-jacente.
+
+[cols="20,30,30,30"]
+|===
+|  | ReadWriteOnce | ReadOnlyMany | ReadWriteMany 
+
+
+| ISCSI | Oui. | Oui. | Oui (bloc brut) 
+
+
+| NFS | Oui. | Oui. | Oui. 
+|===
+Toute demande de volume persistant ReadWriteMany soumise à un déploiement Trident sans système back-end NFS configuré entraînera le provisionnement d'un volume. Pour cette raison, le demandeur doit utiliser le mode d'accès qui convient à son application.
+
+
+
+== Opérations de volume
+
+
+
+=== Modifier les volumes persistants
+
+Les volumes persistants sont, à deux exceptions près, des objets immuables dans Kubernetes. Une fois créée, la règle de récupération et la taille peuvent être modifiées. Toutefois, cela n'empêche pas la modification de certains aspects du volume en dehors de Kubernetes. Vous pouvez ainsi personnaliser le volume pour des applications spécifiques, en veillant à ce que la capacité ne soit pas accidentellement consommée ou tout simplement pour déplacer le volume vers un autre contrôleur de stockage pour n'importe quelle raison.
+
+
+NOTE: Les actuellement sur provisionnement des arborescences Kubernetes ne prennent pas en charge les opérations de redimensionnement des volumes pour les volumes NFS ou iSCSI PVS. Astra Trident prend en charge l'extension des volumes NFS et iSCSI.
+
+Les détails de connexion du PV ne peuvent pas être modifiés après sa création.
+
+
+
+=== Création de copies Snapshot de volume à la demande
+
+Astra Trident prend en charge la création de copies Snapshot de volume à la demande et la création de demandes de volume persistant à partir de copies Snapshot via le framework CSI. Les snapshots constituent une méthode pratique de conservation des copies ponctuelles des données et ont un cycle de vie indépendant du volume persistant source dans Kubernetes. Ces snapshots peuvent être utilisés pour cloner des demandes de volume persistant.
+
+
+
+=== Créer des volumes à partir de copies Snapshot
+
+Astra Trident prend également en charge la création de volumes persistant à partir des snapshots de volume. Pour ce faire, il suffit de créer une demande de volume persistant et de mentionner le `datasource` l'instantané requis à partir duquel le volume doit être créé. Astra Trident va gérer ce volume de volume persistant en créant un volume dont les données sont présentes sur le snapshot. Grâce à cette fonctionnalité, il est possible de dupliquer des données entre régions, de créer des environnements de test, de remplacer un volume de production endommagé ou corrompu dans son intégralité, ou de récupérer des fichiers et des répertoires spécifiques et de les transférer vers un autre volume attaché.
+
+
+
+=== Déplacement des volumes dans le cluster
+
+Les administrateurs du stockage peuvent déplacer des volumes entre les agrégats et les contrôleurs du cluster ONTAP sans interruption pour l'utilisateur du stockage. Cette opération n'affecte pas Astra Trident ou le cluster Kubernetes, tant que l'agrégat de destination est un auquel le SVM utilisé par Astra Trident a accès. Important : si l'agrégat a été récemment ajouté au SVM, le système back-end devra être actualisé en le ajoutant à Astra Trident. Cela déclenchera l'Astra Trident afin de réinventorier la SVM afin que le nouvel agrégat soit reconnu.
+
+Néanmoins, Astra Trident ne prend pas automatiquement en charge le déplacement des volumes entre les systèmes back-end. Il s'agit notamment d'étendre les SVM au sein d'un même cluster, entre plusieurs clusters ou sur une autre plateforme de stockage (même si ce système est un SVM connecté à Astra Trident).
+
+Si un volume est copié à un autre emplacement, la fonctionnalité d'importation de volume peut être utilisée pour importer les volumes actuels dans Astra Trident.
+
+
+
+=== Développement des volumes
+
+Astra Trident prend en charge le redimensionnement des volumes NFS et iSCSI PVS. Les utilisateurs peuvent ainsi redimensionner leurs volumes directement via la couche Kubernetes. L'extension de volume est possible pour toutes les principales plateformes de stockage NetApp, y compris ONTAP, SolidFire/NetApp HCI et les systèmes back-end Cloud Volumes Service. Pour permettre une extension possible ultérieurement, définissez `allowVolumeExpansion` à `true` Dans votre classe de stockage associée au volume. Lorsque le volume persistant doit être redimensionné, modifiez le `spec.resources.requests.storage` Annotation dans la demande de volume persistant vers la taille de volume requise. Trident s'occupe automatiquement du redimensionnement du volume sur le cluster de stockage.
+
+
+
+=== Importer un volume existant dans Kubernetes
+
+L'importation de volumes permet d'importer un volume de stockage existant dans un environnement Kubernetes. Cette opération est actuellement prise en charge par `ontap-nas`, `ontap-nas-flexgroup`, `solidfire-san`, `azure-netapp-files`, et `gcp-cvs` pilotes. Cette fonctionnalité est utile lors du portage d'une application existante sur Kubernetes ou lors de scénarios de reprise après incident.
+
+Lorsque vous utilisez ONTAP et `solidfire-san` pilotes, utilisez la commande `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml` Pour importer un volume existant dans Kubernetes et le gérer par Astra Trident. Le fichier PVC YAML ou JSON utilisé dans la commande de volume d'importation pointe vers une classe de stockage qui identifie Astra Trident comme provisionneur. Si vous utilisez un système back-end NetApp HCI/SolidFire, assurez-vous que les noms des volumes sont uniques. Si les noms des volumes sont dupliqués, cloner le volume en un nom unique afin que la fonctionnalité d'importation des volumes puisse les distinguer.
+
+Si le `azure-netapp-files` ou `gcp-cvs` pilote utilisé, utilisez la commande `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml` Pour importer le volume dans Kubernetes qui sera géré par Astra Trident. Cela garantit une référence de volume unique.
+
+À l'exécution de la commande ci-dessus, Astra Trident trouve le volume sur le back-end et lit sa taille. Il ajoute automatiquement (et remplace si nécessaire) la taille du volume du volume du volume persistant configuré. Astra Trident crée ensuite le nouveau volume persistant, et Kubernetes lie la demande de volume persistant au volume persistant.
+
+Lorsqu'un conteneur a été déployé de façon à ce qu'il ait besoin de la demande de volume persistant importée spécifique, il resterait dans un état en attente jusqu'à ce que la paire PVC/PV soit liée via le processus d'importation de volume. Une fois la paire PVC/PV liée, le conteneur doit s'installer, à condition qu'il n'y ait pas d'autres problèmes.
+
+
+
+== Le déploiement des services OpenShift
+
+Les services de cluster à valeur ajoutée OpenShift offrent des fonctionnalités importantes aux administrateurs de clusters et aux applications hébergées. Le stockage utilisé par ces services peut être provisionné à l'aide des ressources locales. Toutefois, la capacité, la performance, la récupération et la durabilité du service sont souvent limitées. En tirant parti d'une baie de stockage d'entreprise pour fournir la capacité nécessaire à ces services, nous pouvons obtenir un service considérablement amélioré. Cependant, comme pour toutes les applications, OpenShift et les administrateurs de stockage doivent travailler en étroite collaboration afin de déterminer les options les plus adaptées à chacun d'entre eux. La documentation Red Hat doit être largement exploitée pour déterminer les exigences et s'assurer que les besoins en matière de dimensionnement et de performances sont satisfaits.
+
+
+
+=== Service de registre
+
+Le déploiement et la gestion du stockage pour le registre ont été documentés sur link:https://netapp.io/["netapp.io"^] dans le link:https://netapp.io/2017/08/24/deploying-the-openshift-registry-using-netapp-storage/["Blog"^].
+
+
+
+=== Service de journalisation
+
+Comme les autres services OpenShift, le service de journalisation est déployé avec Ansible, avec les paramètres de configuration fournis par le fichier d'inventaire, également appelé hôtes, fournis avec le manuel de vente. Deux méthodes d'installation sont proposées : le déploiement de la journalisation lors de l'installation initiale d'OpenShift et le déploiement de la journalisation une fois OpenShift installé.
+
+
+CAUTION: À partir de la version 3.9 de Red Hat OpenShift, la documentation officielle recommande à NFS d'utiliser le service de journalisation en raison de problèmes de corruption des données. Ceci est basé sur les tests Red Hat de leurs produits. Le serveur NFS d'ONTAP ne présente pas ces problèmes et peut facilement être à nouveau déployé en environnements de journalisation. En fin de compte, le choix du protocole pour le service de journalisation constitue un bon choix. Il suffit de savoir que les deux fonctionneront bien avec les plateformes NetApp. Il n'y a aucune raison d'éviter NFS si c'est votre choix.
+
+Si vous choisissez d'utiliser NFS avec le service de journalisation, vous devez définir la variable Ansible `openshift_enable_unsupported_configurations` à `true` pour éviter que le programme d'installation ne tombe en panne.
+
+
+
+==== Commencez
+
+Le service de journalisation peut, éventuellement, être déployé pour les deux applications ainsi que pour les opérations de base du cluster OpenShift. Si vous choisissez de déployer la journalisation des opérations, en spécifiant la variable `openshift_logging_use_ops` comme `true`, deux instances du service seront créées. Les variables qui contrôlent l'instance de journalisation des opérations contiennent des "OPS", alors que l'instance des applications ne le fait pas.
+
+La configuration des variables Ansible selon la méthode de déploiement est importante afin de s'assurer que le stockage approprié est utilisé par les services sous-jacents. Examinons les options de chacune des méthodes de déploiement.
+
+
+NOTE: Les tableaux ci-dessous contiennent uniquement les variables pertinentes pour la configuration du stockage car elles concernent le service de journalisation. Vous trouverez d'autres options dans link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentation de journalisation Red Hat OpenShift"^] quels domaines doivent être examinés, configurés et utilisés en fonction de votre déploiement ?
+
+Les variables du tableau ci-dessous entraînent la création d'un volume persistant et de demande de volume persistant pour le service de journalisation à l'aide des informations fournies. Cette méthode est beaucoup moins flexible qu'avec le manuel d'installation des composants après l'installation d'OpenShift. Toutefois, si des volumes sont déjà disponibles, il s'agit d'une option.
+
+[cols="40,40"]
+|===
+| Variable | Détails 
+
+
+| `openshift_logging_storage_kind` | Réglez sur `nfs` Pour que le programme d'installation crée un volume persistant NFS pour le service de journalisation. 
+
+
+| `openshift_logging_storage_host` | Le nom d'hôte ou l'adresse IP de l'hôte NFS. Il doit être défini sur la LIF de données pour votre machine virtuelle. 
+
+
+| `openshift_logging_storage_nfs_directory` | Chemin de montage pour l'exportation NFS. Par exemple, si le volume est relié par jonction `/openshift_logging`, vous utiliserez ce chemin pour cette variable. 
+
+
+| `openshift_logging_storage_volume_name` | Le nom, par exemple `pv_ose_logs`, De la PV à créer. 
+
+
+| `openshift_logging_storage_volume_size` | Taille de l'exportation NFS, par exemple `100Gi`. 
+|===
+Si votre cluster OpenShift est déjà en cours d'exécution et que Trident a donc été déployé et configuré, le programme d'installation peut utiliser le provisionnement dynamique pour créer les volumes. Les variables suivantes doivent être configurées.
+
+[cols="40,40"]
+|===
+| Variable | Détails 
+
+
+| `openshift_logging_es_pvc_dynamic` | Définis sur true pour l'utilisation de volumes provisionnés dynamiquement. 
+
+
+| `openshift_logging_es_pvc_storage_class_name` | Nom de la classe de stockage qui sera utilisée dans le PVC. 
+
+
+| `openshift_logging_es_pvc_size` | Taille du volume demandé dans la demande de volume persistant. 
+
+
+| `openshift_logging_es_pvc_prefix` | Préfixe pour les ESV utilisés par le service de journalisation. 
+
+
+| `openshift_logging_es_ops_pvc_dynamic` | Réglez sur `true` utilisation de volumes provisionnés dynamiquement pour l'instance de journalisation des opérations. 
+
+
+| `openshift_logging_es_ops_pvc_storage_class_name` | Nom de la classe de stockage de l'instance de journalisation OPS. 
+
+
+| `openshift_logging_es_ops_pvc_size` | Taille de la demande de volume pour l'instance OPS. 
+
+
+| `openshift_logging_es_ops_pvc_prefix` | Préfixe pour les ESV de l'instance OPS. 
+|===
+
+
+==== Déploiement de la pile de consignation
+
+Si vous déployez la connexion dans le cadre du processus d'installation initiale d'OpenShift, il vous suffit de suivre le processus de déploiement standard. Ansible configure et déploie les services et les objets OpenShift nécessaires, de sorte que le service soit disponible dès qu'Ansible se termine.
+
+Cependant, si vous déployez après l'installation initiale, vous devez utiliser le PlayBook des composants Ansible. Ce processus peut légèrement évoluer avec différentes versions d'OpenShift, c'est pourquoi nous vous invitons à le lire et à le suivre link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Documentation Red Hat OpenShift Container Platform 3.11"^] pour votre version.
+
+
+
+== Services de metrics
+
+Le service de metrics fournit à l'administrateur des informations précieuses sur l'état, l'utilisation des ressources et la disponibilité du cluster OpenShift. Il est également nécessaire d'utiliser la fonctionnalité de montée en charge automatique des pods. De nombreuses entreprises utilisent les données issues du service de metrics pour leurs applications de refacturation et/ou de show-back.
+
+Comme pour le service de journalisation, OpenShift dans son ensemble, Ansible est utilisé pour déployer le service de metrics. De même, comme le service de journalisation, le service de metrics peut être déployé lors d'une configuration initiale du cluster ou après son fonctionnement à l'aide de la méthode d'installation du composant. Les tableaux suivants contiennent les variables importantes lors de la configuration du stockage persistant pour le service de metrics.
+
+
+NOTE: Les tableaux ci-dessous contiennent uniquement les variables pertinentes pour la configuration du stockage car elles concernent le service de metrics. De nombreuses autres options sont disponibles dans la documentation qui doit être examinée, configurée et utilisée en fonction de votre déploiement.
+
+[cols="40,40"]
+|===
+| Variable | Détails 
+
+
+| `openshift_metrics_storage_kind` | Réglez sur `nfs` Pour que le programme d'installation crée un volume persistant NFS pour le service de journalisation. 
+
+
+| `openshift_metrics_storage_host` | Le nom d'hôte ou l'adresse IP de l'hôte NFS. Il doit être défini sur la LIF de données pour votre SVM. 
+
+
+| `openshift_metrics_storage_nfs_directory` | Chemin de montage pour l'exportation NFS. Par exemple, si le volume est relié par jonction `/openshift_metrics`, vous utiliserez ce chemin pour cette variable. 
+
+
+| `openshift_metrics_storage_volume_name` | Le nom, par exemple `pv_ose_metrics`, De la PV à créer. 
+
+
+| `openshift_metrics_storage_volume_size` | Taille de l'exportation NFS, par exemple `100Gi`. 
+|===
+Si votre cluster OpenShift est déjà en cours d'exécution et que Trident a donc été déployé et configuré, le programme d'installation peut utiliser le provisionnement dynamique pour créer les volumes. Les variables suivantes doivent être configurées.
+
+[cols="40,40"]
+|===
+| Variable | Détails 
+
+
+| `openshift_metrics_cassandra_pvc_prefix` | Préfixe à utiliser pour les ESV de metrics. 
+
+
+| `openshift_metrics_cassandra_pvc_size` | Taille des volumes à demander. 
+
+
+| `openshift_metrics_cassandra_storage_type` | Le type de stockage à utiliser pour les metrics, doit être défini sur dynamique pour qu'Ansible crée des demandes de volume persistant avec la classe de stockage appropriée. 
+
+
+| `openshift_metrics_cassanda_pvc_storage_class_name` | Nom de la classe de stockage à utiliser. 
+|===
+
+
+=== Déployez le service de metrics
+
+Déployez le service à l'aide des variables Ansible appropriées définies dans votre fichier hôtes/d'inventaire. Si vous déployez au moment de l'installation d'OpenShift, le volume persistant est créé et utilisé automatiquement. Si vous déployez l'utilisation des playbooks, après l'installation d'OpenShift, Ansible crée toutes les demandes de volume persistant nécessaires et, après que Astra Trident a provisionné le stockage pour eux, déployez le service.
+
+Les variables ci-dessus et le processus de déploiement peuvent changer avec chaque version d'OpenShift. Vérifiez et suivez link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guide de déploiement OpenShift de Red Hat"^] pour votre version afin qu'elle soit configurée pour votre environnement.

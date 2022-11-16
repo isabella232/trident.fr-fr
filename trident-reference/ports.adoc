@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/ports.html 
+keywords: astra trident, port, ports 
+summary: 'Découvrez les ports qu"Astra Trident communique sur.' 
+---
+= Ports Trident d'Astra
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Découvrez les ports qu'Astra Trident communique sur.
+
+Astra Trident communique sur les ports suivants :
+
+[cols="2,4"]
+|===
+| Port | Objectif 
+
+
+| 8443 | HTTPS backChannel 
+
+
+| 8001 | Terminal des metrics Prometheus 
+
+
+| 8000 | Serveur REST Trident 
+
+
+| 17546 | Port de sonde de liaison/préparation utilisé par les modules de démonset Trident 
+|===
+
+NOTE: Le port de la sonde de liaison/préparation peut être modifié au cours de l'installation à l'aide du `--probe-port` drapeau. Il est important de s'assurer que ce port n'est pas utilisé par un autre processus sur les nœuds worker.

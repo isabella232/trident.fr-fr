@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: earlier-versions.html 
+keywords: earlier versions, astra trident versions 
+summary: 'La documentation relative aux versions précédentes d"Astra Trident est disponible au cas où vous n"exécutiez pas la dernière version.' 
+---
+= Versions antérieures de la documentation
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si vous n'exécutez pas Astra Trident 22.10, la documentation relative aux versions précédentes est disponible. Vous pouvez utiliser le sélecteur de version pour naviguer entre la dernière version et les quatre versions précédentes ou utiliser les liens ci-dessous.
+
+
+NOTE: Pour les versions antérieures à 21.07, vous serez redirigé vers le site de documentation existant.
+
+* https://docs.netapp.com/us-en/trident-2207/index.html["Astra Trident 22.07"^]
+* https://docs.netapp.com/us-en/trident-2204/index.html["Astra Trident 22.04"^]
+* https://docs.netapp.com/us-en/trident-2201/index.html["Astra Trident 22.01"^]
+* https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
+* https://docs.netapp.com/us-en/trident-2107/index.html["Astra Trident 21.07"^]
+* https://netapp-trident.readthedocs.io/en/stable-v21.04/["Astra Trident 21.04"^]
+* https://netapp-trident.readthedocs.io/en/stable-v21.01/["Astra Trident 21.01"^]
+* https://netapp-trident.readthedocs.io/en/stable-v20.10/["Astra Trident 20.10"^]
+* https://netapp-trident.readthedocs.io/en/stable-v20.07/["Astra Trident 20.07"^]
+* https://netapp-trident.readthedocs.io/en/stable-v20.04/["Astra Trident 20.04"^]
+* https://netapp-trident.readthedocs.io/en/stable-v20.01/["Astra Trident 20.01"^]
+* https://netapp-trident.readthedocs.io/en/stable-v19.10/["Astra Trident 19.10"^]
+* https://netapp-trident.readthedocs.io/en/stable-v19.07/["Astra Trident 19.07"^]
+* https://netapp-trident.readthedocs.io/en/stable-v19.04/["Astra Trident 19.04"^]
+* https://netapp-trident.readthedocs.io/en/stable-v19.01/["Astra Trident 19.01"^]
+

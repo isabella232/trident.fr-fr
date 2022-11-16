@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/ontap-drivers.html 
+keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers 
+summary: Découvrez comment créer et utiliser un back-end Element avec votre installation Trident. 
+---
+= Pilotes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident propose cinq pilotes de stockage ONTAP uniques pour la communication avec les clusters ONTAP. Découvrez comment chaque pilote gère la création de volumes, le contrôle d'accès et leurs fonctionnalités.
+
+
+
+== Découvrez les pilotes de stockage ONTAP
+
+[cols="5"]
+|===
+| Conducteur | Protocole | Mode Volume | Modes d'accès pris en charge | Systèmes de fichiers pris en charge 
+
+
+| `ontap-nas`  a| 
+NFS
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX,RWX
+ a| 
+« », nfs
+
+
+
+| `ontap-nas-economy`  a| 
+NFS
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX,RWX
+ a| 
+« », nfs
+
+
+
+| `ontap-nas-flexgroup`  a| 
+NFS
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX,RWX
+ a| 
+« », nfs
+
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Bloc
+ a| 
+RWO,ROX,RWX
+ a| 
+Pas de système de fichiers, périphérique de bloc brut
+
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX
+
+RWX n'est pas disponible en mode de volume du système de fichiers.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Bloc
+ a| 
+RWO,ROX,RWX
+ a| 
+Pas de système de fichiers, périphérique de bloc brut
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Système de fichiers
+ a| 
+RWO,ROX
+
+RWX n'est pas disponible en mode de volume du système de fichiers.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+|===
+
+NOTE: Les systèmes back-end ONTAP peuvent être authentifiés avec des identifiants de connexion pour un rôle de sécurité (nom d'utilisateur/mot de passe) ou à l'aide de la clé privée et du certificat installés sur le cluster ONTAP. Vous pouvez mettre à jour les systèmes back-end existants pour passer d'un mode d'authentification à l'autre avec `tridentctl update backend`.

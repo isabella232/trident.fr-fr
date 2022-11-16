@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/rest-api.html 
+keywords: rest api, get, post, json, object, backends 
+summary: 'Vous pouvez utiliser le terminal REST directement si vous préférez interagir avec l"API REST d"Astra Trident.' 
+---
+= API REST d'Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Pendant link:tridentctl.html["commandes et options tridentctl"] Vous pouvez utiliser le terminal REST directement si vous le souhaitez. Pour interagir avec l'API REST Astra Trident,
+
+
+
+== Quand utiliser l'API REST
+
+Il est utile pour les installations avancées qui utilisent Astra Trident en tant que binaire autonome dans les déploiements non Kubernetes.
+
+Avec Astra Trident, qui offre une meilleure sécurité `REST API` est limité à localhost par défaut lors de l'exécution dans un pod. Pour changer ce comportement, vous devez définir Astra Trident `-address` dans sa configuration pod.
+
+
+
+== Avec l'API REST
+
+L'API fonctionne comme suit :
+
+
+
+=== OBTENEZ
+
+* `GET <trident-address>/trident/v1/<object-type>`: Affiche tous les objets de ce type.
+* `GET <trident-address>/trident/v1/<object-type>/<object-name>`: Obtient les détails de l'objet nommé.
+
+
+
+
+=== POST
+
+`POST <trident-address>/trident/v1/<object-type>`: Crée un objet du type spécifié.
+
+* Nécessite une configuration JSON pour que l'objet soit créé. Pour la spécification de chaque type d'objet, voir lien:tridentctl.html[`tridentctl` commandes et options].
+* Si l'objet existe déjà, le comportement varie : les systèmes back-end mettent à jour l'objet existant, tandis que tous les autres types d'objet échoueront.
+
+
+
+
+=== SUPPRIMER
+
+`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`: Supprime la ressource nommée.
+
+
+NOTE: Les volumes associés aux systèmes back-end ou aux classes de stockage continueront d'exister. Ils doivent être supprimés séparément. Pour plus d'informations, consultez le lien :tridentctl.html[`tridentctl` commandes et options].
+
+Pour des exemples de la façon dont ces API sont appelées, passez le débogage (`-d`) drapeau. Pour plus d'informations, consultez le lien :tridentctl.html[`tridentctl` commandes et options].

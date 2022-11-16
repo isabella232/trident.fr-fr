@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: legal-notices.html 
+keywords:  
+summary:  
+---
+= Mentions légales
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les mentions légales donnent accès aux déclarations de copyright, aux marques, aux brevets, etc.
+
+
+
+== Droits d'auteur
+
+http://www.netapp.com/us/legal/copyright.aspx[]
+
+
+
+== Marques déposées
+
+NetApp, le logo NETAPP et les marques mentionnées sur la page des marques commerciales NetApp sont des marques commerciales de NetApp, Inc. Les autres noms de sociétés et de produits peuvent être des marques commerciales de leurs propriétaires respectifs.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]
+
+
+
+== Brevets
+
+Vous trouverez une liste actuelle des brevets appartenant à NetApp à l'adresse suivante :
+
+https://www.netapp.com/us/media/patents-page.pdf[]
+
+
+
+== Politique de confidentialité
+
+https://www.netapp.com/us/legal/privacypolicy/index.aspx[]
+
+
+
+== Source ouverte
+
+Vous pouvez consulter les informations de copyright et licences tierces utilisées dans le logiciel NetApp pour Astra Trident dans le fichier d'avis correspondant à chaque version, à l'adresse https://github.com/NetApp/trident/[].

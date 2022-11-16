@@ -1,0 +1,433 @@
+---
+sidebar: sidebar 
+permalink: faq.html 
+keywords: faq, frequently asked questions 
+summary: 'Trouvez les réponses aux questions fréquemment posées concernant l"installation, la configuration, la mise à niveau et le dépannage d"Astra Trident.' 
+---
+= Foire aux questions
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trouvez les réponses aux questions fréquemment posées concernant l'installation, la configuration, la mise à niveau et le dépannage d'Astra Trident.
+
+
+
+== Questions générales
+
+
+
+=== À quelle fréquence Astra Trident est-il commercialisé ?
+
+Astra Trident est commercialisé tous les trois mois : janvier, avril, juillet et octobre. Ceci fait un mois après une version de Kubernetes.
+
+
+
+=== Est-ce que l'Astra Trident prend en charge toutes les fonctionnalités publiées dans une version particulière de Kubernetes ?
+
+Astra Trident ne prend généralement pas en charge les fonctionnalités alpha dans Kubernetes. Trident peut prendre en charge les fonctionnalités bêta dans les deux versions de Trident, qui suivent la version bêta de Kubernetes.
+
+
+
+=== Est-ce que l'Astra Trident se base sur d'autres produits NetApp pour son fonctionnement ?
+
+Astra Trident ne fonctionne pas sous forme de dépendance vis-à-vis d'autres logiciels NetApp, et il fonctionne comme une application autonome. Toutefois, vous devez disposer d'un système de stockage back-end NetApp.
+
+
+
+=== Comment obtenir les informations complètes sur la configuration d'Astra Trident ?
+
+Utilisez le `tridentctl get` Commande pour obtenir plus d'informations sur la configuration d'Astra Trident.
+
+
+
+=== Puis-je obtenir des metrics sur le provisionnement du stockage par Astra Trident ?
+
+Oui. Trident 20.01 introduit les terminaux Prometheus qui peuvent être utilisés pour collecter des informations sur le fonctionnement d'Astra Trident, notamment le nombre de systèmes back-end gérés, le nombre de volumes provisionnés, les octets consommés, etc. Vous pouvez également utiliser Cloud Insights pour la surveillance et l'analyse.
+
+
+
+=== L'expérience utilisateur change-t-elle lors de l'utilisation d'Astra Trident en tant que provisionnement CSI ?
+
+Non Il n'y a aucun changement en ce qui concerne l'expérience utilisateur et les fonctionnalités. Le nom de provisionnement utilisé est `csi.trident.netapp.io`. Cette méthode d'installation d'Astra Trident est recommandée si vous souhaitez utiliser toutes les nouvelles fonctionnalités fournies par les versions actuelles et futures.
+
+
+
+== Installez et utilisez Astra Trident sur un cluster Kubernetes
+
+
+
+=== Quelles sont les versions prises en charge d'ETCD ?
+
+Astra Trident n'a plus besoin d'un `etcd`. Il utilise des CRD pour maintenir l'état.
+
+
+
+=== Est-ce que Astra Trident prend en charge une installation hors ligne à partir d'un registre privé ?
+
+Oui, Astra Trident peut être installé hors ligne. Voir link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["ici"].
+
+
+
+=== Puis-je installer Astra Trident à distance ?
+
+Oui. Avec Astra Trident 18.10 et les versions ultérieures, il prend en charge la fonctionnalité d'installation à distance à partir de n'importe quelle machine `kubectl` accès au cluster. Après `kubectl` vérification de l'accès (par exemple, lancement d'un `kubectl get nodes` commande de la machine à distance pour la vérification), suivre les instructions d'installation.
+
+
+
+=== Puis-je configurer la haute disponibilité avec Astra Trident ?
+
+Astra Trident est installé en tant que Kubernetes Deployment (ReplicaSet) avec une instance, et ce de même qu'il a intégré la haute disponibilité. Vous ne devez pas augmenter le nombre de répliques dans le déploiement. Si le nœud sur lequel Astra Trident est installé ou si le pod est inaccessible, Kubernetes redéploie automatiquement le pod sur un nœud en état de santé dans votre cluster. L'Astra Trident est uniquement du plan de contrôle. Les pods actuellement montés ne sont donc pas affectés en cas de redéploiement de l'Astra Trident.
+
+
+
+=== Astra Trident a-t-il besoin d'accéder au namespace du système kube ?
+
+L'Astra Trident effectue une lecture sur le serveur d'API Kubernetes afin de déterminer le moment où les applications demandent des nouveaux ESV. Il doit donc accéder à kube-System.
+
+
+
+=== Quels sont les rôles et privilèges utilisés par Astra Trident ?
+
+Le programme d'installation de Trident crée un cluster Kubernetes ClusterRole qui dispose d'un accès spécifique au volume persistant, à la demande de volume persistant, à la classe de stockage et aux ressources secrètes du cluster Kubernetes. Voir link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["ici"].
+
+
+
+=== Est-il possible de générer localement les fichiers de manifeste exacts qu'Astra Trident utilise pour l'installation ?
+
+Vous pouvez générer et modifier localement les fichiers de manifeste exacts utilisés par Astra Trident pour l'installation, si nécessaire. Voir link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["ici"].
+
+
+
+=== Puis-je partager le même SVM back-end ONTAP pour deux instances Astra Trident distinctes pour deux clusters Kubernetes distincts ?
+
+Bien qu'il ne soit pas conseillé, vous pouvez utiliser le même SVM back-end pour deux instances Astra Trident. Spécifiez un nom de volume unique pour chaque instance lors de l'installation et/ou spécifiez un nom unique `StoragePrefix` paramètre dans le `setup/backend.json` fichier. Ceci permet de s'assurer que le même FlexVol n'est pas utilisé pour les deux instances.
+
+
+
+=== Est-il possible d'installer Astra Trident sous ContainerLinux (anciennement CoreOS) ?
+
+Astra Trident est un simple pod Kubernetes. Il peut être installé quel que soit l'emplacement de Kubernetes.
+
+
+
+=== Puis-je utiliser Astra Trident avec NetApp Cloud Volumes ONTAP ?
+
+Oui, Astra Trident est pris en charge par AWS, Google Cloud et Azure.
+
+
+
+=== Astra Trident fonctionne-t-il avec NetApp Cloud volumes Services ?
+
+Oui. Astra Trident prend en charge le service Azure NetApp Files dans Azure ainsi que le service Cloud Volumes Service dans GCP.
+
+
+
+== Dépannage et support
+
+
+
+=== NetApp prend-il en charge Astra Trident ?
+
+Bien qu'Astra Trident soit open source et fourni gratuitement, NetApp le prend entièrement en charge à condition que votre système back-end NetApp soit pris en charge.
+
+
+
+=== Comment puis-je soulever un dossier de demande de support ?
+
+Pour soulever un dossier de support, effectuez l'une des opérations suivantes :
+
+. Contactez votre support Account Manager pour obtenir de l'aide pour créer un dossier.
+. Pour ouvrir un dossier de demande de support, contactez https://www.netapp.com/company/contact-us/support/["Support NetApp"^].
+
+
+
+
+=== Comment générer un bundle de journaux de support ?
+
+Vous pouvez créer un bundle de support en exécutant `tridentctl logs -a`. Outre les journaux capturés dans le pack, capture le journal kubelet pour diagnostiquer les problèmes de montage côté Kubernetes. Les instructions d'obtention du journal kubelet varient en fonction de l'installation de Kubernetes.
+
+
+
+=== Que faire si j'ai besoin de demander une nouvelle fonctionnalité ?
+
+Créer un problème sur https://github.com/NetApp/trident["Astra Trident Github"^] Et mentionner *RFE* dans le sujet et la description du problème.
+
+
+
+=== Où puis-je soulever un défaut ?
+
+Créer un problème sur https://github.com/NetApp/trident["Astra Trident Github"^]. Veillez à inclure toutes les informations et tous les journaux nécessaires concernant le problème.
+
+
+
+=== Que se passe-t-il si j'ai une brève question sur Astra Trident et que j'ai besoin de précisions ? Y a-t-il une communauté ou un forum?
+
+Si vous avez des questions, des problèmes ou des demandes, contactez-nous par le biais de notre Astra link:https://discord.gg/NetApp["Déroulez le canal"^] Ou GitHub.
+
+
+
+=== Le mot de passe de mon système de stockage a changé et Astra Trident ne fonctionne plus, comment récupérer?
+
+Mettez à jour le mot de passe du backend avec `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`. Remplacement `myBackend` dans l'exemple avec votre nom de back-end, et ``/path/to_new_backend.json` avec le chemin d'accès correct `backend.json` fichier.
+
+
+
+=== Astra Trident ne trouve pas le nœud Kubernetes. Comment résoudre ce problème ?
+
+Il existe deux scénarios possibles pour savoir pourquoi Astra Trident ne peut pas trouver un nœud Kubernetes. Elle peut être due à un problème de mise en réseau dans Kubernetes ou DNS. Le demonset de nœuds Trident qui s'exécute sur chaque nœud Kubernetes doit pouvoir communiquer avec le contrôleur Trident pour enregistrer le nœud avec Trident. Si des modifications de mise en réseau ont eu lieu après l'installation d'Astra Trident, ce problème se produit uniquement avec les nouveaux nœuds Kubernetes qui sont ajoutés au cluster.
+
+
+
+=== Si le pod Trident est détruit, ces données seront-elles perdues ?
+
+Les données ne seront pas perdues si le pod Trident est détruit. Les métadonnées de Trident sont stockées dans des objets CRD. Tous les volumes persistants provisionnés par Trident fonctionneront normalement.
+
+
+
+== Mettez à niveau Astra Trident
+
+
+
+=== Est-il possible de mettre à niveau une version plus ancienne directement vers une version plus récente (sans passer par quelques versions) ?
+
+NetApp prend en charge la mise à niveau d'Astra Trident d'une version majeure à la prochaine version majeure. Vous pouvez effectuer la mise à niveau de la version 18.xx vers la version 19.xx, 19.xx vers la version 20.xx, etc. Il est conseillé de tester la mise à niveau dans un laboratoire avant le déploiement en production.
+
+
+
+=== Est-il possible de revenir à une version antérieure de Trident ?
+
+Un certain nombre de facteurs doivent être évalués si vous voulez rétrograder. Voir link:https://docs.netapp.com/us-en/trident/trident-managing-k8s/downgrade-trident.html["la section sur la rétrogradation"].
+
+
+
+== Gestion des systèmes back-end et des volumes
+
+
+
+=== Dois-je définir à la fois des LIF de données et de gestion dans un fichier de définition du back-end ONTAP ?
+
+NetApp recommande d'avoir les deux dans le fichier de définition du back-end. Toutefois, le LIF de gestion est le seul qui est obligatoire.
+
+
+
+=== L'Astra Trident peut-il configurer le protocole CHAP pour les systèmes back-end ONTAP ?
+
+Oui. À partir de la version 20.04, Astra Trident prend en charge le protocole CHAP bidirectionnel pour les systèmes back-end ONTAP. Ceci nécessite un paramètre `useCHAP=true` dans votre configuration back-end.
+
+
+
+=== Comment gérer les règles d'exportation avec Astra Trident ?
+
+Astra Trident peut créer et gérer de manière dynamique des règles d'exportation à partir de la version 20.04. Cela permet à l'administrateur de stockage de fournir un ou plusieurs blocs CIDR dans leur configuration backend et de laisser Trident ajouter des adresses IP de nœud comprise dans ces plages à une export policy créée. Ainsi, Astra Trident gère automatiquement l'ajout et la suppression de règles pour les nœuds dont les adresses IP sont comprises dans les rapports CIDR donnés. Cette fonctionnalité requiert CSI Trident.
+
+
+
+=== Pouvons-nous spécifier un port dans le DataLIF ?
+
+Astra Trident 19.01 et les versions ultérieures prennent en charge la spécification d'un port dans le DataLIF. Configurez-le dans le `backend.json` fichier en tant que ``“managementLIF”: <ip address>:<port>”``. Par exemple, si l'adresse IP de votre LIF de gestion est 192.0.2.1, et si le port est 1000, configurez ``"managementLIF": "192.0.2.1:1000"``.
+
+
+
+=== Les adresses IPv6 peuvent-elles être utilisées pour les LIF de données et de gestion ?
+
+Oui. Astra Trident 20.01 prend en charge la définition des adresses IPv6 pour la gestion des LIF et les paramètres de dataLIF pour les systèmes back-end ONTAP. Vous devez vous assurer que l'adresse suit la sémantique IPv6 et que la LIF de gestion est définie entre parenthèses (par exemple, ``[ec0d:6504:a9c1:ae67:53d1:4bdf:ab32:e233]``). Vous devez également vous assurer que Astra Trident est installé à l'aide du ``--use-ipv6` Indicateur pour qu'il fonctionne sur IPv6.
+
+
+
+=== Est-il possible de mettre à jour la LIF de gestion en back-end ?
+
+Oui, il est possible de mettre à jour la LIF de management back-end à l'aide de `tridentctl update backend` commande.
+
+
+
+=== Est-il possible de mettre à jour la LIF de données sur le backend ?
+
+Non, il n'est pas possible de mettre à jour la LIF de données sur le backend.
+
+
+
+=== Est-il possible de créer plusieurs systèmes back-end dans Astra Trident pour Kubernetes ?
+
+Astra Trident peut prendre en charge de nombreux systèmes back-end simultanément, avec le même pilote ou des pilotes différents.
+
+
+
+=== Comment Astra Trident stocke-t-il les identifiants back-end ?
+
+Astra Trident stocke les identifiants back-end sous le titre de secrets de Kubernetes.
+
+
+
+=== Comment l'Astra Trident sélectionne-t-il un système back-end spécifique ?
+
+Si les attributs back-end ne peuvent pas être utilisés pour sélectionner automatiquement les pools appropriés pour une classe, l' `storagePools` et `additionalStoragePools` les paramètres sont utilisés pour sélectionner un ensemble spécifique de pools.
+
+
+
+=== Comment s'assurer qu'Astra Trident ne provisionne pas d'un back-end spécifique ?
+
+Le `excludeStoragePools` Paramètre utilisé pour filtrer l'ensemble de pools qu'Astra Trident utilisera pour le provisionnement et supprimera tous les pools correspondant.
+
+
+
+=== Si plusieurs systèmes back-end sont de même type, comment Astra Trident sélectionne-il le back-end à utiliser ?
+
+Si plusieurs systèmes back-end configurés du même type sont configurés, Astra Trident sélectionne le back-end approprié en fonction des paramètres présents dans `StorageClass` et `PersistentVolumeClaim`. Par exemple, si il existe plusieurs pilotes back-end ontap-nas, Astra Trident tente de correspondre aux paramètres dans le `StorageClass` et `PersistentVolumeClaim` combiné et correspondre à un système back-end capable de fournir les exigences répertoriées dans `StorageClass` et `PersistentVolumeClaim`. Si plusieurs systèmes back-end correspondent à la demande, l'Astra Trident est sélectionnée de manière aléatoire.
+
+
+
+=== Astra Trident prend-il en charge le protocole CHAP bidirectionnel avec Element/SolidFire ?
+
+Oui.
+
+
+
+=== Comment Astra Trident déploie-t-il des qtrees sur un volume ONTAP ? Combien de qtrees peuvent-ils être déployés sur un seul volume ?
+
+Le `ontap-nas-economy` Le pilote crée jusqu'à 200 qtrees dans le même FlexVol (configurables entre 50 et 300), 100,000 qtrees par nœud de cluster et 2,4 millions par cluster. Lorsque vous saisissez un nouveau `PersistentVolumeClaim` Le pilote cherche à voir si un FlexVol existe déjà pour le service du nouveau qtree. Si la FlexVol n'existe pas qui peut traiter le qtree, un nouveau FlexVol est créé.
+
+
+
+=== Comment définir des autorisations Unix pour les volumes provisionnés sur ONTAP NAS ?
+
+Vous pouvez définir des autorisations Unix sur le volume provisionné par Astra Trident en définissant un paramètre dans le fichier de définition backend.
+
+
+
+=== Comment configurer un ensemble explicite d'options de montage NFS ONTAP lors du provisionnement d'un volume ?
+
+Par défaut, Astra Trident ne définit pas d'option de montage sur aucune valeur avec Kubernetes. Pour spécifier les options de montage dans la classe de stockage Kubernetes, suivez l'exemple donné https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-ontapnas-k8s1.8-mountoptions.yaml#L6["ici"^].
+
+
+
+=== Comment définir les volumes provisionnés sur une export policy spécifique ?
+
+Pour permettre aux hôtes appropriés d'accéder à un volume, utilisez le `exportPolicy` paramètre configuré dans le fichier de définition backend.
+
+
+
+=== Comment définir le chiffrement de volume avec Astra Trident et ONTAP ?
+
+Vous pouvez définir le chiffrement sur le volume provisionné par Trident à l'aide du paramètre de chiffrement dans le fichier de définition back-end. Pour plus d'informations, se reporter à : link:https://docs.netapp.com/us-en/trident/trident-reco/security-reco.html#use-astra-trident-with-nve-and-nae["Fonctionnement d'Astra Trident avec NVE et NAE"]
+
+
+
+=== Quelle est la meilleure façon d'implémenter la QoS pour ONTAP avec Astra Trident ?
+
+Utiliser `StorageClasses` Afin d'implémenter la QoS pour ONTAP.
+
+
+
+=== Comment puis-je spécifier le provisionnement fin ou non fin avec Astra Trident ?
+
+Les pilotes ONTAP prennent en charge le provisionnement fin ou non fin. Le provisionnement fin est par défaut pour les pilotes ONTAP. Si un provisionnement lourd est souhaité, vous devez configurer le fichier de définition backend ou le `StorageClass`. Si les deux sont configurés, `StorageClass` a priorité. Configurez les éléments suivants pour ONTAP :
+
+. Marche `StorageClass`, réglez le `provisioningType` attribuer comme épaisseur.
+. Dans le fichier de définition back-end, activez les volumes épais par définition `backend spaceReserve parameter` comme volume.
+
+
+
+
+=== Comment puis-je m'assurer que les volumes utilisés ne sont pas supprimés même si je supprime accidentellement le volume de volume persistant ?
+
+La protection contre la demande de volume persistant est automatiquement activée sur Kubernetes à partir de la version 1.10.
+
+
+
+=== Puis-je augmenter les demandes de volume persistant NFS créées par Astra Trident ?
+
+Oui. Vous pouvez développer un volume de volume persistant créé par Astra Trident. Notez que la croissance automatique de volume est une fonctionnalité ONTAP qui n'est pas applicable à Trident.
+
+
+
+=== Si je dispose d'un volume créé en dehors d'Astra Trident, est-il possible de l'importer dans Astra Trident ?
+
+À partir de la version 19.04, vous pouvez utiliser la fonctionnalité d'importation de volumes pour intégrer des volumes dans Kubernetes.
+
+
+
+=== Puis-je importer un volume en mode SnapMirror Data protection (DP) ou hors ligne ?
+
+L'importation du volume échoue si le volume externe est en mode DP ou est hors ligne. Vous recevez le message d'erreur suivant :
+
+[listing]
+----
+Error: could not import volume: volume import failed to get size of volume: volume <name> was not found (400 Bad Request) command terminated with exit code 1.
+Make sure to remove the DP mode or put the volume online before importing the volume.
+----
+
+
+=== Puis-je étendre les demandes de volume persistant iSCSI créées par Astra Trident ?
+
+Trident 19.10 prend en charge l'extension de volumes persistants iSCSI à l'aide du mécanisme de provisionnement CSI.
+
+
+
+=== Comment un quota de ressources est-il traduit-il vers un cluster NetApp ?
+
+Le quota de ressources de stockage Kubernetes doit fonctionner tant que le stockage NetApp possède de la capacité. Lorsque le stockage NetApp ne peut pas respecter les paramètres de quota Kubernetes en raison d'un manque de capacité, Astra Trident tente d'effectuer le provisionnement, mais s'y efforce d'erreurs.
+
+
+
+=== Est-il possible de créer des copies Snapshot de volume avec Astra Trident ?
+
+Oui. La création à la demande de copies Snapshot de volume et de volumes persistants à partir de copies Snapshot est prise en charge par Astra Trident. Pour créer des volumes persistants à partir de snapshots, assurez-vous que l' `VolumeSnapshotDataSource` la porte de fonction a été activée.
+
+
+
+=== Quels sont les pilotes qui prennent en charge les copies Snapshot de volume Astra Trident ?
+
+Depuis, nous proposons aujourd'hui la prise en charge de snapshots à la demande `ontap-nas`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, et `azure-netapp-files` pilotes backend.
+
+
+
+=== Comment effectuer une sauvegarde Snapshot d'un volume provisionné par Astra Trident avec ONTAP ?
+
+Cette option est disponible sur `ontap-nas`, `ontap-san`, et `ontap-nas-flexgroup` pilotes. Vous pouvez également spécifier un `snapshotPolicy` pour le `ontap-san-economy` Pilote au niveau FlexVol.
+
+Cette fonction est également disponible sur le `ontap-nas-economy` Pilotes mais au niveau de la granularité FlexVol, pas au niveau de la granularité qtree. Pour permettre la création de copies Snapshot provisionnées par Astra Trident, définissez le paramètre back-end `snapshotPolicy` À la politique de snapshot souhaitée, telle que définie sur le back-end ONTAP. Tout snapshot effectué par le contrôleur de stockage ne est pas connu d'Astra Trident.
+
+
+
+=== Puis-je définir un pourcentage de réserve de snapshot pour un volume provisionné via Astra Trident ?
+
+Oui. Il est possible de réserver un pourcentage spécifique d'espace disque pour le stockage des copies Snapshot via Astra Trident en configurant le `snapshotReserve` attribut dans le fichier de définition backend. Si vous avez configuré `snapshotPolicy` et `snapshotReserve` dans le fichier de définition backend, le pourcentage de réserve de snapshot est défini en fonction de la `snapshotReserve` pourcentage indiqué dans le fichier back-end. Si le `snapshotReserve` Le pourcentage de nombre n'est pas indiqué, ONTAP occupe par défaut le pourcentage de réserve Snapshot comme 5. Si le `snapshotPolicy` l'option est définie sur aucune, le pourcentage de réserve snapshot est défini sur 0.
+
+
+
+=== Puis-je accéder directement au répertoire de snapshot de volume et copier les fichiers ?
+
+Oui, vous pouvez accéder au répertoire de snapshots sur le volume provisionné par Trident en paramétrant le `snapshotDir` paramètre dans le fichier de définition backend.
+
+
+
+=== Puis-je configurer SnapMirror pour des volumes avec Astra Trident ?
+
+Actuellement, SnapMirror doit être défini en externe via l'interface de ligne de commande ONTAP ou OnCommand System Manager.
+
+
+
+=== Comment restaurer des volumes persistants à un snapshot ONTAP spécifique ?
+
+Pour restaurer un volume sur un snapshot ONTAP, effectuez les opérations suivantes :
+
+. Arrêter le pod d'application qui utilise le volume persistant.
+. Restaurez les données vers le snapshot requis via l'interface de ligne de commande de ONTAP ou OnCommand System Manager.
+. Redémarrez le pod d'application.
+
+
+
+
+=== Trident peut-il provisionner des volumes sur des SVM dont un miroir de partage de charge est configuré ?
+
+Des miroirs de partage de charge peuvent être créés pour les volumes root des SVM qui fournissent des données sur NFS. ONTAP met automatiquement à jour les miroirs de partage de charge pour les volumes qui ont été créés par Trident. Cela peut entraîner des retards dans le montage des volumes. Lorsque plusieurs volumes sont créés via Trident, le provisionnement d'un volume dépend de la mise à jour par ONTAP du miroir de partage de charge.
+
+
+
+=== Comment puis-je séparer l'utilisation de la classe de stockage pour chaque client/locataire ?
+
+Kubernetes n'autorise pas les classes de stockage dans les espaces de noms. Toutefois, vous pouvez utiliser Kubernetes pour limiter l'utilisation d'une classe de stockage spécifique par espace de noms à l'aide de quotas de ressources de stockage, qui sont par espace de noms. Pour refuser un accès d'espace de noms spécifique à un stockage spécifique, définissez le quota de ressources sur 0 pour cette classe de stockage.

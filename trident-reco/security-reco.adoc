@@ -1,0 +1,154 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/security-reco.html 
+keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption, luks, linux unified key setup, encryption 
+summary: 'Suivez les recommandations indiquées ici pour vous assurer que votre installation d"Astra Trident est sécurisée.' 
+---
+= Sécurité
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Assurez-vous que l'installation d'Astra Trident est sécurisée à l'aide des recommandations indiquées ici.
+
+
+
+== Exécutez Astra Trident dans son propre espace de noms
+
+Il est important d'empêcher les applications, les administrateurs d'applications, les utilisateurs et les applications de gestion d'accéder aux définitions d'objets Astra Trident ou aux pods pour assurer un stockage fiable et bloquer tout risque d'activité malveillante.
+
+Pour séparer les autres applications et utilisateurs d'Astra Trident, installez toujours Astra Trident dans son propre espace de noms Kubernetes (`trident`). L'utilisation d'Astra Trident dans son propre espace de noms garantit que seul le personnel d'administration Kubernetes a accès au pod Trident Astra et aux artéfacts (tels que les secrets d'arrière-plan et CHAP le cas échéant) stockés dans les objets CRD devant être namestes. Vous devez vous assurer que seuls les administrateurs ont accès à l'espace de noms Astra Trident et y ont donc accès `tridentctl` client supplémentaire.
+
+
+
+== Utilisez l'authentification CHAP avec les systèmes back-end ONTAP SAN
+
+Astra Trident prend en charge l'authentification CHAP pour les workloads SAN de ONTAP (à l'aide du `ontap-san` et `ontap-san-economy` pilotes). NetApp recommande d'utiliser le protocole CHAP bidirectionnel avec Astra Trident pour l'authentification entre l'hôte et le système back-end de stockage.
+
+Pour les systèmes ONTAP back-end qui utilisent les pilotes de stockage SAN, Astra Trident peut configurer le protocole CHAP bidirectionnel et gérer les noms d'utilisateur et les secrets CHAP via `tridentctl`. Voir link:../trident-use/ontap-san-prep.html["ici"] Pour comprendre comment Astra Trident configure le protocole CHAP sur les systèmes back-end ONTAP.
+
+
+NOTE: La prise en charge CHAP pour les systèmes back-end ONTAP est disponible avec Trident 20.04 et versions ultérieures.
+
+
+
+== Utilisez l'authentification CHAP avec les systèmes back-end NetApp HCI et SolidFire
+
+NetApp recommande de déployer le protocole CHAP bidirectionnel pour garantir l'authentification entre l'hôte et les systèmes back-end NetApp HCI et SolidFire. Astra Trident utilise un objet secret qui inclut deux mots de passe CHAP par locataire. Lorsque Trident est installé en tant que fournisseur CSI, il gère les secrets CHAP et les stocke dans un `tridentvolume` Objet CR pour la PV correspondante. Lorsque vous créez un volume persistant, CSI Trident utilise les secrets CHAP pour initier une session iSCSI et communiquer avec le système NetApp HCI et SolidFire via CHAP.
+
+
+NOTE: Les volumes créés par CSI Trident ne sont associés à aucun groupe d'accès de volume.
+
+Sur le système front-end non CSI, la connexion de volumes en tant que périphériques sur les nœuds workers est gérée par Kubernetes. Après la création de volumes, Astra Trident effectue un appel d'API vers le système NetApp HCI/SolidFire pour récupérer les secrets de ce locataire n'existe pas encore. Astra Trident transmet ensuite les secrets de Kubernetes. Le kubelet situé sur chaque nœud accède aux secrets de l'API Kubernetes et les utilise pour exécuter/activer CHAP entre chaque nœud accédant au volume et le système NetApp HCI/SolidFire où se trouvent les volumes.
+
+
+
+== Utilisez Astra Trident avec NVE et NAE
+
+NetApp ONTAP assure le chiffrement des données au repos pour protéger les données sensibles en cas de vol, de retour ou de reconversion d'un disque. Pour plus de détails, reportez-vous à link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["Configurer la présentation de NetApp Volume Encryption"^].
+
+* Si NAE est activé sur le back-end, tous les volumes provisionnés dans Astra Trident seront NAE.
+* Si NAE n'est pas activé sur le back-end, les volumes provisionnés dans Astra Trident seront compatibles avec NVE, à moins que vous n'ayez défini le indicateur de chiffrement NVE sur `false` en configuration back-end.
+
+
+[NOTE]
+====
+Les volumes créés dans Astra Trident sur un système back-end compatible NAE doivent être chiffrés NVE ou NAE.
+
+* Vous pouvez définir l'indicateur de chiffrement NVE sur `true` Dans la configuration back-end Trident pour remplacer le chiffrement NAE et utiliser une clé de chiffrement spécifique sur la base du volume.
+* Définition de l'indicateur de chiffrement NVE sur `false` Sur un système back-end NAE, un volume basé sur NAE est créé. Vous ne pouvez pas désactiver le chiffrement NAE en définissant l'indicateur de chiffrement NVE sur `false`.
+
+
+====
+* Vous pouvez créer manuellement un volume NVE dans Astra Trident en définissant explicitement l'indicateur de chiffrement NVE sur `true`.
+
+
+Pour plus d'informations sur les options de configuration du back-end, reportez-vous à :
+
+* link:../trident-use/ontap-san-examples.html["Options de configuration du SAN ONTAP"]
+* link:../trident-use/ontap-nas-examples.html["Options de configuration du stockage NAS ONTAP"]
+
+
+
+
+== Activation du chiffrement côté hôte par volume à l'aide de Linux Unified Key Setup (LUKS)
+
+Vous pouvez activer l'utilitaire Linux Unified Key Setup (LUKS) pour chiffrer les volumes SAN ONTAP et SAN ONTAP ÉCONOMIQUES sur Astra Trident. Dans Astra Trident, les volumes chiffrés LUKS utilisent le sypher et le mode aes-xts-m64, comme recommandé par link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
+
+Pour plus d'informations sur les options de configuration des back-end pour SAN ONTAP, reportez-vous à link:../trident-use/ontap-san-examples.html["Options de configuration du SAN ONTAP"]
+
+.Avant de commencer
+* Les nœuds worker doivent avoir cryptsetup 2.1 ou supérieur installé. Pour plus d'informations, rendez-vous sur link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab : cryptsetup"^].
+* Pour des raisons de performances, nous recommandons aux nœuds workers de prendre en charge les nouvelles instructions AES-ni (Advanced Encryption Standard New instructions). Pour vérifier la prise en charge AES-ni, exécutez la commande suivante :
++
+[listing]
+----
+grep "aes" /proc/cpuinfo
+----
++
+Si rien n'est renvoyé, votre processeur ne prend pas en charge AES-ni. Pour plus d'informations sur AES-ni, visitez le site : link:https://www.intel.com/content/www/us/en/developer/articles/technical/advanced-encryption-standard-instructions-aes-ni.html["Intel : instructions AES-ni (Advanced Encryption Standard instructions)"^].
+
+
+
+.Étapes
+. Définissez les attributs de cryptage LUKS dans la configuration back-end.
++
+[listing]
+----
+"storage": [
+    {
+        "labels":{"luks": "true"},
+        "zone":"us_east_1a",
+        "defaults": {
+            "luksEncryption": "true"
+        }
+    },
+    {
+        "labels":{"luks": "false"},
+        "zone":"us_east_1a",
+        "defaults": {
+            "luksEncryption": "false"
+        }
+    },
+]
+----
+. Utiliser `parameters.selector` Pour définir les pools de stockage à l'aide du cryptage LUKS. Par exemple :
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: luks
+provisioner: netapp.io/trident
+parameters:
+  selector: "luks=true"
+  csi.storage.k8s.io/node-stage-secret-name: luks-${pvc.name}
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+----
+. Créez un secret qui contient la phrase de passe LUKS. Par exemple :
++
+[listing]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: luks-pvc1
+stringData:
+  luks-passphrase-name: B
+  luks-passphrase: secretB
+  previous-luks-passphrase-name: A
+  previous-luks-passphrase: secretA
+----
+
+
+
+
+=== Limites
+
+* Les volumes chiffrés LUKS ne pourront pas tirer parti de la déduplication et de la compression ONTAP.
+* La rotation de la phrase de passe LUKS n'est pas prise en charge pour le moment. Pour changer les phrases de passe, copiez manuellement les données d'une demande de volume persistant à une autre.
+

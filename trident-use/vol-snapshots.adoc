@@ -1,0 +1,205 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-snapshots.html 
+keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs 
+summary: 'À partir de la version 20.01 d"Astra Trident, vous pouvez créer des snapshots de volumes persistants (PVS) au niveau de la couche Kubernetes. Vous pouvez utiliser ces snapshots pour conserver des copies instantanées de volumes créés par Astra Trident et planifier la création de volumes supplémentaires (clones).' 
+---
+= Travailler avec des instantanés
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+À partir de la version 20.01 d'Astra Trident, vous pouvez créer des snapshots de volumes persistants à la couche Kubernetes. Vous pouvez utiliser ces snapshots pour conserver des copies instantanées de volumes créés par Astra Trident et planifier la création de volumes supplémentaires (clones). Le snapshot de volume est pris en charge par `ontap-nas`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, et `azure-netapp-files` pilotes.
+
+
+NOTE: Cette fonctionnalité est disponible à partir de Kubernetes 1.17 (version bêta) et est disponible dans la version 1.20. Pour comprendre les changements impliqués dans le passage de la version bêta à GA, voir https://kubernetes.io/blog/2020/12/10/kubernetes-1.20-volume-snapshot-moves-to-ga/["le blog de release"^]. Avec la graduation à GA, le `v1` La version d'API est introduite et rétrocompatible avec `v1beta1` snapshots.
+
+La création de snapshots de volumes nécessite la création d'un contrôleur d'instantanés externe et de définitions de ressources personnalisées (CRD). Il en va de la responsabilité de l'orchestrateur Kubernetes utilisé (par exemple : Kubeadm, GKE, OpenShift).
+
+
+
+== Déploiement d'un contrôleur de snapshot de volume
+
+Si votre distribution Kubernetes n'inclut pas le contrôleur de snapshot et les CRD, vous pouvez les déployer comme suit.
+
+. Création de CRD de snapshot de volume.
++
+Pour Kubernetes 1.20 et versions ultérieures, utilisez les CRD v1 snapshot avec les composants de snapshot de v5.0 ou supérieurs. Pour Kubernetes 1.19, utilisez v1beta1 avec les composants de snapshot v3.0.3.
+
++
+[role="tabbed-block"]
+====
+.composants de v5.0
+--
+[listing]
+----
+cat snapshot-setup.sh
+#!/bin/bash
+# Create volume snapshot CRDs
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+----
+--
+.composants v3.0.3
+--
+[listing]
+----
+cat snapshot-setup.sh
+#!/bin/bash
+# Create volume snapshot CRDs
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+----
+--
+====
+. Créer le contrôleur snapshot dans l'espace de noms souhaité. Modifiez les manifestes YAML ci-dessous pour modifier l'espace de noms.
++
+Pour Kubernetes 1.20 et versions ultérieures, utilisez v5.0 ou une version ultérieure. Pour Kubernetes version 1.19, utilisez la v3.0.3
+
++
+
+NOTE: Ne créez pas de contrôleur de snapshot si vous configurez des snapshots de volume à la demande dans un environnement GKE. GKE utilise un snapshot-contrôleur intégré et masqué.
+
++
+[role="tabbed-block"]
+====
+.contrôleur v5.0
+--
+[listing]
+----
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+----
+--
+.contrôleur v3.0.3
+--
+[listing]
+----
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.3/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+----
+--
+====
+
+
+
+TIP: CSI Snapshotter fournit un https://github.com/kubernetes-csi/external-snapshotter#validating-webhook["validation du crochet"^] pour aider les utilisateurs à valider les snapshots v1beta1 existants et à confirmer qu'ils sont des objets de ressource valides. Le crochet Web de validation étiquette automatiquement les objets de snapshot non valides et empêche la création d'objets futurs non valides. Le hook validant est déployé par Kubernetes orchestrator. Voir les instructions de déploiement manuel du crochet de validation https://github.com/kubernetes-csi/external-snapshotter/blob/release-3.0/deploy/kubernetes/webhook-example/README.md["ici"^]. Rechercher des exemples de manifestes d'instantanés non valides https://github.com/kubernetes-csi/external-snapshotter/tree/release-3.0/examples/kubernetes["ici"^].
+
+L'exemple détaillé ci-dessous décrit les constructions requises pour travailler avec des snapshots et montre comment créer et utiliser des snapshots.
+
+
+
+== Étape 1 : configurer une classe VolumeSnapshotClass
+
+Avant de créer un snapshot de volume, configurez un lien :../trident-Reference/objects.html[`VolumeSnapshotClass`^].
+
+[listing]
+----
+cat snap-sc.yaml
+#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.19, use apiVersion v1beta1.
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+Le `driver` Indique le conducteur CSI d'Astra Trident. `deletionPolicy` peut être `Delete` ou `Retain`. Lorsqu'il est réglé sur `Retain`, le snapshot physique sous-jacent sur le cluster de stockage est conservé même lorsque `VolumeSnapshot` l'objet a été supprimé.
+
+
+
+== Étape 2 : création d'un snapshot d'un volume persistant existant
+
+[listing]
+----
+cat snap.yaml
+#Use apiVersion v1 for Kubernetes 1.20 and above. For Kubernetes 1.19, use apiVersion v1beta1.
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: pvc1-snap
+spec:
+  volumeSnapshotClassName: csi-snapclass
+  source:
+    persistentVolumeClaimName: pvc1
+----
+La copie Snapshot est en cours de création pour une demande de volume persistant nommée `pvc1`, et le nom du snapshot est défini sur `pvc1-snap`.
+
+[listing]
+----
+kubectl create -f snap.yaml
+volumesnapshot.snapshot.storage.k8s.io/pvc1-snap created
+
+kubectl get volumesnapshots
+NAME                   AGE
+pvc1-snap              50s
+----
+Cela a créé un `VolumeSnapshot` objet. Un instantané VolumeSnapshot est similaire à une demande de volume persistant et est associé à une `VolumeSnapshotContent` objet qui représente le snapshot réel.
+
+Il est possible d'identifier le `VolumeSnapshotContent` objet pour le `pvc1-snap` VolumeSnapshot en le décrivant.
+
+[listing]
+----
+kubectl describe volumesnapshots pvc1-snap
+Name:         pvc1-snap
+Namespace:    default
+.
+.
+.
+Spec:
+  Snapshot Class Name:    pvc1-snap
+  Snapshot Content Name:  snapcontent-e8d8a0ca-9826-11e9-9807-525400f3f660
+  Source:
+    API Group:
+    Kind:       PersistentVolumeClaim
+    Name:       pvc1
+Status:
+  Creation Time:  2019-06-26T15:27:29Z
+  Ready To Use:   true
+  Restore Size:   3Gi
+.
+.
+----
+Le `Snapshot Content Name` Identifie l'objet VolumeSnapshotContent qui sert ce snapshot. Le `Ready To Use` Paramètre indique que l'instantané peut être utilisé pour créer une nouvelle demande de volume persistant.
+
+
+
+== Étape 3 : création de demandes de volume persistant à partir de copies Snapshot VolumeCas
+
+Pour cela, reportez-vous à l'exemple suivant de création d'une demande de volume persistant à l'aide d'un snapshot :
+
+[listing]
+----
+cat pvc-from-snap.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-from-snap
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: golden
+  resources:
+    requests:
+      storage: 3Gi
+  dataSource:
+    name: pvc1-snap
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+----
+`dataSource` La montre que la demande de volume persistant doit être créée à l'aide d'un Snapshot VolumeSnapshot nommé `pvc1-snap` comme source des données. Cela demande à Astra Trident de créer un volume persistant à partir du snapshot. Une fois la demande de volume persistant créée, elle peut être connectée à un pod et utilisée comme n'importe quel autre PVC.
+
+
+NOTE: Lors de la suppression d'un volume persistant avec les snapshots associés, le volume Trident correspondant est mis à jour et passe à un état « Suppression ». Pour supprimer le volume Astra Trident, il est nécessaire de supprimer les snapshots du volume.
+
+
+
+== Trouvez plus d'informations
+
+* link:../trident-concepts/snapshots.html["Snapshots de volume"^]
+* lien :./trident-reference/objects.html[`VolumeSnapshotClass`^]
+
