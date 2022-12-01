@@ -148,6 +148,7 @@ NOTE: Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les
 == Exemples de configurations
 
 .Exemple 1 : configuration minimale
+[%collapsible%open]
 ====
 Il s'agit de la configuration back-end minimale absolue. Avec cette configuration, Astra Trident détecte tous vos comptes, pools de capacité et sous-réseaux NetApp délégués à ANF à l'emplacement configuré et place les nouveaux volumes sur l'un de ces pools et sous-réseaux de manière aléatoire. Parce que `nasType` est omis, le `nfs` La valeur par défaut s'applique et le système back-end provisionne les volumes NFS.
 
@@ -167,6 +168,7 @@ Cette configuration est idéale pour commencer avec ANF et essayer certaines cho
 ----
 ====
 .Exemple 2 : configuration de niveau de service spécifique avec des filtres de pool de capacité
+[%collapsible%open]
 ====
 Cette configuration back-end place les volumes dans des Azure `eastus` emplacement dans un `Ultra` pool de capacité. Astra Trident détecte automatiquement tous les sous-réseaux délégués à ANF dans cet emplacement et place un nouveau volume de façon aléatoire sur l'un d'entre eux.
 
@@ -189,6 +191,7 @@ Cette configuration back-end place les volumes dans des Azure `eastus` emplaceme
 ----
 ====
 .Exemple 3 : configuration avancée
+[%collapsible%open]
 ====
 Cette configuration back-end réduit davantage l'étendue du placement des volumes sur un seul sous-réseau et modifie également certains paramètres par défaut du provisionnement des volumes.
 
@@ -222,6 +225,7 @@ Cette configuration back-end réduit davantage l'étendue du placement des volum
 ----
 ====
 .Exemple 4 : configuration de pool de stockage virtuel
+[%collapsible%open]
 ====
 Cette configuration back-end définit plusieurs pools de stockage dans un seul fichier. Cette fonction est utile lorsque plusieurs pools de capacité prennent en charge différents niveaux de service, et que vous souhaitez créer des classes de stockage dans Kubernetes qui les représentent.
 
@@ -318,6 +322,7 @@ allowVolumeExpansion: true
 À l'aide de `nasType`, `node-stage-secret-name`, et  `node-stage-secret-namespace`, Vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises.
 
 .Exemple 1 : configuration de base sur l'espace de noms par défaut
+[%collapsible%open]
 ====
 [listing]
 ----
@@ -335,6 +340,7 @@ parameters:
 ----
 ====
 .Exemple 2 : utilisation de secrets différents par espace de noms
+[%collapsible%open]
 ====
 [listing]
 ----
@@ -351,6 +357,7 @@ parameters:
 ----
 ====
 .Exemple 3 : utilisation de différents secrets par volume
+[%collapsible%open]
 ====
 [listing]
 ----

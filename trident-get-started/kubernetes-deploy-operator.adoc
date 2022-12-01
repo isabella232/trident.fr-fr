@@ -38,7 +38,12 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 Vous pouvez déployer l'opérateur Trident de deux manières :
 
 * Avec Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Graphique Helm"^]: Le graphique Helm déploie l'opérateur Trident et installe Trident en une étape.
-* Manuellement : Trident fournit un link:https://github.com/NetApp/trident/blob/master/deploy/bundle.yaml["pack.yaml"^] fichier pouvant être utilisé pour installer l'opérateur et créer des objets associés.
+* Manuellement : Trident fournit un fichier qui peut être utilisé pour installer l'opérateur et créer des objets associés.
++
+** Pour les clusters exécutant Kubernetes 1.24 ou version inférieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
+** Pour les clusters qui exécutent Kubernetes 1.25 ou version supérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
+
+
 
 
 

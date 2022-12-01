@@ -54,8 +54,8 @@ Pour les installations utilisant l'opérateur Trident, il est possible de rétro
 Pour rétrograder d'Astra Trident à une version utilisant le groupe d'opérateurs du cluster, suivez les étapes indiquées ci-dessous.
 
 .Étapes
-. link:uninstall-trident.html["Désinstaller Astra Trident"^]. **Ne pas utiliser les CRD sauf si vous souhaitez supprimer complètement une installation existante.**
-. Supprimer l'opérateur « cluster-scoped ». Pour ce faire, vous aurez besoin du manifeste utilisé pour déployer l'opérateur. Vous pouvez l'obtenir à partir du https://github.com/NetApp/trident/blob/stable/v21.07/deploy/bundle.yaml["GitHub pour Trident"^]. Assurez-vous de passer à la branche requise.
+. link:uninstall-trident.html["Désinstaller Astra Trident"^]. **Ne supprimez pas les CRD sauf si vous souhaitez supprimer complètement une installation existante.**
+. L'opérateur Trident peut être supprimé via le manifeste de l'opérateur associé à votre version de Trident. Par exemple : `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_bundle.yaml_` où `_vXX.XX_` est le numéro de version (par exemple `v22.10`) et `_bundle.yaml_` Est le nom du fichier YAML du bundle.
 . Poursuivez la rétrogradation en installant la version souhaitée d'Astra Trident. Suivez la documentation de la version souhaitée.
 
 
@@ -79,7 +79,7 @@ trident     20h
 kubectl delete torc trident
 tridentorchestrator.trident.netapp.io "trident" deleted
 ----
-. Supprimer l'opérateur « cluster-scoped ». Pour ce faire, vous aurez besoin du manifeste utilisé pour déployer l'opérateur. Vous pouvez l'obtenir ici à partir du https://github.com/NetApp/trident/blob/stable/v21.07/deploy/bundle.yaml["GitHub pour Trident"^]. Assurez-vous de passer à la branche requise.
+. L'opérateur Trident peut être supprimé via le manifeste de l'opérateur associé à votre version de Trident. Par exemple : `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_bundle.yaml_` où `_vXX.XX_` est le numéro de version (par exemple `v22.10`) et `_bundle.yaml_` Est le nom du fichier YAML du bundle.
 . Supprimez le `tridentorchestrator` CRD.
 +
 [listing]

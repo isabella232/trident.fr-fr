@@ -100,6 +100,7 @@ NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez
 Vous pouvez utiliser les attributs mentionnés ci-dessus lors de la définition `TridentOrchestrator` pour personnaliser votre installation.
 
 .Exemple 1 : configuration personnalisée de base
+[%collapsible%open]
 ====
 Voici un exemple de configuration personnalisée de base.
 
@@ -118,6 +119,7 @@ spec:
 ----
 ====
 .Exemple 2 : déploiement avec des sélecteurs de nœuds
+[%collapsible%open]
 ====
 Cet exemple illustre le déploiement de Trident avec des sélecteurs de nœud :
 
@@ -137,6 +139,7 @@ spec:
 ----
 ====
 .Exemple 3 : déploiement sur des nœuds de travail Windows
+[%collapsible%open]
 ====
 Cet exemple illustre le déploiement sur un nœud de travail Windows.
 
