@@ -30,7 +30,7 @@ L'API fonctionne comme suit :
 
 
 
-=== OBTENEZ
+=== `GET`
 
 * `GET <trident-address>/trident/v1/<object-type>`: Affiche tous les objets de ce type.
 * `GET <trident-address>/trident/v1/<object-type>/<object-name>`: Obtient les détails de l'objet nommé.
@@ -38,7 +38,7 @@ L'API fonctionne comme suit :
 
 
 
-=== POST
+=== `POST`
 
 `POST <trident-address>/trident/v1/<object-type>`: Crée un objet du type spécifié.
 
@@ -48,7 +48,7 @@ L'API fonctionne comme suit :
 
 
 
-=== SUPPRIMER
+=== `DELETE`
 
 `DELETE <trident-address>/trident/v1/<object-type>/<object-name>`: Supprime la ressource nommée.
 

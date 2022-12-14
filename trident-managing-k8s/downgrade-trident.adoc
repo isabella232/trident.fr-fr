@@ -113,7 +113,7 @@ helm rollback trident [revision #]
 ----
 
 
-== Processus de rétrogradation lors de l'installation d'Astra Trident à l'aide de tridentctl
+== Processus de rétrogradation lors de l'installation d'Astra Trident à l'aide de `tridentctl`
 
 Si vous avez installé Astra Trident à l'aide de `tridentctl`, le processus de rétrogradation implique les étapes suivantes. Cette séquence vous guide dans le processus de rétrogradation pour passer d'Astra Trident 21.07 à 20.07.
 

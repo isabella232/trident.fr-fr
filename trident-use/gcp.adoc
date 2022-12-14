@@ -23,6 +23,7 @@ Astra Trident prend en charge les volumes avec le type de service CVS par défau
 
 
 ====
+.Ce dont vous avez besoin
 Pour configurer et utiliser le https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=NetAppTrident_ReadTheDocs&utm_campaign=Trident["Cloud Volumes Service pour Google Cloud"^] back-end, vous avez besoin des éléments suivants :
 
 * Un compte Google Cloud configuré avec NetApp CVS

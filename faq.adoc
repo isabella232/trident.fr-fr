@@ -60,7 +60,7 @@ Non Il n'y a aucun changement en ce qui concerne l'expérience utilisateur et le
 
 
 
-=== Quelles sont les versions prises en charge d'ETCD ?
+=== Quelles sont les versions prises en charge de `etcd`?
 
 Astra Trident n'a plus besoin d'un `etcd`. Il utilise des CRD pour maintenir l'état.
 

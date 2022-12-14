@@ -16,6 +16,7 @@ Astra Trident pour Docker offre une intégration directe avec l'écosystème Doc
 
 Plusieurs instances d'Astra Trident peuvent être exécutées simultanément sur le même hôte. Vous pouvez ainsi établir des connexions simultanées à plusieurs systèmes et types de stockage, et personnaliser le stockage utilisé pour les volumes Docker.
 
+.Ce dont vous avez besoin
 Voir la link:prereqs-docker.html["conditions préalables au déploiement"]. Une fois que vous avez rempli les conditions préalables, vous êtes prêt à déployer Astra Trident.
 
 

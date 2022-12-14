@@ -15,7 +15,7 @@ Un système back-end définit la relation entre Astra Trident et un système de 
 
 
 
-== TridentBackendConfig
+== `TridentBackendConfig`
 
 `TridentBackendConfig` (`tbc`, `tbconfig`, `tbackendconfig`) Est un CRD au rythme de noms qui vous permet de gérer les systèmes back-end Astra Trident à l'aide de `kubectl`. Avec Kubernetes et les administrateurs de stockage, il est désormais possible de créer et de gérer des systèmes back-end directement via la CLI Kubernetes sans avoir besoin d'un utilitaire de ligne de commande dédié (`tridentctl`).
 
@@ -186,7 +186,7 @@ Le secret créé dans cette étape sera référencé dans le `spec.credentials` 
 
 
 
-== Étape 2 : création du CR TridentBackendConfig
+== Étape 2 : créez le `TridentBackendConfig` CR
 
 Vous êtes maintenant prêt à créer votre `TridentBackendConfig` CR. Dans cet exemple, un back-end qui utilise le `ontap-san` le pilote est créé à l'aide du `TridentBackendConfig` objet illustré ci-dessous :
 
@@ -212,7 +212,7 @@ spec:
 ----
 
 
-== Étape 3 : vérifier l'état du CR TridentBackendConfig
+== Étape 3 : vérifier l'état du `TridentBackendConfig` CR
 
 Maintenant que vous avez créé le `TridentBackendConfig` CR, vous pouvez vérifier l'état. Voir l'exemple suivant :
 

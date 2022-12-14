@@ -60,7 +60,7 @@ WARNING: Vous ne devez envisager de supprimer les CRD que lorsque vous effectuez
 
 
 
-== Désinstallation à l'aide de tridentctl
+== Désinstaller à l'aide de `tridentctl`
 
 Exécutez le `uninstall` commande dans `tridentctl` Comme suit, supprime toutes les ressources associées à Astra Trident, à l'exception des CRD et des objets associés, ce qui facilite l'exécution du programme d'installation pour la mise à jour vers une version plus récente.
 

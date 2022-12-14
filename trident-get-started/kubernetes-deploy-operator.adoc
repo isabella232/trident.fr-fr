@@ -72,6 +72,7 @@ Vous avez tout ça ? Parfait ! Nous allons commencer.
 
 Effectuer les étapes énumérées pour déployer l'opérateur Trident à l'aide de Helm.
 
+.Ce dont vous avez besoin
 En plus des prérequis répertoriés ci-dessus, pour déployer l'opérateur Trident à l'aide de Helm, vous devez :
 
 * A link:requirements.html["Version Kubernetes prise en charge"]
@@ -230,7 +231,7 @@ IMPORTANT: Il ne doit y avoir que *une instance* de l'opérateur dans un cluster
 
 
 
-=== Étape 3 : création de TridentOrchestrator et installation de Trident
+=== Étape 3 : créer `TridentOrchestrator` Et installer Trident
 
 Vous êtes maintenant prêt à installer Astra Trident avec l'opérateur ! Cela nécessitera la création `TridentOrchestrator`. Le programme d'installation Trident est fourni avec des exemples de définitions à créer `TridentOrchestrator`. Cela déclenche une installation dans le `trident` espace de noms.
 

@@ -35,15 +35,19 @@ image::cross-namespace-sharing.png[Schéma conceptuel du partage de l'espace de 
 
 Vous pouvez configurer le partage de volumes NFS en quelques étapes seulement.
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Une seule"] Configurez la demande de volume persistant source pour partager le volume
 [role="quick-margin-para"]
 Le propriétaire de l'espace de noms source autorise l'accès aux données dans la demande de volume persistant source.
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Deux"] Accorder l'autorisation de créer une demande de modification dans l'espace de noms de destination
 [role="quick-margin-para"]
 L'administrateur de cluster accorde l'autorisation au propriétaire de l'espace de noms de destination pour créer le CR TridentVolumeReference.
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Trois"] Créer TridentVolumeReference dans l'espace de noms de destination
 [role="quick-margin-para"]
 Le propriétaire de l'espace de noms de destination crée le CR TridentVolumeReference pour faire référence au PVC source.
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Quatre"] Créez le PVC subalterne dans l'espace de noms de destination
 [role="quick-margin-para"]
 Le propriétaire de l'espace de noms de destination crée le PVC subalterne pour utiliser la source de données à partir du PVC source.
 
@@ -124,6 +128,7 @@ NOTE: La taille du PVC de destination doit être inférieure ou égale à la PVC
 
 
 
+.Résultats
 Découvrez Astra Trident `shareFromPVC` Annotation sur la demande de volume persistant de destination et création du volume persistant de destination en tant que volume subalterne, sans ressource de stockage correspondant au volume persistant source et partage la ressource de stockage PV source. La demande de volume persistant et la demande de volume persistant de destination apparaissent comme normales.
 
 
@@ -134,7 +139,7 @@ Vous pouvez supprimer un volume partagé entre plusieurs namespaces. Astra Tride
 
 
 
-== Utilisez tridentctl get pour interroger les volumes subordonnés
+== Utiliser `tridentctl get` pour interroger des volumes subordonnés
 
 À l'aide du[`tridentctl` vous pouvez exécuter l' `get` commande pour obtenir des volumes subordonnés. Pour plus d'informations, consultez le lien :../trident-Reference/tridentctl.html[`tridentctl` commandes et options].
 

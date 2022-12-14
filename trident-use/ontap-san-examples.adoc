@@ -240,7 +240,7 @@ NOTE: Si vous utilisez Amazon FSX sur NetApp ONTAP avec Astra Trident, il est re
 
 
 
-=== pilote ontap-san avec authentification basée sur les certificats
+=== `ontap-san` pilote avec authentification par certificat
 
 Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `clientPrivateKey`, et `trustedCACertificate` (Facultatif, si vous utilisez une autorité de certification approuvée) est renseigné `backend.json` Et prendre les valeurs codées en base64 du certificat client, de la clé privée et du certificat CA de confiance, respectivement.
 
@@ -266,7 +266,7 @@ Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `
 ----
 
 
-=== Pilote ontap-san avec CHAP bidirectionnel
+=== `ontap-san` Pilote avec CHAP bidirectionnel
 
 Il s'agit d'un exemple de configuration back-end minimal. Cette configuration de base crée un `ontap-san` backend avec `useCHAP` réglez sur `true`.
 
@@ -291,7 +291,7 @@ Il s'agit d'un exemple de configuration back-end minimal. Cette configuration de
 ----
 
 
-=== driver d'ontap-san-economy
+=== `ontap-san-economy` conducteur
 
 [listing]
 ----

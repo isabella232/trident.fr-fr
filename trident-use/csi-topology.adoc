@@ -25,6 +25,7 @@ Kubernetes propose deux modes de liaison de volumes :
 
 NOTE: Le `WaitForFirstConsumer` le mode de liaison ne nécessite pas d'étiquettes de topologie. Il peut être utilisé indépendamment de la fonction de topologie CSI.
 
+.Ce dont vous avez besoin
 Pour utiliser la topologie CSI, vous devez disposer des éléments suivants :
 
 * Un cluster Kubernetes exécutant un link:requirements.html["Version Kubernetes prise en charge"]
@@ -250,7 +251,7 @@ pvc-san   Bound    pvc-ecb1e1a0-840c-463b-8b65-b3d033e2e62b   300Mi      RWO    
 ----
 
 
-== Mise à jour des systèmes back-end pour inclure les supporteTologies
+== Mise à jour des systèmes back-end pour inclure `supportedTopologies`
 
 Les systèmes back-end pré-existants peuvent être mis à jour pour inclure une liste de `supportedTopologies` à l'aide de `tridentctl backend update`. Cela n'affecte pas les volumes qui ont déjà été provisionnés et ne sera utilisé que pour les demandes de volume virtuel suivantes.
 

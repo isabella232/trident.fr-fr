@@ -16,7 +16,7 @@ Découvrez les options de protection des données et de restauration fournies pa
 
 
 
-== Sauvegarde des données du cluster ETCD
+== Sauvegardez le `etcd` données de cluster
 
 Astra Trident stocke ses métadonnées dans le cluster Kubernetes `etcd` base de données. Sauvegarder régulièrement le `etcd` Les données en cluster sont importantes pour la restauration de clusters Kubernetes en cas d'incident.
 

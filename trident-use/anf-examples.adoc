@@ -121,7 +121,7 @@ Le `resourceGroups`, `netappAccounts`, et `capacityPools` les valeurs sont des f
 
 === Provisionnement de volume
 
-Vous pouvez contrôler le provisionnement de volume par défaut en spécifiant les options suivantes dans une section spéciale du fichier de configuration. Reportez-vous à la section  configurations pour plus d'informations.
+Vous pouvez contrôler le provisionnement de volume par défaut en spécifiant les options suivantes dans une section spéciale du fichier de configuration. Reportez-vous à la section <<Exemples de configurations>> pour plus d'informations.
 
 [cols=",,"]
 |===
@@ -282,7 +282,7 @@ Les éléments suivants `StorageClass` les définitions font référence aux poo
 
 
 
-=== Exemples de définitions utilisant le champ parameter.selector
+=== Exemples de définitions utilisant `parameter.selector` légale
 
 À l'aide de `parameter.selector` vous pouvez spécifier pour chaque `StorageClass` pool virtuel utilisé pour héberger un volume. Les aspects définis dans le pool sélectionné seront définis pour le volume.
 

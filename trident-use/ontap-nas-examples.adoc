@@ -234,7 +234,7 @@ NOTE: Si vous utilisez Amazon FSX sur NetApp ONTAP avec Trident, nous vous recom
 
 
 
-=== pilote ontap-nas avec authentification basée sur les certificats
+=== `ontap-nas` pilote avec authentification par certificat
 
 Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `clientPrivateKey`, et `trustedCACertificate` (Facultatif, si vous utilisez une autorité de certification approuvée) est renseigné `backend.json` Et prendre les valeurs codées en base64 du certificat client, de la clé privée et du certificat CA de confiance, respectivement.
 
@@ -255,7 +255,7 @@ Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `
 ----
 
 
-=== pilote ontap-nas avec règle d'exportation automatique
+=== `ontap-nas` pilote avec règle d'exportation automatique
 
 Cet exemple vous montre comment vous pouvez demander à Astra Trident d'utiliser des règles d'exportation dynamiques pour créer et gérer automatiquement la règle d'exportation. Cela fonctionne de la même manière pour le `ontap-nas-economy` et `ontap-nas-flexgroup` pilotes.
 
@@ -277,7 +277,7 @@ Cet exemple vous montre comment vous pouvez demander à Astra Trident d'utiliser
 ----
 
 
-=== pilote ontap-nas-flexgroup
+=== `ontap-nas-flexgroup` conducteur
 
 [listing]
 ----
@@ -294,7 +294,7 @@ Cet exemple vous montre comment vous pouvez demander à Astra Trident d'utiliser
 ----
 
 
-=== Pilote ontap-nas avec IPv6
+=== `ontap-nas` Pilote avec IPv6
 
 [listing]
 ----
@@ -311,7 +311,7 @@ Cet exemple vous montre comment vous pouvez demander à Astra Trident d'utiliser
 ----
 
 
-=== pilote économique ontap-nas
+=== `ontap-nas-economy` conducteur
 
 [listing]
 ----
@@ -335,7 +335,7 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 
 
 
-=== pilote ontap-nas
+=== `ontap-nas` conducteur
 
 [listing]
 ----
@@ -400,7 +400,7 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 ----
 
 
-=== pilote ontap-nas-flexgroup
+=== `ontap-nas-flexgroup` conducteur
 
 [listing]
 ----
@@ -461,7 +461,7 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 ----
 
 
-=== pilote économique ontap-nas
+=== `ontap-nas-economy` conducteur
 
 [listing]
 ----

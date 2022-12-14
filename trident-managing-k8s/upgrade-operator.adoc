@@ -14,6 +14,7 @@ summary: 'Vous pouvez facilement mettre à niveau une installation Astra Trident
 [role="lead"]
 Vous pouvez facilement mettre à niveau une installation Astra Trident existante à l'aide de l'opérateur.
 
+.Ce dont vous avez besoin
 Pour effectuer la mise à niveau à l'aide de l'opérateur, les conditions suivantes doivent être remplies :
 
 * Vous devez disposer d'une installation Astra Trident basée sur CSI. Pour vérifier si vous exécutez CSI Trident, examinez les pods dans votre espace de noms Trident. S'ils suivent le `trident-csi-*` Vous utilisez CSI Trident pour l'attribution de nom.

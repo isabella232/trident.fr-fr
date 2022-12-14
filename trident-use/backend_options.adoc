@@ -19,7 +19,7 @@ Découvrez les différentes façons de gérer les systèmes back-end avec Astra 
 
 
 
-== Gestion des systèmes back-end tridentctl avec TridentBackendConfig
+== Gérez `tridentctl` utilisation de systèmes back-end `TridentBackendConfig`
 
 Cette section aborde les étapes requises pour gérer les systèmes back-end créés à l'aide de `tridentctl` Directement via l'interface Kubernetes en créant la `TridentBackendConfig` objets.
 
@@ -120,7 +120,7 @@ secret/backend-tbc-ontap-san-secret created
 ----
 
 
-=== Étape 2 : création d'un CR TridentBackendConfig
+=== Étape 2 : créer un `TridentBackendConfig` CR
 
 L'étape suivante consiste à créer un `TridentBackendConfig` CR qui se lie automatiquement au pré-existant `ontap-nas-backend` (comme dans cet exemple). Assurez-vous que les exigences suivantes sont respectées :
 
@@ -177,7 +177,7 @@ tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created
 ----
 
 
-=== Étape 3 : vérifier l'état du CR TridentBackendConfig
+=== Étape 3 : vérifier l'état du `TridentBackendConfig` CR
 
 Après le `TridentBackendConfig` a été créée, sa phase doit être `Bound`. Il devrait également refléter le même nom de back-end et UUID que celui du back-end existant.
 
@@ -199,7 +199,7 @@ Le système back-end sera désormais entièrement géré à l'aide du système `
 
 
 
-== Gestion des systèmes back-end TridentBackendConfig à l'aide de tridentctl
+== Gérez `TridentBackendConfig` utilisation de systèmes back-end `tridentctl`
 
  `tridentctl` possibilité d'afficher la liste des systèmes back-end créés à l'aide de `TridentBackendConfig`. En outre, les administrateurs ont la possibilité de choisir entre la gestion complète de ces systèmes back-end `tridentctl` en supprimant `TridentBackendConfig` et en fait bien sûr `spec.deletionPolicy` est défini sur `retain`.
 
@@ -226,7 +226,7 @@ tridentctl get backend ontap-san-backend -n trident
 
 
 
-=== Étape 1 : confirmer la suppression de la stratégie est définie sur conserver
+=== Étape 1 : confirmer `deletionPolicy` est défini sur `retain`
 
 Passons en revue les avantages de `deletionPolicy`. Il doit être défini sur `retain`. Cela permet de s'assurer que lorsqu'un `TridentBackendConfig` La demande de modification est supprimée, la définition de l'arrière-plan est toujours présente et peut être gérée avec `tridentctl`.
 
@@ -250,7 +250,7 @@ NOTE: Ne pas passer à l'étape suivante sauf si `deletionPolicy` est défini su
 
 
 
-=== Étape 2 : supprimez le CR TridentBackendConfig
+=== Étape 2 : supprimez le `TridentBackendConfig` CR
 
 La dernière étape consiste à supprimer le `TridentBackendConfig` CR. Après avoir confirmé le `deletionPolicy` est défini sur `retain`, vous pouvez poursuivre la suppression :
 

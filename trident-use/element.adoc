@@ -13,12 +13,13 @@ summary: 'Découvrez comment créer et utiliser un système Element backend avec
 
 Découvrez comment créer et utiliser un système Element backend avec votre installation d'Astra Trident.
 
-.Ce dont vous avez besoin, 8217;ll
+.Ce dont vous avez besoin
 * Système de stockage pris en charge exécutant le logiciel Element.
 * Identifiants de locataire ou administrateur de cluster NetApp HCI/SolidFire pouvant gérer les volumes
 * Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"^].
 
 
+.Ce que vous devez savoir
 Le `solidfire-san` le pilote de stockage prend en charge les deux modes de volume : fichier et bloc. Pour le `Filesystem` En mode volume, Astra Trident crée un volume et crée un système de fichiers. Le type de système de fichiers est spécifié par la classe de stockage.
 
 [cols="5"]
@@ -138,7 +139,7 @@ NOTE: Pour tous les volumes créés, Astra Trident copie tous les libellés pré
 
 
 
-== Exemple 1 : configuration back-end pour le pilote solidfire-san avec trois types de volumes
+== Exemple 1 : configuration back-end pour `solidfire-san` avec trois types de volume
 
 Cet exemple montre un fichier back-end utilisant l'authentification CHAP et la modélisation de trois types de volumes avec des garanties de QoS spécifiques. Il est fort probable que vous définiriez ensuite des classes de stockage pour consommer chacune de ces catégories à l'aide de l' `IOPS` paramètre de classe de stockage.
 
@@ -159,7 +160,7 @@ Cet exemple montre un fichier back-end utilisant l'authentification CHAP et la m
 ----
 
 
-== Exemple 2 : configuration back-end et classe de stockage pour le pilote SolidFire-san avec des pools de stockage virtuels
+== Exemple 2 : configuration du back-end et de la classe de stockage pour `solidfire-san` pilote avec pools de stockage virtuel
 
 Cet exemple représente le fichier de définition back-end configuré avec des pools de stockage virtuel et des classes de stockage qui les renvoient.
 

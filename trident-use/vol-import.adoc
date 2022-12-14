@@ -101,7 +101,7 @@ Trident 19.07 et les versions ultérieures traitent la pièce jointe des volumes
 
 
 
-== importations ontap-nas et ontap-nas-flexgroup
+== `ontap-nas` et `ontap-nas-flexgroup` importations
 
 Chaque volume créé avec le `ontap-nas` Le pilote est un FlexVol sur le cluster ONTAP. Importation de volumes FlexVol avec `ontap-nas` le pilote fonctionne de la même manière. Une FlexVol qui existe déjà sur un cluster ONTAP peut être importée en tant que `ontap-nas` PVC. De même, les volumes FlexGroup peuvent être importés en tant que `ontap-nas-flexgroup` ESV.
 
@@ -142,7 +142,7 @@ NOTE: Un bogue existant précédemment avec l'importation de volumes avec Unixpe
 
 
 
-== importation d'ontap-san
+== `ontap-san` importer
 
 Astra Trident peut également importer des volumes FlexVol SAN de ONTAP contenant un seul LUN. Ceci est cohérent avec le `ontap-san` Pilote, qui crée un FlexVol pour chaque demande de volume persistant et une LUN au sein de la FlexVol. Vous pouvez utiliser le `tridentctl import` commande de la même manière que dans les autres cas :
 
@@ -181,7 +181,7 @@ IMPORTANT: Pour être importé par Astra Trident, un volume ONTAP doit être de 
 
 
 
-== importation d'éléments
+== `element` importer
 
 Vous pouvez importer le logiciel NetApp Element/les volumes NetApp HCI dans votre cluster Kubernetes avec Trident. Vous avez besoin du nom de votre back-end Astra Trident, ainsi que du nom unique du volume et du fichier PVC comme arguments pour le `tridentctl import` commande.
 
@@ -200,7 +200,7 @@ NOTE: Le pilote d'élément prend en charge les noms de volume dupliqués. S'il 
 
 
 
-== importation gcp-cvs
+== `gcp-cvs` importer
 
 
 TIP: Pour importer un volume sauvegardé par NetApp Cloud Volumes Service dans GCP, identifiez le volume par son chemin d'accès au volume et non son nom.
@@ -222,7 +222,7 @@ NOTE: Le chemin du volume correspond à la partie du chemin d'exportation du vol
 
 
 
-== importation d'azure-netapp-files
+== `azure-netapp-files` importer
 
 Pour importer un `azure-netapp-files` volume sur le back-end appelé `azurenetappfiles_40517` avec le chemin de volume `importvol1`, exécutez la commande suivante :
 

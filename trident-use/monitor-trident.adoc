@@ -24,7 +24,7 @@ Avec les metrics d'Astra Trident, vous pouvez :
 
 NOTE: Par défaut, les metrics de Trident sont visibles sur le port cible `8001` au `/metrics` point final. Ces mesures sont *activées par défaut* lors de l'installation de Trident.
 
-.Ce dont vous avez besoin, 8217;ll
+.Ce dont vous avez besoin
 * Cluster Kubernetes avec Astra Trident installé.
 * Instance Prometheus. Il peut s'agir d'un https://github.com/prometheus-operator/prometheus-operator["Déploiement conteneurisé par Prometheus"^] Vous pouvez également utiliser Prometheus en tant que https://prometheus.io/download/["application native"^].
 

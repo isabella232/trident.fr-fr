@@ -19,7 +19,7 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés en 22.10
+== Nouveautés de la version 22.10
 
 *Vous devez lire les informations essentielles suivantes avant de passer à Astra Trident 22.10.*
 

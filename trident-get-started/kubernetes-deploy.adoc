@@ -91,7 +91,7 @@ Si vous utilisez Helm pour gérer d'autres applications en utilisant Helm, à pa
 
 
 
-=== Quand utiliser tridenctl
+=== Quand utiliser `tridenctl`
 
 Si vous disposez d'un déploiement existant qui doit être mis à niveau ou si vous souhaitez personnaliser votre déploiement, vous devez envisager d'utiliser link:kubernetes-deploy-tridentctl.html["tridentctl"^]. Il s'agit de la méthode classique de déploiement d'Astra Trident.
 

@@ -147,7 +147,7 @@ Pour résoudre le problème, vous devez modifier le `TridentOrchestrator` CR. Vo
 
 
 
-== Dépannage d'un déploiement Trident non réussi avec tridentctl
+== Dépannage d'un déploiement Trident non réussi à l'aide de `tridentctl`
 
 Pour vous aider à déterminer ce qui s'est mal passé, vous pouvez exécuter à nouveau le programme d'installation à l'aide du ``-d`` argument, qui active le mode débogage et vous aide à comprendre le problème :
 
