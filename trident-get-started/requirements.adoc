@@ -15,7 +15,7 @@ summary: Lancez-vous en examinant les systèmes front-end, les systèmes back-en
 Lancez-vous en examinant les systèmes front-end, les systèmes back-end et la configuration hôte pris en charge.
 
 
-NOTE: Pour en savoir plus sur les ports qu'utilise Astra Trident, consultez la page link:../trident-reference/trident-ports.html["ici"].
+NOTE: Pour en savoir plus sur les ports qu'utilise Astra Trident, consultez la page link:../trident-reference/ports.html["ici"].
 
 
 

@@ -3,7 +3,7 @@ section: trident-reference
 title: Référence
 entries:
 - title: Ports Trident d'Astra
-  url: "/trident-reference/trident-ports.html"
+  url: "/trident-reference/ports.html"
 - title: API REST d'Astra Trident
   url: "/trident-reference/rest-api.html"
 - title: Options de ligne de commande
