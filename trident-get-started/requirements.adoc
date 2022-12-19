@@ -147,14 +147,15 @@ Non
 
 == Systèmes d'exploitation hôtes testés
 
-Par défaut, Astra Trident s'exécute dans un conteneur et s'exécute donc sur un utilisateur Linux. Cependant, ces employés doivent pouvoir monter les volumes qu'Astra Trident utilise le client NFS standard ou l'initiateur iSCSI, en fonction du système back-end utilisé.
-
-Bien que l'Astra Trident ne « prend pas officiellement en charge » les systèmes d'exploitation spécifiques, les distributions Linux suivantes sont connues pour fonctionner :
+Bien que l'Astra Trident ne « prend pas officiellement en charge » les systèmes d'exploitation spécifiques, les éléments suivants sont connus pour fonctionner :
 
 * Versions Red Hat CoreOS (RHCOS) prises en charge par OpenShift Container Platform
 * RHEL ou CentOS 7
 * Ubuntu 18.04 ou version ultérieure (dernière version 22.04)
+* Windows Server 2019
 
+
+Par défaut, Astra Trident s'exécute dans un conteneur et s'exécute donc sur un utilisateur Linux. Cependant, ces employés doivent pouvoir monter les volumes qu'Astra Trident utilise le client NFS standard ou l'initiateur iSCSI, en fonction du système back-end utilisé.
 
 Le `tridentctl` Utility s'exécute également sur l'une de ces distributions de Linux.
 
