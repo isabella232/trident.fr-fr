@@ -69,7 +69,7 @@ NOTE: Assurez-vous que le service NFS est démarré pendant le démarrage.
 Tenez compte des points suivants lorsque vous utilisez des volumes iSCSI :
 
 * Chaque nœud du cluster Kubernetes doit avoir un IQN unique. *C'est une condition préalable nécessaire*.
-* En cas d'utilisation de RHCOS version 4.5 ou ultérieure ou d'une autre distribution Linux compatible RHEL, avec le `solidfire-san` Pilote, assurez-vous que l'algorithme d'authentification CHAP est défini sur MD5 dans `/etc/iscsi/iscsid.conf`.
+* En cas d'utilisation de RHCOS version 4.5 ou ultérieure ou d'une autre distribution Linux compatible RHEL, avec le `solidfire-san` Pilote et Element OS 12.5 ou version antérieure, assurez-vous que l'algorithme d'authentification CHAP est défini sur MD5 dans `/etc/iscsi/iscsid.conf`. Les algorithmes CHAP sécurisés conformes à la norme FIPS SHA1, SHA-256 et SHA3-256 sont disponibles avec Element 12.7.
 +
 [listing]
 ----

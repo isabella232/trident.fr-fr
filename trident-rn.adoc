@@ -293,7 +293,7 @@ Les problèmes connus identifient les problèmes susceptibles de vous empêcher 
 * Si un utilisateur supprime un volume persistant provisionné par Astra Trident avant de supprimer le volume persistant correspondant, Astra Trident ne supprime pas automatiquement le volume de sauvegarde. Vous devez supprimer le volume via `tridentctl` Ou l'API REST.
 * ONTAP ne peut pas provisionner simultanément plusieurs FlexGroup, sauf si l'ensemble d'agrégats est unique pour chaque demande de provisionnement.
 * Lorsque vous utilisez Astra Trident sur IPv6, vous devez préciser `managementLIF` et `dataLIF` dans la définition du back-end entre crochets. Par exemple : ``[fd20:8b1e:b258:2000:f816:3eff:feec:0]``.
-* Si vous utilisez le `solidfire-san` Pilote avec OpenShift 4.5, assurez-vous que les nœuds de travail sous-jacents utilisent MD5 comme algorithme d'authentification CHAP.
+* Si vous utilisez le `solidfire-san` Pilote avec OpenShift 4.5, assurez-vous que les nœuds de travail sous-jacents utilisent MD5 comme algorithme d'authentification CHAP. Les algorithmes CHAP sécurisés conformes à la norme FIPS SHA1, SHA-256 et SHA3-256 sont disponibles avec Element 12.7.
 
 
 
