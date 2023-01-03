@@ -29,21 +29,27 @@ NOTE: Lors de la définition des pools de stockage virtuel, n'essayez pas de ré
 
 La plupart des aspects sont spécifiés dans des termes spécifiques au système back-end. Il est primordial que les valeurs de l'aspect ne soient pas exposées en dehors du conducteur du back-end et ne soient pas disponibles pour la correspondance dans `StorageClasses`. À la place, l'administrateur définit un ou plusieurs libellés pour chaque pool virtuel. Chaque étiquette est une paire clé:valeur et les étiquettes sont souvent répandues sur différents systèmes back-end. Tout comme les aspects, les étiquettes peuvent être spécifiées par pool ou globales au back-end. Contrairement aux aspects, qui ont des noms et des valeurs prédéfinis, l'administrateur dispose d'une entière discrétion pour définir les clés et les valeurs de libellé selon les besoins.
 
-A `StorageClass` identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge six opérateurs :
+A `StorageClass` identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge les opérateurs suivants :
 
 [cols="14%,34%,52%"]
 |===
-| Opérateur | Exemple | Description 
+| Opérateur | Exemple | La valeur d'étiquette d'un pool doit : 
 
 
-| `=` | performance=premium | La valeur d'étiquette d'un pool doit correspondre 
+| `=` | performance=premium | Correspondance 
 
 
-| `!=` | performance !=extrême | La valeur d'étiquette d'un pool ne doit pas correspondre 
+| `!=` | performance !=extrême | Ne correspond pas 
 
 
-| `in` | emplacement à (est, ouest) | La valeur d'étiquette d'un pool doit être comprise dans l'ensemble de valeurs 
+| `in` | emplacement à (est, ouest) | Être dans l'ensemble de valeurs 
 
 
-| `notin` | performances notin (argent, bronze) | La valeur d'étiquette d'un pool ne doit pas être b 
+| `notin` | performances notin (argent, bronze) | Ne pas être dans l'ensemble de valeurs 
+
+
+| `<key>` | la protection | Existe avec n'importe quelle valeur 
+
+
+| `!<key>` | !protection | N'existe pas 
 |===

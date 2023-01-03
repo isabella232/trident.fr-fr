@@ -1613,20 +1613,15 @@
   <block id="2a778cf7220cdde142651975e1bcd90f" category="paragraph">Tout aspect spécifié en dehors de la liste des pools virtuels est global au back-end et s'appliquera à tous les pools virtuels, tandis que chaque pool virtuel peut spécifier un ou plusieurs aspects individuellement (remplaçant les aspects backend-global).</block>
   <block id="6aefc2a02fa1ec1f6ac8e9dbd5104efe" category="admonition">Lors de la définition des pools de stockage virtuel, n'essayez pas de réorganiser l'ordre des pools virtuels existants dans une définition backend. Il est également conseillé de ne pas modifier/modifier les attributs d'un pool virtuel existant et de définir un nouveau pool virtuel à la place.</block>
   <block id="5a53576f0ba98311e845ad0243bed6b7" category="paragraph">La plupart des aspects sont spécifiés dans des termes spécifiques au système back-end. Il est primordial que les valeurs de l'aspect ne soient pas exposées en dehors du conducteur du back-end et ne soient pas disponibles pour la correspondance dans<block ref="f652904c3bfb48fb25a0a75f485f0ff6" prefix=" " category="inline-code"></block>. À la place, l'administrateur définit un ou plusieurs libellés pour chaque pool virtuel. Chaque étiquette est une paire clé:valeur et les étiquettes sont souvent répandues sur différents systèmes back-end. Tout comme les aspects, les étiquettes peuvent être spécifiées par pool ou globales au back-end. Contrairement aux aspects, qui ont des noms et des valeurs prédéfinis, l'administrateur dispose d'une entière discrétion pour définir les clés et les valeurs de libellé selon les besoins.</block>
-  <block id="a4d6bfb65b6541e04772c0d5180e726e" category="paragraph">A<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge six opérateurs :</block>
   <block id="e1b3ec89ead7f83a9245ed5c9cacfdbf" category="cell">Opérateur</block>
   <block id="499badcb6f450c7f46c51d873eb84286" category="cell"><block ref="43ec3e5dee6e706af7766fffea512721" prefix="" category="inline-code"></block></block>
   <block id="354653142ec321459dfd6d71444e992e" category="cell">performance=premium</block>
-  <block id="d2c49c25d96d87e40bc641b9d5302b36" category="cell">La valeur d'étiquette d'un pool doit correspondre</block>
   <block id="5a5292b0a0d0379f0f1b12801b09b266" category="cell"><block ref="de0219f9333d57ea89a9ba235df098ba" prefix="" category="inline-code"></block></block>
   <block id="eccde6822783bd75209c9b6a2d357f6c" category="cell">performance !=extrême</block>
-  <block id="2944853a5f146abd2671adbecd5c25a3" category="cell">La valeur d'étiquette d'un pool ne doit pas correspondre</block>
   <block id="ae2bef277194f73d24a36a78009aac1e" category="cell"><block ref="13b5bfe96f3e2fe411c9f66f4a582adf" prefix="" category="inline-code"></block></block>
   <block id="f8cf8c23afb5459dbf7c24b685caf85b" category="cell">emplacement à (est, ouest)</block>
-  <block id="26aac934d614b1b3e5db46d8fc664ec6" category="cell">La valeur d'étiquette d'un pool doit être comprise dans l'ensemble de valeurs</block>
   <block id="1a031eecbce49366e550273b9321b909" category="cell"><block ref="935f754ecc68ca688f61c154c404ed06" prefix="" category="inline-code"></block></block>
   <block id="b5585f3f9b45f391fee5dd15e6516450" category="cell">performances notin (argent, bronze)</block>
-  <block id="499fec8ad2646f2de982559111e26a4c" category="cell">La valeur d'étiquette d'un pool ne doit pas être b</block>
   <block id="ae8e28c37a725c4bb4a74663ac8615ea" category="summary">Découvrez comment Astra Trident utilise les groupes d'accès de volume.</block>
   <block id="b4621305109716b02eed0cf25fabab13" category="doc">Groupes d'accès de volume</block>
   <block id="33911b1eec54b4b5a7fbc504e6569989" category="inline-link">groupes d'accès de volume</block>
@@ -3456,4 +3451,16 @@
   <block id="d63cadc96caf4b05f8fa532b08e889da" category="list-text"><block ref="d63cadc96caf4b05f8fa532b08e889da" category="inline-link-macro-rx"></block></block>
   <block id="2f82d12ae3ce8f940e10b062c5134f3d" category="paragraph">Bien que l'Astra Trident ne « prend pas officiellement en charge » les systèmes d'exploitation spécifiques, les éléments suivants sont connus pour fonctionner :</block>
   <block id="31f8757839909e87266f2b53482c86ef" category="list-text">Windows Server 2019</block>
+  <block id="758ef9050bcb89a046f8b79d56db9490" category="paragraph">A<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge les opérateurs suivants :</block>
+  <block id="3b64653c97a388d828849314b6a1b383" category="cell">La valeur d'étiquette d'un pool doit :</block>
+  <block id="6da89265a9a8b0b28eb4946bb2ec0c6d" category="cell">Correspondance</block>
+  <block id="ecf92052d55345fee4602d9eb8c22063" category="cell">Ne correspond pas</block>
+  <block id="c6c1caf73b0f83d807abe5a717014ab7" category="cell">Être dans l'ensemble de valeurs</block>
+  <block id="8daf6b016f4033d59900c23f162c0f73" category="cell">Ne pas être dans l'ensemble de valeurs</block>
+  <block id="c6bfba38b789fec8271d1d1496a9ee59" category="cell"><block ref="42538adbdb6240b2b083a000a615d5bd" prefix="" category="inline-code"></block></block>
+  <block id="152f5dc0f7ac734f8e8ee17d4a482462" category="cell">la protection</block>
+  <block id="7b532e697a35209f3df3956577cc3d9c" category="cell">Existe avec n'importe quelle valeur</block>
+  <block id="eb0254f1d0a82e646c239d4d2e2f83ac" category="cell"><block ref="f65e5ff2a1bb1af969dccabe7dcd5cdd" prefix="" category="inline-code"></block></block>
+  <block id="67a3b723b2d9024808eb2c6e686d00a0" category="cell">!protection</block>
+  <block id="1fde97909b90bb329db2062f7744bd45" category="cell">N'existe pas</block>
 </blocks>
