@@ -1905,7 +1905,6 @@
   <block id="db8a0bbeae97b94338c1b7a61e2a1ec3" category="cell">Pilotes pris en charge</block>
   <block id="f3780100617165ed98557e3a6d2be72d" category="cell">trident.netapp.io/fileSystem</block>
   <block id="44d4d4eb1f08d8eb29766160086f61dd" category="cell">Système de fichiers</block>
-  <block id="59c54cb66816513690f886c6cbd45d7e" category="cell">ontap-san, solidfire-san, eseries-iscsi, ontap-san-economy</block>
   <block id="979f70bf9da982ee97ac075df4f048c3" category="cell">trident.netapp.io/cloneFromPVC</block>
   <block id="b4ead50a5ca4f307f7d61da7763ad204" category="cell">Volume cloneSourceVolume</block>
   <block id="cca7544fa2044ea81b43c1e0896bf58e" category="cell">ontap-nas, ontap-san, solidfire-san, azure-netapp-files, gcp-cvs ontap-san-économie</block>
@@ -1982,9 +1981,7 @@
   <block id="6026fbd9abd05590949de220154e3262" category="cell">fin, épais</block>
   <block id="3064025fe3541bec9942e14fcaedfab7" category="cell">Le pool prend en charge cette méthode de provisionnement</block>
   <block id="cf65591e3da90317fc132ea7464105d8" category="cell">Méthode de provisionnement spécifiée</block>
-  <block id="ef2577df8468ab39e993a1938ba7f38d" category="cell">thick : tous les systèmes ONTAP et eseries-iscsi ; thin : tous les systèmes ONTAP et solidfire-san</block>
   <block id="55b56fb238360663afa6230ad82e74a0" category="cell">Type de dos</block>
-  <block id="91511a1d98e80c77f75faa79a0e82734" category="paragraph">ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, solidfire-san, eseries-iscsi, gcp-cvs, azure-netapp-files, ontap-san-économie</block>
   <block id="0e1201d4d96df2d9d03c9c66b90874a1" category="cell">Le pool appartient à ce type de système back-end</block>
   <block id="c4efe19137f43450149d48fddbab6c28" category="cell">Backend spécifié</block>
   <block id="a04622349b3ede0d4176ca2c2e161763" category="cell">Tous les conducteurs</block>
@@ -2021,7 +2018,6 @@
   <block id="7cfbb6f07899c8071ff38e69dca190e2" category="cell">Fstype</block>
   <block id="64b6d80cc167d5c657b60054dbe396ee" category="cell">ext4, ext3, xfs, etc</block>
   <block id="7928a56d4874d982a06a59e3f30f6935" category="cell">Type de système de fichiers pour les volumes en mode bloc</block>
-  <block id="55f3fc550e9a03a95334f3a19f0920cc" category="cell">solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie, eseries-iscsi</block>
   <block id="b1c94ca2fbc3e78fc30069c8d0f01680" category="cell">Tout</block>
   <block id="6add71a247c8f4513060920be14857bc" category="cell">Volumeallowexpansion</block>
   <block id="84e2c64f38f78ba3ea5c905ab5a2da27" category="cell">booléen</block>
@@ -3463,4 +3459,8 @@
   <block id="5eb07a7cb7d445ef6bbb17270c65cf52" category="list-text">En cas d'utilisation de RHCOS version 4.5 ou ultérieure ou d'une autre distribution Linux compatible RHEL, avec le<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> Pilote et Element OS 12.5 ou version antérieure, assurez-vous que l'algorithme d'authentification CHAP est défini sur MD5 dans<block ref="104f48adc29dc1e1d7c9bbe7b5dd3f8d" prefix=" " category="inline-code"></block>. Les algorithmes CHAP sécurisés conformes à la norme FIPS SHA1, SHA-256 et SHA3-256 sont disponibles avec Element 12.7.</block>
   <block id="18c20e5d2e368f36f420dd39019d460f" category="list-text">Si vous utilisez le<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> Pilote avec OpenShift 4.5, assurez-vous que les nœuds de travail sous-jacents utilisent MD5 comme algorithme d'authentification CHAP. Les algorithmes CHAP sécurisés conformes à la norme FIPS SHA1, SHA-256 et SHA3-256 sont disponibles avec Element 12.7.</block>
   <block id="5896cc977dd7b9854957e18a2a5bf072" category="cell">Groupe de règles de QoS adaptative à attribuer aux volumes créés. Choisissez une de qosPolicy ou adaptiveQosPolicy par pool de stockage/back-end. Non pris en charge par l'économie ontap-nas.</block>
+  <block id="19ab49765cdd2c8ab592eb40eeff08cf" category="cell">ontap-san, solidfire-san, ontap-san-economy</block>
+  <block id="054b5072368dea4f8748909c16c7de98" category="cell">thick : tous les systèmes ONTAP ; thin : tous les systèmes ONTAP et solidfire-san</block>
+  <block id="dbdc06f8742b98dcacdf7fdb1af111ea" category="paragraph">ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy</block>
+  <block id="f888aa18c19e41f8c1263fa99ca8b94c" category="cell">solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie</block>
 </blocks>

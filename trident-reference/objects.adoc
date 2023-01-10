@@ -47,7 +47,7 @@ Outre la spécification standard, Trident permet aux utilisateurs de spécifier 
 | Annotation | Option de volume | Pilotes pris en charge 
 
 
-| trident.netapp.io/fileSystem | Système de fichiers | ontap-san, solidfire-san, eseries-iscsi, ontap-san-economy 
+| trident.netapp.io/fileSystem | Système de fichiers | ontap-san, solidfire-san, ontap-san-economy 
 
 
 | trident.netapp.io/cloneFromPVC | Volume cloneSourceVolume | ontap-nas, ontap-san, solidfire-san, azure-netapp-files, gcp-cvs ontap-san-économie 
@@ -170,11 +170,11 @@ Ces paramètres déterminent quels pools de stockage gérés par Trident doivent
 | support^1^ | chaîne | hdd, hybride, ssd | Le pool contient des supports de ce type ; hybride signifie les deux | Type de support spécifié | ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, solidfire-san 
 
 
-| Type de provisionnement | chaîne | fin, épais | Le pool prend en charge cette méthode de provisionnement | Méthode de provisionnement spécifiée | thick : tous les systèmes ONTAP et eseries-iscsi ; thin : tous les systèmes ONTAP et solidfire-san 
+| Type de provisionnement | chaîne | fin, épais | Le pool prend en charge cette méthode de provisionnement | Méthode de provisionnement spécifiée | thick : tous les systèmes ONTAP ; thin : tous les systèmes ONTAP et solidfire-san 
 
 
 | Type de dos | chaîne  a| 
-ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, solidfire-san, eseries-iscsi, gcp-cvs, azure-netapp-files, ontap-san-économie
+ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy
 | Le pool appartient à ce type de système back-end | Backend spécifié | Tous les conducteurs 
 
 
@@ -216,7 +216,7 @@ Ces attributs n'ont aucun impact sur la sélection des pools de stockage/systèm
 | Attribut | Type | Valeurs | Description | Facteurs pertinents | Version Kubernetes 
 
 
-| Fstype | chaîne | ext4, ext3, xfs, etc | Type de système de fichiers pour les volumes en mode bloc | solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie, eseries-iscsi | Tout 
+| Fstype | chaîne | ext4, ext3, xfs, etc | Type de système de fichiers pour les volumes en mode bloc | solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie | Tout 
 
 
 | Volumeallowexpansion | booléen | vrai, faux | Activez ou désactivez la prise en charge pour augmenter la taille de la demande de volume persistant | ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, ontap-san-économie, solidfire-san, gcp-cvs, azure-netapp-files | 1.11+ 
