@@ -2776,8 +2776,6 @@
   <block id="24ca391029d6df294c5d5b8f1fe5b4eb" category="summary">Découvrez comment configurer un back-end ONTAP avec les pilotes NAS ONTAP.</block>
   <block id="8f145066de3f0e0a9d2e9cc5bf6f09f5" category="doc">Configurer un système NAS backend ONTAP</block>
   <block id="4d80e2460d711b841338dfbeea2ca8c1" category="paragraph">Découvrez comment configurer un back-end ONTAP avec les pilotes ONTAP et NAS Cloud Volumes ONTAP.</block>
-  <block id="df3afb1ce4cf5592326d7f536313cbc9" category="list-text"><block ref="df3afb1ce4cf5592326d7f536313cbc9" category="inline-link-macro-rx"></block></block>
-  <block id="6a60ddae29750feed1e12421a92ea824" category="list-text"><block ref="6a60ddae29750feed1e12421a92ea824" category="inline-link-macro-rx"></block></block>
   <block id="bc960ce53bb0d62c44b5a3f212c279d3" category="summary">Vous pouvez créer une classe de stockage, supprimer une classe de stockage et afficher les classes de stockage existantes.</block>
   <block id="e8b9c3a9859a62e9a58431c3b61f75d5" category="doc">Gérer les classes de stockage</block>
   <block id="5802c976ee5f858f76699af5294812e6" category="paragraph">Recherchez des informations sur la création d'une classe de stockage, la suppression d'une classe de stockage et l'affichage des classes de stockage existantes.</block>
@@ -3463,4 +3461,7 @@
   <block id="054b5072368dea4f8748909c16c7de98" category="cell">thick : tous les systèmes ONTAP ; thin : tous les systèmes ONTAP et solidfire-san</block>
   <block id="dbdc06f8742b98dcacdf7fdb1af111ea" category="paragraph">ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy</block>
   <block id="f888aa18c19e41f8c1263fa99ca8b94c" category="cell">solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie</block>
+  <block id="a64f78ea5d42780118e8f5c7f6cfdcbb" category="list-text"><block ref="a64f78ea5d42780118e8f5c7f6cfdcbb" category="inline-link-macro-rx"></block></block>
+  <block id="65a38da8aec2b99cf44dbf919fbd6991" category="list-text"><block ref="65a38da8aec2b99cf44dbf919fbd6991" category="inline-link-macro-rx"></block></block>
+  <block id="5e91194ed6174e8f5eb09a2fffc13dad" category="admonition">Les clients doivent utiliser le<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> pilote pour les charges de travail de production qui nécessitent protection des données, reprise d'activité et mobilité. Astra Control assure une protection transparente, la reprise après incident et la mobilité des volumes créés avec le<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> conducteur. Le<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Le pilote ne doit être utilisé que dans des cas d'utilisation limitée où l'utilisation prévue de volume devrait être bien supérieure à celle prise en charge par ONTAP, sans aucune exigence de protection des données, de reprise d'activité ou de mobilité (déplacement de volumes entre les clusters Kubernetes).</block>
 </blocks>

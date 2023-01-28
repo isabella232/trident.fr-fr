@@ -13,9 +13,12 @@ summary: Découvrez comment configurer un back-end ONTAP avec les pilotes NAS ON
 
 Découvrez comment configurer un back-end ONTAP avec les pilotes ONTAP et NAS Cloud Volumes ONTAP.
 
-* link:ontap-nas-prep.html["Préparation"^]
-* link:ontap-nas-examples.html["Configuration et exemples"^]
+* link:ontap-nas-prep.html["Préparation"]
+* link:ontap-nas-examples.html["Configuration et exemples"]
 
+
+
+WARNING: Les clients doivent utiliser le `ontap-nas` pilote pour les charges de travail de production qui nécessitent protection des données, reprise d'activité et mobilité. Astra Control assure une protection transparente, la reprise après incident et la mobilité des volumes créés avec le `ontap-nas` conducteur. Le `ontap-nas-economy` Le pilote ne doit être utilisé que dans des cas d'utilisation limitée où l'utilisation prévue de volume devrait être bien supérieure à celle prise en charge par ONTAP, sans aucune exigence de protection des données, de reprise d'activité ou de mobilité (déplacement de volumes entre les clusters Kubernetes).
 
 
 
