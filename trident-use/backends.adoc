@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/backends.html 
 keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
-summary: Un système back-end définit la relation entre Astra Trident et un système de stockage. Il explique à Astra Trident comment communiquer avec ce système de stockage et comment Astra Trident doit provisionner des volumes à partir de celui-ci. Astra Trident proposera automatiquement des pools de stockage provenant des systèmes back-end qui correspondent aux exigences définies par une classe de stockage. En savoir plus sur la configuration du système back-end en fonction du type de système de stockage dont vous disposez. 
+summary: Un système back-end définit la relation entre Astra Trident et un système de stockage. Il explique à Astra Trident comment communiquer avec ce système de stockage et comment Astra Trident doit provisionner des volumes à partir de celui-ci. 
 ---
 = Configuration des systèmes back-end
 :hardbreaks:
@@ -11,7 +11,10 @@ summary: Un système back-end définit la relation entre Astra Trident et un sys
 :imagesdir: ../media/
 
 
-Un système back-end définit la relation entre Astra Trident et un système de stockage. Il explique à Astra Trident comment communiquer avec ce système de stockage et comment Astra Trident doit provisionner des volumes à partir de celui-ci. Astra Trident proposera automatiquement des pools de stockage provenant des systèmes back-end qui correspondent aux exigences définies par une classe de stockage. En savoir plus sur la configuration du système back-end en fonction du type de système de stockage dont vous disposez.
+[role="lead"]
+Un système back-end définit la relation entre Astra Trident et un système de stockage. Il explique à Astra Trident comment communiquer avec ce système de stockage et comment Astra Trident doit provisionner des volumes à partir de celui-ci.
+
+Astra Trident propose automatiquement des pools de stockage back-end correspondant aux exigences définies par une classe de stockage. Découvrez comment configurer le système back-end pour votre système de stockage.
 
 * link:anf.html["Configurer un back-end Azure NetApp Files"^]
 * link:gcp.html["Configurer un système back-end Cloud Volumes Service pour Google Cloud Platform"^]

@@ -7,33 +7,40 @@ entries:
 - title: Configuration des systèmes back-end
   url: "/trident-use/backends.html"
   entries:
-  - title: Configurer un back-end ANF
-    url: "/trident-use/anf.html"
+  - title: Azure NetApp Files
     entries:
-    - title: Préparez la configuration d'un back-end ANF
+    - title: Présentation
+      url: "/trident-use/anf.html"
+    - title: Préparez la configuration
       url: "/trident-use/anf-prep.html"
-    - title: Exemples et options de configuration d'ANF
+    - title: Exemples et options de configuration
       url: "/trident-use/anf-examples.html"
-  - title: Configurer CVS pour le back-end GCP
+  - title: Cloud Volumes Service pour Google Cloud
     url: "/trident-use/gcp.html"
-  - title: Configurer un système NetApp HCI ou SolidFire backend
+  - title: NetApp HCI ou SolidFire
     url: "/trident-use/element.html"
-  - title: Configurer un système back-end avec les pilotes SAN ONTAP
+  - title: Pilotes SAN de ONTAP
     url: "/trident-use/ontap-san.html"
     entries:
-    - title: Préparez la configuration du système back-end avec les pilotes SAN ONTAP
+    - title: Préparez la configuration
       url: "/trident-use/ontap-san-prep.html"
-    - title: Options et exemples de configuration des SAN ONTAP
+    - title: Exemples et options de configuration
       url: "/trident-use/ontap-san-examples.html"
-  - title: Configurer un système back-end avec les pilotes NAS ONTAP
+  - title: Pilotes NAS ONTAP
     url: "/trident-use/ontap-nas.html"
     entries:
-    - title: Préparez la configuration du système back-end avec les pilotes NAS ONTAP
+    - title: Préparez la configuration
       url: "/trident-use/ontap-nas-prep.html"
-    - title: Options et exemples de configuration du NAS ONTAP
+    - title: Exemples et options de configuration
       url: "/trident-use/ontap-nas-examples.html"
-  - title: Utilisez Astra Trident avec Amazon FSX pour NetApp ONTAP
-    url: "/trident-use/trident-fsx.html"
+  - title: Amazon FSX pour NetApp ONTAP
+    entries:
+    - title: Présentation
+      url: "/trident-use/trident-fsx.html"
+    - title: Intégration d'Amazon FSX pour ONTAP
+      url: "/trident-use/trident-fsx-prep.html"
+    - title: Exemples et options de configuration
+      url: "/trident-use/trident-fsx-examples.html"
 - title: Création de systèmes back-end avec kubectl
   url: "/trident-use/backend-kubectl.html"
 - title: Effectuer la gestion back-end avec kubectl

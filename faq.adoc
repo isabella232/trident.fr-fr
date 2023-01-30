@@ -210,7 +210,11 @@ Un certain nombre de facteurs doivent être évalués si vous voulez rétrograde
 
 === Dois-je définir à la fois des LIF de données et de gestion dans un fichier de définition du back-end ONTAP ?
 
-NetApp recommande d'avoir les deux dans le fichier de définition du back-end. Toutefois, le LIF de gestion est le seul qui est obligatoire.
+Le LIF de gestion est obligatoire. Data LIF varie :
+
+* San ONTAP : ne spécifiez pas pour iSCSI. Astra Trident utilise link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] Pour découvrir les LIFs iSCI nécessaires à l'établissement d'une session multi-chemin. Un avertissement est généré si `dataLIF` est explicitement défini. Reportez-vous à la section link:trident-use/ontap-san-examples.html["Options et exemples de configuration des SAN ONTAP"] pour plus d'informations.
+* NAS ONTAP : spécification recommandée `dataLIF`. Si elle n'est pas fournie, Astra Trident extrait les LIF de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données. Reportez-vous à la section link:trident-use/ontap-nas-examples.html["Options et exemples de configuration du NAS ONTAP"] pour plus d'informations
+
 
 
 
@@ -234,7 +238,13 @@ Astra Trident 19.01 et les versions ultérieures prennent en charge la spécific
 
 === Les adresses IPv6 peuvent-elles être utilisées pour les LIF de données et de gestion ?
 
-Oui. Astra Trident 20.01 prend en charge la définition des adresses IPv6 pour la gestion des LIF et les paramètres de dataLIF pour les systèmes back-end ONTAP. Vous devez vous assurer que l'adresse suit la sémantique IPv6 et que la LIF de gestion est définie entre parenthèses (par exemple, ``[ec0d:6504:a9c1:ae67:53d1:4bdf:ab32:e233]``). Vous devez également vous assurer que Astra Trident est installé à l'aide du ``--use-ipv6` Indicateur pour qu'il fonctionne sur IPv6.
+Astra Trident prend en charge la définition des adresses IPv6 pour :
+
+* `managementLIF` et `dataLIF` Pour les systèmes NAS ONTAP.
+* `managementLIF` Pour les systèmes back-end ONTAP SAN. Vous ne pouvez pas spécifier `dataLIF` Sur un SAN backend ONTAP.
+
+
+Astra Trident doit être installé à l'aide du ``--use-ipv6` Indicateur pour qu'il fonctionne sur IPv6.
 
 
 
@@ -246,7 +256,7 @@ Oui, il est possible de mettre à jour la LIF de management back-end à l'aide d
 
 === Est-il possible de mettre à jour la LIF de données sur le backend ?
 
-Non, il n'est pas possible de mettre à jour la LIF de données sur le backend.
+Vous pouvez mettre à jour la LIF de données sur `ontap-nas` et `ontap-nas-economy` uniquement.
 
 
 

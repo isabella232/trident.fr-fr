@@ -147,8 +147,8 @@ Ou https://docs.docker.com/engine/install/["suivez les instructions relatives à
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v22.10.0/trident-installer-22.10.0.tar.gz
-tar zxf trident-installer-22.10.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.01.0/trident-installer-23.01.0.tar.gz
+tar zxf trident-installer-23.01.0.tar.gz
 ----
 .. Déplacer vers un emplacement dans le chemin du bac :
 +
@@ -221,7 +221,7 @@ docker volume rm trident_2
 
 == Commencez avec Astra Trident au démarrage du système
 
-Un exemple de fichier d'unité pour les systèmes basés sur le système se trouve à l'adresse `contrib/trident.service.example` Dans le Git repo. Pour utiliser le fichier avec CentOS 7/RHEL, procédez comme suit :
+Un exemple de fichier d'unité pour les systèmes basés sur le système se trouve à l'adresse `contrib/trident.service.example` Dans le Git repo. Pour utiliser le fichier avec RHEL, procédez comme suit :
 
 . Copiez le fichier à l'emplacement correct.
 +

@@ -228,7 +228,7 @@ Vous pouvez exécuter le `uninstall` Drapeaux pour désinstaller Astra Trident.
 Usage:
   tridentctl uninstall [flags]
 ----
-Drapeaux: * `-h, --help`: Aide pour désinstaller. * `--silent`: Désactiver la plupart des sorties pendant la désinstallation.
+Drapeaux: * `-h, --help`: Aide pour désinstaller. * `--silent`: Désactiver la plupart des résultats lors de la désinstallation.
 
 
 

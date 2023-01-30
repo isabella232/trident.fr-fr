@@ -16,7 +16,7 @@ Découvrez comment créer et utiliser un système Element backend avec votre ins
 .Ce dont vous avez besoin
 * Système de stockage pris en charge exécutant le logiciel Element.
 * Identifiants de locataire ou administrateur de cluster NetApp HCI/SolidFire pouvant gérer les volumes
-* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"^].
+* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"].
 
 
 .Ce que vous devez savoir
@@ -135,9 +135,6 @@ Voir le tableau suivant pour les options de configuration du back-end :
 WARNING: Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépanner et que vous ayez besoin d'un vidage détaillé des journaux.
 
 
-NOTE: Pour tous les volumes créés, Astra Trident copie tous les libellés présents dans un pool de stockage vers le LUN de stockage back-end au moment du provisionnement. Les administrateurs de stockage peuvent définir des étiquettes par pool de stockage et regrouper tous les volumes créés dans un pool de stockage. Cela permet de différencier facilement les volumes en fonction d'un ensemble d'étiquettes personnalisables fournies dans la configuration back-end.
-
-
 
 == Exemple 1 : configuration back-end pour `solidfire-san` avec trois types de volume
 
@@ -160,11 +157,13 @@ Cet exemple montre un fichier back-end utilisant l'authentification CHAP et la m
 ----
 
 
-== Exemple 2 : configuration du back-end et de la classe de stockage pour `solidfire-san` pilote avec pools de stockage virtuel
+== Exemple 2 : configuration du back-end et de la classe de stockage pour `solidfire-san` pilote avec pools virtuels
 
-Cet exemple représente le fichier de définition back-end configuré avec des pools de stockage virtuel et des classes de stockage qui les renvoient.
+Cet exemple représente le fichier de définition du back-end configuré avec des pools virtuels ainsi que des classes de stockage qui les renvoient.
 
-Dans l'exemple de fichier de définition de back-end illustré ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, qui définissent le `type` Du niveau Silver. Les pools de stockage virtuels sont définis dans le `storage` section. Dans cet exemple, certains pools de stockage définissent leur propre type et certains pools remplacent les valeurs par défaut définies ci-dessus.
+Astra Trident copie les étiquettes présentes sur un pool de stockage vers le LUN de stockage back-end lors du provisionnement. Pour plus de commodité, les administrateurs du stockage peuvent définir des étiquettes par pool virtuel et les volumes de groupe par étiquette.
+
+Dans l'exemple de fichier de définition de back-end illustré ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, qui définissent le `type` Du niveau Silver. Les pools virtuels sont définis dans le `storage` section. Dans cet exemple, certains pools de stockage définissent leur propre type et certains pools remplacent les valeurs par défaut définies ci-dessus.
 
 [listing]
 ----
@@ -206,9 +205,9 @@ Dans l'exemple de fichier de définition de back-end illustré ci-dessous, des v
     ]
 }
 ----
-Les définitions de classe de stockage suivantes font référence aux pools de stockage virtuels ci-dessus. À l'aide du `parameters.selector` Chaque classe de stockage indique quel(s) pool(s) virtuel(s) peut(s) être utilisé(s) pour héberger un volume. Les aspects définis dans le pool virtuel sélectionné seront définis pour le volume.
+Les définitions de classe de stockage suivantes font référence aux pools virtuels ci-dessus. À l'aide du `parameters.selector` Chaque classe de stockage indique quel(s) pool(s) virtuel(s) peut(s) être utilisé(s) pour héberger un volume. Les aspects définis dans le pool virtuel sélectionné seront définis pour le volume.
 
-La première classe de stockage (`solidfire-gold-four`) sera mappé sur le premier pool de stockage virtuel. Il s'agit du seul pool offrant des performances Gold avec un `Volume Type QoS` De l'or. La dernière classe de stockage (`solidfire-silver`) appelle n'importe quel pool de stockage qui offre une performance silver. Astra Trident va décider du pool de stockage virtuel sélectionné et s'assurer que les besoins en stockage sont satisfaits.
+La première classe de stockage (`solidfire-gold-four`) sera mappé sur le premier pool virtuel. Il s'agit du seul pool offrant des performances Gold avec un `Volume Type QoS` De l'or. La dernière classe de stockage (`solidfire-silver`) appelle n'importe quel pool de stockage qui offre une performance silver. Astra Trident va décider du pool virtuel sélectionné et s'assurer que les besoins en stockage sont satisfaits.
 
 [listing]
 ----

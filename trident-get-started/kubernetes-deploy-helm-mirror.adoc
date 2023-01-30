@@ -1,0 +1,114 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-deploy-helm-mirror.html 
+keywords: deploy, astra trident, operator, helm, helm chart, configuration, values, offline, air gap, gap, registry 
+summary: 'Vous pouvez déployer l"opérateur Trident et installer Astra Trident à l"aide de Helm. Ce processus s"applique aux installations dans lesquelles les images de conteneur requises par Astra Trident sont stockées dans un registre privé.' 
+---
+= Déploiement de l'opérateur Trident à l'aide de Helm (mode hors ligne)
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez déployer l'opérateur Trident et installer Astra Trident à l'aide de Helm. Ce processus s'applique aux installations dans lesquelles les images de conteneur requises par Astra Trident sont stockées dans un registre privé. Si vous ne disposez pas d'un registre d'images privé, utilisez le link:kubernetes-deploy-helm.html["du déploiement standard"].
+
+
+
+== Découvrez Astra Trident 23.01, un document essentiel
+
+*Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
+
+.<strong> informations pratiques sur le Tridécouvrez Astra </strong>
+[%collapsible%open]
+====
+* Kubernetes 1.26 est désormais pris en charge par Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Astra Trident applique rigoureusement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec la valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
++
+Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
+
+
+
+====
+
+
+== Déployer l'opérateur Trident et installer Astra Trident à l'aide de Helm
+
+Avec Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Graphique Helm"^] Vous pouvez déployer l'opérateur Trident et installer Trident en une étape.
+
+Révision link:../trident-get-started/kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que les conditions préalables à l'installation sont respectées et que vous avez sélectionné l'option d'installation appropriée pour votre environnement.
+
+.Avant de commencer
+En plus du link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["conditions préalables au déploiement"] dont vous avez besoin link:https://v3.helm.sh/["Version 3 de Helm"^].
+
+.Étapes
+. Ajout du référentiel Astra Trident Helm :
++
+[listing]
+----
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+----
+. Utiliser `helm install` et spécifiez un nom pour votre déploiement et l'emplacement ou les emplacements du registre d'images, comme dans les exemples suivants. Dans les exemples, `23.01.0` Est la version d'Astra Trident que vous installez.
++
+[role="tabbed-block"]
+====
+.Images Trident et CSI dans un registre
+--
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.01.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+----
+--
+.Des images Trident et CSI dans différents registres
+--
+Vous devez ajouter `sig-storage` à la `imageRegistry` pour utiliser différents emplacements de registre.
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.01.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.01.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.01 --set tridentImage=<your-registry>/netapp/trident:23.01.0 --create-namespace --namespace <trident-namespace>
+----
+--
+====
++
+
+NOTE: Si vous avez déjà créé un namespace pour Trident, le `--create-namespace` le paramètre ne crée pas d'espace de noms supplémentaire.
+
+
+
+Vous pouvez utiliser `helm list` pour vérifier les détails de l'installation tels que le nom, l'espace de noms, le graphique, l'état, la version de l'application, et numéro de révision.
+
+
+
+== Transmettre les données de configuration pendant l'installation
+
+Il existe deux façons de passer les données de configuration au cours de l'installation :
+
+[cols="2"]
+|===
+| Option | Description 
+
+
+| `--values` (ou `-f`)  a| 
+Spécifiez un fichier YAML avec les remplacements. Ceci peut être spécifié plusieurs fois et le fichier le plus à droite sera prioritaire.
+
+
+
+| `--set`  a| 
+Spécifiez les remplacements sur la ligne de commande.
+
+|===
+Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.01.0` Est la version d'Astra Trident que vous installez :
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.01.0  --create-namespace --namespace --set tridentDebug=true
+----
+
+NOTE: Le `values.yaml` Le fichier, qui fait partie du graphique Helm, fournit la liste des clés et leurs valeurs par défaut.
+
+
+
+== Et la suite
+
+Aujourd'hui c'est possible link:kubernetes-postdeployment.html["création d'une classe de stockage et de back-end, provisionnement d'un volume et montage du volume dans un pod"].

@@ -141,9 +141,6 @@ Vous pouvez contrôler le provisionnement de volume par défaut en spécifiant l
 | `unixPermissions` | Les autorisations unix des nouveaux volumes (4 chiffres octaux). Ignoré pour les volumes SMB. | « » (fonction d'aperçu, liste blanche requise dans l'abonnement) 
 |===
 
-NOTE: Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les étiquettes présentes sur un pool de stockage vers le volume de stockage au moment du provisionnement. Les administrateurs de stockage peuvent définir des étiquettes par pool de stockage et regrouper tous les volumes créés dans un pool de stockage. Il s'agit d'une manière pratique de différencier les volumes en fonction d'un ensemble d'étiquettes personnalisables fournies dans la configuration back-end.
-
-
 
 == Exemples de configurations
 
@@ -224,10 +221,10 @@ Cette configuration back-end réduit davantage l'étendue du placement des volum
     }
 ----
 ====
-.Exemple 4 : configuration de pool de stockage virtuel
+.Exemple 4 : configuration de pool virtuel
 [%collapsible%open]
 ====
-Cette configuration back-end définit plusieurs pools de stockage dans un seul fichier. Cette fonction est utile lorsque plusieurs pools de capacité prennent en charge différents niveaux de service, et que vous souhaitez créer des classes de stockage dans Kubernetes qui les représentent.
+Cette configuration back-end définit plusieurs pools de stockage dans un seul fichier. Cette fonction est utile lorsque plusieurs pools de capacité prennent en charge différents niveaux de service, et que vous souhaitez créer des classes de stockage dans Kubernetes qui les représentent. Des étiquettes de pools virtuels ont été utilisées pour différencier les pools en fonction de `performance`.
 
 [listing]
 ----

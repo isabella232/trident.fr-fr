@@ -12,7 +12,7 @@ summary: Une fois que vous avez déployé Astra Trident, vous pouvez créer un s
 
 
 [role="lead"]
-Une fois que vous avez déployé Astra Trident, vous pouvez créer un système back-end, créer une classe de stockage, provisionner un volume et monter le volume dans un pod.
+Une fois Astra Trident installé, vous pouvez créer un système back-end, créer une classe de stockage, provisionner un volume et monter le volume dans un pod.
 
 
 

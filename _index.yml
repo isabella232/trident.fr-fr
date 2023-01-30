@@ -6,7 +6,7 @@ indexpage:
     les notes de mise à jour pour obtenir des renseignements importants sur la mise
     à niveau vers Astra Trident 22.10.**
   tiles:
-  - title: Informations critiques pour la version 22.10
+  - title: Informations critiques pour la version 23.01
     links:
     - title: Notes de mise à jour
       url: trident-rn.html

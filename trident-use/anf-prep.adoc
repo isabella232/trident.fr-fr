@@ -11,7 +11,7 @@ summary: Avant de pouvoir configurer le back-end ANF, vous devez vous assurer qu
 :imagesdir: ../media/
 
 
-Avant de pouvoir configurer le back-end ANF, vous devez vous assurer que les exigences suivantes sont respectées.
+Avant de pouvoir configurer le système back-end Azure NetApp Files, vous devez vous assurer que les exigences suivantes sont respectées.
 
 Si vous utilisez Azure NetApp Files pour la première fois ou à un nouvel emplacement, une certaine configuration initiale est requise.
 

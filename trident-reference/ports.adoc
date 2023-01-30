@@ -12,7 +12,11 @@ summary: 'Découvrez les ports qu"Astra Trident communique sur.'
 
 
 [role="lead"]
-Découvrez les ports qu'Astra Trident communique sur.
+Découvrez les ports qu'Astra Trident utilise pour la communication.
+
+
+
+== Ports Trident d'Astra
 
 Astra Trident communique sur les ports suivants :
 
@@ -33,4 +37,4 @@ Astra Trident communique sur les ports suivants :
 | 17546 | Port de sonde de liaison/préparation utilisé par les modules de démonset Trident 
 |===
 
-NOTE: Le port de la sonde de liaison/préparation peut être modifié au cours de l'installation à l'aide du `--probe-port` drapeau. Il est important de s'assurer que ce port n'est pas utilisé par un autre processus sur les nœuds worker.
+NOTE: Le port de la sonde de liaison/préparation peut être modifié lors de l'installation à l'aide du `--probe-port` drapeau. Il est important de s'assurer que ce port n'est pas utilisé par un autre processus sur les nœuds worker.

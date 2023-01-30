@@ -1,0 +1,137 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-prep.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 'Vous pouvez intégrer votre système de fichiers Amazon FSX pour NetApp ONTAP avec Astra Trident pour vous assurer que les clusters Kubernetes exécutés dans Amazon Elastic Kubernetes Service (EKS) peuvent provisionner des volumes persistants de bloc et de fichier sauvegardés par ONTAP.' 
+---
+= Intégration d'Amazon FSX pour NetApp ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez intégrer votre système de fichiers Amazon FSX pour NetApp ONTAP avec Astra Trident pour vous assurer que les clusters Kubernetes exécutés dans Amazon Elastic Kubernetes Service (EKS) peuvent provisionner des volumes persistants de bloc et de fichier sauvegardés par ONTAP.
+
+.Avant de commencer
+En plus de link:../trident-get-started/requirements.html["Exigences d'Astra Trident"], Pour intégrer FSX pour ONTAP avec Astra Trident, vous avez besoin de :
+
+* Un cluster Amazon EKS existant ou un cluster Kubernetes autogéré avec `kubectl` installé.
+* Un système de fichiers Amazon FSX pour NetApp ONTAP existant et une machine virtuelle de stockage (SVM) accessible depuis les nœuds workers de votre cluster.
+* Nœuds worker prêts pour link:worker-node-prep.html["NFS ou iSCSI"].
++
+
+NOTE: Assurez-vous de suivre les étapes de préparation des nœuds requises pour Amazon Linux et Ubuntu https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html["Images de machine Amazon"^] (AMIS) en fonction de votre type ami EKS.
+
+
+
+.Exigences supplémentaires pour les volumes SMB
+* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2019. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
+* Au moins un secret Astra Trident contenant vos identifiants Active Directory. Pour générer un secret `smbcreds`:
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='pw'
+----
+* Un proxy CSI configuré en tant que service Windows. Pour configurer un `csi-proxy`, voir link:https://github.com/kubernetes-csi/csi-proxy["GitHub : proxy CSI"^] ou link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub : proxy CSI pour Windows"^] Pour les nœuds Kubernetes s'exécutant sur Windows.
+
+
+
+
+== Intégration des pilotes SAN et NAS de ONTAP
+
+
+WARNING: Si vous configurez la configuration pour les volumes SMB, vous devez lire <<Préparez-vous au provisionnement des volumes SMB>> avant de créer le backend.
+
+.Étapes
+. Déployez Astra Trident avec l'un des link:../trident-get-started/kubernetes-deploy.html["méthodes de déploiement"].
+. Collectez votre nom DNS de la LIF de gestion du SVM. Par exemple, recherchez le sur l'interface de ligne de commandes AWS `DNSName` entrée sous `Endpoints` -> `Management` après avoir exécuté la commande suivante :
++
+[listing]
+----
+aws fsx describe-storage-virtual-machines --region <file system region>
+----
+. Créer et installer des certificats pour link:ontap-nas-prep.html["Authentification NAS backend"] ou link:ontap-san-prep.html["Authentification SAN backend"].
++
+
+NOTE: Vous pouvez vous connecter à votre système de fichiers (par exemple pour installer des certificats) à l'aide de SSH à partir de n'importe quel endroit qui peut atteindre votre système de fichiers. Utilisez le `fsxadmin` User, le mot de passe que vous avez configuré lors de la création de votre système de fichiers et le nom DNS de gestion à partir de `aws fsx describe-file-systems`.
+
+. Créer un fichier backend en utilisant vos certificats et le nom DNS de votre LIF de gestion, comme indiqué dans l'exemple ci-dessous :
++
+[listing]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "backendName": "customBackendName",
+  "managementLIF": "svm-XXXXXXXXXXXXXXXXX.fs-XXXXXXXXXXXXXXXXX.fsx.us-east-2.aws.internal",
+  "svm": "svm01",
+  "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
+  "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
+  "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz",
+ }
+----
++
+Pour plus d'informations sur la création des systèmes back-end, voir les liens suivants :
+
++
+** link:ontap-nas.html["Configurer un système back-end avec les pilotes NAS ONTAP"]
+** link:ontap-san.html["Configurer un système back-end avec les pilotes SAN ONTAP"]
+
+
+
+
+.Résultats
+Après déploiement, vous pouvez créer un link:../trident-get-started/kubernetes-postdeployment.html["classe de stockage, provisionnez un volume et montez le volume dans un pod"].
+
+
+
+== Préparez-vous au provisionnement des volumes SMB
+
+Vous pouvez provisionner des volumes SMB à l'aide de `ontap-nas` conducteur. Avant de terminer <<Intégration des pilotes SAN et NAS de ONTAP>> procédez comme suit.
+
+.Étapes
+. Création de partages SMB. Vous pouvez créer les partages d'administration SMB de deux manières à l'aide de l' link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Console de gestion Microsoft"^] Dossier partagé snap-in ou à l'aide de l'interface de ligne de commande ONTAP. Pour créer les partages SMB à l'aide de l'interface de ligne de commandes ONTAP :
++
+.. Si nécessaire, créez la structure du chemin d'accès au répertoire pour le partage.
++
+Le `vserver cifs share create` commande vérifie le chemin spécifié dans l'option -path lors de la création du partage. Si le chemin spécifié n'existe pas, la commande échoue.
+
+.. Créer un partage SMB associé au SVM spécifié :
++
+[listing]
+----
+vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
+----
+.. Vérifiez que le partage a été créé :
++
+[listing]
+----
+vserver cifs share show -share-name share_name
+----
++
+
+NOTE: Reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["Créez un partage SMB"^] pour en savoir plus.
+
+
+
+. Lors de la création du back-end, vous devez configurer le suivant pour spécifier les volumes SMB. Pour toutes les options de configuration back-end FSX pour ONTAP, voir link:trident-fsx-examples.html["Exemples et options de configuration de FSX pour ONTAP"].
++
+[cols="3"]
+|===
+| Paramètre | Description | Exemple 
+
+
+| `smbShare` | Nom du partage SMB créé à l'aide du dossier partagé Microsoft Management Console. Par exemple « smb-share ». *Requis pour les volumes SMB.* | « partage smb » 
+
+
+| `nasType` | *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | « pme » 
+
+
+| `securityStyle` | Style de sécurité pour les nouveaux volumes. *Doit être défini sur "ntfs" pour les volumes SMB.* | « ntfs » 
+
+
+| `unixPermissions` | Mode pour les nouveaux volumes. *Doit rester vide pour les volumes SMB.* | « » 
+|===
+

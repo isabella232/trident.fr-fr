@@ -97,7 +97,7 @@ Dans cet exemple, un pod est créé et utilise le `san-pvc`.
 ----
  kubectl get pod
 NAME         READY   STATUS    RESTARTS   AGE
-centos-pod   1/1     Running   0          65s
+ubuntu-pod   1/1     Running   0          65s
 
  kubectl describe pvc san-pvc
 Name:          san-pvc
@@ -113,7 +113,7 @@ Finalizers:    [kubernetes.io/pvc-protection]
 Capacity:      1Gi
 Access Modes:  RWO
 VolumeMode:    Filesystem
-Mounted By:    centos-pod
+Mounted By:    ubuntu-pod
 ----
 
 

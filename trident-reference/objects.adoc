@@ -222,7 +222,7 @@ Ces attributs n'ont aucun impact sur la sélection des pools de stockage/systèm
 | Volumeallowexpansion | booléen | vrai, faux | Activez ou désactivez la prise en charge pour augmenter la taille de la demande de volume persistant | ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, ontap-san-économie, solidfire-san, gcp-cvs, azure-netapp-files | 1.11+ 
 
 
-| Volume Bindingmode | chaîne | Immédiat, WaitForFirstConsumer | Sélectionnez le moment où la liaison des volumes et le provisionnement dynamique se produisent | Tout | 1.19 - 1.25 
+| Volume Bindingmode | chaîne | Immédiat, WaitForFirstConsumer | Sélectionnez le moment où la liaison des volumes et le provisionnement dynamique se produisent | Tout | 1.19 - 1.26 
 |===
 [TIP]
 ====

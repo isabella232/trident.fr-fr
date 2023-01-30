@@ -148,7 +148,7 @@ La procédure suivante décrit comment restaurer un cluster Kubernetes maître a
 . Copiez tous les certificats requis se rapportant au cluster Kubernetes sous `/etc/kubernetes/pki` et le etcd `member` fichiers sous `/var/lib/etcd`.
 . Créez un cluster Kubernetes en exécutant le `kubeadm init` commande avec `--ignore-preflight-errors=DirAvailable--var-lib-etcd` drapeau. Les noms d'hôte doivent être identiques au cluster Kubernetes source.
 . Exécutez le `kubectl get crd` Commande pour vérifier si toutes les ressources personnalisées Trident ont été extraites et récupérer des objets Trident pour s'assurer que toutes les données sont disponibles.
-. Nettoyez les systèmes back-end précédents et créez de nouveaux systèmes back-end sur Trident. Préciser la nouvelle LIF de gestion et de données, le nouveau nom du SVM et le mot de passe du SVM de destination.
+. Nettoyez les systèmes back-end précédents et créez de nouveaux systèmes back-end sur Trident. Préciser la nouvelle LIF de management, le nouveau nom du SVM et le mot de passe du SVM de destination.
 
 
 

@@ -126,7 +126,7 @@ L'étape suivante consiste à créer un `TridentBackendConfig` CR qui se lie aut
 
 * Le même nom de back-end est défini dans `spec.backendName`.
 * Les paramètres de configuration sont identiques au back-end d'origine.
-* Les pools de stockage virtuel (le cas échéant) doivent conserver le même ordre que dans le back-end d'origine.
+* Les pools virtuels (le cas échéant) doivent conserver le même ordre que dans le back-end d'origine.
 * Les identifiants sont fournis via un code secret Kubernetes et non en texte brut.
 
 

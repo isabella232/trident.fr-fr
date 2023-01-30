@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/virtual-storage-pool.html 
-keywords: virtual storage pools, astra trident, backends 
-summary: 'Les pools de stockage virtuel offrent une couche d"abstraction entre les systèmes back-end de stockage d"Astra Trident et les classes de stockage de Kubernetes. Ils permettent à l"administrateur de définir des aspects, tels que l"emplacement, les performances et la protection pour chaque système back-end de façon commune et indépendante du système de stockage, sans qu"il précise le système back-end physique, le pool back-end ou le type de système back-end à utiliser pour répondre aux critères souhaités.' 
+keywords: virtual pools, astra trident, backends 
+summary: 'Les pools virtuels fournissent une couche d"abstraction entre les systèmes back-end de stockage d"Astra Trident et les classes de stockage de Kubernetes. Ils permettent à l"administrateur de définir des aspects, tels que l"emplacement, les performances et la protection pour chaque système back-end de façon commune et indépendante du système de stockage, sans qu"il précise le système back-end physique, le pool back-end ou le type de système back-end à utiliser pour répondre aux critères souhaités.' 
 ---
-= Pools de stockage virtuel
+= Pools virtuels
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,22 +12,26 @@ summary: 'Les pools de stockage virtuel offrent une couche d"abstraction entre l
 
 
 [role="lead"]
-Les pools de stockage virtuel offrent une couche d'abstraction entre les systèmes back-end de stockage d'Astra Trident et ceux de Kubernetes. `StorageClasses`. Ils permettent à un administrateur de définir des aspects, tels que l'emplacement, les performances et la protection pour chaque système back-end, de façon commune et indépendante du système back-end `StorageClass` spécifiez le type de back-end physique, de pool back-end ou de type back-end à utiliser pour répondre aux critères souhaités.
+Les pools virtuels fournissent une couche d'abstraction entre les systèmes back-end de stockage Astra Trident et Kubernetes `StorageClasses`. Ils permettent à un administrateur de définir des aspects, tels que l'emplacement, les performances et la protection pour chaque système back-end, de façon commune et indépendante du système back-end `StorageClass` spécifiez le type de back-end physique, de pool back-end ou de type back-end à utiliser pour répondre aux critères souhaités.
 
 
 
-== En savoir plus sur les pools de stockage virtuel
+== En savoir plus sur les pools virtuels
 
-L'administrateur du stockage peut définir des pools de stockage virtuel sur n'importe quel système back-end Astra Trident dans un fichier de définition JSON ou YAML.
+L'administrateur du stockage peut définir des pools virtuels sur n'importe quel système back-end Trident Astra dans un fichier de définition JSON ou YAML.
 
-image::virtual_storage_pools.png[La illustre le schéma conceptuel des pools de stockage virtuels.]
+image::virtual_storage_pools.png[La illustre le schéma conceptuel des pools virtuels.]
 
 Tout aspect spécifié en dehors de la liste des pools virtuels est global au back-end et s'appliquera à tous les pools virtuels, tandis que chaque pool virtuel peut spécifier un ou plusieurs aspects individuellement (remplaçant les aspects backend-global).
 
+[NOTE]
+====
+* Lors de la définition de pools virtuels, n'essayez pas de réorganiser l'ordre des pools virtuels existants dans une définition backend.
+* Nous vous conseillons de modifier les attributs d'un pool virtuel existant. Vous devez définir un nouveau pool virtuel pour apporter des modifications.
 
-NOTE: Lors de la définition des pools de stockage virtuel, n'essayez pas de réorganiser l'ordre des pools virtuels existants dans une définition backend. Il est également conseillé de ne pas modifier/modifier les attributs d'un pool virtuel existant et de définir un nouveau pool virtuel à la place.
 
-La plupart des aspects sont spécifiés dans des termes spécifiques au système back-end. Il est primordial que les valeurs de l'aspect ne soient pas exposées en dehors du conducteur du back-end et ne soient pas disponibles pour la correspondance dans `StorageClasses`. À la place, l'administrateur définit un ou plusieurs libellés pour chaque pool virtuel. Chaque étiquette est une paire clé:valeur et les étiquettes sont souvent répandues sur différents systèmes back-end. Tout comme les aspects, les étiquettes peuvent être spécifiées par pool ou globales au back-end. Contrairement aux aspects, qui ont des noms et des valeurs prédéfinis, l'administrateur dispose d'une entière discrétion pour définir les clés et les valeurs de libellé selon les besoins.
+====
+La plupart des aspects sont spécifiés dans des termes spécifiques au système back-end. Il est primordial que les valeurs de l'aspect ne soient pas exposées en dehors du conducteur du back-end et ne soient pas disponibles pour la correspondance dans `StorageClasses`. À la place, l'administrateur définit un ou plusieurs libellés pour chaque pool virtuel. Chaque étiquette est une paire clé:valeur et les étiquettes sont souvent répandues sur différents systèmes back-end. Tout comme les aspects, les étiquettes peuvent être spécifiées par pool ou globales au back-end. Contrairement aux aspects, qui ont des noms et des valeurs prédéfinis, l'administrateur dispose d'une entière discrétion pour définir les clés et les valeurs de libellé selon les besoins. Pour plus de commodité, les administrateurs du stockage peuvent définir des étiquettes par pool virtuel et les volumes de groupe par étiquette.
 
 A `StorageClass` identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge les opérateurs suivants :
 

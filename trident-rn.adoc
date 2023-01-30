@@ -19,7 +19,51 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 22.10
+== Nouveautés de la version 23.01
+
+
+IMPORTANT: Kubernetes 1.26 est désormais pris en charge par Trident. Veuillez mettre à niveau Trident avant de mettre à niveau Kubernetes.
+
+
+
+=== Correctifs
+
+* Kubernetes : ajout d'options pour exclure la création de règles de sécurité du Pod pour réparer les installations Trident via Helm (link:https://github.com/NetApp/trident/issues/794["Questions #783, #794"^]).
+
+
+
+
+=== Améliorations
+
+.Kubernetes
+* Prise en charge ajoutée de Kubernetes 1.26.
+* Amélioration de l'utilisation globale des ressources RBAC Trident (link:https://github.com/NetApp/trident/issues/757["Numéro 757"^]).
+* Automatisation ajoutée pour détecter et corriger les sessions iSCSI interrompues ou obsolètes sur les nœuds hôtes.
+* Ajout de la prise en charge de l'extension des volumes chiffrés LUKS.
+* Kubernetes : ajout de la prise en charge de la rotation des identifiants pour les volumes chiffrés LUKS.
+
+
+.Astra Trident
+* Ajout de la prise en charge des volumes SMB avec Amazon FSX pour ONTAP au pilote de stockage ontap-nas.
+* Ajout de la prise en charge des autorisations NTFS lors de l'utilisation de volumes SMB.
+* Ajout de la prise en charge des pools de stockage pour les volumes GCP avec le niveau de service CVS.
+* Ajout de la prise en charge de l'utilisation facultative de flexgroupAgrégateList lors de la création de FlexGroups avec le pilote de stockage ontap-nas-flexgroup.
+* Amélioration des performances du pilote de stockage économique ontap-nas lors de la gestion de plusieurs volumes FlexVol.
+* Mises à jour des donnéesLIF activées pour tous les pilotes de stockage NAS de ONTAP.
+* Mise à jour de la convention de nommage Trident Deployment and DemonSet afin de refléter le système d'exploitation du nœud hôte.
+
+
+
+
+=== Dérations
+
+* Kubernetes : mise à jour de Kubernetes minimale prise en charge vers la version 1.21.
+* Les LIFs de données ne doivent plus être spécifiées lors de la configuration `ontap-san` ou `ontap-san-economy` pilotes.
+
+
+
+
+== Changements en 22.10
 
 *Vous devez lire les informations essentielles suivantes avant de passer à Astra Trident 22.10.*
 
@@ -59,7 +103,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 
 * Tout Trident `ontap-*` Les pilotes de stockage fonctionnent désormais avec l'API REST de ONTAP.
 * Ajout d'un nouvel opérateur yaml (`bundle_post_1_25.yaml`) sans a. `PodSecurityPolicy` Pour la prise en charge de Kubernetes 1.25.
-* Ajouté link:https://docs.netapp.com/us-en/trident/trident-reco/security-reco.html#enable-per-volume-host-side-encryption-using-linux-unified-key-setup-luks["Prise en charge des volumes LUKS-chiffrés"] pour `ontap-san` et `ontap-san-economy` lecteurs de stockage
+* Ajouté link:https://docs.netapp.com/us-en/trident/trident-reco/security-luks.html["Prise en charge des volumes LUKS-chiffrés"] pour `ontap-san` et `ontap-san-economy` lecteurs de stockage
 * Ajout de la prise en charge des nœuds Windows Server 2019.
 * Ajouté link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Prise en charge des volumes SMB sur les nœuds Windows"] grâce au `azure-netapp-files` pilote de stockage
 * La détection automatique du basculement MetroCluster pour les pilotes ONTAP est désormais disponible dans l'ensemble.
@@ -293,6 +337,10 @@ Les problèmes connus identifient les problèmes susceptibles de vous empêcher 
 * Si un utilisateur supprime un volume persistant provisionné par Astra Trident avant de supprimer le volume persistant correspondant, Astra Trident ne supprime pas automatiquement le volume de sauvegarde. Vous devez supprimer le volume via `tridentctl` Ou l'API REST.
 * ONTAP ne peut pas provisionner simultanément plusieurs FlexGroup, sauf si l'ensemble d'agrégats est unique pour chaque demande de provisionnement.
 * Lorsque vous utilisez Astra Trident sur IPv6, vous devez préciser `managementLIF` et `dataLIF` dans la définition du back-end entre crochets. Par exemple : ``[fd20:8b1e:b258:2000:f816:3eff:feec:0]``.
++
+
+NOTE: Vous ne pouvez pas spécifier `dataLIF` Sur un SAN backend ONTAP. Astra Trident détecte toutes les LIF iSCSI disponibles et les utilise pour établir la session multivoie.
+
 * Si vous utilisez le `solidfire-san` Pilote avec OpenShift 4.5, assurez-vous que les nœuds de travail sous-jacents utilisent MD5 comme algorithme d'authentification CHAP. Les algorithmes CHAP sécurisés conformes à la norme FIPS SHA1, SHA-256 et SHA3-256 sont disponibles avec Element 12.7.
 
 

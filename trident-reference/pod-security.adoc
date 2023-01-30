@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/pod-security.html 
-keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context contraints 
+keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context constraints 
 summary: 'Les normes de sécurité de Kubernetes Pod (PSS) et les règles de sécurité de Pod (PSP) définissent des niveaux d"autorisation et limitent le comportement des pods. OpenShift Security Context Constraints (SCC) définit de façon similaire les restrictions de pod spécifiques à OpenShift Kubernetes Engine. Pour offrir cette personnalisation, Astra Trident autorise certaines autorisations lors de l"installation.' 
 ---
 = Normes de sécurité de pod (PSS) et contraintes de contexte de sécurité (SCC)
@@ -96,7 +96,7 @@ WARNING: La modification des étiquettes de l'espace de noms peut entraîner l'a
 | `allowedProcMountTypes` | Trident n'utilise aucun `ProcMountTypes`. | Vide 
 
 
-| `allowedUnsageSysctls` | Trident n'exige aucun niveau de sécurité `sysctls`. | Vide 
+| `allowedUnsafeSysctls` | Trident n'exige aucun niveau de sécurité `sysctls`. | Vide 
 
 
 | `defaultAddCapabilities` | Aucune fonctionnalité n'est requise pour être ajoutée aux conteneurs privilégiés. | Vide 

@@ -6,17 +6,27 @@ entries:
   url: "/trident-get-started/quickstart.html"
 - title: De formation
   url: "/trident-get-started/requirements.html"
-- title: Présentation du déploiement
-  url: "/trident-get-started/kubernetes-deploy.html"
-- title: Déployez-le avec l'opérateur Trident
-  url: "/trident-get-started/kubernetes-deploy-operator.html"
+- title: Installer Astra Trident
   entries:
-  - title: Personnalisez le déploiement des opérateurs Trident
-    url: "/trident-get-started/kubernetes-customize-deploy.html"
-- title: Déploiement avec tridentctl
-  url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
-  entries:
-  - title: Personnalisez le déploiement tridentctl
-    url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
+  - title: Présentation de l'installation
+    url: "/trident-get-started/kubernetes-deploy.html"
+  - title: Installer à l'aide de l'opérateur Trident
+    entries:
+    - title: Déploiement manuel de l'opérateur Trident (standard)
+      url: "/trident-get-started/kubernetes-deploy-operator.html"
+    - title: Déploiement manuel de l'opérateur Trident (hors ligne)
+      url: "/trident-get-started/kubernetes-deploy-operator-mirror.html"
+    - title: Utilisation du graphique Helm Trident (standard)
+      url: "/trident-get-started/kubernetes-deploy-helm.html"
+    - title: Utilisation du graphique Trident Helm (hors ligne)
+      url: "/trident-get-started/kubernetes-deploy-helm-mirror.html"
+    - title: Personnalisez l'installation de l'opérateur Trident
+      url: "/trident-get-started/kubernetes-customize-deploy.html"
+  - title: Installation à l'aide de tridentctl
+    entries:
+    - title: Installation à l'aide de tridentctl
+      url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+    - title: Personnalisez l'installation tridentctl
+      url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
 - title: Et la suite ?
   url: "/trident-get-started/kubernetes-postdeployment.html"
