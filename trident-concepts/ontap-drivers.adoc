@@ -18,6 +18,9 @@ Astra Trident propose cinq pilotes de stockage ONTAP uniques pour la communicati
 
 == Découvrez les pilotes de stockage ONTAP
 
+
+WARNING: Les clients doivent utiliser le `ontap-nas` pilote pour les charges de travail de production qui nécessitent protection des données, reprise d'activité et mobilité. Astra Control assure une protection transparente, la reprise après incident et la mobilité des volumes créés avec le `ontap-nas` conducteur. Le `ontap-nas-economy` Le pilote ne doit être utilisé que dans des cas d'utilisation limitée où l'utilisation prévue de volume devrait être bien supérieure à celle prise en charge par ONTAP, sans aucune exigence de protection des données, de reprise d'activité ou de mobilité (déplacement de volumes entre les clusters Kubernetes).
+
 [cols="5"]
 |===
 | Conducteur | Protocole | Mode Volume | Modes d'accès pris en charge | Systèmes de fichiers pris en charge 
