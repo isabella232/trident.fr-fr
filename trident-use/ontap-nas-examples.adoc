@@ -100,12 +100,6 @@ Voir le tableau suivant pour les options de configuration du back-end :
 
 Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options dans `defaults` section de la configuration. Pour un exemple, voir les exemples de configuration ci-dessous.
 
-
-
-=== Options de configuration back-end pour les volumes de provisionnement
-
-Vous pouvez contrôler la façon dont chaque volume est provisionné par défaut à l'aide de ces options dans une section spéciale de la configuration. Pour un exemple, voir les exemples de configuration ci-dessous.
-
 [cols="3"]
 |===
 | Paramètre | Description | Valeur par défaut 
