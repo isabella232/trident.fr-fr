@@ -2,9 +2,7 @@
 indexpage:
   lead: Astra Trident est un mécanisme de provisionnement et d'orchestration open
     source du stockage géré par NetApp. Il vous permet de créer des volumes de stockage
-    pour les applications conteneurisées gérées par Docker et Kubernetes. **Lisez
-    les notes de mise à jour pour obtenir des renseignements importants sur la mise
-    à niveau vers Astra Trident 22.10.**
+    pour les applications conteneurisées gérées par Docker et Kubernetes.
   tiles:
   - title: Informations critiques pour la version 23.01
     links:
