@@ -141,7 +141,7 @@ Bien que l'Astra Trident ne prenne pas officiellement en charge des systèmes d'
 
 * Versions Red Hat CoreOS (RHCOS) prises en charge par OpenShift Container Platform
 * RHEL 8+
-* Ubuntu 18.04 ou version ultérieure (dernière version 22.04)
+* Ubuntu 22.04 ou version ultérieure
 * Windows Server 2019
 
 
