@@ -17,9 +17,17 @@ Découvrez comment configurer un back-end ONTAP avec les pilotes ONTAP et NAS Cl
 * link:ontap-nas-examples.html["Configuration et exemples"]
 
 
+[WARNING]
+====
+Astra Control assure une protection, une reprise d'activité et une mobilité transparentes (en déplaçant des volumes entre les clusters Kubernetes) pour les volumes créés avec le système `ontap-nas`, `ontap-nas-flexgroup`, et `ontap-san` pilotes. Voir link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Conditions préalables à la réplication d'Astra Control"^] pour plus d'informations.
 
-WARNING: Les clients doivent utiliser le `ontap-nas` pilote pour les charges de travail de production qui nécessitent protection des données, reprise d'activité et mobilité. Astra Control assure une protection transparente, la reprise après incident et la mobilité des volumes créés avec le `ontap-nas` conducteur. Le `ontap-nas-economy` Le pilote ne doit être utilisé que dans des cas d'utilisation limitée où l'utilisation prévue de volume devrait être bien supérieure à celle prise en charge par ONTAP, sans aucune exigence de protection des données, de reprise d'activité ou de mobilité (déplacement de volumes entre les clusters Kubernetes).
+* Vous devez utiliser `ontap-nas` adapté aux charges de travail de production qui nécessitent une protection des données, une reprise d'activité et la mobilité.
+* Utiliser `ontap-san-economy` Lorsque vous prévoyez une utilisation de volume, celle-ci devrait être bien supérieure à celle prise en charge par ONTAP.
+* Utiliser `ontap-nas-economy` Ce n'est que lorsque l'utilisation prévue des volumes sera beaucoup plus élevée que ce que prend en charge ONTAP, et le `ontap-san-economy` le pilote ne peut pas être utilisé.
+* Ne pas utiliser `ontap-nas-economy` si vous prévoyez d'avoir besoin en termes de protection des données, de reprise sur incident ou de mobilité.
 
+
+====
 
 
 == Autorisations utilisateur
