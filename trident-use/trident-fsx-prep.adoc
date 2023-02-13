@@ -123,13 +123,13 @@ NOTE: Reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/smb-c
 | Paramètre | Description | Exemple 
 
 
-| `smbShare` | Nom du partage SMB créé à l'aide du dossier partagé Microsoft Management Console. Par exemple « smb-share ». *Requis pour les volumes SMB.* | « partage smb » 
+| `smbShare` | Nom du partage SMB créé à l'aide du dossier partagé Microsoft Management Console. Par exemple « smb-share ». *Requis pour les volumes SMB.* | `smb-share` 
 
 
-| `nasType` | *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | « pme » 
+| `nasType` | *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | `smb` 
 
 
-| `securityStyle` | Style de sécurité pour les nouveaux volumes. *Doit être défini sur "ntfs" pour les volumes SMB.* | « ntfs » 
+| `securityStyle` | Style de sécurité pour les nouveaux volumes. *Doit être défini sur `ntfs` ou `mixed` Pour les volumes SMB.* | `ntfs` ou `mixed` Pour les volumes SMB 
 
 
 | `unixPermissions` | Mode pour les nouveaux volumes. *Doit rester vide pour les volumes SMB.* | « » 

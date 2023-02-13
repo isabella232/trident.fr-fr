@@ -228,9 +228,11 @@ valeur par défaut
 
 
 | `securityStyle`  a| 
-Option NAS pour l'accès au volume NFS provisionné, valeur par défaut « unix »
+Option NAS pour l'accès au volume NFS provisionné.
+
+Prise en charge de NFS `mixed` et `unix` styles de sécurité. La valeur par défaut est `unix`.
  a| 
-mixte
+`unix`
 
 
 

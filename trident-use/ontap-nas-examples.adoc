@@ -141,7 +141,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `exportPolicy` | Export policy à utiliser | « par défaut » 
 
 
-| `securityStyle` | Style de sécurité pour les nouveaux volumes | « unix » pour volumes NFS ; « ntfs » pour volumes SMB 
+| `securityStyle` | Style de sécurité pour les nouveaux volumes. Prise en charge de NFS `mixed` et `unix` styles de sécurité. SMB prend en charge `mixed` et `ntfs` styles de sécurité. | NFS par défaut est `unix`. SMB par défaut est `ntfs`. 
 |===
 
 NOTE: Avec Astra Trident, les groupes de règles de QoS doivent être utilisés avec ONTAP 9.8 ou version ultérieure. Il est recommandé d'utiliser un groupe de règles de qualité de service non partagé et de s'assurer que le groupe de règles est appliqué à chaque composant individuellement. Un groupe de règles de QoS partagé appliquera le plafond du débit total de toutes les charges de travail.

@@ -171,7 +171,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `unixPermissions` | Mode pour les nouveaux volumes. *Laisser vide pour les volumes SMB.* | « » 
 
 
-| `securityStyle` | Style de sécurité pour les nouveaux volumes. | « unix » pour volumes NFS ; « ntfs » pour volumes SMB 
+| `securityStyle` | Style de sécurité pour les nouveaux volumes. Prise en charge de NFS `mixed` et `unix` styles de sécurité. SMB prend en charge `mixed` et `ntfs` styles de sécurité. | NFS par défaut est `unix`. SMB par défaut est `ntfs`. 
 |===
 
 
