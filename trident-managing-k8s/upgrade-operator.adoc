@@ -211,9 +211,12 @@ NOTE: Le `trident-controller` les noms de pods reflètent la convention de nomma
 
 Effectuer les étapes suivantes pour mettre à niveau l'installation d'un opérateur reposant sur Helm.
 
+
+WARNING: Lorsque vous mettez à niveau un cluster Kubernetes de 1.24 vers 1.25 ou version ultérieure sur lequel Astra Trident est installé, vous devez mettre à jour les valeurs.yaml pour les définir `excludePodSecurityPolicy` à `true` ou ajouter `--set excludePodSecurityPolicy=true` à la `helm upgrade` commande avant de pouvoir mettre à niveau le cluster.
+
 .Étapes
 . Téléchargez la dernière version d'Astra Trident.
-. Utilisez le `helm upgrade` commande où `trident-operator-23.01.0.tgz` reflète la version que vous souhaitez mettre à niveau vers :
+. Utilisez le `helm upgrade` commande où `trident-operator-23.01.0.tgz` reflète la version vers laquelle vous souhaitez effectuer la mise à niveau.
 +
 [listing]
 ----

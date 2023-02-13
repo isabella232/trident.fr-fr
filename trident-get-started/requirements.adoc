@@ -53,6 +53,9 @@ L'opérateur de Trident est pris en charge par ces versions :
 Astra Trident fonctionne également avec d'autres offres Kubernetes autogérées et entièrement gérées, notamment Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Rancher et VMware Tanzu Portfolio.
 
 
+WARNING: Avant de mettre à niveau un cluster Kubernetes de la version 1.24 à la version 1.25 ou ultérieure avec Astra Trident installé, consultez la page link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-based-operator-installation["Mettre à niveau l'installation d'un opérateur basé sur Helm"].
+
+
 
 == Systèmes back-end pris en charge (stockage)
 
