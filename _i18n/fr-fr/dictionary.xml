@@ -3458,7 +3458,6 @@
   <block id="e7a2472a002479764cade728d64dcd9e" category="example-title">Authentification basée sur des certificats</block>
   <block id="30cc3e263c594cde4b2a573283348bb1" category="example-title">Export policy auto</block>
   <block id="41dfe08f09251bf83a4f15ec1a47eebe" category="paragraph">Ces exemples vous montrent comment vous pouvez demander à Astra Trident d'utiliser des règles d'exportation dynamiques pour créer et gérer automatiquement les règles d'exportation. Cela fonctionne de la même manière pour le<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> et<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> pilotes.</block>
-  <block id="e3d163236efea4513c9df89a9c1be381" category="listing-title">pilote économique ontap-nas</block>
   <block id="0491780b1bb26f4feb8296034f975c9e" category="listing-title">pilote &lt;code&gt; &lt;/code&gt; tap-nas-flexs</block>
   <block id="85435c5aae5ecdb04ef9ad8f7d48e88a" category="example-title">Utilisation des adresses IPv6</block>
   <block id="0275de02c3bba722f4540469d23cc535" category="paragraph">Cet exemple montre<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> Utilisation d'une adresse IPv6.</block>
@@ -3574,4 +3573,5 @@
   <block id="36b8e64fc53799e09b318940d0d01c3b" category="admonition">Avant de mettre à niveau un cluster Kubernetes de la version 1.24 à la version 1.25 ou ultérieure avec Astra Trident installé, consultez la page <block ref="b78a528fa331707807c1d5b493daab09" category="inline-link-macro-rx"></block>.</block>
   <block id="e69dee79b2104ff7c08b095e6212f492" category="list-text">Lorsque vous mettez à niveau un cluster Kubernetes de 1.24 vers 1.25 ou version ultérieure sur lequel Astra Trident est installé, vous devez mettre à jour les valeurs.yaml pour les définir<block ref="94ef2a130a825358ab3002442d6e5145" prefix=" " category="inline-code"></block> à<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> ou ajouter<block ref="96d5d0b9a6e3e01b2ae2ed889f75d22e" prefix=" " category="inline-code"></block> à la<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> commande avant de pouvoir mettre à niveau le cluster.</block>
   <block id="3936420db557853e037e33725ba2e1b4" category="list-text">Utilisez le<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> commande où<block ref="13eee8d0c5cbca0f1ea5bc4275d5bc8d" prefix=" " category="inline-code"></block> reflète la version vers laquelle vous souhaitez effectuer la mise à niveau.</block>
+  <block id="412b252fa44d1a73e3e7bf22113f99a2" category="listing-title">pilote ontap-nas</block>
 </blocks>

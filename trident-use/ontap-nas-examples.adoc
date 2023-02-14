@@ -246,7 +246,7 @@ Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `
 ====
 Ces exemples vous montrent comment vous pouvez demander à Astra Trident d'utiliser des règles d'exportation dynamiques pour créer et gérer automatiquement les règles d'exportation. Cela fonctionne de la même manière pour le `ontap-nas-economy` et `ontap-nas-flexgroup` pilotes.
 
-.pilote économique ontap-nas
+.pilote ontap-nas
 [listing]
 ----
 {
