@@ -93,15 +93,15 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_<VERSIO
 
 === Étape 3 : mettez à jour l'emplacement du registre dans l'opérateur
 
-Dans `operator.yaml`, mettre à jour `image: docker.io/netapp/trident-operator:23.01.0` pour refléter l'emplacement de votre registre d'images. Par exemple :.
+Dans `/deploy/operator.yaml`, mettre à jour `image: docker.io/netapp/trident-operator:23.01.0` pour refléter l'emplacement de votre registre d'images. Votre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Images Trident et CSI"] Peut être situé dans un registre ou dans des registres différents, mais toutes les images CSI doivent se trouver dans le même registre. Par exemple :
 
 * `image: <your-registry>/trident-operator:23.01.0` si vos images sont toutes situées dans un même registre.
-* `image: <your-registry>/netapp/trident-operator:23.01.0` Si vos images Trident et CSI se trouvent dans différents registres.
+* `image: <your-registry>/netapp/trident-operator:23.01.0` Si votre image Trident se trouve dans un registre différent de vos images CSI.
 
 
 
 
-=== Étape 3 : déployer l'opérateur Trident
+=== Étape 4 : déploiement de l'opérateur Trident
 
 Le programme d'installation de Trident déploie l'opérateur dans le système `trident` espace de noms. Si le `trident` l'espace de noms n'existe pas, utilisez `kubectl apply -f deploy/namespace.yaml` pour la créer.
 
@@ -139,13 +139,13 @@ IMPORTANT: Il ne doit y avoir que *une instance* de l'opérateur dans un cluster
 
 
 
-=== Étape 4 : mettez à jour l'emplacement du registre d'images dans `TridentOrchestrator`
+=== Étape 5 : mettez à jour l'emplacement du registre d'images dans le `TridentOrchestrator`
 
-Vos images Trident et CSI peuvent se trouver dans un registre ou dans des registres différents, mais toutes les images CSI doivent être situées dans le même registre. Mise à jour `deploy/crds/tridentorchestrator_cr.yaml` pour ajouter les spécifications d'emplacement supplémentaires en fonction de votre configuration de registre.
+Votre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Images Trident et CSI"] Peut être situé dans un registre ou dans des registres différents, mais toutes les images CSI doivent se trouver dans le même registre. Mise à jour `deploy/crds/tridentorchestrator_cr.yaml` pour ajouter les spécifications d'emplacement supplémentaires en fonction de votre configuration de registre.
 
 [role="tabbed-block"]
 ====
-.Images Trident et CSI dans un registre
+.Images dans un registre
 --
 [listing]
 ----
@@ -154,7 +154,7 @@ autosupportImage: "<your-registry>/trident-autosupport:23.01"
 tridentImage: "<your-registry>/trident:23.01.0"
 ----
 --
-.Des images Trident et CSI dans différents registres
+.Images dans différents registres
 --
 Vous devez ajouter `sig-storage` à la `imageRegistry` pour utiliser différents emplacements de registre.
 
@@ -168,7 +168,7 @@ tridentImage: "<your-registry>/netapp/trident:23.01.0"
 ====
 
 
-=== Étape 5 : créez le `TridentOrchestrator` Et installer Trident
+=== Étape 6 : créez le `TridentOrchestrator` Et installer Trident
 
 Vous pouvez maintenant créer le `TridentOrchestrator` Et installer Astra Trident. Si vous le souhaitez, vous pouvez aussi aller plus loin link:kubernetes-customize-deploy.html["Personnalisez votre installation de Trident"] utilisation des attributs dans `TridentOrchestrator` spécifications L'exemple suivant montre une installation dans laquelle les images Trident et CSI se trouvent dans différents registres.
 
