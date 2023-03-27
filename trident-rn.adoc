@@ -19,10 +19,25 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 23.01
+== Nouveautés de la version 23.01.1
 
 
-IMPORTANT: Kubernetes 1.26 est désormais pris en charge par Trident. Veuillez mettre à niveau Trident avant de mettre à niveau Kubernetes.
+
+=== Correctifs
+
+* Correction de l'opérateur Trident pour utiliser IPv6 localhost pour l'installation lorsqu'il est spécifié dans spec.
+* Correction des autorisations de rôle de cluster opérateur Trident synchronisées avec les autorisations de bundle link:https://github.com/NetApp/trident/issues/799["Question no 799"^].
+* Ajout d'un correctif pour permettre l'exécution des processus externes.
+* Résolution du problème de connexion d'un volume de bloc brut sur plusieurs nœuds en mode RWX.
+* Prise en charge du clonage FlexGroup fixe et importation de volumes pour les volumes SMB.
+
+
+
+
+== Changements en 23.01
+
+
+IMPORTANT: Kubernetes 1.26 est désormais pris en charge par Trident. Veuillez mettre à niveau Astra Trident avant de mettre à niveau Kubernetes.
 
 
 

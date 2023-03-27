@@ -75,8 +75,8 @@ Le package d'installation d'Astra Trident contient tout ce dont vous avez besoin
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.01.0/trident-installer-23.01.0.tar.gz
-tar -xf trident-installer-23.01.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
+tar -xf trident-installer-23.01.1.tar.gz
 cd trident-installer
 ----
 
@@ -169,10 +169,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:23.01.0
+    Trident Image:        netapp/trident:23.01.1
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v23.01.0
+  Version:                  v23.01.1
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -246,7 +246,7 @@ Vous pouvez utiliser `tridentctl` Pour vérifier la version d'Astra Trident inst
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.01.0        | 23.01.0        |
+| 23.01.1        | 23.01.1        |
 +----------------+----------------+
 ----
 

@@ -51,7 +51,7 @@ Ce tableau est plus détaillé `TridentOrchestrator` attributs :
 | `enableNodePrep` | Gérer automatiquement les dépendances des nœuds de travail (*BÊTA*) | faux 
 
 
-| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | « netapp/trident-autosupport :23.01.0 » 
+| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | netapp/trident-autosupport:23.01 
 
 
 | `autosupportProxy` | Adresse/port d'un proxy pour l'envoi de télémétrie AutoSupport | "http://proxy.example.com:8888"[] 

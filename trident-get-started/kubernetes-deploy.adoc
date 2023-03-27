@@ -111,9 +111,9 @@ Avec link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kuberne
 ====
 
 
-=== À l'aide de `tridenctl`
+=== À l'aide de `tridentctl`
 
-Si votre déploiement existant doit être mis à niveau ou si vous cherchez à le personnaliser hautement, il est à votre disposition link:kubernetes-deploy-tridentctl.html["installation à l'aide de tridentctl"]. Il s'agit de la méthode classique de déploiement d'Astra Trident.
+Si votre déploiement existant doit être mis à niveau ou si vous cherchez à le personnaliser hautement, il est à votre disposition . Il s'agit de la méthode classique de déploiement d'Astra Trident.
 
 C'est possible  Générer les manifestes pour les ressources Trident. Cela inclut le déploiement, la demonset, le compte de service et le rôle de cluster qu'Astra Trident a créé dans le cadre de son installation.
 
