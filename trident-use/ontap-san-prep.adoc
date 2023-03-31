@@ -50,7 +50,7 @@ Voici un exemple de définition du back-end :
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
   "username": "vsadmin",
-  "password": "secret",
+  "password": "password",
 }
 ----
 Gardez à l'esprit que la définition du back-end est le seul endroit où les informations d'identification sont stockées en texte brut. Une fois le système backend créé, les noms d'utilisateur/mots de passe sont codés avec Base64 et stockés sous forme de secrets Kubernetes. La création ou la mise à jour d'un back-end est la seule étape qui nécessite la connaissance des informations d'identification. Il s'agit donc d'une opération uniquement administrative, qui doit être effectuée par l'administrateur Kubernetes/du stockage.
@@ -154,7 +154,7 @@ cat cert-backend-updated.json
 "dataLIF": "1.2.3.8",
 "svm": "vserver_test",
 "username": "vsadmin",
-"password": "secret",
+"password": "password",
 "storagePrefix": "myPrefix_"
 }
 
@@ -206,7 +206,7 @@ Astra Trident peut authentifier les sessions iSCSI avec le protocole CHAP bidire
     "svm": "ontap_iscsi_svm",
     "useCHAP": true,
     "username": "vsadmin",
-    "password": "FaKePaSsWoRd",
+    "password": "password",
     "igroupName": "trident",
     "chapInitiatorSecret": "cl9qxIm36DKyawxy",
     "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
@@ -257,7 +257,7 @@ cat backend-san.json
     "svm": "ontap_iscsi_svm",
     "useCHAP": true,
     "username": "vsadmin",
-    "password": "FaKePaSsWoRd",
+    "password": "password",
     "igroupName": "trident",
     "chapInitiatorSecret": "cl9qxUpDaTeD",
     "chapTargetInitiatorSecret": "rqxigXgkeUpDaTeD",

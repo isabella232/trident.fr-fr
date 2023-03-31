@@ -91,7 +91,7 @@ Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp
 +
 [listing]
 ----
-kubectl create secret generic smbcreds --from-literal username=user --from-literal password='pw'
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
 ----
 * Un proxy CSI configuré en tant que service Windows. Pour configurer un `csi-proxy`, voir link:https://github.com/kubernetes-csi/csi-proxy["GitHub : proxy CSI"^] ou link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub : proxy CSI pour Windows"^] Pour les nœuds Kubernetes s'exécutant sur Windows.
 
