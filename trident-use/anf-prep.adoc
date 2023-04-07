@@ -11,24 +11,24 @@ summary: Avant de pouvoir configurer le back-end ANF, vous devez vous assurer qu
 :imagesdir: ../media/
 
 
+[role="lead"]
 Avant de pouvoir configurer le système back-end Azure NetApp Files, vous devez vous assurer que les exigences suivantes sont respectées.
 
-Si vous utilisez Azure NetApp Files pour la première fois ou à un nouvel emplacement, une certaine configuration initiale est requise.
 
-* Pour configurer Azure NetApp Files et créer un volume NFS, reportez-vous à https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure : configurez Azure NetApp Files et créez un volume NFS"^].
-* Pour configurer Azure NetApp Files et ajouter un volume SMB, reportez-vous à : https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-volumes-smb["Azure : créez un volume SMB pour Azure NetApp Files"^].
+NOTE: Si vous utilisez Azure NetApp Files pour la première fois ou dans un nouvel emplacement, une configuration initiale est requise pour configurer Azure NetApp Files et créer un volume NFS. Reportez-vous à la section https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure : configurez Azure NetApp Files et créez un volume NFS"^].
 
 
 
-
-== De formation
+== Prérequis pour les volumes NFS et SMB
 
 Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, vous avez besoin des éléments suivants :
 
+* Un pool de capacité. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft : créez un pool de capacité pour Azure NetApp Files"^].
+* Sous-réseau délégué à Azure NetApp Files. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft : déléguer un sous-réseau à Azure NetApp Files"^].
 * `subscriptionID` Depuis un abonnement Azure avec Azure NetApp Files activé.
 * `tenantID`, `clientID`, et `clientSecret` à partir d'un link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["Enregistrement d'applications"^] Dans Azure Active Directory avec les autorisations suffisantes pour le service Azure NetApp Files. L'enregistrement de l'application doit utiliser l'une des options suivantes :
 +
-** Rôle propriétaire ou contributeur link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Prédéfinie par Azure"^]
+** Rôle propriétaire ou contributeur link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Prédéfinie par Azure"^].
 ** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Rôle de contributeur personnalisé"] au niveau de l'abonnement (`assignableScopes`) Avec les autorisations suivantes qui sont limitées à ce qu'exige Astra Trident. Après avoir créé le rôle personnalisé, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Attribuez le rôle à l'aide du portail Azure"^].
 +
 [source, JSON]
@@ -86,8 +86,11 @@ Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp
 
 == Exigences supplémentaires pour les volumes SMB
 
+Pour créer un volume SMB, vous devez disposer des éléments suivants :
+
+* Active Directory configuré et connecté à Azure NetApp Files. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft : création et gestion des connexions Active Directory pour Azure NetApp Files"^].
 * Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2019. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
-* Au moins un secret Astra Trident contenant vos informations d'identification Active Directory pour qu'ANF puisse s'authentifier auprès d'Active Directory. Pour générer un secret `smbcreds`:
+* Au moins un secret Astra Trident contenant vos informations d'identification Active Directory pour que Azure NetApp Files puisse s'authentifier auprès d'Active Directory. Pour générer un secret `smbcreds`:
 +
 [listing]
 ----
