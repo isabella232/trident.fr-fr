@@ -110,7 +110,7 @@ Note de bas de page: Yesfootnote:1[]: Non géré par Astra Trident Yesfootnote:2
 
 Astra Trident utilise le `azure-netapp-files` pilote pour gérer le link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] services.
 
-Vous trouverez plus d'informations sur ce pilote et sa configuration dans le link:https://azure.microsoft.com/en-us/services/netapp/["Configuration back-end d'Astra Trident pour Azure NetApp Files"^].
+Vous trouverez plus d'informations sur ce pilote et sa configuration dans le link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Configuration back-end d'Astra Trident pour Azure NetApp Files"^].
 
 [cols="20,10,10,10,10,10,10"]
 |===
