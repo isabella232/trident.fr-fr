@@ -166,7 +166,6 @@ Voici un exemple avec des valeurs par défaut définies :
 version: 1
 storageDriverName: ontap-san
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.2
 svm: trident_svm
 username: admin
 password: password
@@ -223,7 +222,6 @@ version: 1
 storageDriverName: ontap-san
 backendName: DefaultSANBackend
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.3
 svm: svm_iscsi
 useCHAP: true
 chapInitiatorSecret: cl9qxIm36DKyawxy
@@ -247,7 +245,6 @@ Il s'agit d'un exemple de configuration back-end minimal. Cette configuration de
 version: 1
 storageDriverName: ontap-san
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.3
 svm: svm_iscsi
 labels:
   k8scluster: test-cluster-1
@@ -297,7 +294,6 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 version: 1
 storageDriverName: ontap-san
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.3
 svm: svm_iscsi
 useCHAP: true
 chapInitiatorSecret: cl9qxIm36DKyawxy
