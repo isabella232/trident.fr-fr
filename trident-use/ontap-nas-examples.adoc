@@ -154,28 +154,31 @@ Voici un exemple avec des valeurs par défaut définies :
 
 [listing]
 ----
-{
-  "version": 1,
-  "storageDriverName": "ontap-nas",
-  "backendName": "customBackendName",
-  "managementLIF": "10.0.0.1",
-  "dataLIF": "10.0.0.2",
-  "labels": {"k8scluster": "dev1", "backend": "dev1-nasbackend"},
-  "svm": "trident_svm",
-  "username": "cluster-admin",
-  "password": "password",
-  "limitAggregateUsage": "80%",
-  "limitVolumeSize": "50Gi",
-  "nfsMountOptions": "nfsvers=4",
-  "debugTraceFlags": {"api":false, "method":true},
-  "defaults": {
-    "spaceReserve": "volume",
-    "qosPolicy": "premium",
-    "exportPolicy": "myk8scluster",
-    "snapshotPolicy": "default",
-    "snapshotReserve": "10"
-  }
-}
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: customBackendName
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+labels:
+  k8scluster: dev1
+  backend: dev1-nasbackend
+svm: trident_svm
+username: cluster-admin
+password: password
+limitAggregateUsage: 80%
+limitVolumeSize: 50Gi
+nfsMountOptions: nfsvers=4
+debugTraceFlags:
+  api: false
+  method: true
+defaults:
+  spaceReserve: volume
+  qosPolicy: premium
+  exportPolicy: myk8scluster
+  snapshotPolicy: default
+  snapshotReserve: '10'
+
 ----
 Pour `ontap-nas` et `ontap-nas-flexgroups`, Astra Trident utilise maintenant un nouveau calcul pour s'assurer que la FlexVol est correctement dimensionnée avec le pourcentage de snapshots et la demande de volume persistant. Lorsque l'utilisateur demande de volume persistant, Astra Trident crée le FlexVol d'origine avec plus d'espace en utilisant le nouveau calcul. Ce calcul garantit que l'utilisateur reçoit l'espace inscriptible demandé dans la demande de volume persistant et qu'il ne dispose pas d'un espace minimal par rapport à ce qu'il a demandé. Avant le 21.07, lorsque l'utilisateur demande une demande de volume persistant (par exemple, 5 Gio), et le snapshotReserve à 50 %, ils ne bénéficient que d'un espace inscriptible de 2,5 Gio. En effet, le nom d'utilisateur requis correspond à l'intégralité du volume et `snapshotReserve` représente un pourcentage de cela. Avec Trident 21.07, il s'agit de l'espace inscriptible demandé par l'utilisateur et d'Astra Trident définit le `snapshotReserve` nombre comme pourcentage de l'intégralité du volume. Cela ne s'applique pas à `ontap-nas-economy`. Voir l'exemple suivant pour voir comment cela fonctionne :
 
@@ -209,15 +212,14 @@ NOTE: Si vous utilisez Amazon FSX sur NetApp ONTAP avec Trident, nous vous recom
 ====
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-nas-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password"
-}
+---
+version: 1
+storageDriverName: ontap-nas-economy
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
 ----
 ====
 .Authentification basée sur des certificats
@@ -227,18 +229,17 @@ Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `
 
 [listing]
 ----
-{
-  "version": 1,
-  "backendName": "DefaultNASBackend",
-  "storageDriverName": "ontap-nas",
-  "managementLIF": "10.0.0.1",
-  "dataLIF": "10.0.0.15",
-  "svm": "nfs_svm",
-  "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
-  "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
-  "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz",
-  "storagePrefix": "myPrefix_"
-}
+---
+version: 1
+backendName: DefaultNASBackend
+storageDriverName: ontap-nas
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.15
+svm: nfs_svm
+clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
+clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
+trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
+storagePrefix: myPrefix_
 ----
 ====
 .Export policy auto
@@ -249,33 +250,36 @@ Ces exemples vous montrent comment vous pouvez demander à Astra Trident d'utili
 .pilote ontap-nas
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "labels": {"k8scluster": "test-cluster-east-1a", "backend": "test1-nasbackend"},
-    "autoExportPolicy": true,
-    "autoExportCIDRs": ["10.0.0.0/24"],
-    "username": "admin",
-    "password": "password",
-    "nfsMountOptions": "nfsvers=4",
-}
+---
+version: 1
+storageDriverName: ontap-nas
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+labels:
+  k8scluster: test-cluster-east-1a
+  backend: test1-nasbackend
+autoExportPolicy: true
+autoExportCIDRs:
+- 10.0.0.0/24
+username: admin
+password: password
+nfsMountOptions: nfsvers=4
 ----
 .pilote <code> </code> tap-nas-flexs
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-nas-flexgroup",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "labels": {"k8scluster": "test-cluster-east-1b", "backend": "test1-ontap-cluster"},
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-}
+---
+version: 1
+storageDriverName: ontap-nas-flexgroup
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+labels:
+  k8scluster: test-cluster-east-1b
+  backend: test1-ontap-cluster
+svm: svm_nfs
+username: vsadmin
+password: password
 ----
 ====
 .Utilisation des adresses IPv6
@@ -285,16 +289,18 @@ Cet exemple montre `managementLIF` Utilisation d'une adresse IPv6.
 
 [listing]
 ----
-{
- "version": 1,
- "storageDriverName": "ontap-nas",
- "backendName": "nas_ipv6_backend",
- "managementLIF": "[5c5d:5edf:8f:7657:bef8:109b:1b41:d491]",
- "labels": {"k8scluster": "test-cluster-east-1a", "backend": "test1-ontap-ipv6"},
- "svm": "nas_ipv6_svm",
- "username": "vsadmin",
- "password": "password"
-}
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas_ipv6_backend
+managementLIF: "[5c5d:5edf:8f:7657:bef8:109b:1b41:d491]"
+labels:
+  k8scluster: test-cluster-east-1a
+  backend: test1-ontap-ipv6
+svm: nas_ipv6_svm
+username: vsadmin
+password: password
+
 ----
 ====
 
@@ -303,15 +309,14 @@ Cet exemple montre `managementLIF` Utilisation d'une adresse IPv6.
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-nas-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password"
-}
+---
+version: 1
+storageDriverName: ontap-nas-economy
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
 ----
 
 
@@ -319,19 +324,18 @@ Cet exemple montre `managementLIF` Utilisation d'une adresse IPv6.
 
 [listing]
 ----
-{
-  "version": 1,
-  "backendName": "SMBBackend",
-  "storageDriverName": "ontap-nas",
-  "managementLIF": "example.mgmt.fqdn.aws.com",
-  “nasType”: “smb”,
-  "dataLIF": "10.0.0.15",
-  "svm": "nfs_svm",
-  "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
-  "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
-  "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz",
-  "storagePrefix": "myPrefix_"
-}
+---
+version: 1
+backendName: SMBBackend
+storageDriverName: ontap-nas
+managementLIF: example.mgmt.fqdn.aws.com
+nasType: smb
+dataLIF: 10.0.0.15
+svm: nfs_svm
+clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
+clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
+trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
+storagePrefix: myPrefix_
 ----
 
 
@@ -348,64 +352,57 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 ====
 [listing]
 ----
-{
-    {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "admin",
-    "password": "password",
-    "nfsMountOptions": "nfsvers=4",
-
-    "defaults": {
-          "spaceReserve": "none",
-          "encryption": "false",
-          "qosPolicy": "standard"
-    },
-    "labels":{"store":"nas_store", "k8scluster": "prod-cluster-1"},
-    "region": "us_east_1",
-    "storage": [
-        {
-            "labels":{"app":"msoffice", "cost":"100"},
-            "zone":"us_east_1a",
-            "defaults": {
-                "spaceReserve": "volume",
-                "encryption": "true",
-                "unixPermissions": "0755",
-                "adaptiveQosPolicy": "adaptive-premium"
-            }
-        },
-        {
-            "labels":{"app":"slack", "cost":"75"},
-            "zone":"us_east_1b",
-            "defaults": {
-                "spaceReserve": "none",
-                "encryption": "true",
-                "unixPermissions": "0755"
-            }
-        },
-        {
-            "labels":{"app":"wordpress", "cost":"50"},
-            "zone":"us_east_1c",
-            "defaults": {
-                "spaceReserve": "none",
-                "encryption": "true",
-                "unixPermissions": "0775"
-            }
-        },
-        {
-            "labels":{"app":"mysqldb", "cost":"25"},
-            "zone":"us_east_1d",
-            "defaults": {
-                "spaceReserve": "volume",
-                "encryption": "false",
-                "unixPermissions": "0775"
-            }
-        }
-    ]
-}
+---
+version: 1
+storageDriverName: ontap-nas
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: admin
+password: password
+nfsMountOptions: nfsvers=4
+defaults:
+  spaceReserve: none
+  encryption: 'false'
+  qosPolicy: standard
+labels:
+  store: nas_store
+  k8scluster: prod-cluster-1
+region: us_east_1
+storage:
+- labels:
+    app: msoffice
+    cost: '100'
+  zone: us_east_1a
+  defaults:
+    spaceReserve: volume
+    encryption: 'true'
+    unixPermissions: '0755'
+    adaptiveQosPolicy: adaptive-premium
+- labels:
+    app: slack
+    cost: '75'
+  zone: us_east_1b
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0755'
+- labels:
+    app: wordpress
+    cost: '50'
+  zone: us_east_1c
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0775'
+- labels:
+    app: mysqldb
+    cost: '25'
+  zone: us_east_1d
+  defaults:
+    spaceReserve: volume
+    encryption: 'false'
+    unixPermissions: '0775'
 ----
 ====
 .pilote <code> </code> tap-nas-flexs
@@ -413,60 +410,55 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 ====
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-nas-flexgroup",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
+---
+version: 1
+storageDriverName: ontap-nas-flexgroup
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+defaults:
+  spaceReserve: none
+  encryption: 'false'
+labels:
+  store: flexgroup_store
+  k8scluster: prod-cluster-1
+region: us_east_1
+storage:
+- labels:
+    protection: gold
+    creditpoints: '50000'
+  zone: us_east_1a
+  defaults:
+    spaceReserve: volume
+    encryption: 'true'
+    unixPermissions: '0755'
+- labels:
+    protection: gold
+    creditpoints: '30000'
+  zone: us_east_1b
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0755'
+- labels:
+    protection: silver
+    creditpoints: '20000'
+  zone: us_east_1c
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0775'
+- labels:
+    protection: bronze
+    creditpoints: '10000'
+  zone: us_east_1d
+  defaults:
+    spaceReserve: volume
+    encryption: 'false'
+    unixPermissions: '0775'
 
-    "defaults": {
-          "spaceReserve": "none",
-          "encryption": "false"
-    },
-    "labels":{"store":"flexgroup_store", "k8scluster": "prod-cluster-1"},
-    "region": "us_east_1",
-    "storage": [
-        {
-            "labels":{"protection":"gold", "creditpoints":"50000"},
-            "zone":"us_east_1a",
-            "defaults": {
-                "spaceReserve": "volume",
-                "encryption": "true",
-                "unixPermissions": "0755"
-            }
-        },
-        {
-            "labels":{"protection":"gold", "creditpoints":"30000"},
-            "zone":"us_east_1b",
-            "defaults": {
-                "spaceReserve": "none",
-                "encryption": "true",
-                "unixPermissions": "0755"
-            }
-        },
-        {
-            "labels":{"protection":"silver", "creditpoints":"20000"},
-            "zone":"us_east_1c",
-            "defaults": {
-                "spaceReserve": "none",
-                "encryption": "true",
-                "unixPermissions": "0775"
-            }
-        },
-        {
-            "labels":{"protection":"bronze", "creditpoints":"10000"},
-            "zone":"us_east_1d",
-            "defaults": {
-                "spaceReserve": "volume",
-                "encryption": "false",
-                "unixPermissions": "0775"
-            }
-        }
-    ]
-}
 ----
 ====
 .pilote <code> </code> de la carte™ stap-nas-economs™
@@ -474,60 +466,54 @@ Dans cet exemple, certains pools de stockage sont propriétaires de leur propre 
 ====
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-nas-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
+---
+version: 1
+storageDriverName: ontap-nas-economy
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+defaults:
+  spaceReserve: none
+  encryption: 'false'
+labels:
+  store: nas_economy_store
+region: us_east_1
+storage:
+- labels:
+    department: finance
+    creditpoints: '6000'
+  zone: us_east_1a
+  defaults:
+    spaceReserve: volume
+    encryption: 'true'
+    unixPermissions: '0755'
+- labels:
+    department: legal
+    creditpoints: '5000'
+  zone: us_east_1b
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0755'
+- labels:
+    department: engineering
+    creditpoints: '3000'
+  zone: us_east_1c
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0775'
+- labels:
+    department: humanresource
+    creditpoints: '2000'
+  zone: us_east_1d
+  defaults:
+    spaceReserve: volume
+    encryption: 'false'
+    unixPermissions: '0775'
 
-    "defaults": {
-          "spaceReserve": "none",
-          "encryption": "false"
-    },
-    "labels":{"store":"nas_economy_store"},
-    "region": "us_east_1",
-    "storage": [
-        {
-            "labels":{"department":"finance", "creditpoints":"6000"},
-            "zone":"us_east_1a",
-            "defaults": {
-                "spaceReserve": "volume",
-                "encryption": "true",
-                "unixPermissions": "0755"
-            }
-        },
-        {
-            "labels":{"department":"legal", "creditpoints":"5000"},
-            "zone":"us_east_1b",
-            "defaults": {
-                "spaceReserve": "none",
-                "encryption": "true",
-                "unixPermissions": "0755"
-            }
-        },
-        {
-            "labels":{"department":"engineering", "creditpoints":"3000"},
-            "zone":"us_east_1c",
-            "defaults": {
-                "spaceReserve": "none",
-                "encryption": "true",
-                "unixPermissions": "0775"
-            }
-        },
-        {
-            "labels":{"department":"humanresource", "creditpoints":"2000"},
-            "zone":"us_east_1d",
-            "defaults": {
-                "spaceReserve": "volume",
-                "encryption": "false",
-                "unixPermissions": "0775"
-            }
-        }
-    ]
-}
 ----
 ====
 

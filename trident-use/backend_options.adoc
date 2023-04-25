@@ -45,7 +45,7 @@ Pour gérer un système back-end existant à l'aide de `kubectl`, vous devez cr�
 
 === Étape 0 : identifier le back-end
 
-Pour créer un `TridentBackendConfig` qui se lie à un back-end existant, vous devrez obtenir la configuration du backend. Dans cet exemple, supposons qu'un back-end a été créé à l'aide de la définition JSON suivante :
+Pour créer un `TridentBackendConfig` qui se lie à un back-end existant, vous devez obtenir la configuration back-end. Dans cet exemple, supposons qu'un back-end a été créé à l'aide de la définition JSON suivante :
 
 [listing]
 ----

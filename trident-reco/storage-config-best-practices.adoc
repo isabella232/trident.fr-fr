@@ -129,32 +129,25 @@ Avant de créer des groupes de règles de QoS, tenez compte des points suivants 
 
 [listing]
 ----
-  {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "0.0.0.0",
-    "dataLIF": "0.0.0.0",
-    "svm": "svm0",
-    "username": "user",
-    "password": "pass",
-    "defaults": {
-      "qosPolicy": "standard-pg"
-    },
-    "storage": [
-      {
-        "labels": {"performance": "extreme"},
-        "defaults": {
-          "adaptiveQosPolicy": "extremely-adaptive-pg"
-        }
-      },
-      {
-        "labels": {"performance": "premium"},
-        "defaults": {
-          "qosPolicy": "premium-pg"
-        }
-      }
-    ]
-  }
+  ---
+version: 1
+storageDriverName: ontap-nas
+managementLIF: 0.0.0.0
+dataLIF: 0.0.0.0
+svm: svm0
+username: user
+password: pass
+defaults:
+  qosPolicy: standard-pg
+storage:
+- labels:
+    performance: extreme
+  defaults:
+    adaptiveQosPolicy: extremely-adaptive-pg
+- labels:
+    performance: premium
+  defaults:
+    qosPolicy: premium-pg
 ----
 * Vous devez appliquer les « policy groups » par volume pour que chaque volume bénéficie de l'intégralité du débit spécifié par le « policy group ». Les groupes de stratégies partagés ne sont pas pris en charge.
 

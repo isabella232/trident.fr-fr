@@ -40,6 +40,16 @@ Astra Trident nécessite les identifiants d'un administrateur SVM-scoped/cluster
 
 Voici un exemple de définition du back-end :
 
+[role="tabbed-block"]
+====
+.YAML
+--
+'''
+Version: 1 backendName: ExempleBackend storageDriverName: ontap-san managementLIF: 10.0.0.1 dataLIF: 10.0.0.2 svm: svm_nfs username: Vsadmin password: Password
+
+--
+.JSON
+--
 [listing]
 ----
 {
@@ -50,9 +60,12 @@ Voici un exemple de définition du back-end :
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
   "username": "vsadmin",
-  "password": "password",
+  "password": "password"
 }
+
 ----
+--
+====
 Gardez à l'esprit que la définition du back-end est le seul endroit où les informations d'identification sont stockées en texte brut. Une fois le système backend créé, les noms d'utilisateur/mots de passe sont codés avec Base64 et stockés sous forme de secrets Kubernetes. La création ou la mise à jour d'un back-end est la seule étape qui nécessite la connaissance des informations d'identification. Il s'agit donc d'une opération uniquement administrative, qui doit être effectuée par l'administrateur Kubernetes/du stockage.
 
 
@@ -198,21 +211,20 @@ Astra Trident peut authentifier les sessions iSCSI avec le protocole CHAP bidire
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "backendName": "ontap_san_chap",
-    "managementLIF": "192.168.0.135",
-    "svm": "ontap_iscsi_svm",
-    "useCHAP": true,
-    "username": "vsadmin",
-    "password": "password",
-    "igroupName": "trident",
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-}
+---
+version: 1
+storageDriverName: ontap-san
+backendName: ontap_san_chap
+managementLIF: 192.168.0.135
+svm: ontap_iscsi_svm
+useCHAP: true
+username: vsadmin
+password: password
+igroupName: trident
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
 ----
 
 WARNING: Le `useCHAP` Paramètre est une option booléenne qui ne peut être configurée qu'une seule fois. Elle est définie sur FALSE par défaut. Une fois la valeur true définie, vous ne pouvez pas la définir sur false.
