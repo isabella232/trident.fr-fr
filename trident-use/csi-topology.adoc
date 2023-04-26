@@ -28,7 +28,7 @@ NOTE: Le `WaitForFirstConsumer` le mode de liaison ne nécessite pas d'étiquett
 .Ce dont vous avez besoin
 Pour utiliser la topologie CSI, vous devez disposer des éléments suivants :
 
-* Un cluster Kubernetes exécutant un link:requirements.html["Version Kubernetes prise en charge"]
+* Un cluster Kubernetes exécutant un link:../trident-get-started/requirements.html["Version Kubernetes prise en charge"]
 +
 [listing]
 ----
