@@ -11,6 +11,7 @@ summary: 'Vous pouvez importer des volumes de stockage existants sous forme de v
 :imagesdir: ../media/
 
 
+[role="lead"]
 Vous pouvez importer des volumes de stockage existants sous forme de volume persistant Kubernetes à l'aide de `tridentctl import`.
 
 
@@ -151,9 +152,6 @@ Astra Trident peut également importer des volumes FlexVol SAN de ONTAP contenan
 * Fournir le chemin de la définition de PVC qui doit être utilisée avec le `-f` drapeau.
 * Vous avez le choix entre gérer ou non le volume persistant. Par défaut, Trident gère le volume de volume persistant et renomme la FlexVol et la LUN en back-end. Pour importer en tant que volume non géré, passez le `--no-manage` drapeau.
 
-
-
-TIP: Lors de l'importation d'un non géré `ontap-san` Volume, vérifiez que la LUN de la FlexVol est nommée `lun0` et est mappée sur un groupe initiateur avec les initiateurs souhaités. Astra Trident le gère automatiquement pour une importation gérée.
 
 Astra Trident va ensuite importer le FlexVol et l'associer à la définition de la demande de volume persistant. Astra Trident renomme également le FlexVol avec le `pvc-<uuid>` Formatez et la LUN au sein du FlexVol à `lun0`.
 

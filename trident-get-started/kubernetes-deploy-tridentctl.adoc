@@ -16,14 +16,14 @@ Vous pouvez installer Astra Trident à l'aide de `tridentctl`. Ce processus s'ap
 
 
 
-== Découvrez Astra Trident 23.01, un document essentiel
+== Informations stratégiques sur Astra Trident 23.04
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
 .<strong> informations pratiques sur le Tridécouvrez Astra </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26 est désormais pris en charge par Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.27 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
 * Astra Trident applique rigoureusement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec la valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -75,8 +75,8 @@ Le package du programme d'installation Astra Trident crée un pod Trident, confi
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
-tar -xf trident-installer-23.01.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
+tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 ----
 
@@ -84,9 +84,6 @@ cd trident-installer
 == Étape 2 : installer Astra Trident
 
 Installez Astra Trident dans l'espace de noms souhaité en exécutant le `tridentctl install` commande. Vous pouvez ajouter des arguments supplémentaires pour spécifier l'emplacement du registre d'images.
-
-
-NOTE: Pour permettre à Astra Trident de s'exécuter sur des nœuds Windows, ajoutez le `--windows` indicateur de la commande install : `$ ./tridentctl install --windows -n trident`.
 
 [role="tabbed-block"]
 ====
@@ -101,7 +98,7 @@ NOTE: Pour permettre à Astra Trident de s'exécuter sur des nœuds Windows, ajo
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.01 --trident-image <your-registry>/trident:23.01.1
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.04 --trident-image <your-registry>/trident:23.04.0
 ----
 --
 .Images dans différents registres
@@ -110,7 +107,7 @@ Vous devez ajouter `sig-storage` à la `imageRegistry` pour utiliser différents
 
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.01 --trident-image <your-registry>/netapp/trident:23.01.1
+./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.04 --trident-image <your-registry>/netapp/trident:23.04.0
 ----
 --
 ====
@@ -131,7 +128,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=23.01.1
+INFO Trident REST interface is up.                 version=23.04.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -171,9 +168,33 @@ Vous pouvez utiliser `tridentctl` Pour vérifier la version d'Astra Trident inst
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.01.1        | 23.01.1        |
+| 23.04.0        | 23.04.0        |
 +----------------+----------------+
 ----
+
+
+== Exemples de configurations
+
+.Exemple 1 : activez Astra Trident pour qu'elle s'exécute sur les nœuds Windows
+[%collapsible%open]
+====
+Pour permettre l'exécution d'Astra Trident sur les nœuds Windows :
+
+[listing]
+----
+tridentctl install --windows -n trident
+----
+====
+.Exemple 2 : activer le détachement forcé
+[%collapsible%open]
+====
+Pour plus d'informations sur le détachement forcé, voir link:..trident-get-started/kubernetes-customize-deploy.html["Personnalisez l'installation de l'opérateur Trident"].
+
+[listing]
+----
+tridentctl install --enable-force-detach=true -n trident
+----
+====
 
 
 == Et la suite

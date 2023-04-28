@@ -11,7 +11,8 @@ summary: Vous pouvez créer une classe de stockage, supprimer une classe de stoc
 :imagesdir: ../media/
 
 
-Recherchez des informations sur la création d'une classe de stockage, la suppression d'une classe de stockage et l'affichage des classes de stockage existantes.
+[role="lead"]
+Vous pouvez créer une classe de stockage, supprimer une classe de stockage et afficher les classes de stockage existantes.
 
 
 

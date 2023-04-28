@@ -141,9 +141,13 @@ Contrôle granulaire des options de montage NFS ; par défaut : «-o nfssvers=3 
 
 
 | `igroupName`  a| 
-Le groupe initiateur utilisé par le plug-in ; par défaut, est `netappdvp`. *Disponible uniquement pour le `ontap-san `driver*.
+ASTRA Trident crée et gère chaque nœud `igroups` comme `netappdvp`.
+
+Cette valeur ne peut pas être modifiée ou omise.
+
+*Disponible uniquement pour le `ontap-san` pilote*.
  a| 
-`myigroup`
+`netappdvp`
 
 
 
@@ -348,7 +352,7 @@ Pour bénéficier de fonctionnalités avancées et d'une évolutivité massive d
     "username": "vsadmin",
     "password": "password",
     "aggregate": "aggr1",
-    "igroupName": "myigroup"
+    "igroupName": "netappdvp"
 }
 ----
 *Exemple NFS pour `ontap-san-economy` pilote*
@@ -364,7 +368,7 @@ Pour bénéficier de fonctionnalités avancées et d'une évolutivité massive d
     "username": "vsadmin",
     "password": "password",
     "aggregate": "aggr1",
-    "igroupName": "myigroup"
+    "igroupName": "netappdvp"
 }
 ----
 

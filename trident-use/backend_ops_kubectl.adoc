@@ -11,6 +11,7 @@ summary: 'Découvrez comment effectuer des opérations de gestion back-end à l"
 :imagesdir: ../media/
 
 
+[role="lead"]
 Découvrez comment effectuer des opérations de gestion back-end à l'aide de `kubectl`.
 
 

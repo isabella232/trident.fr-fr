@@ -4,16 +4,16 @@ indexpage:
     source du stockage géré par NetApp. Il vous permet de créer des volumes de stockage
     pour les applications conteneurisées gérées par Docker et Kubernetes.
   tiles:
-  - title: Informations critiques pour la version 23.01
+  - title: Notes de mise à jour
     links:
-    - title: Notes de mise à jour
+    - title: Quoi de neuf
       url: trident-rn.html
+    - title: Versions antérieures
+      url: "/earlier-versions.html"
   - title: Commencez
     links:
     - title: Découvrez Astra Trident
       url: "/trident-concepts/intro.html"
-    - title: Notes de mise à jour
-      url: trident-rn.html
     - title: De formation
       url: "/trident-get-started/requirements.html"
     - title: Essayez-le

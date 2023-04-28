@@ -11,7 +11,12 @@ summary: Découvrez comment vous préparer à configurer un back-end ONTAP avec 
 :imagesdir: ../media/
 
 
-Découvrez comment vous préparer à configurer un back-end ONTAP avec les pilotes NAS ONTAP. Pour tous les systèmes back-end ONTAP, Astra Trident requiert au moins un agrégat affecté à la SVM.
+[role="lead"]
+Découvrez comment vous préparer à configurer un back-end ONTAP avec les pilotes NAS ONTAP.
+
+
+
+== Présentation
 
 Pour tous les systèmes back-end ONTAP, Astra Trident requiert au moins un agrégat affecté à la SVM.
 

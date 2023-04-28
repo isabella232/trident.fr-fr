@@ -11,6 +11,7 @@ summary: 'Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre
 :imagesdir: ../media/
 
 
+[role="lead"]
 Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installation d'Astra Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.
 
 
@@ -84,10 +85,16 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Par exemple, {“api”:false, “méthode”:true} ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépanner et que vous ayez besoin d'un vidage détaillé des journaux. | nul 
 
 
+| `nasType` | Configurez la création de volumes NFS ou SMB. Les options sont `nfs`, `smb` ou nul. La valeur null par défaut sur les volumes NFS. | `nfs` 
+
+
 | `nfsMountOptions` | Liste des options de montage NFS séparée par des virgules. Les options de montage des volumes Kubernetes persistants sont généralement spécifiées dans les classes de stockage, mais si aucune option de montage n'est spécifiée dans une classe de stockage, Astra Trident utilisera les options de montage spécifiées dans le fichier de configuration du système back-end. Si aucune option de montage n'est spécifiée dans la classe de stockage ou le fichier de configuration, Astra Trident ne définit aucune option de montage sur un volume persistant associé. | « » 
 
 
 | `qtreesPerFlexvol` | Nombre maximal de qtrees par FlexVol, qui doit être compris dans la plage [50, 300] | “200” 
+
+
+| `smbShare` | Vous pouvez spécifier le nom du partage SMB créé à l'aide de la console de gestion Microsoft du dossier partagé ou spécifier un nom de partage pour permettre à Astra Trident de créer le partage SMB. Sinon, vous pouvez laisser le paramètre vide pour empêcher l'accès commun au partage aux volumes. | `smb-share` 
 
 
 | `useREST` | Paramètre booléen pour utiliser les API REST de ONTAP. *Aperçu technique*

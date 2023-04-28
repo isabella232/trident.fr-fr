@@ -16,14 +16,14 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Astra Tri
 
 
 
-== Découvrez Astra Trident 23.01, un document essentiel
+== Informations stratégiques sur Astra Trident 23.04
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
 .<strong> informations pratiques sur le Tridécouvrez Astra </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26 est désormais pris en charge par Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.27 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
 * Astra Trident applique rigoureusement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec la valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -75,8 +75,8 @@ Le package d'installation d'Astra Trident contient tout ce dont vous avez besoin
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
-tar -xf trident-installer-23.01.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
+tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 ----
 
@@ -93,10 +93,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 
 === Étape 3 : mettez à jour l'emplacement du registre dans l'opérateur
 
-Dans `/deploy/operator.yaml`, mettre à jour `image: docker.io/netapp/trident-operator:23.01.1` pour refléter l'emplacement de votre registre d'images. Votre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Images Trident et CSI"] Peut être situé dans un registre ou dans des registres différents, mais toutes les images CSI doivent se trouver dans le même registre. Par exemple :
+Dans `/deploy/operator.yaml`, mettre à jour `image: docker.io/netapp/trident-operator:23.04.0` pour refléter l'emplacement de votre registre d'images. Votre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Images Trident et CSI"] Peut être situé dans un registre ou dans des registres différents, mais toutes les images CSI doivent se trouver dans le même registre. Par exemple :
 
-* `image: <your-registry>/trident-operator:23.01.1` si vos images sont toutes situées dans un même registre.
-* `image: <your-registry>/netapp/trident-operator:23.01.1` Si votre image Trident se trouve dans un registre différent de vos images CSI.
+* `image: <your-registry>/trident-operator:23.04.0` si vos images sont toutes situées dans un même registre.
+* `image: <your-registry>/netapp/trident-operator:23.04.0` Si votre image Trident se trouve dans un registre différent de vos images CSI.
 
 
 
@@ -150,8 +150,8 @@ Votre link:../trident-get-started/requirements.html#container-images-and-corresp
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:23.01"
-tridentImage: "<your-registry>/trident:23.01.1"
+autosupportImage: "<your-registry>/trident-autosupport:23.04"
+tridentImage: "<your-registry>/trident:23.04.0"
 ----
 --
 .Images dans différents registres
@@ -161,8 +161,8 @@ Vous devez ajouter `sig-storage` à la `imageRegistry` pour utiliser différents
 [listing]
 ----
 imageRegistry: "<your-registry>/sig-storage"
-autosupportImage: "<your-registry>/netapp/trident-autosupport:23.01"
-tridentImage: "<your-registry>/netapp/trident:23.01.1"
+autosupportImage: "<your-registry>/netapp/trident-autosupport:23.04"
+tridentImage: "<your-registry>/netapp/trident:23.04.0"
 ----
 --
 ====
@@ -187,16 +187,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.01
+  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.04
   Debug:              true
   Image Registry:     <your-registry>/sig-storage
   Namespace:          trident
-  Trident Image:      <your-registry>/netapp/trident:23.01.1
+  Trident Image:      <your-registry>/netapp/trident:23.04.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.01
+    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.04
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -208,11 +208,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/netapp/trident:23.01.1
+    Trident Image:        <your-registry>/netapp/trident:23.04.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v23.01.1
+  Version:                v23.04.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -286,7 +286,7 @@ Vous pouvez utiliser `tridentctl` Pour vérifier la version d'Astra Trident inst
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.01.1        | 23.01.1      |
+| 23.04.0        | 23.04.0      |
 +----------------+----------------+
 ----
 

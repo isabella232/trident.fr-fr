@@ -11,7 +11,14 @@ summary: 'Astra Trident propose plusieurs fonctionnalités de gestion des volume
 :imagesdir: ../media/
 
 
+[role="lead"]
 Découvrez les fonctionnalités d'Astra Trident pour la gestion de vos volumes.
+
+
+
+== Gestion des volumes
+
+Consultez cette section pour découvrir comment gérer vos volumes avec Astra Trident.
 
 * link:csi-topology.html["Utiliser la topologie CSI"^]
 * link:vol-snapshots.html["Travailler avec des instantanés"^]

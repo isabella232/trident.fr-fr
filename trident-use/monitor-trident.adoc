@@ -11,7 +11,12 @@ summary: 'Astra Trident fournit un ensemble de terminaux de metrics de Prometheu
 :imagesdir: ../media/
 
 
-Astra Trident fournit un ensemble de terminaux de metrics de Prometheus que vous pouvez utiliser pour surveiller les performances d'Astra Trident.
+[role="lead"]
+ASTRA Trident fournit un ensemble de terminaux de metrics Prometheus que vous pouvez utiliser pour contrôler les performances d'Astra Trident.
+
+
+
+== Présentation
 
 Avec les metrics d'Astra Trident, vous pouvez :
 

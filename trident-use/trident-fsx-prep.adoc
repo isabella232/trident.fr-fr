@@ -145,7 +145,7 @@ NOTE: Reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/smb-c
 | Paramètre | Description | Exemple 
 
 
-| `smbShare` | Nom du partage SMB créé à l'aide du dossier partagé Microsoft Management Console. Par exemple « smb-share ». *Requis pour les volumes SMB.* | `smb-share` 
+| `smbShare` | Vous pouvez spécifier le nom du partage SMB créé à l'aide de la console de gestion Microsoft du dossier partagé ou spécifier un nom de partage pour permettre à Astra Trident de créer le partage SMB. Sinon, vous pouvez laisser le paramètre vide pour empêcher l'accès commun au partage aux volumes. | `smb-share` 
 
 
 | `nasType` | *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | `smb` 

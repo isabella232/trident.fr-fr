@@ -11,6 +11,7 @@ summary: 'Découvrez comment créer et utiliser des pilotes SAN ONTAP avec votre
 :imagesdir: ../media/
 
 
+[role="lead"]
 Découvrez comment créer et utiliser des pilotes SAN ONTAP avec votre installation d'Astra Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.
 
 
@@ -27,7 +28,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `version` |  | Toujours 1 
 
 
-| `storageDriverName` | Nom du pilote de stockage | ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san », « ontap-san », « ontap-économie san » 
+| `storageDriverName` | Nom du pilote de stockage | `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy` 
 
 
 | `backendName` | Nom personnalisé ou système back-end de stockage | Nom du pilote + "_" + dataLIF 
@@ -39,7 +40,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `dataLIF` | Adresse IP de la LIF de protocole. *Ne pas spécifier pour iSCSI.* utilisations d'Astra Trident link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] Pour découvrir les LIFs iSCI nécessaires à l'établissement d'une session multi-chemin. Un avertissement est généré si `dataLIF` est explicitement défini. | Dérivé par la SVM 
 
 
-| `useCHAP` | Utilisez CHAP pour authentifier iSCSI pour les pilotes SAN ONTAP [Boolean]. Réglez sur `true` Pour qu'Astra Trident configure et utilise le protocole CHAP bidirectionnel comme authentification par défaut pour la SVM donnée en back-end. Reportez-vous à la section link:ontap-san-prep.html["Préparez la configuration du système back-end avec les pilotes SAN ONTAP"] pour plus d'informations. | faux 
+| `useCHAP` | Utilisez CHAP pour authentifier iSCSI pour les pilotes SAN ONTAP [Boolean]. Réglez sur `true` Pour qu'Astra Trident configure et utilise le protocole CHAP bidirectionnel comme authentification par défaut pour la SVM donnée en back-end. Reportez-vous à la section link:ontap-san-prep.html["Préparez la configuration du système back-end avec les pilotes SAN ONTAP"] pour plus d'informations. | `false` 
 
 
 | `chapInitiatorSecret` | Secret de l'initiateur CHAP. Requis si `useCHAP=true` | « » 
@@ -75,10 +76,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `svm` | Serveur virtuel de stockage à utiliser | Dérivé d'un SVM `managementLIF` est spécifié 
 
 
-| `igroupName` | Nom du groupe initiateur à utiliser pour les volumes SAN. Reportez-vous à la section  pour en savoir plus. | Trident-<backend-UUID> 
-
-
-| `storagePrefix` | Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être modifié ultérieurement. Pour mettre à jour ce paramètre, vous devez créer un nouveau backend. | trident 
+| `storagePrefix` | Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être modifié ultérieurement. Pour mettre à jour ce paramètre, vous devez créer un nouveau backend. | `trident` 
 
 
 | `limitAggregateUsage` | Echec du provisionnement si l'utilisation est supérieure à ce pourcentage. Si vous utilisez un système Amazon FSX pour le système back-end NetApp ONTAP, ne spécifiez pas  `limitAggregateUsage`. Le fourni `fsxadmin` et `vsadmin` Ne contiennent pas les autorisations requises pour récupérer l'utilisation d'agrégats et le limiter à l'aide d'Astra Trident. | « » (non appliqué par défaut) 
@@ -87,30 +85,16 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Restreint également la taille maximale des volumes qu'il gère pour les qtrees et les LUN. | « » (non appliqué par défaut) 
 
 
-| `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | “100” 
+| `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | `100` 
 
 
-| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Par exemple, {“api”:false, “méthode”:true} ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d’un vidage détaillé des journaux. | nul 
+| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Par exemple, {“api”:false, “méthode”:true} ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d’un vidage détaillé des journaux. | `null` 
 
 
 | `useREST` | Paramètre booléen pour utiliser les API REST de ONTAP. *Aperçu technique*
 `useREST` est fourni sous forme d'aperçu technique ** qui est recommandé pour les environnements de test et non pour les charges de travail de production. Lorsqu'il est réglé sur `true`, Astra Trident va utiliser les API REST de ONTAP pour communiquer avec le système back-end. Cette fonctionnalité requiert ONTAP 9.11.1 et versions ultérieures. En outre, le rôle de connexion ONTAP utilisé doit avoir accès au `ontap` client supplémentaire. Ceci est satisfait par le pré-défini `vsadmin` et `cluster-admin` rôles.
-`useREST` N'est pas pris en charge par MetroCluster. | faux 
+`useREST` N'est pas pris en charge par MetroCluster. | `false` 
 |===
-
-
-=== Détails sur `igroupName`
-
-`igroupName` Peut être défini sur un groupe initiateur déjà créé sur le cluster ONTAP. Si non spécifié, Astra Trident crée automatiquement un groupe initiateur nommé `trident-<backend-UUID>`.
-
-Si vous disposez d'un nom de groupe prédéfini, nous vous recommandons d'utiliser un groupe initiateur par cluster Kubernetes si le SVM doit être partagé entre les environnements. Cela est nécessaire pour qu'Astra Trident conserve automatiquement les ajouts et suppressions d'IQN.
-
-* `igroupName` Peut être mis à jour afin de désigner un nouveau groupe initiateur créé et géré sur la SVM en dehors d'Astra Trident.
-* `igroupName` peut être omis. Dans ce cas, Astra Trident crée et gère un groupe initiateur nommé `trident-<backend-UUID>` automatiquement.
-
-
-Dans les deux cas, les pièces jointes de volume continueront d'être accessibles. Les pièces jointes futures utilisent le groupe initiateur mis à jour. Cette mise à jour n'interrompt pas l'accès aux volumes présents sur le back-end.
-
 
 
 == Options de configuration back-end pour les volumes de provisionnement

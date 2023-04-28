@@ -11,7 +11,14 @@ summary: Découvrez les différentes façons de gérer les systèmes back-end av
 :imagesdir: ../media/
 
 
-Découvrez les différentes façons de gérer les systèmes back-end avec Astra Trident. Avec l'introduction de `TridentBackendConfig`, les administrateurs ont désormais deux méthodes uniques de gestion des systèmes back-end. Ceci pose les questions suivantes :
+[role="lead"]
+Découvrez les différentes façons de gérer les systèmes back-end avec Astra Trident.
+
+
+
+== Options de gestion des systèmes back-end
+
+Avec l'introduction de `TridentBackendConfig`, les administrateurs ont désormais deux méthodes uniques de gestion des systèmes back-end. Ceci pose les questions suivantes :
 
 * Les systèmes back-end peuvent être créés avec `tridentctl` être géré avec `TridentBackendConfig`?
 * Les systèmes back-end peuvent être créés avec `TridentBackendConfig` gestion via `tridentctl`?

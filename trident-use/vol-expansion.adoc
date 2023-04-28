@@ -11,6 +11,7 @@ summary: 'Astra Trident permet aux utilisateurs de Kubernetes d"étendre leurs v
 :imagesdir: ../media/
 
 
+[role="lead"]
 Astra Trident permet aux utilisateurs de Kubernetes d'étendre leurs volumes après leur création. Trouvez des informations sur les configurations requises pour développer les volumes iSCSI et NFS.
 
 

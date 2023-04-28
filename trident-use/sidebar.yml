@@ -20,15 +20,17 @@ entries:
   - title: NetApp HCI ou SolidFire
     url: "/trident-use/element.html"
   - title: Pilotes SAN de ONTAP
-    url: "/trident-use/ontap-san.html"
     entries:
+    - title: Présentation
+      url: "/trident-use/ontap-san.html"
     - title: Préparez la configuration
       url: "/trident-use/ontap-san-prep.html"
     - title: Exemples et options de configuration
       url: "/trident-use/ontap-san-examples.html"
   - title: Pilotes NAS ONTAP
-    url: "/trident-use/ontap-nas.html"
     entries:
+    - title: Présentation
+      url: "/trident-use/ontap-nas.html"
     - title: Préparez la configuration
       url: "/trident-use/ontap-nas-prep.html"
     - title: Exemples et options de configuration

@@ -16,14 +16,14 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Astra Tri
 
 
 
-== Découvrez Astra Trident 23.01, un document essentiel
+== Informations stratégiques sur Astra Trident 23.04
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
 .<strong> informations pratiques sur le Tridécouvrez Astra </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26 est désormais pris en charge par Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.27 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
 * Astra Trident applique rigoureusement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec la valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -75,8 +75,8 @@ Le package d'installation d'Astra Trident contient tout ce dont vous avez besoin
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
-tar -xf trident-installer-23.01.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
+tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 ----
 
@@ -159,7 +159,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:23.01
+    Autosupport Image:         netapp/trident-autosupport:23.04
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -169,10 +169,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:23.01.1
+    Trident Image:        netapp/trident:23.04.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v23.01.1
+  Version:                  v23.04.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -246,7 +246,7 @@ Vous pouvez utiliser `tridentctl` Pour vérifier la version d'Astra Trident inst
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.01.1        | 23.01.1        |
+| 23.04.0        | 23.04.0        |
 +----------------+----------------+
 ----
 

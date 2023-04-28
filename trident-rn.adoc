@@ -4,7 +4,7 @@ permalink: trident-rn.html
 keywords: 'what"s new, new features, enhancements, known issues, resolved issues, troubleshooting' 
 summary: 'NetApp améliore et améliore continuellement ses produits et services. Voici quelques-unes des dernières fonctionnalités, améliorations et correctifs de la dernière version d"Astra Trident.' 
 ---
-= Notes de version
+= Quoi de neuf
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -19,7 +19,57 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 23.01.1
+== Nouveautés de la version 23.04
+
+
+IMPORTANT: Forcer le détachement de volume pour les volumes ONTAP-SAN-* est uniquement pris en charge avec les versions Kubernetes avec le volet fonctionnalité de fermeture de nœud non gracieuse activé. Le détachement forcé doit être activé au moment de l'installation à l'aide du `--enable-force-detach` Indicateur du programme d'installation Trident.
+
+
+
+=== Correctifs
+
+* Correction de l'opérateur Trident pour utiliser IPv6 localhost pour l'installation lorsqu'il est spécifié dans spec.
+* Correction des autorisations de rôle de cluster de l'opérateur Trident pour qu'elles soient synchronisées avec les autorisations du bundle (link:https://github.com/NetApp/trident/issues/799["Question no 799"^]).
+* Résolution du problème de connexion d'un volume de bloc brut sur plusieurs nœuds en mode RWX.
+* Prise en charge du clonage FlexGroup fixe et importation de volumes pour les volumes SMB.
+* Résolution du problème où le contrôleur Trident n'a pas pu s'arrêter immédiatement (link:https://github.com/NetApp/trident/issues/811["Question no 811"]).
+* Correctif ajouté pour afficher la liste de tous les noms de groupes initiateur associés à une LUN spécifiée provisionnée avec des pilotes ontap-san-*.
+* Ajout d'un correctif pour permettre l'exécution des processus externes.
+* Erreur de compilation corrigée pour l'architecture s390 (link:https://github.com/NetApp/trident/issues/537["Question no 537"]).
+* Correction d'un niveau de journalisation incorrect lors des opérations de montage de volume (link:https://github.com/NetApp/trident/issues/781["Question no 781"]).
+* Correction de l'erreur d'assertion de type de potentiel (link:https://github.com/NetApp/trident/issues/802["Question no 802"]).
+
+
+
+
+=== Améliorations
+
+* Kubernetes :
++
+** Prise en charge de Kubernetes 1.27.
+** Ajout de la prise en charge de l'importation de volumes LUKS.
+** Ajout de la prise en charge du mode d'accès PVC ReadWriteOncePod.
+** Ajout de la prise en charge du détachement forcé pour les volumes ONTAP-SAN-* lors des scénarios d'arrêt de nœud non gracieuse.
+** Tous les volumes ONTAP-SAN-* utiliseront désormais les groupes initiateurs par nœud. Les LUN ne seront mappées qu'aux igroups dont la publication est active sur ces nœuds afin d'améliorer notre niveau de sécurité. Les volumes existants seront basculés de manière opportuniste vers le nouveau schéma d'igroup lorsque Trident détermine qu'il est possible de le faire sans incidence sur les workloads actifs (link:https://github.com/NetApp/trident/issues/758["Question no 758"]).
+** Amélioration de la sécurité de Trident en nettoyant les groupes initiateurs gérés par Trident non utilisés à partir de systèmes back-end ONTAP-SAN-*.
+
+
+* Ajout de la prise en charge des volumes SMB avec Amazon FSX aux pilotes de stockage ontap-nas-Economy et ontap-nas-flexgroup.
+* Ajout de la prise en charge des partages SMB avec les pilotes de stockage ontap-nas, ontap-nas-Economy et ontap-nas-flexgroup.
+* Ajout de la prise en charge des nœuds arm64 (link:https://github.com/NetApp/trident/issues/732["Question no 732"]).
+* La procédure d'arrêt de Trident a été améliorée en désactivant d'abord les serveurs d'API (link:https://github.com/NetApp/trident/issues/811["Question no 811"]).
+* Ajout de la prise en charge de la construction multi plate-forme pour les hôtes Windows et arm64 à Makefile ; voir BUILD.md.
+
+
+
+
+=== Dérations
+
+**Kubernetes:** les igroups Backend-scoped ne seront plus créés lors de la configuration de pilotes ontap-san et ontap-san-Economy (link:https://github.com/NetApp/trident/issues/758["Question no 758"]).
+
+
+
+== Changements en 23.01.1
 
 
 
@@ -37,7 +87,7 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 == Changements en 23.01
 
 
-IMPORTANT: Kubernetes 1.26 est désormais pris en charge par Trident. Veuillez mettre à niveau Astra Trident avant de mettre à niveau Kubernetes.
+IMPORTANT: Kubernetes 1.27 est désormais pris en charge dans Trident. Veuillez mettre à niveau Astra Trident avant de mettre à niveau Kubernetes.
 
 
 
@@ -152,7 +202,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 === Améliorations
 
 * Passer de k8s.gcr.io au registre.k8s.io comme registre par défaut pour les images CSI
-* Les volumes ONTAP-SAN utiliseront désormais des igroups par nœud et ne mapperont les LUN aux groupes initiateurs, tout en les ayant été publiés activement à ces nœuds pour améliorer notre sécurité. Lorsque Trident détermine que les volumes existants sont sécurisés, sans affecter les workloads actifs, les volumes existants seront transférés de manière opportuniste vers le nouveau modèle d'groupe initiateur.
+* Les volumes ONTAP-SAN utiliseront désormais des igroups par nœud et ne mapperont les LUN aux groupes initiateurs, tout en les ayant été publiés activement à ces nœuds pour améliorer notre sécurité. Les volumes existants sont basculés de manière opportuniste vers le nouveau modèle d'igroup lorsque Astra Trident détermine qu'il est possible de le faire en toute sécurité sans incidence sur les workloads actifs.
 * Inclus un quota de Resourcequota avec les installations Trident pour s'assurer que Trident DemonSet est planifié lorsque la consommation PriorityClass est limitée par défaut.
 * Ajout de la prise en charge des fonctionnalités réseau au pilote ANF. (link:https://github.com/NetApp/trident/issues/717["Problème GitHub n° 717"^])
 * Ajout de la détection automatique du basculement MetroCluster dans l'aperçu technique aux pilotes ONTAP. (link:https://github.com/NetApp/trident/issues/228["Problème GitHub n° 228"^])
