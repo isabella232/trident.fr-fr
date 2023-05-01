@@ -16,13 +16,13 @@ Découvrez comment vous préparer à configurer un back-end ONTAP avec les pilot
 
 
 
-== Présentation
+== Considérations
 
-Pour tous les systèmes back-end ONTAP, Astra Trident requiert au moins un agrégat affecté à la SVM.
+* Pour tous les systèmes back-end ONTAP, Astra Trident requiert au moins un agrégat affecté à la SVM.
+* Vous pouvez exécuter plusieurs pilotes et créer des classes de stockage qui pointent vers l'un ou l'autre. Par exemple, vous pouvez configurer une classe Gold qui utilise le `ontap-nas` Pilote et une classe Bronze qui utilise le `ontap-nas-economy` une seule.
+* Tous vos nœuds workers Kubernetes doivent avoir installé les outils NFS appropriés. Voir link:worker-node-prep.html["ici"] pour en savoir plus.
+* Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
 
-N'oubliez pas que vous pouvez également exécuter plusieurs pilotes et créer des classes de stockage qui pointent vers l'un ou l'autre. Par exemple, vous pouvez configurer une classe Gold qui utilise le `ontap-nas` Pilote et une classe Bronze qui utilise le `ontap-nas-economy` une seule.
-
-Tous vos nœuds workers Kubernetes doivent avoir installé les outils NFS appropriés. Voir link:worker-node-prep.html["ici"] pour en savoir plus.
 
 
 
