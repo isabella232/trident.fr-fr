@@ -26,12 +26,12 @@ Pour effectuer la mise à niveau à l'aide de l'opérateur, les conditions suiva
 * Si vous avez désinstallé CSI Trident et que les métadonnées de l'installation persistent, vous pouvez effectuer une mise à niveau à l'aide de l'opérateur.
 * Une seule installation Astra Trident doit exister sur l'ensemble des espaces de noms d'un cluster Kubernetes donné.
 * Vous devez utiliser un cluster Kubernetes en cours d'exécution link:../trident-get-started/requirements.html["Version Kubernetes prise en charge"].
-* Si des CRD alpha snapshot sont présents, vous devez les supprimer avec `tridentctl obliviate alpha-snapshot-crd`. Ceci supprime les CRD pour la spécification de snapshot alpha. Pour les snapshots existants qui doivent être supprimés/migrés, reportez-vous à la section https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["de ce blog"^].
+* Si des CRD alpha snapshot sont présents, vous devez les supprimer avec `tridentctl obliviate alpha-snapshot-crd`. Ceci supprime les CRD pour la spécification de snapshot alpha. Pour les snapshots existants qui doivent être supprimés/migrés, reportez-vous à la section https://["de ce blog"^].
 
 
 [WARNING]
 ====
-* Lors de la mise à niveau de Trident à l'aide de l'opérateur sur OpenShift Container Platform, nous vous recommandons d'effectuer une mise à niveau vers Trident 21.01.1 ou version ultérieure. L'opérateur Trident sorti avec 21.01.0 contient un problème connu qui a été résolu en 21.01.1. Pour plus de détails, consultez le https://github.com/NetApp/trident/issues/517["Consultez le document GitHub pour plus d'informations"^].
+* Lors de la mise à niveau de Trident à l'aide de l'opérateur sur OpenShift Container Platform, nous vous recommandons d'effectuer une mise à niveau vers Trident 21.01.1 ou version ultérieure. L'opérateur Trident sorti avec 21.01.0 contient un problème connu qui a été résolu en 21.01.1. Pour plus de détails, consultez le https://["Consultez le document GitHub pour plus d'informations"^].
 * N'utilisez pas l'opérateur pour mettre à niveau Trident si vous utilisez un `etcd`Version Trident basée (19.04 ou version antérieure).
 
 
@@ -95,7 +95,7 @@ Version:  v20.10.1
 ----
 +
 
-NOTE: Si l'état s'affiche `Updating`, assurez-vous de le résoudre avant de continuer. Pour obtenir la liste des valeurs d'état possibles, reportez-vous à la section https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["ici"^].
+NOTE: Si l'état s'affiche `Updating`, assurez-vous de le résoudre avant de continuer. Pour obtenir la liste des valeurs d'état possibles, reportez-vous à la section https://["ici"^].
 
 . Créer le `TridentOrchestrator` CRD en utilisant le manifeste fourni avec le programme d'installation Trident.
 +

@@ -22,7 +22,7 @@ En plus de link:../trident-get-started/requirements.html["Exigences d'Astra Trid
 * Nœuds worker prêts pour link:worker-node-prep.html["NFS ou iSCSI"].
 +
 
-NOTE: Assurez-vous de suivre les étapes de préparation des nœuds requises pour Amazon Linux et Ubuntu https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html["Images de machine Amazon"^] (AMIS) en fonction de votre type ami EKS.
+NOTE: Assurez-vous de suivre les étapes de préparation des nœuds requises pour Amazon Linux et Ubuntu https://["Images de machine Amazon"^] (AMIS) en fonction de votre type ami EKS.
 
 
 

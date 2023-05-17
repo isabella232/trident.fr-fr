@@ -12,7 +12,7 @@ summary: 'Grâce à Astra Trident avec Amazon FSX pour NetApp ONTAP, vous pouvez
 
 
 [role="lead"]
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX pour NetApp ONTAP"^] Est un service AWS entièrement géré qui permet aux clients de lancer et d'exécuter des systèmes de fichiers optimisés par le système d'exploitation du stockage NetApp ONTAP. La solution FSX pour ONTAP vous permet d'exploiter les fonctionnalités, les performances et les capacités d'administration de NetApp que vous connaissez bien, tout en profitant de la simplicité, de l'agilité, de la sécurité et de l'évolutivité du stockage de données sur AWS. FSX pour ONTAP prend en charge les fonctionnalités du système de fichiers ONTAP et les API d'administration.
+https://["Amazon FSX pour NetApp ONTAP"^] Est un service AWS entièrement géré qui permet aux clients de lancer et d'exécuter des systèmes de fichiers optimisés par le système d'exploitation du stockage NetApp ONTAP. La solution FSX pour ONTAP vous permet d'exploiter les fonctionnalités, les performances et les capacités d'administration de NetApp que vous connaissez bien, tout en profitant de la simplicité, de l'agilité, de la sécurité et de l'évolutivité du stockage de données sur AWS. FSX pour ONTAP prend en charge les fonctionnalités du système de fichiers ONTAP et les API d'administration.
 
 
 
@@ -22,7 +22,7 @@ Un système de fichiers est la ressource principale d'Amazon FSX, similaire à u
 
 Avec Astra Trident avec Amazon FSX pour NetApp ONTAP, vous pouvez vous assurer que les clusters Kubernetes exécutés dans Amazon Elastic Kubernetes Service (EKS) peuvent provisionner des volumes persistants de bloc et de fichier sauvegardés par ONTAP.
 
-Utilisation d'Amazon FSX pour NetApp ONTAP https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mgng-stor-tier-fp/GUID-5A78F93F-7539-4840-AB0B-4A6E3252CF84.html["FabricPool"^] pour gérer les niveaux de stockage. Elle vous permet de stocker les données au niveau le plus important, selon que celles-ci sont fréquemment utilisées.
+Utilisation d'Amazon FSX pour NetApp ONTAP https://["FabricPool"^] pour gérer les niveaux de stockage. Elle vous permet de stocker les données au niveau le plus important, selon que celles-ci sont fréquemment utilisées.
 
 
 
@@ -86,6 +86,6 @@ Pour plus d'informations sur l'activation de l'authentification, reportez-vous �
 
 == Trouvez plus d'informations
 
-* https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Documentation Amazon FSX pour NetApp ONTAP"^]
-* https://www.netapp.com/blog/amazon-fsx-for-netapp-ontap/["Billet de blog sur Amazon FSX pour NetApp ONTAP"^]
+* https://["Documentation Amazon FSX pour NetApp ONTAP"^]
+* https://["Billet de blog sur Amazon FSX pour NetApp ONTAP"^]
 

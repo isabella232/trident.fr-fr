@@ -42,7 +42,7 @@ Quel que soit votre chemin d'installation, vous devez avoir :
 * Capacité de monter des volumes à partir de tous les nœuds de travail Kubernetes.
 * Un hôte Linux avec `kubectl` (ou `oc`, Si vous utilisez OpenShift) installé et configuré pour gérer le cluster Kubernetes que vous souhaitez utiliser.
 * Le `KUBECONFIG` Variable d'environnement qui pointe vers votre configuration de cluster Kubernetes.
-* Si vous utilisez Kubernetes avec Docker Enterprise, https://docs.docker.com/ee/ucp/user-access/cli/["Suivez les étapes indiquées pour activer l'accès à l'interface de ligne de commande"^].
+* Si vous utilisez Kubernetes avec Docker Enterprise, https://["Suivez les étapes indiquées pour activer l'accès à l'interface de ligne de commande"^].
 
 
 

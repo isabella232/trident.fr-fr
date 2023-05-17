@@ -47,7 +47,7 @@ Il existe deux options de mise à niveau d'Astra Trident. En général, vous uti
 
 
 
-WARNING: Les snapshots de volumes CSI sont désormais une fonctionnalité GA, qui commence par Kubernetes 1.20. Lors de la mise à niveau d'Astra Trident, tous les précédents clichés alpha CRS et CRD (classes Snapshot de volume, instantanés de volume et contenu Snapshot de volume) doivent être supprimés avant la mise à niveau. Reportez-vous à la section https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["de ce blog"^] Comprendre les étapes de migration des instantanés alpha vers les spécifications bêta/GA.
+WARNING: Les snapshots de volumes CSI sont désormais une fonctionnalité GA, qui commence par Kubernetes 1.20. Lors de la mise à niveau d'Astra Trident, tous les précédents clichés alpha CRS et CRD (classes Snapshot de volume, instantanés de volume et contenu Snapshot de volume) doivent être supprimés avant la mise à niveau. Reportez-vous à la section https://["de ce blog"^] Comprendre les étapes de migration des instantanés alpha vers les spécifications bêta/GA.
 
 
 
@@ -61,5 +61,5 @@ La version 21.01 d'Astra Trident présente quelques changements architecturaux c
 ** Nettoyage pendant la désinstallation : une suppression complète d'Astra Trident nécessite la suppression de toutes les ressources associées. Un opérateur de type espace de noms peut rencontrer des problèmes lors de la suppression des ressources du cluster (telles que clusterRole, ClusterRoleBinding et PodSecurityPolicy) et entraîner un nettoyage incomplet. Un opérateur à périmètre de cluster élimine ce problème. Les utilisateurs peuvent désinstaller complètement Astra Trident et procéder à un nouveau battage si nécessaire.
 
 
-* `TridentProvisioner` est maintenant remplacé par `TridentOrchestrator` Ressource personnalisée utilisée pour installer et gérer Astra Trident. En outre, un nouveau champ est introduit dans le `TridentOrchestrator` spécifications Les utilisateurs peuvent spécifier que le namespace Trident doit être installé/mis à niveau à partir du à l'aide du `spec.namespace` légale. Vous pouvez voir un exemple https://github.com/NetApp/trident/blob/stable/v21.01/deploy/crds/tridentorchestrator_cr.yaml["ici"^].
+* `TridentProvisioner` est maintenant remplacé par `TridentOrchestrator` Ressource personnalisée utilisée pour installer et gérer Astra Trident. En outre, un nouveau champ est introduit dans le `TridentOrchestrator` spécifications Les utilisateurs peuvent spécifier que le namespace Trident doit être installé/mis à niveau à partir du à l'aide du `spec.namespace` légale. Vous pouvez voir un exemple https://["ici"^].
 

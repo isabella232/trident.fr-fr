@@ -12,7 +12,7 @@ summary: Astra Trident peut créer et relier de façon sélective des volumes au
 
 
 [role="lead"]
-Astra Trident peut créer et relier de façon sélective des volumes aux nœuds présents dans un cluster Kubernetes en utilisant le https://kubernetes-csi.github.io/docs/topology.html["Fonction de topologie CSI"^].
+Astra Trident peut créer et relier de façon sélective des volumes aux nœuds présents dans un cluster Kubernetes en utilisant le https://["Fonction de topologie CSI"^].
 
 
 
@@ -21,7 +21,7 @@ Astra Trident peut créer et relier de façon sélective des volumes aux nœuds 
 Grâce à la fonction de topologie CSI, l'accès aux volumes peut être limité à un sous-ensemble de nœuds, en fonction des régions et des zones de disponibilité. Les fournisseurs cloud permettent aujourd'hui aux administrateurs Kubernetes de frayer des nœuds basés sur une zone. Les nœuds peuvent se trouver dans différentes zones de disponibilité au sein d'une région ou entre différentes régions. Astra Trident utilise la topologie CSI pour faciliter le provisionnement des volumes pour les charges de travail dans une architecture multi-zones.
 
 
-TIP: En savoir plus sur la fonction de topologie CSI https://kubernetes.io/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/["ici"^].
+TIP: En savoir plus sur la fonction de topologie CSI https://["ici"^].
 
 Kubernetes propose deux modes de liaison de volumes :
 
@@ -289,8 +289,8 @@ Les systèmes back-end pré-existants peuvent être mis à jour pour inclure une
 
 == Trouvez plus d'informations
 
-* https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestion des ressources pour les conteneurs"^]
-* https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector["Outil de sélection de nœud"^]
-* https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity["Affinité et anti-affinité"^]
-* https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["Teintes et tolérances"^]
+* https://["Gestion des ressources pour les conteneurs"^]
+* https://["Outil de sélection de nœud"^]
+* https://["Affinité et anti-affinité"^]
+* https://["Teintes et tolérances"^]
 

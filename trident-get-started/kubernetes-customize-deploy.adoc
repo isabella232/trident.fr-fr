@@ -43,7 +43,7 @@ Ce tableau est plus détaillé `TridentOrchestrator` attributs.
 | `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | netapp/trident-autosupport:23.04.0 
 
 
-| `autosupportProxy` | Adresse/port d'un proxy pour l'envoi de télémétrie AutoSupport | "http://proxy.example.com:8888"[] 
+| `autosupportProxy` | Adresse/port d'un proxy pour l'envoi de télémétrie AutoSupport | "http://[] 
 
 
 | `controllerPluginNodeSelector` | Sélecteurs de nœud supplémentaires pour les pods exécutant le plug-in Trident Controller CSI. Suit le même format que `pod.spec.nodeSelector`. | Pas de valeur par défaut ; facultatif 

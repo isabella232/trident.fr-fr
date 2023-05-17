@@ -20,17 +20,17 @@ Vous pouvez utiliser le sélecteur de version pour naviguer entre la dernière v
 
 Si vous n'exécutez pas Astra Trident 23.04, la documentation relative aux versions précédentes est disponible sur la base du link:https://mysupport.netapp.com/site/info/trident-support["Cycle de vie de version et de support d'Astra Trident"^].
 
-* https://docs.netapp.com/us-en/trident-2301/index.html["ASTRA Trident 23.01"^]
-* https://docs.netapp.com/us-en/trident-2210/index.html["Astra Trident 22.10"^]
-* https://docs.netapp.com/us-en/trident-2207/index.html["Astra Trident 22.07"^]
-* https://docs.netapp.com/us-en/trident-2204/index.html["Astra Trident 22.04"^]
-* https://docs.netapp.com/us-en/trident-2201/index.html["Astra Trident 22.01"^]
-* https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
-* https://docs.netapp.com/us-en/trident-2107/index.html["Astra Trident 21.07"^]
+* https://["ASTRA Trident 23.01"^]
+* https://["Astra Trident 22.10"^]
+* https://["Astra Trident 22.07"^]
+* https://["Astra Trident 22.04"^]
+* https://["Astra Trident 22.01"^]
+* https://["Astra Trident 21.10"^]
+* https://["Astra Trident 21.07"^]
 
 
 Versions antérieures à 21.07, redirection vers le site de documentation héritée.
 
-* https://netapp-trident.readthedocs.io/en/stable-v21.04/["Astra Trident 21.04"^]
-* https://netapp-trident.readthedocs.io/en/stable-v21.01/["Astra Trident 21.01"^]
+* https://["Astra Trident 21.04"^]
+* https://["Astra Trident 21.01"^]
 

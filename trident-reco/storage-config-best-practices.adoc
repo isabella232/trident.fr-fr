@@ -45,13 +45,13 @@ Plusieurs options sont disponibles pour la gestion de la SVM :
 
 Dans chaque cas, l'interface doit être dans DNS et le nom DNS doit être utilisé lors de la configuration de Trident. Ainsi, certaines scénarios de reprise après incident, par exemple SVM-DR, sans conservation des identités de réseau.
 
-Il n'existe aucune préférence entre une LIF de gestion dédiée ou partagée pour le SVM, cependant, vous devez vous assurer que vos stratégies de sécurité réseau sont en adéquation avec l'approche de votre choix. Indépendamment de la situation, le LIF de gestion doit être accessible via DNS pour faciliter une flexibilité maximale https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/GUID-B9E36563-1C7A-48F5-A9FF-1578B99AADA9.html["SVM-DR"^] Utilisation en association avec Trident.
+Il n'existe aucune préférence entre une LIF de gestion dédiée ou partagée pour le SVM, cependant, vous devez vous assurer que vos stratégies de sécurité réseau sont en adéquation avec l'approche de votre choix. Indépendamment de la situation, le LIF de gestion doit être accessible via DNS pour faciliter une flexibilité maximale https://["SVM-DR"^] Utilisation en association avec Trident.
 
 
 
 === Limitez le nombre maximal de volumes
 
-Les systèmes de stockage ONTAP disposent d'un nombre maximal de volumes, qui varie selon la version logicielle et la plateforme matérielle. Voir https://hwu.netapp.com/["NetApp Hardware Universe"^] Pour votre plateforme et votre version ONTAP afin de déterminer les limites exactes. Lorsque le nombre de volumes est épuisé, les opérations de provisionnement échouent non seulement pour Trident, mais pour l'ensemble des requêtes de stockage.
+Les systèmes de stockage ONTAP disposent d'un nombre maximal de volumes, qui varie selon la version logicielle et la plateforme matérielle. Voir https://["NetApp Hardware Universe"^] Pour votre plateforme et votre version ONTAP afin de déterminer les limites exactes. Lorsque le nombre de volumes est épuisé, les opérations de provisionnement échouent non seulement pour Trident, mais pour l'ensemble des requêtes de stockage.
 
 Trident `ontap-nas` et `ontap-san` Des pilotes provisionnent un volume flexible pour chaque volume persistant Kubernetes créé. Le `ontap-nas-economy` Le pilote crée environ un FlexVolume pour chaque 200 PVS (configurable entre 50 et 300). Le `ontap-san-economy` Le pilote crée environ un FlexVolume pour chaque 100 PVS (configurable entre 50 et 200). Pour empêcher Trident de consommer tous les volumes disponibles sur le système de stockage, vous devez définir une limite sur la SVM. Vous pouvez le faire à partir de la ligne de commande :
 
@@ -68,7 +68,7 @@ La valeur pour `max-volumes` varie en fonction de plusieurs critères spécifiqu
 
 Le `max-volumes` Valeur est le volume total provisionné sur tous les nœuds du cluster ONTAP et non sur un nœud ONTAP individuel. Par conséquent, vous pouvez rencontrer des situations où un nœud de cluster ONTAP peut avoir plus ou moins de volumes provisionnés Trident qu'un autre nœud.
 
-Par exemple, un cluster ONTAP à deux nœuds peut héberger un maximum de 2000 volumes flexibles. Avoir le volume maximum réglé sur 1250 semble très raisonnable. Cependant, si seulement https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["64 bits"^] Depuis un nœud est attribué à la SVM, ou les agrégats attribués à partir d'un nœud ne peuvent pas être provisionnés sur (par exemple, en raison de la capacité). L'autre nœud devient alors la cible de tous les volumes provisionnés par Trident. Cela signifie que le volume peut être atteint en limite pour ce nœud avant le `max-volumes` La valeur est atteinte, ce qui affecte Trident et les autres opérations de volume utilisant ce nœud. *Vous pouvez éviter cette situation en vous assurant que les agrégats de chaque nœud du cluster sont attribués à la SVM utilisée par Trident en chiffres égaux.*
+Par exemple, un cluster ONTAP à deux nœuds peut héberger un maximum de 2000 volumes flexibles. Avoir le volume maximum réglé sur 1250 semble très raisonnable. Cependant, si seulement https://["64 bits"^] Depuis un nœud est attribué à la SVM, ou les agrégats attribués à partir d'un nœud ne peuvent pas être provisionnés sur (par exemple, en raison de la capacité). L'autre nœud devient alors la cible de tous les volumes provisionnés par Trident. Cela signifie que le volume peut être atteint en limite pour ce nœud avant le `max-volumes` La valeur est atteinte, ce qui affecte Trident et les autres opérations de volume utilisant ce nœud. *Vous pouvez éviter cette situation en vous assurant que les agrégats de chaque nœud du cluster sont attribués à la SVM utilisée par Trident en chiffres égaux.*
 
 
 
@@ -88,7 +88,7 @@ Vous pouvez spécifier l'initiateur CHAP et les noms d'utilisateur et mots de pa
 
 === Création et utilisation d'une politique de QoS de SVM
 
-L'utilisation d'une politique de QoS de ONTAP appliquée au SVM limite le nombre de consommables d'IOPS par les volumes provisionnés par Trident. Cela permet de http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html?cp=7_1_2_1_2["évitez un tyran"^] Ou un conteneur hors contrôle de affectant les charges de travail en dehors du SVM Trident.
+L'utilisation d'une politique de QoS de ONTAP appliquée au SVM limite le nombre de consommables d'IOPS par les volumes provisionnés par Trident. Cela permet de http://["évitez un tyran"^] Ou un conteneur hors contrôle de affectant les charges de travail en dehors du SVM Trident.
 
 Vous pouvez créer une politique de QoS pour la SVM en quelques étapes. Consultez la documentation de votre version de ONTAP pour obtenir des informations précises. L'exemple ci-dessous crée une politique de QoS qui limite le nombre total d'IOPS disponibles pour la SVM à 5000.
 
@@ -118,7 +118,7 @@ IMPORTANT: Vous devez affecter la « policy group » QoS à la SVM *Only* si la 
 
 === Création de groupes de règles de QoS pour Trident
 
-La qualité de service (QoS) garantit que les performances des workloads stratégiques ne sont pas dégradées par des charges de travail concurrentes. Les groupes de règles de QoS de ONTAP proposent des options de QoS pour les volumes et permettent aux utilisateurs de définir le plafond de débit pour une ou plusieurs charges de travail. Pour plus d'informations sur la QoS, voir https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-perf-mon/GUID-77DF9BAF-4ED7-43F6-AECE-95DFB0680D2F.html["Débit garanti avec la QoS"^]. Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un pool de stockage, et ils sont appliqués à chaque volume créé dans ce pool ou back-end.
+La qualité de service (QoS) garantit que les performances des workloads stratégiques ne sont pas dégradées par des charges de travail concurrentes. Les groupes de règles de QoS de ONTAP proposent des options de QoS pour les volumes et permettent aux utilisateurs de définir le plafond de débit pour une ou plusieurs charges de travail. Pour plus d'informations sur la QoS, voir https://["Débit garanti avec la QoS"^]. Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un pool de stockage, et ils sont appliqués à chaque volume créé dans ce pool ou back-end.
 
 ONTAP propose deux types de groupes de règles de QoS : classiques et évolutifs. Les groupes de règles classiques fournissent un débit minimal (ou minimal, dans les versions ultérieures) plat en IOPS. La QoS adaptative ajuste automatiquement le débit en fonction de la taille du workload. Elle maintient le rapport entre les IOPS et les To|Go en fonction de l'évolution de la taille du workload. Vous pouvez ainsi gérer des centaines, voire des milliers de charges de travail dans le cadre d'un déploiement à grande échelle.
 
@@ -152,7 +152,7 @@ storage:
 * Vous devez appliquer les « policy groups » par volume pour que chaque volume bénéficie de l'intégralité du débit spécifié par le « policy group ». Les groupes de stratégies partagés ne sont pas pris en charge.
 
 
-Pour plus d'informations sur les « policy Groups » de QoS, reportez-vous à la section https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Commandes QoS de ONTAP 9.8"^].
+Pour plus d'informations sur les « policy Groups » de QoS, reportez-vous à la section https://["Commandes QoS de ONTAP 9.8"^].
 
 
 
@@ -162,9 +162,9 @@ La limitation de l'accès aux volumes NFS et aux LUN iSCSI créés par Trident e
 
 Il est important de comprendre que les espaces de noms sont la limite logique des ressources dans Kubernetes. L'hypothèse est que les ressources dans un même espace de noms peuvent être partagées, mais, surtout, il n'existe aucune fonctionnalité de multi-espace de noms. Même si les volumes persistants sont des objets globaux, lorsqu'ils sont liés à une demande de volume persistant, ils ne sont accessibles que par des pods qui se trouvent dans le même espace de noms. *Il est essentiel de s'assurer que les espaces de noms sont utilisés pour fournir la séparation, le cas échéant.*
 
-La préoccupation principale de la plupart des entreprises en ce qui concerne la sécurité des données dans un contexte Kubernetes est qu'un processus dans un conteneur peut accéder au stockage monté sur l'hôte, mais qui n'est pas destiné au conteneur.  https://en.wikipedia.org/wiki/Linux_namespaces["Espaces de noms"^] sont conçus pour éviter ce type de compromis. Toutefois, il y a une exception : les conteneurs privilégiés.
+La préoccupation principale de la plupart des entreprises en ce qui concerne la sécurité des données dans un contexte Kubernetes est qu'un processus dans un conteneur peut accéder au stockage monté sur l'hôte, mais qui n'est pas destiné au conteneur.  https://["Espaces de noms"^] sont conçus pour éviter ce type de compromis. Toutefois, il y a une exception : les conteneurs privilégiés.
 
-Un conteneur privilégié est un conteneur exécuté avec beaucoup plus d'autorisations au niveau de l'hôte que la normale. Par défaut, ces dernières ne sont pas refusées. Veillez donc à désactiver cette fonctionnalité en utilisant https://kubernetes.io/docs/concepts/policy/pod-security-policy/["stratégies de sécurité des pods"^].
+Un conteneur privilégié est un conteneur exécuté avec beaucoup plus d'autorisations au niveau de l'hôte que la normale. Par défaut, ces dernières ne sont pas refusées. Veillez donc à désactiver cette fonctionnalité en utilisant https://["stratégies de sécurité des pods"^].
 
 Pour les volumes pour lesquels l'accès est demandé depuis Kubernetes et des hôtes externes, le stockage doit être géré de manière classique, avec le volume persistant introduit par l'administrateur et non géré par Trident. Cela garantit que le volume de stockage est détruit uniquement lorsque les hôtes Kubernetes et externes sont déconnectés et qu'ils n'utilisent plus le volume. En outre, il est possible d'appliquer une export policy personnalisée qui permet l'accès depuis les nœuds de cluster Kubernetes et les serveurs ciblés à l'extérieur du cluster Kubernetes.
 
@@ -258,7 +258,7 @@ IOPS maximales autorisées en rafale,
 
 NOTE: Même si les IOPS maximales et en rafale peuvent être définies jusqu'à 200,000, les performances maximales réelles d'un volume sont limitées par l'utilisation du cluster et les performances par nœud.
 
-La taille et la bande passante des blocs influencent directement le nombre d'opérations d'entrée/sortie par seconde. Lorsque la taille de bloc augmente, le système augmente la bande passante jusqu'au niveau nécessaire pour traiter les tailles de bloc de taille supérieure. Lorsque la bande passante augmente, le nombre d'IOPS augmente, le système peut atteindre une baisse. Voir https://www.netapp.com/pdf.html?item=/media/10502-tr-4644pdf.pdf["Qualité de service SolidFire"^] Pour plus d'informations sur la qualité de service et les performances.
+La taille et la bande passante des blocs influencent directement le nombre d'opérations d'entrée/sortie par seconde. Lorsque la taille de bloc augmente, le système augmente la bande passante jusqu'au niveau nécessaire pour traiter les tailles de bloc de taille supérieure. Lorsque la bande passante augmente, le nombre d'IOPS augmente, le système peut atteindre une baisse. Voir https://["Qualité de service SolidFire"^] Pour plus d'informations sur la qualité de service et les performances.
 
 
 
@@ -277,33 +277,33 @@ Toutefois, si CHAP ne peut pas être activé et que VAGs sont requis, créez le 
 
 == Où trouver plus d'informations ?
 
-Une partie de la documentation sur les meilleures pratiques est présentée ci-dessous. Rechercher dans le https://www.netapp.com/search/["Bibliothèque NetApp"^] pour les versions les plus récentes.
+Une partie de la documentation sur les meilleures pratiques est présentée ci-dessous. Rechercher dans le https://["Bibliothèque NetApp"^] pour les versions les plus récentes.
 
 *ONTAP*
 
-* https://www.netapp.com/us/media/tr-4067.pdf["Guide des meilleures pratiques et de mise en œuvre de NFS"^]
-* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Guide d'administration DU SAN"^] (Pour iSCSI)
-* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["Configuration iSCSI Express pour RHEL"^]
+* https://["Guide des meilleures pratiques et de mise en œuvre de NFS"^]
+* http://["Guide d'administration DU SAN"^] (Pour iSCSI)
+* http://["Configuration iSCSI Express pour RHEL"^]
 
 
 *Logiciel Element*
 
-* https://www.netapp.com/pdf.html?item=/media/10507-tr4639pdf.pdf["Configuration de SolidFire pour Linux"^]
+* https://["Configuration de SolidFire pour Linux"^]
 
 
 *NetApp HCI*
 
-* https://docs.netapp.com/us-en/hci/docs/hci_prereqs_overview.html["Conditions préalables au déploiement de NetApp HCI"^]
-* https://docs.netapp.com/us-en/hci/docs/concept_nde_access_overview.html["Accès au moteur de déploiement NetApp"^]
+* https://["Conditions préalables au déploiement de NetApp HCI"^]
+* https://["Accès au moteur de déploiement NetApp"^]
 
 
 *Information sur les pratiques exemplaires des applications*
 
-* https://www.netapp.com/us/media/tr-4722.pdf["Bonnes pratiques pour MySQL sur ONTAP"^]
-* https://www.netapp.com/pdf.html?item=/media/10510-tr-4605.pdf["Bonnes pratiques pour MySQL sur SolidFire"^]
-* http://www.netapp.com/us/media/tr-4635.pdf["NetApp SolidFire et Cassandra"^]
-* http://www.netapp.com/us/media/tr-4606.pdf["Meilleures pratiques pour Oracle sur SolidFire"^]
-* http://www.netapp.com/us/media/tr-4610.pdf["Meilleures pratiques PostgreSQL sur SolidFire"^]
+* https://["Bonnes pratiques pour MySQL sur ONTAP"^]
+* https://["Bonnes pratiques pour MySQL sur SolidFire"^]
+* http://["NetApp SolidFire et Cassandra"^]
+* http://["Meilleures pratiques pour Oracle sur SolidFire"^]
+* http://["Meilleures pratiques PostgreSQL sur SolidFire"^]
 
 
-Toutes les applications ne disposent pas d'instructions spécifiques, il est important de collaborer avec votre équipe NetApp et d'utiliser le https://www.netapp.com/search/["Bibliothèque NetApp"^] pour trouver la documentation la plus récente.
+Toutes les applications ne disposent pas d'instructions spécifiques, il est important de collaborer avec votre équipe NetApp et d'utiliser le https://["Bibliothèque NetApp"^] pour trouver la documentation la plus récente.

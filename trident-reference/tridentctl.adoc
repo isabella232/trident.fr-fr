@@ -12,7 +12,7 @@ summary: Découvrez tridentctl, un utilitaire de ligne de commandes permettant u
 
 
 [role="lead"]
-Le https://github.com/NetApp/trident/releases["Pack d'installation Trident"^] inclut un utilitaire de ligne de commande, `tridentctl`, Il fournit un accès simple à Astra Trident. Les utilisateurs de Kubernetes avec suffisamment de privilèges peuvent l'utiliser pour installer Astra Trident et interagir directement avec lui afin de gérer le namespace contenant le pod Astra Trident.
+Le https://["Pack d'installation Trident"^] inclut un utilitaire de ligne de commande, `tridentctl`, Il fournit un accès simple à Astra Trident. Les utilisateurs de Kubernetes avec suffisamment de privilèges peuvent l'utiliser pour installer Astra Trident et interagir directement avec lui afin de gérer le namespace contenant le pod Astra Trident.
 
 
 

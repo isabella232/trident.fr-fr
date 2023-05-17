@@ -141,7 +141,7 @@ Bien qu'Astra Trident soit open source et fourni gratuitement, NetApp le prend e
 Pour soulever un dossier de support, effectuez l'une des opérations suivantes :
 
 . Contactez votre support Account Manager pour obtenir de l'aide pour créer un dossier.
-. Pour ouvrir un dossier de demande de support, contactez https://www.netapp.com/company/contact-us/support/["Support NetApp"^].
+. Pour ouvrir un dossier de demande de support, contactez https://["Support NetApp"^].
 
 
 
@@ -154,13 +154,13 @@ Vous pouvez créer un bundle de support en exécutant `tridentctl logs -a`. Outr
 
 === Que faire si j'ai besoin de demander une nouvelle fonctionnalité ?
 
-Créer un problème sur https://github.com/NetApp/trident["Astra Trident Github"^] Et mentionner *RFE* dans le sujet et la description du problème.
+Créer un problème sur https://["Astra Trident Github"^] Et mentionner *RFE* dans le sujet et la description du problème.
 
 
 
 === Où puis-je soulever un défaut ?
 
-Créer un problème sur https://github.com/NetApp/trident["Astra Trident Github"^]. Veillez à inclure toutes les informations et tous les journaux nécessaires concernant le problème.
+Créer un problème sur https://["Astra Trident Github"^]. Veillez à inclure toutes les informations et tous les journaux nécessaires concernant le problème.
 
 
 

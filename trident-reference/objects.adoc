@@ -32,7 +32,7 @@ La manière la plus simple de comprendre les objets, leur rôle et leur interact
 
 
 
-TIP: Pour en savoir plus sur les objets Kubernetes, nous vous recommandons vivement de lire le https://kubernetes.io/docs/concepts/storage/persistent-volumes/["Volumes persistants"^] Section de la documentation Kubernetes.
+TIP: Pour en savoir plus sur les objets Kubernetes, nous vous recommandons vivement de lire le https://["Volumes persistants"^] Section de la documentation Kubernetes.
 
 
 
