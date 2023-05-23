@@ -64,8 +64,8 @@ Vous pouvez vous inscrire pour un essai gratuit sur la page Astra.
 
 == Pour en savoir plus
 
-* https://["Gamme NetApp Astra"]
-* https://["Documentation relative au service après-vente Astra Control"^]
-* https://["Documentation Astra Control Center"^]
-* https://["Documentation de l'API Astra"^]
+* https://docs.netapp.com/us-en/astra-family/intro-family.html["Gamme NetApp Astra"]
+* https://docs.netapp.com/us-en/astra/get-started/intro.html["Documentation relative au service après-vente Astra Control"^]
+* https://docs.netapp.com/us-en/astra-control-center/index.html["Documentation Astra Control Center"^]
+* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Documentation de l'API Astra"^]
 

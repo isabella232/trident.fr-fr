@@ -48,7 +48,7 @@ Une fois que vous avez résolu le problème, revenez tout simplement au début d
 
 == Étape 2 : créer une classe de stockage
 
-Les utilisateurs Kubernetes provisionnent des volumes à l'aide de demandes de volume persistant qui spécifient un volume https://["classe de stockage"^] par nom. Les détails sont masqués des utilisateurs, mais une classe de stockage identifie le mécanisme de provisionnement utilisé pour cette classe (dans ce cas, Trident), et ce que cette classe signifie pour le mécanisme de provisionnement.
+Les utilisateurs Kubernetes provisionnent des volumes à l'aide de demandes de volume persistant qui spécifient un volume https://kubernetes.io/docs/concepts/storage/storage-classes/["classe de stockage"^] par nom. Les détails sont masqués des utilisateurs, mais une classe de stockage identifie le mécanisme de provisionnement utilisé pour cette classe (dans ce cas, Trident), et ce que cette classe signifie pour le mécanisme de provisionnement.
 
 Créez une classe de stockage que les utilisateurs Kubernetes spécifient quand ils veulent un volume. La configuration de la classe doit modéliser le back-end que vous avez créé à l'étape précédente, de sorte qu'Astra Trident l'utilise pour provisionner de nouveaux volumes.
 
@@ -111,7 +111,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 == Étape 3 : provisionner le premier volume
 
-Vous êtes désormais prêt à provisionner votre premier volume de façon dynamique. Pour ce faire, vous créez un environnement Kubernetes https://["demande de volume persistant"^] (PVC) objet.
+Vous êtes désormais prêt à provisionner votre premier volume de façon dynamique. Pour ce faire, vous créez un environnement Kubernetes https://kubernetes.io/docs/concepts/storage/persistent-volumes["demande de volume persistant"^] (PVC) objet.
 
 Créez un volume persistant pour un volume qui utilise la classe de stockage que vous venez de créer.
 

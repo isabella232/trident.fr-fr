@@ -19,9 +19,9 @@ Avant de pouvoir configurer le système back-end Azure NetApp Files, vous devez 
 == Prérequis pour les volumes NFS et SMB
 
 
-NOTE: Si vous utilisez Azure NetApp Files pour la première fois ou dans un nouvel emplacement, une configuration initiale est requise pour configurer Azure NetApp Files et créer un volume NFS. Reportez-vous à la section https://["Azure : configurez Azure NetApp Files et créez un volume NFS"^].
+NOTE: Si vous utilisez Azure NetApp Files pour la première fois ou dans un nouvel emplacement, une configuration initiale est requise pour configurer Azure NetApp Files et créer un volume NFS. Reportez-vous à la section https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure : configurez Azure NetApp Files et créez un volume NFS"^].
 
-Pour configurer et utiliser un https://["Azure NetApp Files"^] back-end, vous avez besoin des éléments suivants :
+Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, vous avez besoin des éléments suivants :
 
 * Un pool de capacité. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft : créez un pool de capacité pour Azure NetApp Files"^].
 * Sous-réseau délégué à Azure NetApp Files. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft : déléguer un sous-réseau à Azure NetApp Files"^].

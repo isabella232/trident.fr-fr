@@ -44,7 +44,7 @@ docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-per
 == Les noms de volumes doivent comporter au moins 2 caractères.
 
 
-NOTE: Il s'agit d'une limitation client Docker. Le client interprète un seul nom de caractère comme étant un chemin Windows. https://["Voir bug 25773"^].
+NOTE: Il s'agit d'une limitation client Docker. Le client interprète un seul nom de caractère comme étant un chemin Windows. https://github.com/moby/moby/issues/25773["Voir bug 25773"^].
 
 
 

@@ -73,13 +73,13 @@ cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_sn
 La réplication des données peut jouer un rôle important dans la protection contre les pertes de données dues à une défaillance de la baie de stockage.
 
 
-NOTE: Pour en savoir plus sur les technologies de réplication ONTAP, consultez https://["Documentation ONTAP"^].
+NOTE: Pour en savoir plus sur les technologies de réplication ONTAP, consultez https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/GUID-A9A2F347-3E05-4F80-9E9C-CEF8F0A2F8E1.html["Documentation ONTAP"^].
 
 
 
 === Réplication des machines virtuelles de stockage (SVM) SnapMirror
 
-Vous pouvez utiliser https://["SnapMirror"^] Pour répliquer un SVM complet, qui inclut ses paramètres de configuration et ses volumes. En cas d'incident, vous pouvez activer la SVM de destination SnapMirror pour démarrer le service des données. Vous pouvez revenir au primaire lorsque les systèmes sont restaurés.
+Vous pouvez utiliser https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-concepts/GUID-8B187484-883D-4BB4-A1BC-35AC278BF4DC.html["SnapMirror"^] Pour répliquer un SVM complet, qui inclut ses paramètres de configuration et ses volumes. En cas d'incident, vous pouvez activer la SVM de destination SnapMirror pour démarrer le service des données. Vous pouvez revenir au primaire lorsque les systèmes sont restaurés.
 
 Astra Trident ne peut pas configurer lui-même les relations de réplication. L'administrateur du stockage peut donc utiliser la fonctionnalité de réplication du SVM SnapMirror d'ONTAP pour répliquer automatiquement les volumes vers une destination de reprise après incident.
 

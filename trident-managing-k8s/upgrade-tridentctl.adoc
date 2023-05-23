@@ -20,8 +20,8 @@ Vous pouvez facilement mettre à niveau une installation Astra Trident existante
 
 Lorsque vous mettez à niveau vers la dernière version d'Astra Trident, prenez en compte les points suivants :
 
-* Depuis Trident 20.01, seule la version bêta de https://["snapshots de volume"^] est pris en charge. Les administrateurs Kubernetes doivent veiller à sauvegarder ou convertir en version bêta les objets de snapshot alpha en toute sécurité, afin de conserver les snapshots alpha hérités.
-* La version bêta de snapshots de volume introduit un ensemble modifié de CRD et un contrôleur de snapshot, qui doivent tous deux être configurés avant d'installer Astra Trident. https://["De ce blog"^] décrit les étapes de migration des instantanés de volume alpha vers le format bêta.
+* Depuis Trident 20.01, seule la version bêta de https://kubernetes.io/docs/concepts/storage/volume-snapshots/["snapshots de volume"^] est pris en charge. Les administrateurs Kubernetes doivent veiller à sauvegarder ou convertir en version bêta les objets de snapshot alpha en toute sécurité, afin de conserver les snapshots alpha hérités.
+* La version bêta de snapshots de volume introduit un ensemble modifié de CRD et un contrôleur de snapshot, qui doivent tous deux être configurés avant d'installer Astra Trident. https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["De ce blog"^] décrit les étapes de migration des instantanés de volume alpha vers le format bêta.
 * La désinstallation et la réinstallation d'Astra Trident fait office de mise à niveau. Lorsque vous désinstallez Trident, la demande de volume persistant et le volume persistant utilisés par l'Astra Trident. Les volumes persistants ayant déjà été provisionnés restent disponibles pendant la mise hors ligne d'Astra Trident, et Astra Trident provisionne les volumes pour les demandes de volume persistant créées dans l'intervalle une fois de nouveau en ligne.
 
 

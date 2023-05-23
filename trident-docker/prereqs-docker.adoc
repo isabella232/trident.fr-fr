@@ -19,7 +19,7 @@ Vous devez installer et configurer les protocoles requis sur votre hôte avant d
 == Vérifier les exigences
 
 * Vérifiez que votre déploiement répond à toutes les link:../trident-get-started/requirements.html["de formation"].
-* Vérifiez que vous disposez d'une version prise en charge de Docker installée. Si votre version de Docker est obsolète, https://["installez-le ou mettez-le à jour"^].
+* Vérifiez que vous disposez d'une version prise en charge de Docker installée. Si votre version de Docker est obsolète, https://docs.docker.com/engine/install/["installez-le ou mettez-le à jour"^].
 +
 [listing]
 ----
