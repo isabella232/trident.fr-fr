@@ -162,6 +162,21 @@ NOTE: Si nécessaire, ouvrir `deploy/kubernetes/snapshot-controller/rbac-snapsho
 
 
 
+== Restaurez les données de volume à l'aide de snapshots
+
+Le répertoire des snapshots est masqué par défaut pour faciliter la compatibilité maximale des volumes provisionnés à l'aide de `ontap-nas` et `ontap-nas-economy` pilotes. Activez le `.snapshot` répertoire permettant de restaurer directement les données à partir de snapshots.
+
+Utilisez l'interface de ligne de commandes ONTAP de restauration de snapshot de volume pour restaurer un volume à un état enregistré dans un snapshot précédent.
+
+[listing]
+----
+cluster1::*> volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_snap_archive
+----
+
+NOTE: Lorsque vous restaurez une copie Snapshot, la configuration de volume existante est écrasée. Les modifications apportées aux données de volume après la création de la copie Snapshot sont perdues.
+
+
+
 == Liens connexes
 
 * link:../trident-concepts/snapshots.html["Snapshots de volume"]
