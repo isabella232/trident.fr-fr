@@ -2212,7 +2212,6 @@
   <block id="b3841b02d7da01fde480332e3295a08e" category="paragraph">Le<block ref="25fb031d6a134e0fb5a240d6d4c12b01" prefix=" " category="inline-code"></block> Identifie l'objet VolumeSnapshotContent qui sert ce snapshot. Le<block ref="a701d928aada0f89c8ad0abc16ccdfcc" prefix=" " category="inline-code"></block> Paramètre indique que l'instantané peut être utilisé pour créer une nouvelle demande de volume persistant.</block>
   <block id="7957320b126678e9b713ef146b3ac009" category="section-title">Étape 3 : création de demandes de volume persistant à partir de copies Snapshot VolumeCas</block>
   <block id="2592284f87bba60e4c05337a134ef047" category="paragraph"><block ref="d9d448f70687a1aa1f12b2f5ddaa4977" prefix="" category="inline-code"></block> La montre que la demande de volume persistant doit être créée à l'aide d'un Snapshot VolumeSnapshot nommé<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block> comme source des données. Cela demande à Astra Trident de créer un volume persistant à partir du snapshot. Une fois la demande de volume persistant créée, elle peut être connectée à un pod et utilisée comme n'importe quel autre PVC.</block>
-  <block id="bda01e3aa44c411129a6fbf29445bfb4" category="admonition">Lors de la suppression d'un volume persistant avec les snapshots associés, le volume Trident correspondant est mis à jour et passe à un état « Suppression ». Pour supprimer le volume Astra Trident, il est nécessaire de supprimer les snapshots du volume.</block>
   <block id="8682abd0ce083533bad141869c96ab2a" category="summary">Astra Trident propose plusieurs fonctionnalités de gestion des volumes. Découvrez les fonctionnalités d'Astra Trident pour les volumes.</block>
   <block id="b42cbc6e68075c106b9faa27e4931091" category="doc">Réaliser des opérations de volume</block>
   <block id="eb487790322c4b8e9b4953d60be1acee" category="paragraph">Découvrez les fonctionnalités d'Astra Trident pour la gestion de vos volumes.</block>
@@ -2686,7 +2685,6 @@
   <block id="ce43eda1a51d5de70f422e14ca195db3" category="paragraph">Pour plus d'informations, consultez le lien :../trident-Reference/objects.html#kubernetes-volumesnapshotclass-objects<block ref="19476662cd814e0aa085eca121de89b8" prefix="[" category="inline-code"></block>].</block>
   <block id="a599393b295f7ad56a8c7f1d327290de" category="paragraph">Dans cet exemple, nous allons créer un snapshot d'un volume persistant existant.</block>
   <block id="4191daf22334ac03a54cdf8adbfd6dfe" category="paragraph">Dans cet exemple, le snapshot est créé pour une demande de volume persistant nommée<block ref="30520f4f96804df83914260b79f55962" prefix=" " category="inline-code"></block> et le nom du snapshot est défini sur<block ref="2599ab7993e15386327b6345bc1cc4e1" prefix=" " category="inline-code"></block>.</block>
-  <block id="b2b2f8b28370c274887f8aa2f82bb5d4" category="paragraph">Dans cet exemple, vous créez une demande de volume persistant à l'aide d'un snapshot :</block>
   <block id="f6bd0d7447ff66cc6b859603a88fbde9" category="section-title">Liens connexes</block>
   <block id="35aa4a2a819e526c2e930e487df8d423" category="list-text"><block ref="35aa4a2a819e526c2e930e487df8d423" category="inline-link-macro-rx"></block></block>
   <block id="19476662cd814e0aa085eca121de89b8" category="inline-link-macro">VolumeSnapshotClass</block>
@@ -3665,4 +3663,8 @@
   <block id="ad90b7d29d0d8a9c746868fe1f38ca90" category="paragraph">RWO, ROX, RWX, RWOP</block>
   <block id="96b38cb92e67a8f09c2d13169b8bb555" category="paragraph">RWO, ROX, RWOP</block>
   <block id="a38f7647d54be4cddc3f0b8e4c746caa" category="admonition">Les systèmes ONTAP back-end peuvent être authentifiés à l'aide des informations d'identification de connexion pour un rôle de sécurité (nom d'utilisateur/mot de passe), ou bien à l'aide de la clé privée et du certificat installés sur le cluster ONTAP. Vous pouvez mettre à jour les systèmes back-end existants pour passer d'un mode d'authentification à l'autre avec<block ref="defd1e55f93269ac9278afc086951ba8" prefix=" " category="inline-code"></block>.</block>
+  <block id="ec777b0a7c2a3d6602a440dae083b7c3" category="paragraph">Cet exemple crée une demande de volume persistant à l'aide d'un snapshot.</block>
+  <block id="5e4708ea6e1c08a91834bc9405f43f5d" category="admonition">La demande de volume persistant doit être créée dans le même espace de noms que sa<block ref="d9d448f70687a1aa1f12b2f5ddaa4977" prefix=" " category="inline-code"></block>.</block>
+  <block id="32945bec28dab31706e6de80b1c28cc4" category="section-title">Suppression d'un volume persistant avec snapshots</block>
+  <block id="f28228f84cb57be6c4037bf94a6afbd2" category="paragraph">Lors de la suppression d'un volume persistant avec les snapshots associés, le volume Trident correspondant est mis à jour et passe à un état « Suppression ». Supprimez les snapshots de volume pour supprimer le volume Astra Trident.</block>
 </blocks>

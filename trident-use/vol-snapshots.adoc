@@ -103,7 +103,7 @@ Le `Snapshot Content Name` Identifie l'objet VolumeSnapshotContent qui sert ce s
 
 == Étape 3 : création de demandes de volume persistant à partir de copies Snapshot VolumeCas
 
-Dans cet exemple, vous créez une demande de volume persistant à l'aide d'un snapshot :
+Cet exemple crée une demande de volume persistant à l'aide d'un snapshot.
 
 [listing]
 ----
@@ -127,7 +127,13 @@ spec:
 `dataSource` La montre que la demande de volume persistant doit être créée à l'aide d'un Snapshot VolumeSnapshot nommé `pvc1-snap` comme source des données. Cela demande à Astra Trident de créer un volume persistant à partir du snapshot. Une fois la demande de volume persistant créée, elle peut être connectée à un pod et utilisée comme n'importe quel autre PVC.
 
 
-NOTE: Lors de la suppression d'un volume persistant avec les snapshots associés, le volume Trident correspondant est mis à jour et passe à un état « Suppression ». Pour supprimer le volume Astra Trident, il est nécessaire de supprimer les snapshots du volume.
+WARNING: La demande de volume persistant doit être créée dans le même espace de noms que sa `dataSource`.
+
+
+
+== Suppression d'un volume persistant avec snapshots
+
+Lors de la suppression d'un volume persistant avec les snapshots associés, le volume Trident correspondant est mis à jour et passe à un état « Suppression ». Supprimez les snapshots de volume pour supprimer le volume Astra Trident.
 
 
 
