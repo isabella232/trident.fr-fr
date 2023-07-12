@@ -12,27 +12,22 @@ summary: 'Vous pouvez facilement mettre à niveau une installation Astra Trident
 
 
 [role="lead"]
-Vous pouvez facilement mettre à niveau une installation Astra Trident existante à l'aide de l'opérateur.
-
-.Avant de commencer
-Pour effectuer la mise à niveau à l'aide de l'opérateur, les conditions suivantes doivent être remplies :
-
-* Vous devez disposer d'une installation Astra Trident basée sur CSI. Toutes les versions de 19.07 sont basées sur CSI. Vous pouvez examiner les pods dans votre espace de noms Trident pour en vérifier l'état.
-+
-** Dans les versions antérieures à 23.01, le nom des pods suit un `trident-csi-*` convention.
-** Le nom de pod dans la version 23.01 et ultérieures utilise : `trident-controller-<generated id>` pour le pod de contrôleurs ; `trident-node-<operating system>-<generated id>` pour les pods des nœuds ; `trident-operator-<generated id>` pour le boîtier de commande.
+Vous pouvez facilement mettre à niveau une installation Astra Trident existante en utilisant l'opérateur manuellement ou à l'aide d'Helm.
 
 
-* Si vous avez désinstallé CSI Trident et que les métadonnées de l'installation persistent, vous pouvez effectuer une mise à niveau à l'aide de l'opérateur.
-* Une seule installation Astra Trident doit exister sur l'ensemble des espaces de noms d'un cluster Kubernetes donné.
-* Vous devez utiliser un cluster Kubernetes en cours d'exécution link:../trident-get-started/requirements.html["Version Kubernetes prise en charge"].
-* Si des CRD alpha snapshot sont présents, vous devez les supprimer avec `tridentctl obliviate alpha-snapshot-crd`. Ceci supprime les CRD pour la spécification de snapshot alpha. Pour les snapshots existants qui doivent être supprimés/migrés, reportez-vous à la section https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["de ce blog"^].
 
+== Mise à niveau à l'aide de l'opérateur Trident
 
-[WARNING]
+Généralement, vous devez mettre à niveau Astra Trident avec la même méthode que celle utilisée pour l'installer à l'origine. Révision link:upgrade-trident.html#select-an-upgrade-method["Sélectionnez une méthode de mise à niveau"] Avant de tenter une mise à niveau avec l'opérateur Trident.
+
+[IMPORTANT]
 ====
-* Lors de la mise à niveau de Trident à l'aide de l'opérateur sur OpenShift Container Platform, nous vous recommandons d'effectuer une mise à niveau vers Trident 21.01.1 ou version ultérieure. L'opérateur Trident sorti avec 21.01.0 contient un problème connu qui a été résolu en 21.01.1. Pour plus de détails, consultez le https://github.com/NetApp/trident/issues/517["Consultez le document GitHub pour plus d'informations"^].
-* N'utilisez pas l'opérateur pour mettre à niveau Trident si vous utilisez un `etcd`Version Trident basée (19.04 ou version antérieure).
+Lors de la mise à niveau à partir d'une instance d'Astra Trident installée à l'aide de l'opérateur dont le périmètre d'espace de noms est compris entre les versions 20.07 et 20.10, l'opérateur Trident effectue automatiquement les opérations suivantes :
+
+* Migre `tridentProvisioner` à un `tridentOrchestrator` objet du même nom
+* Supprime `TridentProvisioner` objets et le `tridentprovisioner` CRD
+* Mise à niveau d'Astra Trident avec la version de l'opérateur dont le périmètre est défini sur le cluster
+* Installez Astra Trident dans le même espace de noms que celui où elle a été installée à l'origine
 
 
 ====
@@ -40,7 +35,10 @@ Pour effectuer la mise à niveau à l'aide de l'opérateur, les conditions suiva
 
 == Mettre à niveau l'installation d'un opérateur Trident du type cluster
 
-Procédez comme suit pour mettre à niveau l'installation d'un opérateur Trident du système d'extension du cluster. Toutes les versions 21.01 et supérieures d'Astra Trident utilisent un opérateur à périmètre de cluster.
+Vous pouvez mettre à niveau l'installation d'un opérateur Trident dont le périmètre est défini sur le cluster. Toutes les versions 21.01 et supérieures d'Astra Trident utilisent un opérateur à périmètre de cluster.
+
+.Avant de commencer
+Assurez-vous d'utiliser un cluster Kubernetes en cours d'exécution link:../trident-get-started/requirements.html["Version Kubernetes prise en charge"].
 
 .Étapes
 . Vérifiez votre version d'Astra Trident :
@@ -67,8 +65,8 @@ kubectl create -f 23.04.0/trident-installer/deploy/bundle_post_1_25.yaml -n trid
 ====
 Trident fournit un fichier bundle qui peut être utilisé pour installer l'opérateur et créer les objets associés pour votre version Kubernetes.
 
-** Pour les clusters exécutant Kubernetes 1.24 ou version inférieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
-** Pour les clusters qui exécutent Kubernetes 1.25 ou version supérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
+** Pour les clusters exécutant Kubernetes 1.24 ou version antérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
+** Pour les clusters exécutant Kubernetes 1.25 ou version ultérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
 
 
 ====
@@ -81,14 +79,18 @@ L'opérateur de Trident identifiera une installation Astra Trident existante et 
 
 == Mettre à niveau l'installation d'un opérateur à l'aide d'un espace de noms
 
-Suivez ces étapes pour effectuer une mise à niveau à partir d'une instance d'Astra Trident installée à l'aide de l'opérateur doté de l'espace de noms (versions 20.07 à 20.10).
+Vous pouvez effectuer une mise à niveau à partir d'une instance d'Astra Trident installée en utilisant l'opérateur dont le périmètre d'espace de noms est compris entre 20.07 et 20.10, vers une installation par un opérateur dont le périmètre est défini sur le cluster.
+
+.Avant de commencer
+Vous avez besoin du fichier YAML de bundle utilisé pour déployer l'opérateur de périmètre d'espace de noms à partir de `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_BUNDLE.YAML_` où `_vXX.XX_` est le numéro de version et `_BUNDLE.YAML_` Est le nom du fichier YAML du bundle.
 
 .Étapes
-. Vérifiez l'état de l'installation Trident existante. Pour ce faire, vérifiez le *Statut* de  `TridentProvisioner`. Le statut doit être de `Installed`.
+. Vérifiez le `TridentProvisioner` L'état de l'installation Trident existante est `Installed`.
 +
 [listing]
 ----
 kubectl describe tprov trident -n trident | grep Message: -A 3
+
 Message:  Trident installed
 Status:   Installed
 Version:  v20.10.1
@@ -109,28 +111,33 @@ tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
-. Supprimez l'opérateur délimité par l'espace de noms à l'aide de son manifeste. Pour effectuer cette étape, vous devez utiliser le fichier YAML de bundle pour déployer l'opérateur à étendue de l'espace de noms à partir de `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_BUNDLE.YAML_` où `_vXX.XX_` est le numéro de version et `_BUNDLE.YAML_` Est le nom du fichier YAML du bundle.
+. Supprimez l'opérateur délimité par l'espace de noms à l'aide de son manifeste.
 +
-
-NOTE: Vous devez apporter les modifications nécessaires aux paramètres d'installation de Trident (par exemple, en modifiant les valeurs de `tridentImage`, `autosupportImage`, un référentiel d'images privé, et la fourniture `imagePullSecrets`) après avoir supprimé l'opérateur du périmètre de l'espace de noms et avant d'installer l'opérateur du périmètre de cluster. Pour obtenir une liste complète des paramètres pouvant être mis à jour, reportez-vous au link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy.html#configuration-options["options de configuration"].
-
+.. Vérifiez que vous êtes dans le bon répertoire.
 +
 [listing]
 ----
-#Ensure you are in the right directory
 pwd
 /root/20.10.1/trident-installer
-
-#Delete the namespace-scoped operator
+----
+.. Supprimez l'opérateur namespace-scoped.
++
+[listing]
+----
 kubectl delete -f deploy/<BUNDLE.YAML> -n trident
+
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted
 clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted
 deployment.apps "trident-operator" deleted
 podsecuritypolicy.policy "tridentoperatorpods" deleted
-
-#Confirm the Trident operator was removed
+----
+.. Vérifiez que l'opérateur Trident a été supprimé.
++
+[listing]
+----
 kubectl get all -n trident
+
 NAME                               READY   STATUS    RESTARTS   AGE
 pod/trident-csi-68d979fb85-dsrmn   6/6     Running   12         99d
 pod/trident-csi-8jfhf              2/2     Running   6          105d
@@ -149,33 +156,39 @@ deployment.apps/trident-csi   1/1     1            1           105d
 NAME                                     DESIRED   CURRENT   READY   AGE
 replicaset.apps/trident-csi-68d979fb85   1         1         1       105d
 ----
-+
-À ce stade, le `trident-operator-xxxxxxxxxx-xxxxx` le pod a été supprimé.
 
-. (Facultatif) si les paramètres d'installation doivent être modifiés, mettez à jour le `TridentProvisioner` spécifications Il peut s'agir de modifications telles que la modification du registre d'images privées pour extraire des images de conteneur, l'activation des journaux de débogage ou la spécification de secrets de collecte d'images.
+
+. (Facultatif) si les paramètres d'installation doivent être modifiés, mettez à jour le `TridentProvisioner` spécifications Cela peut inclure des modifications telles que la modification : les valeurs pour `tridentImage`, `autosupportImage`, un référentiel d'images privé, et la fourniture `imagePullSecrets`) après avoir supprimé l'opérateur du périmètre de l'espace de noms et avant d'installer l'opérateur du périmètre de cluster. Pour obtenir une liste complète des paramètres pouvant être mis à jour, reportez-vous au link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy.html#configuration-options["options de configuration"].
 +
 [listing]
 ----
 kubectl patch tprov <trident-provisioner-name> -n <trident-namespace> --type=merge -p '{"spec":{"debug":true}}'
 ----
-. Installez l'opérateur Trident.
+. Installez l'opérateur Trident cluster-scoped.
 +
-
-NOTE: L'installation de l'opérateur à périmètre de cluster initie la migration de `TridentProvisioner` objets à `TridentOrchestrator` objets, supprime `TridentProvisioner` objets et le `tridentprovisioner` CRD, et met à niveau Astra Trident vers la version de l'opérateur délimité par le cluster. Dans l'exemple qui suit, Trident est mis à niveau vers la version 23.04.0.
-
-+
-
-IMPORTANT: La mise à niveau d'Astra Trident avec l'opérateur Trident entraîne la migration de `tridentProvisioner` à un `tridentOrchestrator` objet portant le même nom. Cette opération est gérée automatiquement par l'opérateur. La mise à niveau entraînera également l'installation d'Astra Trident dans le même espace de noms qu'auparavant.
-
+.. Assurez-vous que vous êtes dans le bon répertoire.
 +
 [listing]
 ----
-#Ensure you are in the correct directory
 pwd
 /root/23.04.0/trident-installer
+----
+.. Installer l'opérateur cluster-scoped dans le même namespace.
++
+[NOTE]
+====
+Trident fournit un fichier bundle qui peut être utilisé pour installer l'opérateur et créer les objets associés pour votre version Kubernetes.
 
-#Install the cluster-scoped operator in the **same namespace**
+*** Pour les clusters exécutant Kubernetes 1.24 ou version antérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
+*** Pour les clusters exécutant Kubernetes 1.25 ou version ultérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.04/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
+
+
+====
++
+[listing]
+----
 kubectl create -f deploy/<BUNDLE.YAML>
+
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -190,24 +203,29 @@ Error from server (NotFound): Unable to list "trident.netapp.io/v1, Resource=tri
 kubectl get torc
 NAME      AGE
 trident   13s
-
-#Examine Trident pods in the namespace
+----
+.. Examinez les pods Trident dans le namespace. Le `trident-controller` les noms de pods reflètent la convention de nommage introduite en 23.01.
++
+[listing]
+----
 kubectl get pods -n trident
+
 NAME                                     READY   STATUS    RESTARTS   AGE
 trident-controller-79df798bdc-m79dc      6/6     Running   0          1m41s
 trident-node-linux-xrst8                 2/2     Running   0          1m41s
 trident-operator-5574dbbc68-nthjv        1/1     Running   0          1m52s
-
-#Confirm Trident has been updated to the desired version
+----
+.. Vérifiez que Trident a été mis à jour avec la version prévue.
++
+[listing]
+----
 kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
 Version:                v23.04.0
 ----
-+
 
-NOTE: Le `trident-controller` les noms de pods reflètent la convention de nommage introduite en 23.01.
 
 
 
@@ -270,12 +288,12 @@ cd trident-installer
 ----
 kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.16.yaml
 ----
-. Déployer l'opérateur.
+. Déployer l'opérateur cluster-scoped dans le même namespace.
 +
 [listing]
 ----
-#Install the cluster-scoped operator in the **same namespace**
 kubectl create -f deploy/<BUNDLE.YAML>
+
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -292,7 +310,6 @@ trident-operator-5574dbbc68-nthjv     1/1     Running   0          1m30s
 +
 [listing]
 ----
-#Create a tridentOrchestrator to initiate a Trident install
 cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -309,9 +326,13 @@ NAME                                READY   STATUS    RESTARTS   AGE
 trident-csi-79df798bdc-m79dc        6/6     Running   0          1m
 trident-csi-xrst8                   2/2     Running   0          1m
 trident-operator-5574dbbc68-nthjv   1/1     Running   0          5m41s
-
-#Confirm Trident was upgraded to the desired version
+----
+. Vérifiez que Trident a été mis à niveau vers la version prévue.
++
+[listing]
+----
 kubectl describe torc trident | grep Message -A 3
+
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
