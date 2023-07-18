@@ -99,7 +99,30 @@ Le programme d'installation d'Astra Trident fournit un fichier de bundle qui peu
 * Pour les clusters exécutant Kubernetes 1.25 ou version ultérieure, utilisez `bundle_post_1_25.yaml`.
 
 
-Le programme d'installation de Trident déploie l'opérateur dans le système `trident` espace de noms. Si le `trident` l'espace de noms n'existe pas, utilisez `kubectl apply -f deploy/namespace.yaml` pour la créer.
+.Avant de commencer
+* Par défaut, le programme d'installation de Trident déploie l'opérateur dans `trident` espace de noms. Si le `trident` l'espace de noms n'existe pas. créez-le à l'aide des éléments suivants :
++
+[listing]
+----
+kubectl apply -f deploy/namespace.yaml
+----
+* Pour déployer l'opérateur dans un espace de nom autre que le `trident` espace de noms, mettre à jour `serviceaccount.yaml`, `clusterrolebinding.yaml` et `operator.yaml` et générez votre fichier de bundle à l'aide du `kustomization.yaml`.
++
+.. Créer le `kustomization.yaml` en utilisant la commande suivante où _<bundle>_ est `bundle_pre_1_25` ou `bundle_post_1_25` Basé sur votre version de Kubernetes.
++
+[listing]
+----
+cp kustomization_<bundle>.yaml kustomization.yaml
+----
+.. Compilez le bundle à l'aide de la commande suivante où _<bundle>_ est `bundle_pre_1_25` ou `bundle_post_1_25` Basé sur votre version de Kubernetes.
++
+[listing]
+----
+kubectl kustomize deploy/ > deploy/<bundle>.yaml
+----
+
+
+
 
 .Étapes
 . Créer les ressources et déployer l'opérateur :
@@ -108,24 +131,11 @@ Le programme d'installation de Trident déploie l'opérateur dans le système `t
 ----
 kubectl create -f deploy/<bundle>.yaml
 ----
-+
-[NOTE]
-====
-Pour déployer l'opérateur dans un espace de nom autre que le `trident` espace de noms, mettre à jour `serviceaccount.yaml`, `clusterrolebinding.yaml` et `operator.yaml` et générez votre fichier de bundle à l'aide du `kustomization.yaml`:
-
-[listing]
-----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
-----
-====
-. Vérifier que l'opérateur a été déployé.
+. Vérifiez que l'opérateur, le déploiement et les réplicateurs ont été créés.
 +
 [listing]
 ----
-kubectl get deployment -n <operator-namespace>
-
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-trident-operator   1/1     1            1           3m
+kubectl get all -n <operator-namespace>
 ----
 
 
