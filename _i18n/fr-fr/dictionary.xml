@@ -2213,7 +2213,6 @@
   <block id="c499fa59a1c9a0f6da195782a581f2e3" category="list-text"><block ref="c499fa59a1c9a0f6da195782a581f2e3" category="inline-link-macro-rx"></block></block>
   <block id="56661e701892ff873e44b62ffeec85e5" category="list-text"><block ref="56661e701892ff873e44b62ffeec85e5" category="inline-link-macro-rx"></block></block>
   <block id="c0417f5bbd54c5dc1c3704d6b566fcf3" category="list-text"><block ref="c0417f5bbd54c5dc1c3704d6b566fcf3" category="inline-link-macro-rx"></block></block>
-  <block id="e4f61797b38c111b04c612b285a06659" category="summary">Découvrez comment vous préparer à configurer un back-end ONTAP avec les pilotes NAS ONTAP.</block>
   <block id="fd05c90de484dbc1cb963df796886af4" category="doc">Préparez la configuration d'un système back-end avec les pilotes NAS ONTAP</block>
   <block id="00b8b321c68facfb94b31690cbd23e00" category="paragraph">Pour tous les systèmes back-end ONTAP, Astra Trident requiert au moins un agrégat affecté à la SVM.</block>
   <block id="6dc4cb19f2792a3eadfa64d4b4b6d177" category="paragraph">Tous vos nœuds workers Kubernetes doivent avoir installé les outils NFS appropriés. Voir <block ref="f1f954e59a21e3ffe189e77dd2ee9f86" category="inline-link-macro-rx"></block> pour en savoir plus.</block>
@@ -2301,7 +2300,6 @@
   <block id="1d8d21debc328526252944d2264246ca" category="example-title">Exemple 2 : utilisation de secrets différents par espace de noms</block>
   <block id="06bb6ebc4dada525717294b660ba2b3b" category="example-title">Exemple 3 : utilisation de différents secrets par volume</block>
   <block id="c51cc3b801a879870aea846bdde1c7a3" category="section-title">Créer le backend</block>
-  <block id="0cc7642bbaf969ea355ea12764841c91" category="summary">Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installation d'Astra Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.</block>
   <block id="7d8058d93ec1d95c673d83bf303326ff" category="doc">Options et exemples de configuration du NAS ONTAP</block>
   <block id="a0f3a965c12688befda99da850903dcb" category="cell"><block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix="" category="inline-code"></block></block>
   <block id="b4ad0dff08149092bc3e4b16572af575" category="cell"><block ref="b9c40fbe9daa81e40e06509d5bbd5a6c" prefix="" category="inline-code"></block></block>
@@ -2333,7 +2331,6 @@
   <block id="ed2536bee60113131cf25b2de3ec8734" category="list-text">Basé sur des certificats : Astra Trident communiquera avec le SVM sur votre système de fichiers FSX à l'aide d'un certificat installé sur votre SVM.</block>
   <block id="d5d195efeafde24a6a22effd3dd39339" category="list-text">Basé sur les identifiants : vous pouvez utiliser le<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> utilisateur pour votre système de fichiers ou<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> Configuré pour votre SVM.</block>
   <block id="80d13d3dbe137e8fb646193f275eceeb" category="list-text">Un cluster Amazon EKS existant ou un cluster Kubernetes autogéré avec<block ref="0f12ee5c9f1dd90158580f1c292b0d37" prefix=" " category="inline-code"></block> installé.</block>
-  <block id="52d48fdd62aa109d7f163f0ef8a31b83" category="list-text">Un système de fichiers Amazon FSX pour NetApp ONTAP existant et une machine virtuelle de stockage (SVM) accessible depuis les nœuds workers de votre cluster.</block>
   <block id="fe914214000491758957f04647f8da36" category="inline-link">Images de machine Amazon</block>
   <block id="ccb5eb98656346cbfa0b207e7d363bef" category="inline-link-macro">méthodes de déploiement</block>
   <block id="e2bcf5dc117f31569d413bd9b7698bf2" category="list-text">Déployez Astra Trident avec l'un des <block ref="71cad0f2a077aa26894105299bf47b53" category="inline-link-macro-rx"></block>.</block>
@@ -3385,7 +3382,6 @@
   <block id="56d1e7863190cbf5e7689e2821d0959e" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block></block>
   <block id="3bc2d9079510db6d0570883494bc5984" category="cell"><block ref="f899139df5e1059396431415e770c6dd" prefix="" category="inline-code"></block></block>
   <block id="06daeb0fdb584c4694891d290310e1ed" category="cell"><block ref="3644a684f98ea8fe223c713b77189a77" prefix="" category="inline-code"></block></block>
-  <block id="429970b7b8d395eb00181a72bc544fba" category="cell">Vous pouvez spécifier le nom du partage SMB créé à l'aide de la console de gestion Microsoft du dossier partagé ou spécifier un nom de partage pour permettre à Astra Trident de créer le partage SMB. Sinon, vous pouvez laisser le paramètre vide pour empêcher l'accès commun au partage aux volumes.</block>
   <block id="996a57df5a7c8752e8bc23b6af020be4" category="cell">Si<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block> est<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>,<block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block> « »</block>
   <block id="58c09f2c9581bc7c58c32116266b6d8f" category="cell">Règle de hiérarchisation à utiliser<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block></block>
   <block id="49ed5b3ecd0e966bec6b74083f06599e" category="cell"><block ref="8805d416ce540c5f2df34af5b18d742b" prefix="" category="inline-code"></block> Pour la configuration SVM-DR antérieure à ONTAP 9.5</block>
@@ -3398,7 +3394,6 @@
   <block id="51e6d748c5af856ade589011dc2c7e85" category="cell"><block ref="37a6259cc0c1dae299a7866489dff0bd" prefix="" category="inline-code"></block></block>
   <block id="ddbd2735bfb88c5da807f77f6fe5f6c8" category="doc">Présentation du pilote NAS ONTAP</block>
   <block id="dd972e44915c7a0884edd58e9d839295" category="section-title">Informations importantes sur les pilotes NAS ONTAP</block>
-  <block id="482723983a4f2af954e36ff41e567451" category="section-title">Limites connues</block>
   <block id="1faffcbb00c529812b5526b1b22b2b56" category="paragraph">On doit configurer les protocoles NFS et SMB/CIFS sur le SVM pour créer un<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Volume SMB pour ONTAP sur site. La configuration de l'un de ces protocoles entraîne l'échec de la création du volume SMB.</block>
   <block id="5cc1e28c0d7b6c40ca94aacb554b31ca" category="doc">Présentation du pilote SAN ONTAP</block>
   <block id="7771a46320e96de2bde6598540ad4d52" category="section-title">Informations importantes sur les pilotes SAN ONTAP</block>
@@ -3669,17 +3664,8 @@
   <block id="8d23be098d49e797284393a4c1479c53" category="list-text">Vérifiez que Trident a été mis à niveau vers la version prévue.</block>
   <block id="210f1e5eca9c602b1282553f342448ae" category="list-text">Pour les clusters exécutant Kubernetes 1.24 ou version antérieure, utilisez<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block>.</block>
   <block id="e4941fda44f66f353885d1a37ca63e2b" category="list-text">Pour les clusters exécutant Kubernetes 1.25 ou version ultérieure, utilisez<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block>.</block>
-  <block id="3e040e84a22403c3248ead0be2dc0526" category="example-title">Exemple de configuration minimale pour ONTAP NAS Economy</block>
-  <block id="e3e188b2454bb98544f5a561eb702093" category="paragraph">Il s'agit d'une configuration de base utilisant le<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> conducteur.</block>
-  <block id="547c5a9ffcb66d79e8281ae67244522e" category="example-title">Exemple de configuration minimale de ONTAP NAS FlexGroup</block>
-  <block id="a5536d1d72396572e5c419b1a5bc2130" category="paragraph">Il s'agit d'une configuration de base utilisant le<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> conducteur.</block>
   <block id="dacbfb309aa16cb942510c02c224fdbc" category="example-title">Exemple d'authentification basée sur un certificat</block>
   <block id="60eac39d4383fedcc1df436a2d0e856d" category="paragraph">Dans cet exemple de configuration de base<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>,<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>, et<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> (Facultatif, si vous utilisez une autorité de certification approuvée) est renseigné<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> Et prendre les valeurs codées en base64 du certificat client, de la clé privée et du certificat CA de confiance, respectivement.</block>
-  <block id="1ce00ab507a065e4febc57b244e25d18" category="example-title">Exemple de règle d'export automatique</block>
-  <block id="ff5bc16abc09d38f1f879df4cd475d3b" category="paragraph">Dans cet exemple, Astra Trident doit utiliser des règles d'export dynamiques pour créer et gérer automatiquement les règles d'export. Cela fonctionne de la même manière pour le<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> et<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> pilotes.</block>
-  <block id="dd3bd0fc6b509b65dab3730c8d094c7b" category="example-title">Exemple d'utilisation d'adresses IPv6</block>
-  <block id="ee8af8063e9ea3725931d232730b8a8e" category="example-title">Exemple d'Amazon FSX pour ONTAP avec des volumes SMB</block>
-  <block id="2fd88f3466754282c283514ecc0a70a1" category="paragraph">Cet exemple crée un back-end Amazon FSX pour ONTAP à l'aide de volumes SMB.</block>
   <block id="71b79981e733eabd769324fa40c8fa6d" category="paragraph">Dans les exemples de fichiers de définition back-end présentés ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, tels que<block ref="cae77b049bf504af7afc43b99b6c5213" prefix=" " category="inline-code"></block> aucune,<block ref="45922ba6ba8428764f22ed06f814c762" prefix=" " category="inline-code"></block> lors de la fausse idée, et<block ref="5bdf74912a51c34815f11e9a3d20b609" prefix=" " category="inline-code"></block> faux. Les pools virtuels sont définis dans la section stockage.</block>
   <block id="71fcdf20b31ca43f6ef64c06530f313d" category="paragraph">Dans ces exemples, certains pools de stockage sont définis comme étant leurs propres<block ref="cae77b049bf504af7afc43b99b6c5213" prefix=" " category="inline-code"></block>,<block ref="45922ba6ba8428764f22ed06f814c762" prefix=" " category="inline-code"></block>, et<block ref="5bdf74912a51c34815f11e9a3d20b609" prefix=" " category="inline-code"></block> et certains pools remplacent les valeurs par défaut.</block>
   <block id="574e53d92fdeaac37ba2d879a9b88f12" category="example-title">Exemple de NAS ONTAP</block>
@@ -3714,4 +3700,44 @@
   <block id="c6c7f5dc0544ce8f73992592be4fa6f0" category="list-text">Créer le<block ref="67b2cc1cd5b1570014463995fb2ada61" prefix=" " category="inline-code"></block> en utilisant la commande suivante où _&lt;bundle&gt;_ est<block ref="b30cd2dae2689e160b36283c2657caa5" prefix=" " category="inline-code"></block> ou<block ref="e4384751f7a5be47c7eaafbdfc116ab5" prefix=" " category="inline-code"></block> Basé sur votre version de Kubernetes.</block>
   <block id="34e1bffd3ed9e5b9d2d9cec17fd7eadf" category="list-text">Compilez le bundle à l'aide de la commande suivante où _&lt;bundle&gt;_ est<block ref="b30cd2dae2689e160b36283c2657caa5" prefix=" " category="inline-code"></block> ou<block ref="e4384751f7a5be47c7eaafbdfc116ab5" prefix=" " category="inline-code"></block> Basé sur votre version de Kubernetes.</block>
   <block id="806742cccf8380250ffb871d582a0a03" category="list-text">Vérifiez que l'opérateur, le déploiement et les réplicateurs ont été créés.</block>
+  <block id="9b800ce65251b771d0eb86610e11f6b0" category="list-text">Système de fichiers Amazon FSX for NetApp ONTAP et machine virtuelle de stockage (SVM) accessibles depuis les nœuds workers de votre cluster.</block>
+  <block id="888a040cbb1dfe496b305a27374a73a5" category="list-text">Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows. Reportez-vous à la section <block ref="688177e6b45c5d27a545463079c58d82" category="inline-xref-macro-rx"></block> pour plus d'informations.</block>
+  <block id="f55c34459cf261d1102750bcbde548d8" category="paragraph">Avant de pouvoir provisionner des volumes SMB à l'aide de<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> pilote, vous devez avoir les éléments suivants.</block>
+  <block id="0533fb8f0faef28ecb6da05caf5fd644" category="cell">Vous pouvez indiquer l'un des éléments suivants : nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commande ONTAP, ou nom permettant à Astra Trident de créer le partage SMB.
+
+Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP.</block>
+  <block id="433d29840a179b402df37de14e4679f3" category="summary">Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installation Astra Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.</block>
+  <block id="9b59e3a675bc9ca359f3369591ee7df3" category="cell">Vous pouvez indiquer l'un des éléments suivants : le nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commandes ONTAP ; un nom permettant à Astra Trident de créer le partage SMB. Vous pouvez également laisser vide le paramètre pour empêcher l'accès à un partage commun aux volumes.
+
+Ce paramètre est facultatif pour les ONTAP sur site.
+
+Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne peut pas être vide.</block>
+  <block id="8bf31f01da88d12bf642a85ce9b3d644" category="example-title">Configuration minimale pour &lt;code&gt;ontap-nas-economy&lt;/code&gt;</block>
+  <block id="a48054bf8652cee4ee1d7dd8f08ffa1f" category="example-title">Configuration minimale pour &lt;code&gt;ontap-nas-flexgroup&lt;/code&gt;</block>
+  <block id="7cf30ff82fa389224936afba832f444f" category="example-title">Configuration minimale pour les volumes SMB</block>
+  <block id="e7a2472a002479764cade728d64dcd9e" category="example-title">Authentification basée sur des certificats</block>
+  <block id="78e5b29e139db71ceb7ca6bc99b5e228" category="paragraph">Il s'agit d'un exemple de configuration back-end minimal.<block ref="79fffaff4013c1e8c508e76646eca77b" prefix=" " category="inline-code"></block>,<block ref="19dce7ac7f5290fc8fa218ad0c858df5" prefix=" " category="inline-code"></block>, et<block ref="8468461bca00a47ab5ddba2afc45f52c" prefix=" " category="inline-code"></block> (Facultatif, si vous utilisez une autorité de certification approuvée) est renseigné<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> Et prendre les valeurs codées en base64 du certificat client, de la clé privée et du certificat CA de confiance, respectivement.</block>
+  <block id="30cc3e263c594cde4b2a573283348bb1" category="example-title">Export policy auto</block>
+  <block id="8c35a9f7d631f51e05811b36617db641" category="paragraph">Cet exemple vous montre comment vous pouvez demander à Astra Trident d'utiliser des règles d'exportation dynamiques pour créer et gérer automatiquement la règle d'exportation. Cela fonctionne de la même manière pour le<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> et<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> pilotes.</block>
+  <block id="85435c5aae5ecdb04ef9ad8f7d48e88a" category="example-title">Utilisation des adresses IPv6</block>
+  <block id="4627b40a8eea6e0ef04368d12d76d239" category="example-title">Amazon FSX pour ONTAP utilisant des volumes SMB</block>
+  <block id="33ef55e82416e2c1c4beb9cba9560b02" category="paragraph">Le<block ref="5910159ef86741f119f7574a9064b5b0" prefix=" " category="inline-code"></block> Paramètre obligatoire pour FSX for ONTAP utilisant des volumes SMB.</block>
+  <block id="ef0e40b987d8b9ad523bdde2bba5157a" category="summary">Découvrez les exigences, les options d'authentification et les règles d'exportation pour la configuration d'un back-end ONTAP avec des pilotes NAS ONTAP.</block>
+  <block id="c63609aba869239be30364b58d99b1a3" category="section-title">Authentifiez le back-end ONTAP</block>
+  <block id="e5fdb627c170dc14e3873b3da32f3aa5" category="paragraph">Avec un peu de préparation supplémentaire, vous pouvez provisionner des volumes SMB à l'aide de<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> pilotes.</block>
+  <block id="8de0a7910b914d44521684fe2a3a28c6" category="paragraph">Avant de pouvoir provisionner des volumes SMB, vous devez disposer des éléments suivants :</block>
+  <block id="ff8c6e3b6971ed699a5dc2e00455aa82" category="list-text">Pour ONTAP sur site, vous pouvez choisir de créer un partage SMB ou Astra Trident peut en créer un pour vous.</block>
+  <block id="6a402202521e2168a911181e81c72faf" category="admonition">Les partages SMB sont requis pour Amazon FSX pour ONTAP.</block>
+  <block id="7f7041fc0ca0e00f3d3e39e4ce4a5149" category="paragraph">Vous pouvez créer les partages d'administration SMB de deux manières à l'aide de l' <block ref="364bc251e9c8cfbf6ce258767d17d682" category="inline-link-macro-rx"></block> Dossier partagé snap-in ou à l'aide de l'interface de ligne de commande ONTAP. Pour créer les partages SMB à l'aide de l'interface de ligne de commandes ONTAP :</block>
+  <block id="00aa30f1783ef69183794c0da05e43b5" category="cell"><block ref="5910159ef86741f119f7574a9064b5b0" prefix="" category="inline-code"></block>
+Vous pouvez indiquer l'un des éléments suivants : le nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commandes ONTAP ; un nom permettant à Astra Trident de créer le partage SMB. Vous pouvez également laisser vide le paramètre pour empêcher l'accès à un partage commun aux volumes.
+
+Ce paramètre est facultatif pour les ONTAP sur site.
+
+Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne peut pas être vide.</block>
+  <block id="a513707a481ff6afe9846fefc6411bca" category="paragraph">Astra Trident devrait être exécuté en tant qu'administrateur de ONTAP ou du SVM, généralement à l'aide du<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> utilisateur du cluster ou un<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> Utilisateur d'un SVM ou un utilisateur avec un autre nom qui a le même rôle.</block>
+  <block id="624061180b7b402618e3add29c08bd51" category="paragraph">Pour les déploiements Amazon FSX pour NetApp ONTAP, Astra Trident devrait être exécuté en tant qu'administrateur ONTAP ou SVM, à l'aide du cluster<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> utilisateur ou un<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> Utilisateur d'un SVM ou un utilisateur avec un autre nom qui a le même rôle. Le<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> l'utilisateur remplace limitée l'utilisateur administrateur du cluster.</block>
+  <block id="7d159230ccaa721872f31bf9be31afeb" category="paragraph">S'il est possible de créer au sein de ONTAP un rôle plus restrictif qu'un pilote Trident peut utiliser, nous ne le recommandons pas. La plupart des nouvelles versions de Trident appellent des API supplémentaires qui devront être prises en compte, ce qui complique les mises à niveau et risque d'erreurs.</block>
+  <block id="37a679c38162162811d93d22ba8f5b4a" category="paragraph">Découvrez les exigences et les options d'authentification pour la configuration d'un back-end ONTAP avec des pilotes SAN ONTAP.</block>
+  <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">Activer l'authentification basée sur certificat</block>
 </blocks>

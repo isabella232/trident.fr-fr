@@ -12,11 +12,11 @@ summary: Découvrez comment vous préparer à configurer un système ONTAP backe
 
 
 [role="lead"]
-Découvrez comment vous préparer à configurer un système ONTAP backend avec les pilotes SAN ONTAP.
+Découvrez les exigences et les options d'authentification pour la configuration d'un back-end ONTAP avec des pilotes SAN ONTAP.
 
 
 
-== Présentation
+== De formation
 
 Pour tous les systèmes back-end ONTAP, Astra Trident requiert au moins un agrégat affecté à la SVM.
 
@@ -26,7 +26,7 @@ Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appr
 
 
 
-== Authentification
+== Authentifiez le back-end ONTAP
 
 Astra Trident propose deux modes d'authentification d'un système back-end ONTAP.
 
@@ -84,7 +84,7 @@ Gardez à l'esprit que la définition du back-end est le seul endroit où les in
 
 
 
-=== Activez l'authentification basée sur les certificats
+=== Activer l'authentification basée sur certificat
 
 Les systèmes back-end, nouveaux et existants, peuvent utiliser un certificat et communiquer avec le système back-end ONTAP. Trois paramètres sont requis dans la définition du back-end.
 
