@@ -42,34 +42,37 @@ ASTRA Trident fournit les pilotes de stockage suivants pour communiquer avec le 
 
 | `ontap-nas`  a| 
 NFS
+PME
  a| 
 Système de fichiers
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-« », nfs
+« », nfs, smb
 
 
 
 | `ontap-nas-economy`  a| 
 NFS
+PME
  a| 
 Système de fichiers
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-« », nfs
+« », nfs, smb
 
 
 
 | `ontap-nas-flexgroup`  a| 
 NFS
+PME
  a| 
 Système de fichiers
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-« », nfs
+« », nfs, smb
 
 
 

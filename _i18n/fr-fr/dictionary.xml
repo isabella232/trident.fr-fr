@@ -1165,7 +1165,6 @@
   <block id="15971126972a002fcddb2c507534e371" category="cell">Systèmes de fichiers pris en charge</block>
   <block id="ac52cf637478f3656a1fdee5c02324fd" category="paragraph">Système de fichiers</block>
   <block id="aa91b58ced7ef060eb0e27ac4e1d18a8" category="paragraph">RWO,ROX,RWX</block>
-  <block id="9f47e55b538b64923f2ee8c19bc6887a" category="paragraph">« », nfs</block>
   <block id="e1e4c8c9ccd9fc39c391da4bcd093fb2" category="paragraph">Bloc</block>
   <block id="28c142639a9bbdd526b8eb986c13907d" category="paragraph">Pas de système de fichiers, périphérique de bloc brut</block>
   <block id="0b86d82002caac6130185da4ef1be67e" category="paragraph">RWO,ROX</block>
@@ -3740,4 +3739,7 @@ Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne
   <block id="7d159230ccaa721872f31bf9be31afeb" category="paragraph">S'il est possible de créer au sein de ONTAP un rôle plus restrictif qu'un pilote Trident peut utiliser, nous ne le recommandons pas. La plupart des nouvelles versions de Trident appellent des API supplémentaires qui devront être prises en compte, ce qui complique les mises à niveau et risque d'erreurs.</block>
   <block id="37a679c38162162811d93d22ba8f5b4a" category="paragraph">Découvrez les exigences et les options d'authentification pour la configuration d'un back-end ONTAP avec des pilotes SAN ONTAP.</block>
   <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">Activer l'authentification basée sur certificat</block>
+  <block id="3262251091b863054cfabf046c0e3493" category="paragraph">NFS
+PME</block>
+  <block id="7f4a1ee6a22ce0658ba6215c997ba8d8" category="paragraph">« », nfs, smb</block>
 </blocks>
