@@ -13,13 +13,11 @@ indexpage:
   - title: Commencez
     links:
     - title: Découvrez Astra Trident
-      url: "/trident-concepts/intro.html"
+      url: "/trident-get-started/intro.html"
     - title: De formation
       url: "/trident-get-started/requirements.html"
-    - title: Essayez-le
+    - title: Démarrage rapide
       url: "/trident-get-started/quickstart.html"
-    - title: FAQ
-      url: "/faq.html"
   - title: Déployez Astra Trident
     links:
     - title: Déployez-les avec l'opérateur Trident
@@ -44,8 +42,6 @@ indexpage:
       url: "/trident-use/manage-stor-class.html"
     - title: Réaliser des opérations de volume
       url: "/trident-use/vol-operations.html"
-    - title: Contrôle d'Astra Trident
-      url: "/trident-use/monitor-trident.html"
   - title: Didacticiels de démonstration
     links:
     - title: Vidéos sur Astra Trident

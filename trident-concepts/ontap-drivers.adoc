@@ -16,24 +16,12 @@ Astra Trident propose cinq pilotes de stockage ONTAP uniques pour la communicati
 
 
 
-== Pilotes pris en charge par Astra Control
-
-Astra Control assure une protection, une reprise d'activité et une mobilité transparentes (en déplaçant des volumes entre les clusters Kubernetes) pour les volumes créés avec le système `ontap-nas`, `ontap-nas-flexgroup`, et `ontap-san` pilotes. Voir link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Conditions préalables à la réplication d'Astra Control"^] pour plus d'informations.
-
-[WARNING]
-====
-* Vous devez utiliser `ontap-nas` adapté aux charges de travail de production qui nécessitent une protection des données, une reprise d'activité et la mobilité.
-* Utiliser `ontap-san-economy` Lorsque vous prévoyez une utilisation de volume, celle-ci devrait être bien supérieure à celle prise en charge par ONTAP.
-* Utiliser `ontap-nas-economy` Ce n'est que lorsque l'utilisation prévue des volumes sera beaucoup plus élevée que ce que prend en charge ONTAP, et le `ontap-san-economy` le pilote ne peut pas être utilisé.
-* Ne pas utiliser `ontap-nas-economy` si vous prévoyez d'avoir besoin en termes de protection des données, de reprise sur incident ou de mobilité.
-
-
-====
-
-
 == Pilotes de stockage Astra Trident pour ONTAP
 
 ASTRA Trident fournit les pilotes de stockage suivants pour communiquer avec le cluster ONTAP. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+
+IMPORTANT: Si vous utilisez Astra Control pour la protection, la restauration et la mobilité, lisez <<Compatibilité du pilote Astra Control>>.
 
 [cols="2, 1, 1, 2, 2"]
 |===
@@ -125,3 +113,19 @@ RWX n'est pas disponible en mode de volume du système de fichiers.
 |===
 
 NOTE: Les systèmes ONTAP back-end peuvent être authentifiés à l'aide des informations d'identification de connexion pour un rôle de sécurité (nom d'utilisateur/mot de passe), ou bien à l'aide de la clé privée et du certificat installés sur le cluster ONTAP. Vous pouvez mettre à jour les systèmes back-end existants pour passer d'un mode d'authentification à l'autre avec `tridentctl update backend`.
+
+
+
+== Compatibilité du pilote Astra Control
+
+Astra Control assure une protection, une reprise d'activité et une mobilité transparentes (en déplaçant des volumes entre les clusters Kubernetes) pour les volumes créés avec le système `ontap-nas`, `ontap-nas-flexgroup`, et `ontap-san` pilotes. Voir link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Conditions préalables à la réplication d'Astra Control"^] pour plus d'informations.
+
+[WARNING]
+====
+* Vous devez utiliser `ontap-nas` adapté aux charges de travail de production qui nécessitent une protection des données, une reprise d'activité et la mobilité.
+* Utiliser `ontap-san-economy` Lorsque vous prévoyez une utilisation de volume, celle-ci devrait être bien supérieure à celle prise en charge par ONTAP.
+* Utiliser `ontap-nas-economy` Ce n'est que lorsque l'utilisation prévue des volumes sera beaucoup plus élevée que ce que prend en charge ONTAP, et le `ontap-san-economy` le pilote ne peut pas être utilisé.
+* Ne pas utiliser `ontap-nas-economy` si vous prévoyez d'avoir besoin en termes de protection des données, de reprise sur incident ou de mobilité.
+
+
+====

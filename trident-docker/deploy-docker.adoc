@@ -147,8 +147,8 @@ Ou https://docs.docker.com/engine/install/["suivez les instructions relatives à
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
-tar zxf trident-installer-23.04.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.07.0/trident-installer-23.07.0.tar.gz
+tar zxf trident-installer-23.07.0.tar.gz
 ----
 .. Déplacer vers un emplacement dans le chemin du bac :
 +
@@ -183,7 +183,7 @@ EOF
 ----
 
 
-. Après avoir placé le binaire et créé le(s) fichier(s) de configuration, démarrez le démon Trident à l'aide du fichier de configuration souhaité.
+. Après avoir placé le fichier binaire et créé le fichier de configuration, démarrez le démon Trident en utilisant le fichier de configuration souhaité.
 +
 [listing]
 ----

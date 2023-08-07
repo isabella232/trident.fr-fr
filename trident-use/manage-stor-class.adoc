@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/manage-stor-class.html 
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
-summary: Vous pouvez créer une classe de stockage, supprimer une classe de stockage et afficher les classes de stockage existantes. 
+summary: Vous pouvez afficher les classes de stockage existantes, définir une classe de stockage par défaut, identifier le back-end de la classe de stockage et supprimer les classes de stockage. 
 ---
 = Gérer les classes de stockage
 :hardbreaks:
@@ -12,42 +12,7 @@ summary: Vous pouvez créer une classe de stockage, supprimer une classe de stoc
 
 
 [role="lead"]
-Vous pouvez créer une classe de stockage, supprimer une classe de stockage et afficher les classes de stockage existantes.
-
-
-
-== Concevez une classe de stockage
-
-Voir link:../trident-reference/objects.html["ici"^] pour plus d'informations sur les classes de stockage et leur configuration.
-
-
-
-== Créer une classe de stockage
-
-Après avoir un fichier de classe de stockage, exécutez la commande suivante :
-
-[listing]
-----
-kubectl create -f <storage-class-file>
-----
-`<storage-class-file>` doit être remplacé par votre nom de fichier de classe de stockage.
-
-
-
-== Supprimer une classe de stockage
-
-Pour supprimer une classe de stockage de Kubernetes, exécutez la commande suivante :
-
-[listing]
-----
-kubectl delete storageclass <storage-class>
-----
-`<storage-class>` doit être remplacé par votre classe de stockage.
-
-Tout volume persistant créé dans le cadre de cette classe de stockage n'est pas affecté. Astra Trident va continuer à les gérer.
-
-
-NOTE: L'ASTRA Trident applique un blanc `fsType` pour les volumes qu'elle crée. Pour les systèmes back-end iSCSI, il est recommandé d'appliquer la configuration `parameters.fsType` Dans la classe de stockage. Vous devez supprimer des classes de stockage existantes et les recréer à l'aide de `parameters.fsType` spécifié.
+Vous pouvez afficher les classes de stockage existantes, définir une classe de stockage par défaut, identifier le back-end de la classe de stockage et supprimer les classes de stockage.
 
 
 
@@ -105,7 +70,7 @@ kubectl patch storageclass <storage-class-name> -p '{"metadata": {"annotations":
 Il existe également des exemples dans le bundle du programme d'installation de Trident qui incluent cette annotation.
 
 
-NOTE: Vous ne devez avoir qu'une seule classe de stockage par défaut dans votre cluster à un moment donné. Kubernetes n'empêche pas techniquement d'en avoir plusieurs, mais il se comporte comme s'il n'existe aucune classe de stockage par défaut.
+NOTE: Votre cluster ne doit contenir qu'une seule classe de stockage par défaut à la fois. Kubernetes n'empêche pas techniquement d'en avoir plusieurs, mais il se comporte comme s'il n'existe aucune classe de stockage par défaut.
 
 
 
@@ -117,3 +82,19 @@ Voici un exemple de questions que vous pouvez répondre avec le fichier JSON `tr
 ----
 tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.name, backends: [.storage]|unique}]'
 ----
+
+
+== Supprimer une classe de stockage
+
+Pour supprimer une classe de stockage de Kubernetes, exécutez la commande suivante :
+
+[listing]
+----
+kubectl delete storageclass <storage-class>
+----
+`<storage-class>` doit être remplacé par votre classe de stockage.
+
+Tout volume persistant créé dans le cadre de cette classe de stockage n'est pas affecté. Astra Trident va continuer à les gérer.
+
+
+NOTE: L'ASTRA Trident applique un blanc `fsType` pour les volumes qu'elle crée. Pour les systèmes back-end iSCSI, il est recommandé d'appliquer la configuration `parameters.fsType` Dans la classe de stockage. Vous devez supprimer des classes de stockage existantes et les recréer à l'aide de `parameters.fsType` spécifié.

@@ -19,7 +19,82 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 23.04
+== Nouveautés de la version 23.07
+
+
+
+=== Correctifs
+
+
+
+==== Kubernetes
+
+* Correction de la mise à niveau de Trident pour ignorer les anciens pods bloqués en état de terminaison (link:https://github.com/NetApp/trident/issues/740["Question no 740"^]).
+* Ajout d'une tolérance à la définition de « passagent-trident-version-pod » (link:https://github.com/NetApp/trident/issues/795["Question no 795"^]).
+
+
+
+
+==== Astra Trident
+
+* Correction des demandes ZAPI ONTAP pour s'assurer que les numéros de série des LUN sont interrogés lors de l'obtention des attributs de LUN pour identifier et corriger les périphériques iSCSI fantômes pendant les opérations de stadification des nœuds.
+* Correction de la gestion des erreurs dans le code du pilote de stockage (link:https://github.com/NetApp/trident/issues/816["Question no 816"^]).
+* Redimensionnement des quotas fixes lors de l'utilisation de pilotes ONTAP avec use-REST=true.
+* Création de clones LUN fixes dans ontap-san-Economy.
+* Annuler la publication du champ d'informations de `rawDevicePath` à `devicePath`; logique ajoutée pour remplir et récupérer (dans certains cas) `devicePath` légale.
+
+
+
+
+=== Améliorations
+
+
+
+==== Kubernetes
+
+* Prise en charge supplémentaire de l'importation de snapshots préprovisionnés.
+* Déploiement réduit et autorisations linux diaboconfigurées (link:https://github.com/NetApp/trident/issues/817["Question no 817"^]).
+
+
+
+
+==== Astra Trident
+
+* Ne rapporte plus le champ d'état pour les volumes et les snapshots « en ligne ».
+* Met à jour l'état du back-end si le back-end ONTAP est hors ligne (link:https://github.com/NetApp/trident/issues/801["Questions #801"^], link:https://github.com/NetApp/trident/issues/543["#543"^]).
+* Le numéro de série de la LUN est toujours récupéré et publié au cours du workflow ControllerVolumePublish.
+* Ajout d'une logique supplémentaire pour vérifier le numéro de série et la taille du périphérique iSCSI à chemins d'accès multiples.
+* Vérification supplémentaire des volumes iSCSI pour s'assurer que le périphérique multiacheminement correct n'est pas mis en place.
+
+
+
+
+==== Amélioration expérimentale
+
+Ajout de la prise en charge de la présentation technique de NVMe over TCP pour le pilote ONTAP-SAN.
+
+
+
+==== Documentation
+
+De nombreuses améliorations de l'organisation et du formatage ont été apportées.
+
+
+
+=== Dérations
+
+
+
+==== Kubernetes
+
+* Suppression de la prise en charge des snapshots v1beta1.
+* Suppression de la prise en charge des volumes et des classes de stockage pré-CSI.
+* Mise à jour de la version 1.22 de Kubernetes minimale prise en charge.
+
+
+
+
+== Changements en 23.04
 
 
 IMPORTANT: Forcer le détachement de volume pour les volumes ONTAP-SAN-* est uniquement pris en charge avec les versions Kubernetes avec le volet fonctionnalité de fermeture de nœud non gracieuse activé. Le détachement forcé doit être activé au moment de l'installation à l'aide du `--enable-force-detach` Indicateur du programme d'installation Trident.

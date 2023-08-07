@@ -67,7 +67,12 @@ Astra Trident propose 2 pilotes SAN pour ONTAP dont les fonctionnalités sont pr
 | `ontap-san-economy` | Oui. | Oui. | Yesfootnote:4[] | Oui. | Yesfootnote:3[] | Oui. | Yesfootnote:3[] 
 |===
 [verse]
-Note de bas de page pour les tableaux ci-dessus : Yesfootnote:1[]: Non géré par Astra Trident Yesfootnote:2[]: Géré par Astra Trident, mais pas PV granulaire Yesfootnote:3[]: Non géré par Astra Trident et non PV granulaire Yesfootnote:4[]: Supporté par 5 Trident pour les volumes en mode bloc brut[]: Supporté par Trident
+Note de bas de page pour les tableaux ci-dessus :
+Yesfootnote:1[] : non géré par Astra Trident
+Yesfootnote:2[] : géré par Astra Trident, mais pas par volume persistant granulaire
+Yesfootnote:3[] : non géré par Astra Trident et non granulaire par PV
+Yesfootnote:4[] : pris en charge pour les volumes en mode bloc brut
+Yesfootnote:5[] : pris en charge par Astra Trident
 
 Les fonctionnalités qui ne sont pas granulaires volume persistant sont appliquées à l'ensemble du volume flexible et tous les volumes persistants (qtrees ou LUN inclus dans les volumes FlexVol partagés) partageront une planification commune.
 

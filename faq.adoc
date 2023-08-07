@@ -46,7 +46,7 @@ Utilisez le `tridentctl get` Commande pour obtenir plus d'informations sur la co
 
 === Puis-je obtenir des metrics sur le provisionnement du stockage par Astra Trident ?
 
-Oui. Trident 20.01 introduit les terminaux Prometheus qui peuvent être utilisés pour collecter des informations sur le fonctionnement d'Astra Trident, notamment le nombre de systèmes back-end gérés, le nombre de volumes provisionnés, les octets consommés, etc. Vous pouvez également utiliser Cloud Insights pour la surveillance et l'analyse.
+Oui. Les terminaux Prometheus peuvent être utilisés pour rassembler des informations sur les opérations d'Astra Trident, telles que le nombre de systèmes back-end gérés, le nombre de volumes provisionnés, d'octets consommés, etc. Vous pouvez également utiliser link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights"^] pour la surveillance et l'analyse.
 
 
 
@@ -57,12 +57,6 @@ Non Il n'y a aucun changement en ce qui concerne l'expérience utilisateur et le
 
 
 == Installez et utilisez Astra Trident sur un cluster Kubernetes
-
-
-
-=== Quelles sont les versions prises en charge de `etcd`?
-
-Astra Trident n'a plus besoin d'un `etcd`. Il utilise des CRD pour maintenir l'état.
 
 
 
@@ -220,19 +214,13 @@ Le LIF de gestion est obligatoire. Data LIF varie :
 
 === L'Astra Trident peut-il configurer le protocole CHAP pour les systèmes back-end ONTAP ?
 
-Oui. À partir de la version 20.04, Astra Trident prend en charge le protocole CHAP bidirectionnel pour les systèmes back-end ONTAP. Ceci nécessite un paramètre `useCHAP=true` dans votre configuration back-end.
+Oui. ASTRA Trident prend en charge le protocole CHAP bidirectionnel pour les systèmes ONTAP back-end. Ceci nécessite un paramètre `useCHAP=true` dans votre configuration back-end.
 
 
 
 === Comment gérer les règles d'exportation avec Astra Trident ?
 
-Astra Trident peut créer et gérer de manière dynamique des règles d'exportation à partir de la version 20.04. Cela permet à l'administrateur de stockage de fournir un ou plusieurs blocs CIDR dans leur configuration backend et de laisser Trident ajouter des adresses IP de nœud comprise dans ces plages à une export policy créée. Ainsi, Astra Trident gère automatiquement l'ajout et la suppression de règles pour les nœuds dont les adresses IP sont comprises dans les rapports CIDR donnés. Cette fonctionnalité requiert CSI Trident.
-
-
-
-=== Pouvons-nous spécifier un port dans le DataLIF ?
-
-Astra Trident 19.01 et les versions ultérieures prennent en charge la spécification d'un port dans le DataLIF. Configurez-le dans le `backend.json` fichier en tant que ``“managementLIF”: <ip address>:<port>”``. Par exemple, si l'adresse IP de votre LIF de gestion est 192.0.2.1, et si le port est 1000, configurez ``"managementLIF": "192.0.2.1:1000"``.
+Astra Trident peut créer et gérer de manière dynamique des règles d'exportation à partir de la version 20.04. Cela permet à l'administrateur de stockage de fournir un ou plusieurs blocs CIDR dans leur configuration backend et de laisser Trident ajouter des adresses IP de nœud comprise dans ces plages à une export policy créée. Ainsi, Astra Trident gère automatiquement l'ajout et la suppression de règles pour les nœuds dont les adresses IP sont comprises dans les rapports CIDR donnés.
 
 
 
@@ -354,12 +342,6 @@ Oui. Vous pouvez développer un volume de volume persistant créé par Astra Tri
 
 
 
-=== Si je dispose d'un volume créé en dehors d'Astra Trident, est-il possible de l'importer dans Astra Trident ?
-
-À partir de la version 19.04, vous pouvez utiliser la fonctionnalité d'importation de volumes pour intégrer des volumes dans Kubernetes.
-
-
-
 === Puis-je importer un volume en mode SnapMirror Data protection (DP) ou hors ligne ?
 
 L'importation du volume échoue si le volume externe est en mode DP ou est hors ligne. Vous recevez le message d'erreur suivant :
@@ -369,12 +351,6 @@ L'importation du volume échoue si le volume externe est en mode DP ou est hors 
 Error: could not import volume: volume import failed to get size of volume: volume <name> was not found (400 Bad Request) command terminated with exit code 1.
 Make sure to remove the DP mode or put the volume online before importing the volume.
 ----
-
-
-=== Puis-je étendre les demandes de volume persistant iSCSI créées par Astra Trident ?
-
-Trident 19.10 prend en charge l'extension de volumes persistants iSCSI à l'aide du mécanisme de provisionnement CSI.
-
 
 
 === Comment un quota de ressources est-il traduit-il vers un cluster NetApp ?

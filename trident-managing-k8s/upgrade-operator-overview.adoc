@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/upgrade-operator-overview.html 
+keywords: upgrade, trident, operator, helm, controller, daemonset, node pods 
+summary: 'Avant d"utiliser l"opérateur Trident pour mettre à niveau Astra Trident, vous devez comprendre les processus en arrière-plan qui se produisent pendant la mise à niveau. Cela inclut les modifications apportées au contrôleur Trident, au pod du contrôleur et aux pods des nœuds, et au nœud DemonSet.' 
+---
+= Comprendre le workflow de mise à niveau de l'opérateur
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant d'utiliser l'opérateur Trident pour mettre à niveau Astra Trident, vous devez comprendre les processus en arrière-plan qui se produisent pendant la mise à niveau. Cela inclut les modifications apportées au contrôleur Trident, au pod du contrôleur et aux pods des nœuds, et au nœud DemonSet.
+
+
+
+== Gestion des mises à niveau par l'opérateur Trident
+
+L'un des nombreux link:../trident-get-started/kubernetes-deploy.html["Avantages de l'utilisation de l'opérateur Trident"] Pour installer et mettre à niveau Astra Trident, il s'agit du traitement automatique des objets Astra Trident et Kubernetes sans interrompre les volumes montés déjà en place. En particulier, l'opérateur Trident communique avec le cluster Kubernetes pour :
+
+* Supprimez et recréez le déploiement du contrôleur Trident et le nœud DemonSet.
+* Remplacez l'afficheur de contrôleur Trident et les pods de nœud Trident par de nouvelles versions.
++
+** Si un nœud n'est pas mis à jour, il n'empêche pas la mise à jour des nœuds restants.
+** Seuls les nœuds exécutant Trident Node Pod peuvent monter des volumes.
+
+
+
+
+
+TIP: Pour en savoir plus sur l'architecture d'Astra Trident sur le cluster Kubernetes, reportez-vous à la section link:trident-concepts/intro.html#astra-trident-architecture["Architecture d'Astra Trident"].
+
+
+
+== Workflow de mise à niveau de l'opérateur
+
+Lorsque vous lancez une mise à niveau avec l'opérateur Trident :
+
+. L'opérateur *Trident* :
++
+.. Détecte la version d'Astra Trident actuellement installée (version _n_).
+.. Mise à jour de tous les objets Kubernetes, y compris les CRD, RBAC et le service Trident.
+.. Supprime le déploiement du contrôleur Trident pour la version _n_.
+.. Crée le déploiement du contrôleur Trident pour la version _n+1_.
+
+
+. *Kubernetes* crée le pod du contrôleur Trident pour _n+1_.
+. L'opérateur *Trident* :
++
+.. Supprime le jeu de démonstration du nœud Trident pour _n_. L'opérateur n'attend pas la fin de Node Pod.
+.. Crée le dédéclenchement du nœud Trident pour _n+1_.
+
+
+. *Kubernetes* crée des pods de nœuds Trident sur les nœuds qui n'exécutent pas Trident Node Pod _n_. Cela permet de garantir qu'il n'y a jamais plus d'un pod de nœuds Trident, quelle que soit la version, sur un nœud.
+

@@ -16,7 +16,7 @@ Pour vérifier qu'Astra Trident peut être installé dans un grand nombre d'envi
 
 
 
-== Informations stratégiques sur Astra Trident 23.04
+== Informations stratégiques sur Astra Trident 23.07
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
@@ -74,6 +74,12 @@ L'opérateur Trident crée automatiquement les objets suivants pour votre versio
 
 
 ====
+.<strong> compte : « </strong> »
+[%collapsible]
+====
+L'opérateur Trident dont le périmètre est défini dans le cluster gère les ressources associées à une installation Astra Trident au niveau du cluster. Cela réduit les erreurs pouvant être provoquées lors de la maintenance des ressources du cluster-scoped à l'aide d'un opérateur namespace-scoped. Ceci est essentiel pour l'auto-rétablissement et l'application de correctifs.
+
+====
 .<strong> - Capcuratif de la prise </strong>
 [%collapsible]
 ====
@@ -92,6 +98,12 @@ Prenons l'exemple d'un scénario dans lequel vous devez activer Astra Trident po
 kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spec":{"debug":true}}'
 ----
 Après `TridentOrchestrator` est mis à jour, l'opérateur traite les mises à jour et met à jour l'installation existante. Cela peut déclencher la création de nouveaux modules pour modifier l'installation en conséquence.
+
+====
+.<strong> </strong>
+[%collapsible]
+====
+L'opérateur Trident dont le périmètre est défini dans le cluster permet la suppression complète des ressources dont le périmètre est défini dans le cluster. Les utilisateurs peuvent désinstaller complètement Astra Trident et réinstaller facilement.
 
 ====
 .<strong> : mise à niveau de </strong>

@@ -23,24 +23,11 @@ Vous pouvez développer un volume persistant iSCSI à l'aide du mécanisme de pr
 
 NOTE: L'extension de volume iSCSI est prise en charge par `ontap-san`, `ontap-san-economy`, `solidfire-san` Pilotes et requiert Kubernetes 1.16 et version ultérieure.
 
-.Présentation
-L'extension d'un volume persistant iSCSI comprend les étapes suivantes :
-
-* Modification de la définition de classe de stockage pour définir le `allowVolumeExpansion` champ à `true`.
-* Modification de la définition de PVC et mise à jour de `spec.resources.requests.storage` pour refléter la nouvelle taille souhaitée, qui doit être supérieure à la taille d'origine.
-* Pour redimensionner le volume persistant, vous devez le connecter à un pod. Lors du redimensionnement d'un volume persistant iSCSI, deux scénarios sont possibles :
-+
-** Si le volume persistant est connecté à un pod, Astra Trident étend le volume en back-end, reanalyse le système et redimensionne le système de fichiers.
-** Pour redimensionner un volume persistant non connecté, Astra Trident étend le volume sur le back-end. Une fois le volume de volume persistant lié à un pod, Trident analyse de nouveau le périphérique et redimensionne le système de fichiers. Kubernetes met ensuite à jour la taille de la demande de volume persistant une fois l'opération d'extension terminée.
-
-
-
-
-L'exemple ci-dessous montre le fonctionnement de l'extension de PV iSCSI.
-
 
 
 === Étape 1 : configurer la classe de stockage pour prendre en charge l'extension de volume
+
+Modifiez la définition de la classe de stockage pour définir le `allowVolumeExpansion` champ à `true`.
 
 [listing]
 ----
@@ -60,6 +47,8 @@ Pour une classe de stockage déjà existante, modifiez-la pour l'inclure `allowV
 
 
 === Étape 2 : créez une demande de volume persistant avec la classe de stockage que vous avez créée
+
+Modifiez la définition de la demande de volume persistant et mettez à jour le `spec.resources.requests.storage` pour refléter la nouvelle taille souhaitée, qui doit être supérieure à la taille d'origine.
 
 [listing]
 ----
@@ -91,6 +80,12 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 
 === Étape 3 : définissez un pod qui fixe la demande de volume persistant
+
+Reliez le volume persistant à un pod pour qu'il soit redimensionné. Lors du redimensionnement d'un volume persistant iSCSI, deux scénarios sont possibles :
+
+* Si le volume persistant est connecté à un pod, Astra Trident étend le volume en back-end, reanalyse le système et redimensionne le système de fichiers.
+* Pour redimensionner un volume persistant non connecté, Astra Trident étend le volume sur le back-end. Une fois le volume de volume persistant lié à un pod, Trident analyse de nouveau le périphérique et redimensionne le système de fichiers. Kubernetes met ensuite à jour la taille de la demande de volume persistant une fois l'opération d'extension terminée.
+
 
 Dans cet exemple, un pod est créé et utilise le `san-pvc`.
 

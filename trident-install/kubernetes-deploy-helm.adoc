@@ -16,7 +16,7 @@ Vous pouvez déployer l'opérateur Trident et installer Astra Trident à l'aide 
 
 
 
-== Informations stratégiques sur Astra Trident 23.04
+== Informations stratégiques sur Astra Trident 23.07
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
@@ -49,11 +49,11 @@ En plus du link:../trident-get-started/kubernetes-deploy.html#before-you-deploy[
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utiliser `helm install` et spécifiez un nom pour votre déploiement comme dans l'exemple suivant où `23.04.0` Est la version d'Astra Trident que vous installez.
+. Utiliser `helm install` et spécifiez un nom pour votre déploiement comme dans l'exemple suivant où `23.07.0` Est la version d'Astra Trident que vous installez.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.07.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ Spécifiez un fichier YAML avec les remplacements. Ceci peut être spécifié pl
 Spécifiez les remplacements sur la ligne de commande.
 
 |===
-Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.04.0` Est la version d'Astra Trident que vous installez :
+Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.07.0` Est la version d'Astra Trident que vous installez :
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace --set tridentDebug=true
 ----
 
 
@@ -215,9 +215,3 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 * Le plug-in du contrôleur gère le provisionnement et la gestion des volumes, tels que les snapshots et le redimensionnement.
 * Le plug-in du nœud permet d'attacher le stockage au nœud.
 
-
-
-
-== Et la suite
-
-Aujourd'hui c'est possible link:kubernetes-postdeployment.html["création d'une classe de stockage et de back-end, provisionnement d'un volume et montage du volume dans un pod"].

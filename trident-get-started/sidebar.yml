@@ -2,7 +2,25 @@
 section: trident-get-started
 title: Commencez
 entries:
-- title: Essayez-le
+- title: Découvrez Astra Trident
+  entries:
+  - title: Présentation d'Astra Trident
+    url: "/trident-get-started/intro.html"
+  - title: Architecture d'Astra Trident
+    url: "/trident-get-started/architecture.html"
+  - title: Concepts
+    entries:
+    - title: Pilotes ONTAP
+      url: "/trident-concepts/ontap-drivers.html"
+    - title: Provisionnement
+      url: "/trident-concepts/provisioning.html"
+    - title: Snapshots de volume
+      url: "/trident-concepts/snapshots.html"
+    - title: Pools virtuels
+      url: "/trident-concepts/virtual-storage-pool.html"
+    - title: Groupes d'accès de volume
+      url: "/trident-concepts/vol-access-groups.html"
+- title: Démarrage rapide
   url: "/trident-get-started/quickstart.html"
 - title: De formation
   url: "/trident-get-started/requirements.html"
@@ -28,5 +46,3 @@ entries:
       url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
     - title: Personnalisez l'installation tridentctl
       url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
-- title: Et la suite ?
-  url: "/trident-get-started/kubernetes-postdeployment.html"

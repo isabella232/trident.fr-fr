@@ -4,7 +4,7 @@ title: Avec Astra Trident
 entries:
 - title: Préparez le nœud de travail
   url: "/trident-use/worker-node-prep.html"
-- title: Configuration des systèmes back-end
+- title: Configuration et gestion des systèmes back-end
   entries:
   - title: Présentation
     url: "/trident-use/backends.html"
@@ -44,27 +44,33 @@ entries:
       url: "/trident-use/trident-fsx-prep.html"
     - title: Exemples et options de configuration
       url: "/trident-use/trident-fsx-examples.html"
-- title: Création de systèmes back-end avec kubectl
-  url: "/trident-use/backend-kubectl.html"
-- title: Effectuer la gestion back-end avec kubectl
-  url: "/trident-use/backend_ops_kubectl.html"
-- title: Gestion back-end avec tridentctl
-  url: "/trident-use/backend_ops_tridentctl.html"
-- title: Passez d'une option de gestion back-end à une autre
-  url: "/trident-use/backend_options.html"
-- title: Gérer les classes de stockage
-  url: "/trident-use/manage-stor-class.html"
-- title: Réaliser des opérations de volume
+  - title: Création de systèmes back-end avec kubectl
+    url: "/trident-use/backend-kubectl.html"
+  - title: Gestion des systèmes back-end
+    entries:
+    - title: Gérez les systèmes back-end avec kubectl
+      url: "/trident-use/backend_ops_kubectl.html"
+    - title: Gestion des systèmes back-end avec tridentctl
+      url: "/trident-use/backend_ops_tridentctl.html"
+    - title: Passez d'une option de gestion back-end à une autre
+      url: "/trident-use/backend_options.html"
+- title: Créer et gérer des classes de stockage
   entries:
-  - title: Utiliser la topologie CSI
-    url: "/trident-use/csi-topology.html"
-  - title: Travailler avec des instantanés
-    url: "/trident-use/vol-snapshots.html"
+  - title: Créer une classe de stockage
+    url: "/trident-use/create-stor-class.html"
+  - title: Gérer les classes de stockage
+    url: "/trident-use/manage-stor-class.html"
+- title: Provisionnement et gestion des volumes
+  entries:
+  - title: Provisionner un volume
+    url: "/trident-use/vol-provision.html"
   - title: Développement des volumes
     url: "/trident-use/vol-expansion.html"
   - title: Importer des volumes
     url: "/trident-use/vol-import.html"
-- title: Partage des volumes NFS entre les espaces de noms
-  url: "/trident-use/volume-share.html"
-- title: Contrôle d'Astra Trident
-  url: "/trident-use/monitor-trident.html"
+  - title: Partage des volumes NFS entre les espaces de noms
+    url: "/trident-use/volume-share.html"
+  - title: Utiliser la topologie CSI
+    url: "/trident-use/csi-topology.html"
+  - title: Utiliser des instantanés
+    url: "/trident-use/vol-snapshots.html"
