@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/deploy-docker.html 
 keywords: deploy, astra trident, trident for docker, docker 
-summary: 'Astra Trident pour Docker offre une intégration directe avec l"écosystème Docker pour les plateformes de stockage NetApp. Il prend en charge le provisionnement et la gestion des ressources de stockage, depuis la plateforme de stockage jusqu"aux hôtes Docker, par exemple, l"ajout de plateformes supplémentaires à l"avenir.' 
+summary: 'ASTRA Trident pour Docker offre une intégration directe avec l"écosystème Docker pour les plateformes de stockage NetApp. Il prend en charge le provisionnement et la gestion des ressources de stockage, depuis la plateforme de stockage jusqu"aux hôtes Docker, par exemple, l"ajout de plateformes supplémentaires à l"avenir.' 
 ---
 = Déployez Astra Trident
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Astra Trident pour Docker offre une intégration directe avec l"écosy
 
 
 [role="lead"]
-Astra Trident pour Docker offre une intégration directe avec l'écosystème Docker pour les plateformes de stockage NetApp. Il prend en charge le provisionnement et la gestion des ressources de stockage, depuis la plateforme de stockage jusqu'aux hôtes Docker, par exemple, l'ajout de plateformes supplémentaires à l'avenir.
+ASTRA Trident pour Docker offre une intégration directe avec l'écosystème Docker pour les plateformes de stockage NetApp. Il prend en charge le provisionnement et la gestion des ressources de stockage, depuis la plateforme de stockage jusqu'aux hôtes Docker, par exemple, l'ajout de plateformes supplémentaires à l'avenir.
 
 Plusieurs instances d'Astra Trident peuvent être exécutées simultanément sur le même hôte. Vous pouvez ainsi établir des connexions simultanées à plusieurs systèmes et types de stockage, et personnaliser le stockage utilisé pour les volumes Docker.
 

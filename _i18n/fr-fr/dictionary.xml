@@ -618,7 +618,6 @@
   <block id="31d9b5ed201aa44dbeae6d17d38c0c6f" category="list-text">Créer un nouveau volume à partir d'un snapshot existant sur un volume. Cette opération ne crée pas de nouvel instantané :</block>
   <block id="516b30a46da41c6969cb7249d6567905" category="section-title">Accéder aux volumes créés en externe</block>
   <block id="d8c20bb137be94fec8295c3fc5175b54" category="paragraph">Vous pouvez accéder aux périphériques de blocs créés en externe (ou à leurs clones) à l'aide de conteneurs utilisant Trident *uniquement*, s'ils ne possèdent aucune partition et si leur système de fichiers est pris en charge par Astra Trident (par exemple, un<block ref="40d1d2ce03569076bd0dc1e0ff90aa4c" prefix=" " category="inline-code"></block>-formaté<block ref="1f986d7f0f42932dbaaf84475f63ea7a" prefix=" " category="inline-code"></block> Ne sera pas accessible via Astra Trident).</block>
-  <block id="82720d84ad009f069fd0b2cfaf6c3dac" category="summary">Astra Trident pour Docker offre une intégration directe avec l'écosystème Docker pour les plateformes de stockage NetApp. Il prend en charge le provisionnement et la gestion des ressources de stockage, depuis la plateforme de stockage jusqu'aux hôtes Docker, par exemple, l'ajout de plateformes supplémentaires à l'avenir.</block>
   <block id="486632f7d2196e772b742db4a4a0ad7c" category="doc">Déployez Astra Trident</block>
   <block id="d2eb05d1990246a079aeb2f56e3a4237" category="paragraph">Plusieurs instances d'Astra Trident peuvent être exécutées simultanément sur le même hôte. Vous pouvez ainsi établir des connexions simultanées à plusieurs systèmes et types de stockage, et personnaliser le stockage utilisé pour les volumes Docker.</block>
   <block id="89bcbd8e4ba49b7310e9fa748e878c4b" category="inline-link-macro">conditions préalables au déploiement</block>
@@ -3806,4 +3805,5 @@ Yesfootnote:5[] : pris en charge par Astra Trident</block>
   <block id="62486fa65fc31c383ace8989549632ad" category="sidebar">Utiliser des instantanés</block>
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Présentation d'Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Gestion et contrôle d'Astra Trident</block>
+  <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">ASTRA Trident pour Docker offre une intégration directe avec l'écosystème Docker pour les plateformes de stockage NetApp. Il prend en charge le provisionnement et la gestion des ressources de stockage, depuis la plateforme de stockage jusqu'aux hôtes Docker, par exemple, l'ajout de plateformes supplémentaires à l'avenir.</block>
 </blocks>
