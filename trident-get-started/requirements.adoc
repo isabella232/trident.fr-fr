@@ -82,56 +82,56 @@ Le tableau ci-dessous résume les fonctionnalités disponibles dans cette versio
 
 
 | Astra Trident  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Snapshots de volume  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Volume persistant à partir des copies Snapshot des volumes  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Redimensionnement PV iSCSI  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Chap bidirectionnel ONTAP  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Règles d'exportation dynamiques  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Opérateur Trident  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
 
 
 | Topologie CSI  a| 
-1.21 - 1.27
+1.22 - 1.27
  a| 
 Non
 
