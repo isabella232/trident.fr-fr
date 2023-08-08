@@ -113,6 +113,9 @@ Status:
 
 Vous pouvez utiliser `dataSource` Pour créer une demande de volume persistant à l'aide d'un VolumeSnapshot nommé `<pvc-name>` comme source des données. Une fois la demande de volume persistant créée, elle peut être connectée à un pod et utilisée comme n'importe quel autre PVC.
 
+
+WARNING: La demande de volume persistant doit être créée dans le même espace de noms que sa `dataSource`.
+
 L'exemple suivant crée la demande de volume persistant à l'aide de `pvc1-snap` comme source de données.
 
 [listing]
@@ -134,9 +137,6 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----
-
-WARNING: La demande de volume persistant doit être créée dans le même espace de noms que sa `dataSource`.
-
 
 
 == Importer un instantané de volume
