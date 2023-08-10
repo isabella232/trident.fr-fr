@@ -114,7 +114,7 @@ Status:
 Vous pouvez utiliser `dataSource` Pour créer une demande de volume persistant à l'aide d'un VolumeSnapshot nommé `<pvc-name>` comme source des données. Une fois la demande de volume persistant créée, elle peut être connectée à un pod et utilisée comme n'importe quel autre PVC.
 
 
-WARNING: La demande de volume persistant doit être créée dans le même espace de noms que sa `dataSource`.
+WARNING: La demande de volume sera créée dans le même back-end que le volume source. Reportez-vous à la section link:https://kb.netapp.com/Cloud/Astra/Trident/Creating_a_PVC_from_a_Trident_PVC_Snapshot_cannot_be_created_in_an_alternate_backend["Base de connaissances : la création d'une demande de volume persistant à partir d'un Snapshot de volume persistant Trident ne peut pas être créée dans un autre back-end"^].
 
 L'exemple suivant crée la demande de volume persistant à l'aide de `pvc1-snap` comme source de données.
 
