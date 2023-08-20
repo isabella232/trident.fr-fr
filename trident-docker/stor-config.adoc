@@ -418,7 +418,7 @@ Voir l'exemple ci-dessous
 
 
 | `LegacyNamePrefix`  a| 
-Préfixe des installations Trident mises à niveau. Si vous avez utilisé une version de Trident antérieure à 1.3.2 et que vous effectuez une mise à niveau avec des volumes existants, vous devez définir cette valeur pour accéder à vos anciens volumes mappés via la méthode nom-volume.
+Préfixe des installations Trident mises à niveau. Si vous avez utilisé une version de Trident antérieure à la version 1.3.2 et effectué une mise à niveau avec des volumes existants, vous devez définir cette valeur pour accéder aux anciens volumes mappés avec la méthode nom-volume.
  a| 
 `netappdvp-`
 

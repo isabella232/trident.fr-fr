@@ -48,7 +48,7 @@ La réserve d'instantanés sera alors définie sur le pourcentage souhaité. La 
 
 
 | `splitOnClone`  a| 
-Lors du clonage d'un volume, ONTAP va immédiatement séparer le clone de son volume parent. La valeur par défaut est `false`. Pour optimiser l'efficacité du stockage, il est préférable de séparer le clone de son parent dès sa création, car il est peu probable que cette utilisation soit utile. Par exemple, le clonage d'une base de données vide peut permettre d'économiser beaucoup de temps, mais peu d'espace de stockage économisé, il est donc préférable de séparer immédiatement le clone.
+Lors du clonage d'un volume, ONTAP va immédiatement séparer le clone de son volume parent. La valeur par défaut est `false`. Pour optimiser l'efficacité du stockage, il est préférable de séparer le clone de son parent dès sa création, car il est peu probable que cette utilisation soit utile. Par exemple, le clonage d'une base de données vide permet de gagner beaucoup de temps mais réduit les économies de stockage. Il est donc préférable de séparer immédiatement le clone.
 
 
 
@@ -78,7 +78,7 @@ Cette option contrôle les autorisations définies pour le volume lui-même. Par
 
 
 | `snapshotDir`  a| 
-Régler sur `true` fera le `.snapshot` répertoire visible par les clients qui accèdent au volume. La valeur par défaut est `false`, ce qui signifie que la visibilité du `.snapshot` le répertoire est désactivé par défaut. Certaines images, par exemple l'image officielle MySQL, ne fonctionnent pas comme prévu lorsque le `.snapshot` le répertoire est visible.
+Régler sur `true` fera le `.snapshot` répertoire visible par les clients qui accèdent au volume. La valeur par défaut est `false`, ce qui signifie que la visibilité du `.snapshot` le répertoire est désactivé par défaut. Certaines images, par exemple l'image MySQL officielle, ne fonctionnent pas comme prévu quand le `.snapshot` le répertoire est visible.
 
 
 
@@ -101,7 +101,7 @@ Les options supplémentaires suivantes sont disponibles pour iSCSI *uniquement* 
 | `fileSystemType` | Définit le système de fichiers utilisé pour formater les volumes iSCSI. La valeur par défaut est `ext4`. Les valeurs valides sont `ext3`, `ext4`, et `xfs`. 
 
 
-| `spaceAllocation` | Régler sur `false` Désactive la fonction d'allocation d'espace de la LUN. La valeur par défaut est `true`, Qui signifie que ONTAP notifie l'hôte lorsque l'espace du volume est insuffisant et que la LUN du volume ne peut pas accepter les écritures. Cette option permet également à ONTAP de récupérer automatiquement de l'espace lorsque votre hôte supprime des données. 
+| `spaceAllocation` | Régler sur `false` Va désactiver la fonctionnalité d'allocation d'espace de la LUN. La valeur par défaut est `true`, Qui signifie que ONTAP notifie l'hôte lorsque l'espace du volume est insuffisant et que la LUN du volume ne peut pas accepter les écritures. Cette option permet également à ONTAP de récupérer automatiquement de l'espace lorsque votre hôte supprime des données. 
 |===
 
 

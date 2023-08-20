@@ -38,7 +38,7 @@ NOTE: Par défaut, les metrics de Trident sont visibles sur le port cible `8001`
 
 == Étape 1 : définir une cible Prometheus
 
-Vous devez définir une cible Prometheus pour collecter les metrics et obtenir des informations sur les systèmes back-end gérés par Trident, les volumes qu'elle crée, etc. C'est ça https://netapp.io/2020/02/20/prometheus-and-trident/["Blog"^] Vous apprendrez comment utiliser Prometheus et Grafana avec Astra Trident pour récupérer des metrics. Ce blog explique comment exécuter Prometheus en tant qu'opérateur dans votre cluster Kubernetes et créer un ServiceMonitor pour obtenir les metrics d'Astra Trident.
+Vous devez définir une cible Prometheus pour collecter les metrics et obtenir des informations sur les systèmes back-end gérés par Trident, les volumes qu'elle crée, etc. C'est ça https://netapp.io/2020/02/20/prometheus-and-trident/["Blog"^] Vous apprendrez comment utiliser Prometheus et Grafana avec Astra Trident pour récupérer des metrics. Découvrez sur ce blog comment exécuter Prometheus en tant qu'opérateur dans votre cluster Kubernetes et comment créer un ServiceMonitor pour obtenir des metrics Astra Trident.
 
 
 

@@ -18,13 +18,13 @@ Le portefeuille de produits de stockage NetApp s'intègre à différents aspects
 
 == Astra
 
-https://docs.netapp.com/us-en/astra/["Astra"^] Les entreprises peuvent ainsi gérer, protéger et déplacer plus facilement leurs workloads conteneurisés dans des clouds publics et sur site, que ce soit sur Kubernetes. Astra provisionne et fournit un stockage persistant pour les conteneurs en utilisant Trident, la gamme de stockage étendue et éprouvée de NetApp dans le cloud public et sur site. Il offre également un ensemble complet de fonctionnalités avancées de gestion des données intégrant la cohérence applicative, telles que les copies Snapshot, la sauvegarde et la restauration, les journaux d'activité et le clonage actif pour la protection des données, la reprise d'activité, l'audit des données et la migration pour les workloads Kubernetes.
+https://docs.netapp.com/us-en/astra/["Astra"^] Les entreprises peuvent ainsi gérer, protéger et déplacer plus facilement leurs workloads conteneurisés dans des clouds publics et sur site, que ce soit sur Kubernetes. ASTRA provisionne et fournit un stockage persistant pour conteneurs à l'aide de Trident provenant de la gamme de solutions de stockage NetApp éprouvées et étendues dans le cloud public et sur site. Il offre également un ensemble complet de fonctionnalités avancées de gestion des données intégrant la cohérence applicative, telles que les copies Snapshot, la sauvegarde et la restauration, les journaux d'activité et le clonage actif pour la protection des données, la reprise d'activité, l'audit des données et la migration pour les workloads Kubernetes.
 
 
 
 == ONTAP
 
-ONTAP est un système d'exploitation de stockage unifié multiprotocole de NetApp qui offre des fonctionnalités avancées de gestion des données pour toutes les applications. Les systèmes ONTAP sont dotés de configurations 100 % Flash, hybrides ou 100 % HDD et proposent différents modèles de déploiement, notamment du matériel spécialisé (FAS et AFF), de l'infrastructure générique (ONTAP Select) et du cloud uniquement (Cloud Volumes ONTAP).
+ONTAP est le système d'exploitation de stockage unifié multiprotocole NetApp qui offre des fonctionnalités avancées de gestion des données pour toutes les applications. Les systèmes ONTAP sont dotés de configurations 100 % Flash, hybrides ou 100 % HDD et proposent différents modèles de déploiement, notamment du matériel spécialisé (FAS et AFF), de l'infrastructure générique (ONTAP Select) et du cloud uniquement (Cloud Volumes ONTAP).
 
 
 NOTE: Trident prend en charge tous les modèles de déploiement ONTAP mentionnés ci-dessus.
@@ -39,7 +39,7 @@ http://cloud.netapp.com/ontap-cloud?utm_source=GitHub&utm_campaign=Trident["Clou
 
 == Amazon FSX pour NetApp ONTAP
 
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX pour NetApp ONTAP"^] Service AWS entièrement géré qui permet aux clients de lancer et d'exécuter des systèmes de fichiers optimisés par le système d'exploitation du stockage NetApp ONTAP. La solution FSX pour ONTAP permet aux clients d'exploiter les fonctionnalités, les performances et les capacités d'administration de NetApp qu'ils connaissent, tout en profitant de la simplicité, de l'agilité, de la sécurité et de l'évolutivité du stockage des données sur AWS. FSX pour ONTAP prend en charge de nombreuses fonctionnalités de système de fichiers et API d'administration d'ONTAP.
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX pour NetApp ONTAP"^] Est un service AWS entièrement géré qui vous permet de lancer et d'exécuter des systèmes de fichiers optimisés par le système d'exploitation du stockage NetApp ONTAP. FSX pour ONTAP vous permet d'exploiter les fonctionnalités, les performances et les capacités d'administration d'NetApp que vous connaissez déjà, tout en profitant de la simplicité, de l'agilité, de la sécurité et de l'évolutivité du stockage des données sur AWS. FSX pour ONTAP prend en charge un grand nombre de fonctionnalités du système de fichiers ONTAP et d'API d'administration.
 
 
 

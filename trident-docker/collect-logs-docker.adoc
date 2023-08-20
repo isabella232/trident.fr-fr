@@ -29,7 +29,7 @@ ID                  NAME                DESCRIPTION                          ENA
 journalctl -u docker | grep 4fb97d2b956b
 ----
 +
-Le niveau d'enregistrement standard devrait vous permettre de diagnostiquer la plupart des problèmes. Si cela ne suffit pas, vous pouvez activer la journalisation de débogage.
+Le niveau d'enregistrement standard devrait vous permettre de diagnostiquer la plupart des problèmes. Si vous trouvez que ce n'est pas suffisant, vous pouvez activer la journalisation de débogage.
 
 . Pour activer la journalisation de débogage, installez le plug-in avec la journalisation de débogage activée :
 +
@@ -47,7 +47,7 @@ docker plugin disable <plugin>
 docker plugin set <plugin> debug=true
 docker plugin enable <plugin>
 ----
-. Si vous exécutez le binaire lui-même sur l’hôte, les journaux sont disponibles dans celui-ci `/var/log/netappdvp` répertoire. Pour activer la journalisation de débogage, spécifiez `-debug` lorsque vous exécutez le plug-in.
+. Si vous exécutez le fichier binaire lui-même sur l'hôte, les journaux sont disponibles dans le système hôte `/var/log/netappdvp` répertoire. Pour activer la journalisation de débogage, spécifiez `-debug` lorsque vous exécutez le plug-in.
 
 
 

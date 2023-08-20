@@ -86,7 +86,7 @@ L'Astra Trident effectue une lecture sur le serveur d'API Kubernetes afin de dé
 
 === Quels sont les rôles et privilèges utilisés par Astra Trident ?
 
-Le programme d'installation de Trident crée un cluster Kubernetes ClusterRole qui dispose d'un accès spécifique au volume persistant, à la demande de volume persistant, à la classe de stockage et aux ressources secrètes du cluster Kubernetes. Voir link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["ici"].
+Le programme d'installation Trident crée un cluster Kubernetes ClusterRole, qui dispose d'un accès spécifique aux ressources PersistentVolume, PersistentVolumeClaim, StorageClass et Secret du cluster Kubernetes. Voir link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["ici"].
 
 
 
@@ -164,9 +164,9 @@ Si vous avez des questions, des problèmes ou des demandes, contactez-nous par l
 
 
 
-=== Le mot de passe de mon système de stockage a changé et Astra Trident ne fonctionne plus, comment récupérer?
+=== Le mot de passe de mon système de stockage a changé et Astra Trident ne fonctionne plus. Comment puis-je le récupérer ?
 
-Mettez à jour le mot de passe du backend avec `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`. Remplacement `myBackend` dans l'exemple avec votre nom de back-end, et ``/path/to_new_backend.json` avec le chemin d'accès correct `backend.json` fichier.
+Mettez à jour le mot de passe du back-end avec `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`. Remplacement `myBackend` dans l'exemple avec votre nom de back-end, et ``/path/to_new_backend.json` avec le chemin d'accès correct `backend.json` fichier.
 
 
 
@@ -178,7 +178,7 @@ Il existe deux scénarios possibles pour savoir pourquoi Astra Trident ne peut p
 
 === Si le pod Trident est détruit, ces données seront-elles perdues ?
 
-Les données ne seront pas perdues si le pod Trident est détruit. Les métadonnées de Trident sont stockées dans des objets CRD. Tous les volumes persistants provisionnés par Trident fonctionneront normalement.
+Les données ne seront pas perdues si le pod Trident est détruit. Les métadonnées Trident sont stockées dans des objets CRD. Tous les volumes persistants provisionnés par Trident fonctionneront normalement.
 
 
 
