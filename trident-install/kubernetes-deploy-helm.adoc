@@ -87,7 +87,7 @@ Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui su
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
