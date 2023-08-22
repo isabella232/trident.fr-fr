@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
-keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
+keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: 'Découvrez comment configurer Cloud Volumes Service pour Google Cloud en tant que backend pour votre installation d"Astra Trident à l"aide des exemples de configuration fournis.' 
 ---
 = Configurer un système Cloud Volumes Service pour Google Cloud backend
@@ -14,6 +14,27 @@ summary: 'Découvrez comment configurer Cloud Volumes Service pour Google Cloud 
 [role="lead"]
 Découvrez comment configurer NetApp Cloud Volumes Service pour Google Cloud en tant que backend pour votre installation d'Astra Trident à l'aide des exemples de configuration fournis.
 
+
+
+== Détails du pilote Google Cloud
+
+ASTRA Trident offre le `gcp-cvs` pour communiquer avec le bloc d'instruments. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+[cols="1, 1, 1, 2, 2"]
+|===
+| Conducteur | Protocole | Mode Volume | Modes d'accès pris en charge | Systèmes de fichiers pris en charge 
+
+
+| `gcp-cvs`  a| 
+NFS
+ a| 
+Système de fichiers
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+`nfs`
+
+|===
 
 
 == En savoir plus sur la prise en charge d'Astra Trident pour Cloud Volumes Service pour Google Cloud
@@ -50,7 +71,7 @@ Pour configurer et utiliser le https://cloud.netapp.com/cloud-volumes-service-fo
 
 Chaque back-end provisionne les volumes dans une seule région Google Cloud. Pour créer des volumes dans d'autres régions, vous pouvez définir des systèmes back-end supplémentaires.
 
-[cols="3"]
+[cols="1, 2, 1"]
 |===
 | Paramètre | Description | Valeur par défaut 
 

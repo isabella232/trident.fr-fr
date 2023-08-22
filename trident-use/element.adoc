@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/element.html 
-keywords: trident backend, solidfire, netapp hci 
+keywords: trident backend, solidfire, netapp hci, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: 'Découvrez comment créer et utiliser un système Element backend avec votre installation d"Astra Trident.' 
 ---
 = Configurer un système NetApp HCI ou SolidFire backend
@@ -12,24 +12,15 @@ summary: 'Découvrez comment créer et utiliser un système Element backend avec
 
 
 [role="lead"]
-Découvrez comment créer et utiliser un système Element backend avec votre installation d'Astra Trident.
+Découvrez comment créer et utiliser un back-end Element avec votre installation Astra Trident.
 
 
 
-== Avant de commencer
+== Détails du pilote d'élément
 
-Vous aurez besoin des éléments suivants avant de créer un back-end d'élément.
+ASTRA Trident offre le `solidfire-san` pilote de stockage pour communiquer avec le cluster. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
 
-* Système de stockage pris en charge exécutant le logiciel Element.
-* Identifiants de locataire ou administrateur de cluster NetApp HCI/SolidFire pouvant gérer les volumes
-* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"].
-
-
-
-
-== Modes de volume
-
-Le `solidfire-san` le pilote de stockage prend en charge les deux modes de volume : fichier et bloc. Pour le `Filesystem` En mode volume, Astra Trident crée un volume et crée un système de fichiers. Le type de système de fichiers est spécifié par la classe de stockage.
+Le `solidfire-san` le pilote de stockage prend en charge les modes _file_ et _block_ volume. Pour le `Filesystem` En mode volume, Astra Trident crée un volume et crée un système de fichiers. Le type de système de fichiers est spécifié par la classe de stockage.
 
 [cols="5"]
 |===
@@ -41,18 +32,7 @@ ISCSI
  a| 
 Bloc
  a| 
-RWO,ROX,RWX
- a| 
-Aucun système de fichiers. Périphérique de bloc brut.
-
-
-
-| `solidfire-san`  a| 
-ISCSI
- a| 
-Bloc
- a| 
-RWO,ROX,RWX
+RWO, ROX, RWX, RWOP
  a| 
 Aucun système de fichiers. Périphérique de bloc brut.
 
@@ -63,22 +43,22 @@ ISCSI
  a| 
 Système de fichiers
  a| 
-RWO,ROX
- a| 
-`xfs`, `ext3`, `ext4`
-
-
-
-| `solidfire-san`  a| 
-ISCSI
- a| 
-Système de fichiers
- a| 
-RWO,ROX
+RWO, RWOP
  a| 
 `xfs`, `ext3`, `ext4`
 
 |===
+
+
+== Avant de commencer
+
+Vous aurez besoin des éléments suivants avant de créer un back-end d'élément.
+
+* Système de stockage pris en charge exécutant le logiciel Element.
+* Identifiants de locataire ou administrateur de cluster NetApp HCI/SolidFire pouvant gérer les volumes
+* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"].
+
+
 
 
 == Options de configuration du back-end

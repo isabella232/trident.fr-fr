@@ -191,7 +191,7 @@ sudo trident --config=/etc/netappdvp/ontap-nas.json
 ----
 +
 
-NOTE: Sauf indication contraire, le nom par défaut du pilote de volume est « netapp ».
+NOTE: Sauf indication contraire, le nom par défaut du pilote de volume est « NetApp ».
 
 +
 Une fois le démon démarré, vous pouvez créer et gérer des volumes à l'aide de l'interface de ligne de commande de Docker
