@@ -47,7 +47,7 @@ image:screenshot-fsx-backup-disable.png["Copie d'écran de la console AWS désac
 
 
 
-== Pilotes
+== Détails du pilote FSX pour ONTAP
 
 Vous pouvez intégrer Astra Trident avec Amazon FSX pour NetApp ONTAP à l'aide des pilotes suivants :
 
@@ -58,7 +58,7 @@ Vous pouvez intégrer Astra Trident avec Amazon FSX pour NetApp ONTAP à l'aide 
 * `ontap-nas-flexgroup`: Chaque volume persistant provisionné est un volume Amazon FSX complet pour NetApp ONTAP FlexGroup.
 
 
-Pour plus d'informations sur le pilote, reportez-vous à la section link:../trident-use/ontap-nas.html.html["Pilotes NAS"] et link:../trident-use/ontap-san.html.html["Pilotes SAN"].
+Pour plus d'informations sur le pilote, reportez-vous à la section link:../trident-use/ontap-nas.html["Pilotes NAS"] et link:../trident-use/ontap-san.html["Pilotes SAN"].
 
 
 
