@@ -3822,4 +3822,9 @@ Yesfootnote:5[] : pris en charge par Astra Trident</block>
   <block id="9f65455ce006fe56e7588e4e14f1edb8" category="paragraph">Il est possible de concevoir des pools virtuels pour émuler des classes de service. Grâce à l'implémentation du pool virtuel pour Cloud volumes Service pour Azure NetApp Files, examinons comment nous pouvons configurer différentes classes de service. Configurer le back-end Azure NetApp Files avec plusieurs étiquettes représentant différents niveaux de performances. Réglez<block ref="28277e44c5db61612accdf326d137e96" prefix=" " category="inline-code"></block> aspect au niveau de performance approprié et ajouter d'autres aspects requis sous chaque étiquette. Créez désormais différentes classes de stockage Kubernetes qui seraient mappées sur différents pools virtuels. À l'aide du<block ref="bed471c4a88e25ac9a7e4a7b980700a8" prefix=" " category="inline-code"></block> Chaque classe de stockage indique quels pools virtuels peuvent être utilisés pour héberger un volume.</block>
   <block id="42f3b65b98b18c792b7b5534e40d2646" category="section-title">Détails du pilote FSX pour ONTAP</block>
   <block id="9b82ca4e89dcaf4cecf50467b6126909" category="paragraph">Pour plus d'informations sur le pilote, reportez-vous à la section <block ref="4093b6d0ce8cf414637a02002d2b0376" category="inline-link-macro-rx"></block> et <block ref="276422a40a581e9842304216329765d5" category="inline-link-macro-rx"></block>.</block>
+  <block id="02882f6e58d1a3adffd9c9e4d0b2cc15" category="cell">Adresse IP d'un cluster ou d'une LIF de gestion SVM
+
+Un nom de domaine complet (FQDN) peut être spécifié.
+
+Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> drapeau. Les adresses IPv6 doivent être définies entre crochets, telles que [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555].</block>
 </blocks>
