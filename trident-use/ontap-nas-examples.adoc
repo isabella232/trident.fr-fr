@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-nas-examples.html 
-keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
+keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster 
 summary: Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installation Astra Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage. 
 ---
 = Options et exemples de configuration du NAS ONTAP
@@ -12,7 +12,7 @@ summary: Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre 
 
 
 [role="lead"]
-Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installation Astra Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.
+Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installation Astra Trident. Cette section fournit des exemples de configuration back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.
 
 
 
@@ -20,7 +20,7 @@ Découvrez comment créer et utiliser des pilotes NAS ONTAP avec votre installat
 
 Voir le tableau suivant pour les options de configuration du back-end :
 
-[cols="3"]
+[cols="1,3,2"]
 |===
 | Paramètre | Description | Valeur par défaut 
 
@@ -34,10 +34,29 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `backendName` | Nom personnalisé ou système back-end de stockage | Nom du pilote + "_" + dataLIF 
 
 
-| `managementLIF` | Adresse IP d'un cluster ou d'une LIF de gestion SVM pour un basculement MetroCluster transparent, vous devez spécifier une LIF de gestion SVM. Un nom de domaine complet (FQDN) peut être spécifié. Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du `--use-ipv6` drapeau. Les adresses IPv6 doivent être définies entre crochets, telles que [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. | « 10.0.0.1 », « [2001:1234:abcd::fefe] » 
+| `managementLIF` | Adresse IP d'un cluster ou d'une LIF de gestion SVM
+
+Un nom de domaine complet (FQDN) peut être spécifié.
+
+Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du `--use-ipv6` drapeau. Les adresses IPv6 doivent être définies entre crochets, par exemple `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
+
+Pour un basculement MetroCluster transparent, reportez-vous au <<mcc-best>>. | « 10.0.0.1 », « [2001:1234:abcd::fefe] » 
 
 
-| `dataLIF` | Adresse IP de la LIF de protocole. Nous vous recommandons de spécifier `dataLIF`. Si elle n'est pas fournie, Astra Trident extrait les LIF de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données. Peut être modifié après le réglage initial. Reportez-vous à la section . Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du `--use-ipv6` drapeau. Les adresses IPv6 doivent être définies entre crochets, telles que [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. | Adresse spécifiée ou dérivée d'un SVM, si non spécifiée (non recommandé) 
+| `dataLIF` | Adresse IP de la LIF de protocole.
+
+Nous vous recommandons de spécifier `dataLIF`. Si elle n'est pas fournie, Astra Trident extrait les LIF de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données.
+
+Peut être modifié après le réglage initial. Reportez-vous à la section .
+
+Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du `--use-ipv6` drapeau. Les adresses IPv6 doivent être définies entre crochets, par exemple `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
+
+*Omettre pour MetroCluster.* Voir <<mcc-best>>. | Adresse spécifiée ou dérivée d'un SVM, si non spécifiée (non recommandé) 
+
+
+| `svm` | Serveur virtuel de stockage à utiliser
+
+*Omettre pour MetroCluster.* Voir <<mcc-best>>. | Dérivé d'un SVM `managementLIF` est spécifié 
 
 
 | `autoExportPolicy` | Activer la création et la mise à jour automatiques des règles d'exportation [booléennes]. À l'aide du `autoExportPolicy` et `autoExportCIDRs` Avec Astra Trident, il peut gérer automatiquement les règles d'exportation. | faux 
@@ -64,9 +83,6 @@ Voir le tableau suivant pour les options de configuration du back-end :
 
 
 | `password` | Mot de passe pour la connexion au cluster/SVM. Utilisé pour l'authentification basée sur les identifiants |  
-
-
-| `svm` | Serveur virtuel de stockage à utiliser | Dérivé d'un SVM `managementLIF` est spécifié 
 
 
 | `storagePrefix` | Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être mis à jour une fois que vous l'avez défini | trident 
@@ -109,11 +125,11 @@ Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne
 |===
 
 
-=== Options de configuration back-end pour les volumes de provisionnement
+== Options de configuration back-end pour les volumes de provisionnement
 
 Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options dans `defaults` section de la configuration. Pour un exemple, voir les exemples de configuration ci-dessous.
 
-[cols="3"]
+[cols="1,3,2"]
 |===
 | Paramètre | Description | Valeur par défaut 
 
@@ -161,7 +177,7 @@ NOTE: Avec Astra Trident, les groupes de règles de QoS doivent être utilisés 
 
 
 
-==== Exemples de provisionnement de volumes
+=== Exemples de provisionnement de volumes
 
 Voici un exemple avec des valeurs par défaut définies :
 
@@ -216,8 +232,8 @@ Les exemples suivants montrent des configurations de base qui laissent la plupar
 
 NOTE: Si vous utilisez Amazon FSX sur NetApp ONTAP avec Trident, nous vous recommandons de spécifier des noms DNS pour les LIF au lieu d'adresses IP.
 
-.Configuration minimale pour <code>ontap-nas-economy</code>
-[%collapsible%open]
+.Exemple d'économie NAS ONTAP
+[%collapsible]
 ====
 [listing]
 ----
@@ -231,8 +247,8 @@ username: vsadmin
 password: password
 ----
 ====
-.Configuration minimale pour <code>ontap-nas-flexgroup</code>
-[%collapsible%open]
+.Exemple de FlexGroup NAS ONTAP
+[%collapsible]
 ====
 [listing]
 ----
@@ -246,8 +262,25 @@ username: vsadmin
 password: password
 ----
 ====
-.Configuration minimale pour les volumes SMB
-[%collapsible%open]
+.Exemple MetroCluster
+[#mcc-best%collapsible]
+====
+Vous pouvez configurer le back-end pour éviter d'avoir à mettre à jour manuellement la définition du back-end après le basculement et le rétablissement pendant link:../trident-reco/backup.html#svm-replication-and-recovery["Réplication et restauration des SVM"].
+
+Pour un basculement et un rétablissement fluides, préciser le SVM en utilisant `managementLIF` et omettre le `dataLIF` et `svm` paramètres. Par exemple :
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+managementLIF: 192.168.1.66
+username: vsadmin
+password: password
+----
+====
+.Exemple de volumes SMB
+[%collapsible]
 ====
 [listing]
 ----
@@ -266,8 +299,8 @@ username: vsadmin
 password: password
 ----
 ====
-.Authentification basée sur des certificats
-[%collapsible%open]
+.Exemple d'authentification basée sur un certificat
+[%collapsible]
 ====
 Il s'agit d'un exemple de configuration back-end minimal. `clientCertificate`, `clientPrivateKey`, et `trustedCACertificate` (Facultatif, si vous utilisez une autorité de certification approuvée) est renseigné `backend.json` Et prendre les valeurs codées en base64 du certificat client, de la clé privée et du certificat CA de confiance, respectivement.
 
@@ -286,8 +319,8 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
 ====
-.Export policy auto
-[%collapsible%open]
+.Exemple de règle d'export automatique
+[%collapsible]
 ====
 Cet exemple vous montre comment vous pouvez demander à Astra Trident d'utiliser des règles d'exportation dynamiques pour créer et gérer automatiquement la règle d'exportation. Cela fonctionne de la même manière pour le `ontap-nas-economy` et `ontap-nas-flexgroup` pilotes.
 
@@ -310,8 +343,8 @@ password: password
 nfsMountOptions: nfsvers=4
 ----
 ====
-.Utilisation des adresses IPv6
-[%collapsible%open]
+.Exemple d'adresses IPv6
+[%collapsible]
 ====
 Cet exemple montre `managementLIF` Utilisation d'une adresse IPv6.
 
@@ -330,8 +363,8 @@ username: vsadmin
 password: password
 ----
 ====
-.Amazon FSX pour ONTAP utilisant des volumes SMB
-[%collapsible%open]
+.Exemple d'Amazon FSX pour ONTAP avec des volumes SMB
+[%collapsible]
 ====
 Le `smbShare` Paramètre obligatoire pour FSX for ONTAP utilisant des volumes SMB.
 

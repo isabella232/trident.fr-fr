@@ -47,25 +47,33 @@ Vous pouvez également exécuter `tridentctl get backend -n trident` ou `trident
 Il peut y avoir plusieurs raisons de mettre à jour un backend :
 
 * Les informations d'identification du système de stockage ont été modifiées. Pour mettre à jour les identifiants, le code secret Kubernetes utilisé dans le `TridentBackendConfig` l'objet doit être mis à jour. Avec Astra Trident, le système back-end est automatiquement mis à jour avec les dernières informations d'identification fournies. Exécutez la commande suivante pour mettre à jour le code secret Kubernetes :
-
-
++
 [listing]
 ----
 kubectl apply -f <updated-secret-file.yaml> -n trident
 ----
-* Les paramètres (tels que le nom du SVM ONTAP utilisé) doivent être mis à jour. Dans ce cas, `TridentBackendConfig` Les objets peuvent être mis à jour directement via Kubernetes.
-
-
+* Les paramètres (tels que le nom du SVM ONTAP utilisé) doivent être mis à jour.
++
+** Vous pouvez mettre à jour `TridentBackendConfig` Objets directement dans Kubernetes à l'aide de la commande suivante :
++
 [listing]
 ----
 kubectl apply -f <updated-backend-file.yaml>
 ----
-Vous pouvez également apporter des modifications à l'existant `TridentBackendConfig` CR en exécutant la commande suivante :
-
+** Vous pouvez également apporter des modifications à l'existant `TridentBackendConfig` CR à l'aide de la commande suivante :
++
 [listing]
 ----
 kubectl edit tbc <tbc-name> -n trident
 ----
-En cas d'échec d'une mise à jour du back-end, le système back-end continue de rester dans sa dernière configuration connue. Vous pouvez afficher les journaux pour déterminer la cause en cours d'exécution `kubectl get tbc <tbc-name> -o yaml -n trident` ou `kubectl describe tbc <tbc-name> -n trident`.
 
-Après avoir identifié et corrigé le problème avec le fichier de configuration, vous pouvez relancer la commande update.
+
+
+
+[NOTE]
+====
+* En cas d'échec d'une mise à jour du back-end, le système back-end continue de rester dans sa dernière configuration connue. Vous pouvez afficher les journaux pour déterminer la cause en cours d'exécution `kubectl get tbc <tbc-name> -o yaml -n trident` ou `kubectl describe tbc <tbc-name> -n trident`.
+* Après avoir identifié et corrigé le problème avec le fichier de configuration, vous pouvez relancer la commande update.
+
+
+====
