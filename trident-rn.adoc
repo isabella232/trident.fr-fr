@@ -19,7 +19,13 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 23.07
+== Nouveautés de la version 23.07.1
+
+*Kubernetes:* Suppression fixe du démonset pour prendre en charge les mises à niveau sans temps d'arrêt (link:https://github.com/NetApp/trident/issues/740["Question no 740"^]).
+
+
+
+== Changements en 23.07
 
 
 

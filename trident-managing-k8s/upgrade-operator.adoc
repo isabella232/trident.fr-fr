@@ -52,7 +52,7 @@ kubectl delete -f 23.04/trident-installer/deploy/bundle.yaml -n trident
 +
 [listing]
 ----
-kubectl create -f 23.07.0/trident-installer/deploy/bundle_post_1_25.yaml -n trident
+kubectl create -f 23.07.1/trident-installer/deploy/bundle_post_1_25.yaml -n trident
 ----
 
 
@@ -67,11 +67,11 @@ WARNING: Lorsque vous mettez à niveau un cluster Kubernetes de 1.24 vers 1.25 o
 
 .Étapes
 . Téléchargez la dernière version d'Astra Trident.
-. Utilisez le `helm upgrade` commande où `trident-operator-23.07.0.tgz` reflète la version vers laquelle vous souhaitez effectuer la mise à niveau.
+. Utilisez le `helm upgrade` commande où `trident-operator-23.07.1.tgz` reflète la version vers laquelle vous souhaitez effectuer la mise à niveau.
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-23.07.0.tgz
+helm upgrade <name> trident-operator-23.07.1.tgz
 ----
 +
 [NOTE]
@@ -82,7 +82,7 @@ Par exemple, pour modifier la valeur par défaut de `tridentDebug`, exécutez la
 
 [listing]
 ----
-helm upgrade <name> trident-operator-23.07.0-custom.tgz --set tridentDebug=true
+helm upgrade <name> trident-operator-23.07.1-custom.tgz --set tridentDebug=true
 ----
 ====
 . Courez `helm list` pour vérifier que le graphique et la version de l'application ont tous deux été mis à niveau. Courez `tridentctl logs` pour consulter les messages de débogage.
@@ -102,11 +102,11 @@ NOTE: Avant de passer d'une méthode d'installation à l'autre, consultez link:.
 +
 [listing]
 ----
-# Download the release required [23.07.0]
-mkdir 23.07.0
-cd 23.07.0
-wget https://github.com/NetApp/trident/releases/download/v22.01.1/trident-installer-23.07.0.tar.gz
-tar -xf trident-installer-23.07.0.tar.gz
+# Download the release required [23.07.1]
+mkdir 23.07.1
+cd 23.07.1
+wget https://github.com/NetApp/trident/releases/download/v22.01.1/trident-installer-23.07.1.tar.gz
+tar -xf trident-installer-23.07.1.tar.gz
 cd trident-installer
 ----
 . Créer le `tridentorchestrator` CRD du manifeste.
@@ -163,6 +163,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v23.07.0
+Version:                v23.07.1
 ----
 

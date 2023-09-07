@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-operator-overview.html 
-keywords: upgrade, trident, operator, helm, controller, daemonset, node pods 
-summary: 'Avant d"utiliser l"opérateur Trident pour mettre à niveau Astra Trident, vous devez comprendre les processus en arrière-plan qui se produisent pendant la mise à niveau. Cela inclut les modifications apportées au contrôleur Trident, au pod du contrôleur et aux pods des nœuds, et au nœud DemonSet.' 
+keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
+summary: 'Avant d"utiliser l"opérateur Trident pour mettre à niveau Astra Trident, vous devez comprendre les processus en arrière-plan qui se produisent pendant la mise à niveau. Cela inclut les modifications apportées au contrôleur Trident, au pod du contrôleur et aux pods des nœuds, ainsi qu"au jeu de démonstration des nœuds qui activent les mises à jour en continu.' 
 ---
 = Comprendre le workflow de mise à niveau de l'opérateur
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 'Avant d"utiliser l"opérateur Trident pour mettre à niveau Astra Trid
 
 
 [role="lead"]
-Avant d'utiliser l'opérateur Trident pour mettre à niveau Astra Trident, vous devez comprendre les processus en arrière-plan qui se produisent pendant la mise à niveau. Cela inclut les modifications apportées au contrôleur Trident, au pod du contrôleur et aux pods des nœuds, et au nœud DemonSet.
+Avant d'utiliser l'opérateur Trident pour mettre à niveau Astra Trident, vous devez comprendre les processus en arrière-plan qui se produisent pendant la mise à niveau. Cela inclut les modifications apportées au contrôleur Trident, au pod du contrôleur et aux pods des nœuds, ainsi qu'au jeu de démonstration des nœuds qui activent les mises à jour en continu.
 
 
 
 == Gestion des mises à niveau par l'opérateur Trident
 
-L'un des nombreux link:../trident-get-started/kubernetes-deploy.html["Avantages de l'utilisation de l'opérateur Trident"] Pour installer et mettre à niveau Astra Trident, il s'agit du traitement automatique des objets Astra Trident et Kubernetes sans interrompre les volumes montés déjà en place. En particulier, l'opérateur Trident communique avec le cluster Kubernetes pour :
+L'un des nombreux link:../trident-get-started/kubernetes-deploy.html["Avantages de l'utilisation de l'opérateur Trident"] Pour installer et mettre à niveau Astra Trident, il s'agit du traitement automatique des objets Astra Trident et Kubernetes sans interrompre les volumes montés déjà en place. De cette façon, Astra Trident peut prendre en charge les mises à niveau sans interruption, ou link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_mises à jour en continu_"^]. En particulier, l'opérateur Trident communique avec le cluster Kubernetes pour :
 
 * Supprimez et recréez le déploiement du contrôleur Trident et le nœud DemonSet.
 * Remplacez l'afficheur de contrôleur Trident et les pods de nœud Trident par de nouvelles versions.
