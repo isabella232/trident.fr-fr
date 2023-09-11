@@ -88,6 +88,9 @@ Pour un basculement MetroCluster transparent, reportez-vous au <<mcc-best>>. | �
 | `password` | Mot de passe requis pour communiquer avec le cluster ONTAP. Utilisé pour l'authentification basée sur les identifiants. | « » 
 
 
+| `svm` | Serveur virtuel de stockage à utiliser | Dérivé d'un SVM `managementLIF` est spécifié 
+
+
 | `storagePrefix` | Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être modifié ultérieurement. Pour mettre à jour ce paramètre, vous devez créer un nouveau backend. | `trident` 
 
 
@@ -100,7 +103,9 @@ Pour un basculement MetroCluster transparent, reportez-vous au <<mcc-best>>. | �
 | `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | `100` 
 
 
-| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Par exemple, {“api”:false, “méthode”:true} ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d’un vidage détaillé des journaux. | `null` 
+| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {"api":false, "method":true}
+
+Ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d'un vidage de journal détaillé. | `null` 
 
 
 | `useREST` | Paramètre booléen pour utiliser les API REST de ONTAP. *Aperçu technique*
@@ -121,7 +126,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `spaceAllocation` | Allocation d'espace pour les LUN | « vrai » 
 
 
-| `spaceReserve` | Mode de réservation d'espace ; “none” (fin) ou “volume” (épais) | « aucun » 
+| `spaceReserve` | Mode de réservation d'espace ; « aucun » (fin) ou « volume » (épais) | « aucun » 
 
 
 | `snapshotPolicy` | Règle Snapshot à utiliser | « aucun » 
@@ -133,7 +138,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `adaptiveQosPolicy` | Groupe de règles de QoS adaptative à attribuer aux volumes créés. Choisissez une de qosPolicy ou adaptiveQosPolicy par pool de stockage/back-end | « » 
 
 
-| `snapshotReserve` | Pourcentage du volume réservé pour les instantanés “0” | Si `snapshotPolicy` est « aucun », sinon « » 
+| `snapshotReserve` | Pourcentage de volume réservé pour les snapshots | « 0 » si `snapshotPolicy` est « aucun », sinon « » 
 
 
 | `splitOnClone` | Séparer un clone de son parent lors de sa création | « faux » 
@@ -148,7 +153,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `securityStyle` | Style de sécurité pour les nouveaux volumes | `unix` 
 
 
-| `tieringPolicy` | La stratégie de hiérarchisation à utiliser « none » | Snapshot uniquement pour une configuration SVM-DR pré-ONTAP 9.5 
+| `tieringPolicy` | Règle de hiérarchisation à utiliser « aucun » | « Snapshot uniquement » pour la configuration SVM-DR antérieure à ONTAP 9.5 
 |===
 
 
@@ -324,7 +329,7 @@ password: <password>
 
 Dans ces exemples de fichiers de définition back-end, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, tels que `spaceReserve` aucune, `spaceAllocation` lors de la fausse idée, et `encryption` faux. Les pools virtuels sont définis dans la section stockage.
 
-Astra Trident définit les étiquettes de provisionnement dans le champ « Commentaires ». Les commentaires sont définis sur le FlexVol. Astra Trident copie toutes les étiquettes présentes sur un pool virtuel vers le volume de stockage lors du provisionnement. Pour plus de commodité, les administrateurs du stockage peuvent définir des étiquettes par pool virtuel et les volumes de groupe par étiquette.
+ASTRA Trident définit les étiquettes de provisionnement dans le champ « Commentaires ». Les commentaires sont définis sur le FlexVol. Astra Trident copie toutes les étiquettes présentes sur un pool virtuel vers le volume de stockage lors du provisionnement. Pour plus de commodité, les administrateurs du stockage peuvent définir des étiquettes par pool virtuel et les volumes de groupe par étiquette.
 
 Dans ces exemples, certains pools de stockage sont définis comme étant leurs propres `spaceReserve`, `spaceAllocation`, et `encryption` et certains pools remplacent les valeurs par défaut.
 

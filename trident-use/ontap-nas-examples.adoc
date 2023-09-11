@@ -28,7 +28,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `version` |  | Toujours 1 
 
 
-| `storageDriverName` | Nom du pilote de stockage | ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san », « ontap-san », « ontap-économie san » 
+| `storageDriverName` | Nom du pilote de stockage | « ontap-nas », « ontap-nas-economy », « ontap-nas-flexgroup », « ontap-san », « ontap-san-economy » 
 
 
 | `backendName` | Nom personnalisé ou système back-end de stockage | Nom du pilote + "_" + dataLIF 
@@ -64,7 +64,7 @@ Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été i
 
 | `autoExportCIDRs` | Liste des CIDR permettant de filtrer les adresses IP des nœuds Kubernetes par rapport à quand `autoExportPolicy` est activé.
 
-À l'aide du `autoExportPolicy` et `autoExportCIDRs` Avec Astra Trident, il peut gérer automatiquement les règles d'exportation. | [“0.0.0.0/0”, “::/0”]” 
+À l'aide du `autoExportPolicy` et `autoExportCIDRs` Avec Astra Trident, il peut gérer automatiquement les règles d'exportation. | ["0.0.0.0/0", ":/0"]" 
 
 
 | `labels` | Ensemble d'étiquettes arbitraires au format JSON à appliquer aux volumes | « » 
@@ -85,7 +85,7 @@ Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été i
 | `password` | Mot de passe pour la connexion au cluster/SVM. Utilisé pour l'authentification basée sur les identifiants |  
 
 
-| `storagePrefix` | Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être mis à jour une fois que vous l'avez défini | trident 
+| `storagePrefix` | Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être mis à jour une fois que vous l'avez défini | « trident » 
 
 
 | `limitAggregateUsage` | Echec du provisionnement si l'utilisation est supérieure à ce pourcentage. *Ne s'applique pas à Amazon FSX pour ONTAP* | « » (non appliqué par défaut) 
@@ -97,10 +97,12 @@ Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été i
 | `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Restreint également la taille maximale des volumes qu'il gère pour les qtrees et les LUN, et la `qtreesPerFlexvol` L'option permet de personnaliser le nombre maximal de qtree par FlexVol. | « » (non appliqué par défaut) 
 
 
-| `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | “100” 
+| `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | « 100 » 
 
 
-| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Par exemple, {“api”:false, “méthode”:true} ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépanner et que vous ayez besoin d'un vidage détaillé des journaux. | nul 
+| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {"api":false, "method":true}
+
+Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépanner et que vous ayez besoin d'un vidage détaillé des journaux. | nul 
 
 
 | `nasType` | Configurez la création de volumes NFS ou SMB. Les options sont `nfs`, `smb` ou nul. La valeur null par défaut sur les volumes NFS. | `nfs` 
@@ -109,7 +111,7 @@ Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été i
 | `nfsMountOptions` | Liste des options de montage NFS séparée par des virgules. Les options de montage des volumes Kubernetes persistants sont généralement spécifiées dans les classes de stockage, mais si aucune option de montage n'est spécifiée dans une classe de stockage, Astra Trident utilisera les options de montage spécifiées dans le fichier de configuration du système back-end. Si aucune option de montage n'est spécifiée dans la classe de stockage ou le fichier de configuration, Astra Trident ne définit aucune option de montage sur un volume persistant associé. | « » 
 
 
-| `qtreesPerFlexvol` | Nombre maximal de qtrees par FlexVol, qui doit être compris dans la plage [50, 300] | “200” 
+| `qtreesPerFlexvol` | Nombre maximal de qtrees par FlexVol, qui doit être compris dans la plage [50, 300] | « 200 » 
 
 
 | `smbShare` | Vous pouvez indiquer l'un des éléments suivants : le nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commandes ONTAP ; un nom permettant à Astra Trident de créer le partage SMB. Vous pouvez également laisser vide le paramètre pour empêcher l'accès à un partage commun aux volumes.
@@ -137,7 +139,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `spaceAllocation` | Allocation d'espace pour les LUN | « vrai » 
 
 
-| `spaceReserve` | Mode de réservation d'espace ; “none” (fin) ou “volume” (épais) | « aucun » 
+| `spaceReserve` | Mode de réservation d'espace ; « aucun » (fin) ou « volume » (épais) | « aucun » 
 
 
 | `snapshotPolicy` | Règle Snapshot à utiliser | « aucun » 
@@ -149,7 +151,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `adaptiveQosPolicy` | Groupe de règles de QoS adaptative à attribuer aux volumes créés. Choisissez une de qosPolicy ou adaptiveQosPolicy par pool de stockage/back-end. Non pris en charge par l'économie ontap-nas. | « » 
 
 
-| `snapshotReserve` | Pourcentage du volume réservé pour les instantanés “0” | Si `snapshotPolicy` est « aucun », sinon « » 
+| `snapshotReserve` | Pourcentage de volume réservé pour les snapshots | « 0 » si `snapshotPolicy` est « aucun », sinon « » 
 
 
 | `splitOnClone` | Séparer un clone de son parent lors de sa création | « faux » 
@@ -158,13 +160,13 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `encryption` | Activez NetApp Volume Encryption (NVE) sur le nouveau volume. La valeur par défaut est `false`. Pour utiliser cette option, NVE doit être sous licence et activé sur le cluster. Si NAE est activé sur le back-end, tous les volumes provisionnés dans Astra Trident seront activés par NAE. Pour plus d'informations, se reporter à : link:../trident-reco/security-reco.html["Fonctionnement d'Astra Trident avec NVE et NAE"]. | « faux » 
 
 
-| `tieringPolicy` | La stratégie de hiérarchisation à utiliser « none » | Snapshot uniquement pour une configuration SVM-DR pré-ONTAP 9.5 
+| `tieringPolicy` | Règle de hiérarchisation à utiliser « aucun » | « Snapshot uniquement » pour la configuration SVM-DR antérieure à ONTAP 9.5 
 
 
-| `unixPermissions` | Mode pour les nouveaux volumes | “777” pour volumes NFS ; vide (non applicable) pour volumes SMB 
+| `unixPermissions` | Mode pour les nouveaux volumes | « 777 » pour les volumes NFS ; vide (non applicable) pour les volumes SMB 
 
 
-| `snapshotDir` | Contrôle la visibilité du `.snapshot` répertoire | « faux » 
+| `snapshotDir` | Contrôle l'accès au `.snapshot` répertoire | « faux » 
 
 
 | `exportPolicy` | Export policy à utiliser | « par défaut » 
@@ -391,7 +393,7 @@ storagePrefix: myPrefix_
 
 Dans les exemples de fichiers de définition back-end présentés ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, tels que `spaceReserve` aucune, `spaceAllocation` lors de la fausse idée, et `encryption` faux. Les pools virtuels sont définis dans la section stockage.
 
-Astra Trident définit les étiquettes de provisionnement dans le champ « Commentaires ». Les commentaires sont définis sur FlexVol pour `ontap-nas` Ou FlexGroup pour `ontap-nas-flexgroup`. Astra Trident copie toutes les étiquettes présentes sur un pool virtuel vers le volume de stockage lors du provisionnement. Pour plus de commodité, les administrateurs du stockage peuvent définir des étiquettes par pool virtuel et les volumes de groupe par étiquette.
+ASTRA Trident définit les étiquettes de provisionnement dans le champ « Commentaires ». Les commentaires sont définis sur FlexVol pour `ontap-nas` Ou FlexGroup pour `ontap-nas-flexgroup`. Astra Trident copie toutes les étiquettes présentes sur un pool virtuel vers le volume de stockage lors du provisionnement. Pour plus de commodité, les administrateurs du stockage peuvent définir des étiquettes par pool virtuel et les volumes de groupe par étiquette.
 
 Dans ces exemples, certains pools de stockage sont définis comme étant leurs propres `spaceReserve`, `spaceAllocation`, et `encryption` et certains pools remplacent les valeurs par défaut.
 

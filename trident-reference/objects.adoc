@@ -274,12 +274,12 @@ NOTE: Le silecyle d'un VolumeSnapshot est indépendant de la demande de volume p
 
 Un Kubernetes `VolumeSnapshotContent` objet représente un snapshot pris à partir d'un volume déjà provisionné. Il est similaire à un `PersistentVolume` la désignation rr signifie un snapshot provisionné sur le cluster de stockage. Similaire à `PersistentVolumeClaim` et `PersistentVolume` lors de la création d'un snapshot, le `VolumeSnapshotContent` l'objet conserve un mappage un-à-un avec le `VolumeSnapshot` objet, qui avait demandé la création de snapshot.
 
-
-NOTE: Création de Trident `VolumeSnapshotContent` Les objets et les enregistre automatiquement avec le cluster Kubernetes en fonction des volumes qu'il provisionne. Vous n'êtes pas censé les gérer vous-même.
-
 Le `VolumeSnapshotContent` l'objet contient des détails qui identifient de manière unique le snapshot, comme le `snapshotHandle`. C'est ça `snapshotHandle` Est une combinaison unique du nom du PV et du nom du `VolumeSnapshotContent` objet.
 
 Lorsqu'une requête de snapshot est fournie, Trident crée le snapshot sur le back-end. Une fois le snapshot créé, Trident configure un `VolumeSnapshotContent` Objet et donc expose le snapshot à l'API Kubernetes.
+
+
+NOTE: En général, il n'est pas nécessaire de gérer le `VolumeSnapshotContent` objet. Une exception à cette règle est le moment où vous le souhaitez link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["importer un instantané de volume"] Créé en dehors d'Astra Trident.
 
 
 
