@@ -52,20 +52,18 @@ Vous pouvez désinstaller manuellement l'installation d'un opérateur trident ou
 
 === Désinstallez l'installation manuelle
 
-Si vous avez installé Astra Trident à l'aide de l'opérateur, vous pouvez le désinstaller en procédant de l'une des manières suivantes :
+Si vous avez installé Astra Trident à l'aide de l'opérateur, vous pouvez le désinstaller en effectuant l'une des opérations suivantes :
 
-* **Modifier `TridentOrchestrator` Pour définir l'indicateur de désinstallation :**, vous pouvez modifier `TridentOrchestrator` et jeu `spec.uninstall=true`.
-+
-** Modifiez le `TridentOrchestrator` CR et régler le `uninstall` marquer comme indiqué ci-dessous :
+. **Modifier `TridentOrchestrator` CR et définir l'indicateur de désinstallation** :
 +
 [listing]
 ----
 kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninstall":true}}'
 ----
-** Lorsque le `uninstall` l'indicateur est défini sur `true`, L'opérateur Trident désinstalle Trident, mais ne supprime pas TridentOrchestrator lui-même. Vous devez nettoyer TridentOrchestrator et en créer un nouveau si vous souhaitez réinstaller Trident.
++
+Lorsque le `uninstall` l'indicateur est défini sur `true`, L'opérateur Trident désinstalle Trident, mais ne supprime pas TridentOrchestrator lui-même. Vous devez nettoyer TridentOrchestrator et en créer un nouveau si vous souhaitez réinstaller Trident.
 
-
-* **Supprimer `TridentOrchestrator`:** en retirant le `TridentOrchestrator` CR utilisé pour déployer Astra Trident, vous demandez à l'opérateur de désinstaller Trident. L'opérateur traite la dépose de `TridentOrchestrator` Il procède également au retrait du déploiement et de la demonset Astra Trident, en supprimant les pods Trident qu'il avait créés dans le cadre de l'installation.
+. **Supprimer `TridentOrchestrator`** : En retirant le `TridentOrchestrator` CR utilisé pour déployer Astra Trident, vous demandez à l'opérateur de désinstaller Trident. L'opérateur traite la dépose de `TridentOrchestrator` Il procède également au retrait du déploiement et de la demonset Astra Trident, en supprimant les pods Trident qu'il avait créés dans le cadre de l'installation.
 
 
 
@@ -89,7 +87,7 @@ release "trident" uninstalled
 
 == Désinstallez un `tridentctl` installation
 
-Utilisez le `uninstall` commande dans `tridentctl` Pour supprimer toutes les ressources associées à Astra Trident, à l'exception des CRD et des objets associés.
+Utilisez le `uninstall` commande dans `tridentctl` Pour supprimer toutes les ressources associées à Astra Trident, à l'exception des CRD et des objets associés :
 
 [listing]
 ----
