@@ -194,7 +194,7 @@ NetApp prend en charge la mise à niveau d'Astra Trident d'une version majeure �
 
 === Est-il possible de revenir à une version antérieure de Trident ?
 
-Un certain nombre de facteurs doivent être évalués si vous voulez rétrograder. Voir link:https://docs.netapp.com/us-en/trident/trident-managing-k8s/downgrade-trident.html["la section sur la rétrogradation"].
+Si vous avez besoin d'un correctif pour les bugs observés après une mise à niveau, des problèmes de dépendance ou une mise à niveau infructueuse ou incomplète, vous devez link:../trident-managing-k8s/uninstall-trident.html["Désinstallez Astra Trident"] et réinstallez la version précédente en suivant les instructions spécifiques à cette version. Il s'agit de la seule méthode recommandée pour revenir à une version antérieure.
 
 
 

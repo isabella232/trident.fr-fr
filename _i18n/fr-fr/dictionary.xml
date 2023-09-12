@@ -388,8 +388,6 @@
   <block id="3de05f78e401869f4630ec8cabf339df" category="section-title">Est-il possible de mettre à niveau une version plus ancienne directement vers une version plus récente (sans passer par quelques versions) ?</block>
   <block id="ce44cbbc54839f39b351c091b0e3caa5" category="paragraph">NetApp prend en charge la mise à niveau d'Astra Trident d'une version majeure à la prochaine version majeure. Vous pouvez effectuer la mise à niveau de la version 18.xx vers la version 19.xx, 19.xx vers la version 20.xx, etc. Il est conseillé de tester la mise à niveau dans un laboratoire avant le déploiement en production.</block>
   <block id="0399b9e6348e554937a4d65efc97a1b8" category="section-title">Est-il possible de revenir à une version antérieure de Trident ?</block>
-  <block id="d307563c01953bd90a41ddd049f96d51" category="inline-link-macro">la section sur la rétrogradation</block>
-  <block id="72fec731c958562fd09df08eef5fbb89" category="paragraph">Un certain nombre de facteurs doivent être évalués si vous voulez rétrograder. Voir <block ref="ea621a0de3f004c488ea799d0fd7e41d" category="inline-link-macro-rx"></block>.</block>
   <block id="ba9c59aa9d07b25e124dcf6ca88d689a" category="section-title">Gestion des systèmes back-end et des volumes</block>
   <block id="ffe72215dff9a93d62ee68905212025e" category="section-title">Dois-je définir à la fois des LIF de données et de gestion dans un fichier de définition du back-end ONTAP ?</block>
   <block id="f3997f0b9446951754e665cfe7591cef" category="section-title">L'Astra Trident peut-il configurer le protocole CHAP pour les systèmes back-end ONTAP ?</block>
@@ -3887,4 +3885,6 @@ Astra Trident</block>
   <block id="d64d0e5bb5a552ae4986a713f41c8fc3" category="cell">Sélecteurs de nœuds supplémentaires pour les pods.	Suit le même format que<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
   <block id="875ce721843c20d7f9aae240673ed68b" category="cell">Remplace les tolérances Kubernetes pour les pods. Suit le même format que<block ref="f1fa64fcf5077601cb803e995a51fa4f" prefix=" " category="inline-code"></block>.</block>
   <block id="00e8e1706119ce5300bdc9141ececc37" category="cell">Sélecteurs de nœuds supplémentaires pour les pods. Suit le même format que<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
+  <block id="7786076739da628161f45de338cd6e69" category="inline-link-macro">Désinstallez Astra Trident</block>
+  <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">Si vous avez besoin d'un correctif pour les bugs observés après une mise à niveau, des problèmes de dépendance ou une mise à niveau infructueuse ou incomplète, vous devez <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> et réinstallez la version précédente en suivant les instructions spécifiques à cette version. Il s'agit de la seule méthode recommandée pour revenir à une version antérieure.</block>
 </blocks>
