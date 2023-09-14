@@ -245,7 +245,7 @@ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -
 
 === Azure NetApp Files
 
-ASTRA Trident prend en charge l'importation de volumes à l'aide du `azure-netapp-files` et `azure-netapp-files-subvolume` pilotes.
+ASTRA Trident prend en charge l'importation de volumes à l'aide du `azure-netapp-files` conducteur.
 
 
 NOTE: Pour importer un volume Azure NetApp Files, identifiez-le par son chemin d'accès au volume. Le chemin du volume est la partie du chemin d'exportation du volume après le `:/`. Par exemple, si le chemin de montage est `10.0.0.2:/importvol1`, le chemin du volume est `importvol1`.
