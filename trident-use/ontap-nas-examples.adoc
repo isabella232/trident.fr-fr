@@ -91,9 +91,6 @@ Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été i
 | `limitAggregateUsage` | Echec du provisionnement si l'utilisation est supérieure à ce pourcentage. *Ne s'applique pas à Amazon FSX pour ONTAP* | « » (non appliqué par défaut) 
 
 
-| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. | « » (non appliqué par défaut) 
-
-
 | `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Restreint également la taille maximale des volumes qu'il gère pour les qtrees et les LUN, et la `qtreesPerFlexvol` L'option permet de personnaliser le nombre maximal de qtree par FlexVol. | « » (non appliqué par défaut) 
 
 
