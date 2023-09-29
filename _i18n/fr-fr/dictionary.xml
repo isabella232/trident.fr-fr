@@ -1993,7 +1993,6 @@
   <block id="972abf48cbbadbcd573754140d35e19a" category="cell">Serveur virtuel de stockage à utiliser</block>
   <block id="ef65dd3301d78701f7cfcf8a01834f2f" category="cell">Dérivé d'un SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> est spécifié</block>
   <block id="e3f688f3aa653574b3253640aa98f47c" category="cell">Préfixe utilisé pour le provisionnement des nouveaux volumes dans la SVM. Ne peut pas être mis à jour une fois que vous l'avez défini</block>
-  <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur.</block>
   <block id="c9a303edbc714d051896c3a678e59a8a" category="cell"><block ref="10c2308c62a9c0c2c33bcb4ad2f72be1" prefix="" category="inline-code"></block></block>
   <block id="79892588cbecd0b88729ea1a55b2a3a4" category="cell">Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200]</block>
   <block id="ae0784115c8f815d4a2ca170c59f3c99" category="cell">Indicateurs de débogage à utiliser lors du dépannage. Exemple, {“api”:false, “méthode”:true}</block>
@@ -3430,7 +3429,6 @@ PME</block>
   <block id="80f4cfbe493e12651c3514c9481ce1ee" category="admonition">N'utilisez pas un cluster Kubernetes que vous créez en utilisant ces instructions dans un environnement de production. Utilisez les guides de déploiement de production fournis par votre distributeur pour les clusters prêts à la production.</block>
   <block id="46e28df17b257e6671b042b98bd37787" category="list-text"><block ref="46e28df17b257e6671b042b98bd37787" category="inline-link-rx"></block></block>
   <block id="fac0082fb8411565f3d5cb3788a17b17" category="doc">Démarrage rapide d'Astra Trident</block>
-  <block id="4b7a06bf8d901036491a46c6f14175e3" category="paragraph">Vous pouvez installer Astra Trident et commencer à gérer les ressources de stockage en quelques étapes. Avant de commencer, consultez <block ref="a7c0f3baef818cf2a5323d10b9f5ac94" category="inline-link-macro-rx"></block>.</block>
   <block id="9a052cea99f186c7d930a0041b20a79b" category="admonition">Pour Docker, reportez-vous à la section <block ref="934c01af2efea144da6665bf428d8f6d" category="inline-link-macro-rx"></block>.</block>
   <block id="b0434693308513b990bcffe2314d6fb5" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> Installer Astra Trident</block>
   <block id="c8fce1b550592f1b2285ab7a61547927" category="paragraph">ASTRA Trident offre plusieurs méthodes et modes d'installation optimisés pour un large éventail d'environnements et d'entreprises.</block>
@@ -3885,4 +3883,5 @@ Astra Trident</block>
   <block id="7786076739da628161f45de338cd6e69" category="inline-link-macro">Désinstallez Astra Trident</block>
   <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">Si vous avez besoin d'un correctif pour les bugs observés après une mise à niveau, des problèmes de dépendance ou une mise à niveau infructueuse ou incomplète, vous devez <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> et réinstallez la version précédente en suivant les instructions spécifiques à cette version. Il s'agit de la seule méthode recommandée pour revenir à une version antérieure.</block>
   <block id="5d935b9f26b929d94ae4b4f04c74ee28" category="paragraph">ASTRA Trident prend en charge l'importation de volumes à l'aide du<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> conducteur.</block>
+  <block id="0ff441b997c776ccd29f05b449a5f4fb" category="paragraph">Vous pouvez installer Astra Trident et commencer à gérer les ressources de stockage en quelques étapes. Avant de commencer, consultez <block ref="a7c0f3baef818cf2a5323d10b9f5ac94" category="inline-link-macro-rx"></block>.</block>
 </blocks>
