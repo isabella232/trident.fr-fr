@@ -106,7 +106,7 @@ NOTE: Si vous avez spécifié `-identity-preserve true`, Tous les volumes provis
 
 ASTRA Trident ne peut pas configurer les relations de réplication SnapMirror, mais l'administrateur du stockage peut les utiliser link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["Réplication et restauration ONTAP SnapMirror"^] Pour répliquer les volumes créés par Astra Trident.
 
-Vous pouvez ensuite importer les volumes récupérés dans Astra Trident à l'aide de link:trident-use/vol-import.adoc["importation de volume tridentctl"].
+Vous pouvez ensuite importer les volumes récupérés dans Astra Trident à l'aide de link:../trident-use/vol-import.html["importation de volume tridentctl"].
 
 
 NOTE: L'importation n'est pas prise en charge sur `ontap-nas-economy`,  `ontap-san-economy`, ou `ontap-flexgroup-economy` pilotes.
@@ -119,7 +119,7 @@ Vous pouvez protéger et restaurer les données à l'aide des éléments suivant
 
 * Un contrôleur de snapshot externe et des CRD pour créer des copies Snapshot de volume Kubernetes de volumes persistants (PVS).
 +
-link:trident-use/vol-snapshots.adoc["Snapshots de volume"]
+link:../trident-use/vol-snapshots.html["Snapshots de volume"]
 
 * Snapshots ONTAP pour restaurer le contenu complet d'un volume ou pour restaurer des fichiers individuels ou des LUN.
 +

@@ -2290,7 +2290,6 @@
   <block id="8f5cc6430613f1c12f36965050bb7197" category="sidebar">Déroulez</block>
   <block id="d327e8f24b63b83e091dccdc48dd7b1b" category="sidebar">Documentation Astra Trident</block>
   <block id="93168a8084b3e838d2932c4734bd234e" category="sidebar">Versions antérieures</block>
-  <block id="f21f22dde0e0692333a7a28cce456b08" category="sidebar">Toute la documentation Astra</block>
   <block id="086e6c16e3fe8e13c336612ef636aa02" category="sidebar">Astra Trident</block>
   <block id="a20f982d79c3dd66d244ffe0f7d940ee" category="sidebar">Meilleures pratiques et recommandations</block>
   <block id="c91cf7abea9584bc1edbc8ff4948ada0" category="sidebar">Intégration d'Astra Trident</block>
@@ -3142,12 +3141,10 @@
   <block id="815f28e53ebfb423dfe835a845095bf6" category="inline-link-macro">Réplication et restauration ONTAP SnapMirror</block>
   <block id="a5217e87e9aef874c28773b5774ecf37" category="paragraph">ASTRA Trident ne peut pas configurer les relations de réplication SnapMirror, mais l'administrateur du stockage peut les utiliser <block ref="c3487d6df2463efc752acd6f5cc45a1f" category="inline-link-macro-rx"></block> Pour répliquer les volumes créés par Astra Trident.</block>
   <block id="c3c343b5a84229bd5095fd09f2afc5f5" category="inline-link-macro">importation de volume tridentctl</block>
-  <block id="5b570015a3a6711227cf6a2802ccd0d7" category="paragraph">Vous pouvez ensuite importer les volumes récupérés dans Astra Trident à l'aide de <block ref="d8ad77887a2224df2faf4f1df578e333" category="inline-link-macro-rx"></block>.</block>
   <block id="d8d9dfeae772da34290b750d0f848a26" category="admonition">L'importation n'est pas prise en charge sur<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>, <block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>, ou<block ref="70d5dbddc55e3700ddbc8d21f0de22a3" prefix=" " category="inline-code"></block> pilotes.</block>
   <block id="b489b293d6cbe8b86835d3cac8c315fb" category="section-title">Protection des données Snapshot</block>
   <block id="f332d72a4b78e34e31131f3a98c98053" category="paragraph">Vous pouvez protéger et restaurer les données à l'aide des éléments suivants :</block>
   <block id="97fb495fd3b6672c40bb0092ca102eca" category="list-text">Un contrôleur de snapshot externe et des CRD pour créer des copies Snapshot de volume Kubernetes de volumes persistants (PVS).</block>
-  <block id="cb55f92ada2ab9103f2202b5e32b90c2" category="paragraph"><block ref="cb55f92ada2ab9103f2202b5e32b90c2" category="inline-link-macro-rx"></block></block>
   <block id="83cd672b9742ba621e93a8b69c4ab2d4" category="list-text">Snapshots ONTAP pour restaurer le contenu complet d'un volume ou pour restaurer des fichiers individuels ou des LUN.</block>
   <block id="ad336d1fccea3e918d07055edac855a3" category="inline-link-macro">Snapshots ONTAP</block>
   <block id="0cb949d1baa06577db93328185a8f24d" category="paragraph"><block ref="0cb949d1baa06577db93328185a8f24d" category="inline-link-macro-rx"></block></block>
@@ -3884,4 +3881,6 @@ Astra Trident</block>
   <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">Si vous avez besoin d'un correctif pour les bugs observés après une mise à niveau, des problèmes de dépendance ou une mise à niveau infructueuse ou incomplète, vous devez <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> et réinstallez la version précédente en suivant les instructions spécifiques à cette version. Il s'agit de la seule méthode recommandée pour revenir à une version antérieure.</block>
   <block id="5d935b9f26b929d94ae4b4f04c74ee28" category="paragraph">ASTRA Trident prend en charge l'importation de volumes à l'aide du<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> conducteur.</block>
   <block id="0ff441b997c776ccd29f05b449a5f4fb" category="paragraph">Vous pouvez installer Astra Trident et commencer à gérer les ressources de stockage en quelques étapes. Avant de commencer, consultez <block ref="a7c0f3baef818cf2a5323d10b9f5ac94" category="inline-link-macro-rx"></block>.</block>
+  <block id="d055d4dfcb35cd1eea7b3d52e42a8924" category="paragraph">Vous pouvez ensuite importer les volumes récupérés dans Astra Trident à l'aide de <block ref="b0a81d9cb6f9ea994a428f959b11d3c6" category="inline-link-macro-rx"></block>.</block>
+  <block id="4227c1b28cc9c04bf3552b7aae57fc3c" category="paragraph"><block ref="4227c1b28cc9c04bf3552b7aae57fc3c" category="inline-link-macro-rx"></block></block>
 </blocks>
