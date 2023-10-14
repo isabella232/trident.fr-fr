@@ -38,7 +38,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 
 Un nom de domaine complet (FQDN) peut être spécifié.
 
-Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du `--use-ipv6` drapeau. Les adresses IPv6 doivent être définies entre crochets, par exemple `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
+Peut être défini pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide de l'indicateur IPv6. Les adresses IPv6 doivent être définies entre crochets, par exemple `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
 
 Pour un basculement MetroCluster transparent, reportez-vous au <<mcc-best>>. | « 10.0.0.1 », « [2001:1234:abcd::fefe] » 
 
@@ -49,7 +49,7 @@ Nous vous recommandons de spécifier `dataLIF`. Si elle n'est pas fournie, Astra
 
 Peut être modifié après le réglage initial. Reportez-vous à la section .
 
-Peut être configuré pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide du `--use-ipv6` drapeau. Les adresses IPv6 doivent être définies entre crochets, par exemple `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
+Peut être défini pour utiliser des adresses IPv6 si Astra Trident a été installé à l'aide de l'indicateur IPv6. Les adresses IPv6 doivent être définies entre crochets, par exemple `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
 
 *Omettre pour MetroCluster.* Voir <<mcc-best>>. | Adresse spécifiée ou dérivée d'un SVM, si non spécifiée (non recommandé) 
 
