@@ -47,7 +47,7 @@ Assurez-vous d'utiliser un cluster Kubernetes en cours d'exécution link:../trid
 kubectl delete -f 23.04/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . Si vous avez personnalisé votre installation initiale à l'aide de `TridentOrchestrator` attributs, vous pouvez modifier le `TridentOrchestrator` objet pour modifier les paramètres d'installation. Cela peut inclure des modifications visant à spécifier les registres d'images en miroir Trident et CSI pour le mode hors ligne, à activer les journaux de débogage ou à spécifier les secrets d'extraction d'images.
-. Installez Astra Trident en utilisant le fichier YAML de bundle approprié pour votre environnement, où `<bundle.yaml>` est
+. Installez Astra Trident à l'aide du fichier YAML de bundle approprié pour votre environnement, où _<bundle.yaml>_ est
 `bundle_pre_1_25.yaml` ou `bundle_post_1_25.yaml` Basé sur votre version de Kubernetes. Par exemple, si vous installez Astra Trident 23.07, exécutez la commande suivante :
 +
 [listing]
