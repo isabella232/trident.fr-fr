@@ -16,7 +16,7 @@ Vous pouvez déployer l'opérateur Trident et installer Astra Trident à l'aide 
 
 
 
-== Informations stratégiques sur Astra Trident 23.07
+== Informations stratégiques sur Astra Trident 23.10
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
@@ -49,7 +49,7 @@ En plus du link:../trident-get-started/kubernetes-deploy.html#before-you-deploy[
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utiliser `helm install` et spécifiez un nom pour votre déploiement et l'emplacement du registre d'images. Votre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Images Trident et CSI"] Peut être situé dans un registre ou dans des registres différents, mais toutes les images CSI doivent se trouver dans le même registre. Dans les exemples, `23.07.1` Est la version d'Astra Trident que vous installez.
+. Utiliser `helm install` et spécifiez un nom pour votre déploiement et l'emplacement du registre d'images. Votre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Images Trident et CSI"] Peut être situé dans un registre ou dans des registres différents, mais toutes les images CSI doivent se trouver dans le même registre. Dans les exemples, `23.10.0` Est la version d'Astra Trident que vous installez.
 +
 [role="tabbed-block"]
 ====
@@ -57,7 +57,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.1 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
 .Images dans différents registres
@@ -66,7 +66,7 @@ Vous devez ajouter `sig-storage` à la `imageRegistry` pour utiliser différents
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.1 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.07.1 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.07 --set tridentImage=<your-registry>/netapp/trident:23.07.1 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.10.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.10 --set tridentImage=<your-registry>/netapp/trident:23.10.0 --create-namespace --namespace <trident-namespace>
 ----
 --
 ====
@@ -98,11 +98,11 @@ Spécifiez un fichier YAML avec les remplacements. Ceci peut être spécifié pl
 Spécifiez les remplacements sur la ligne de commande.
 
 |===
-Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.07.1` Est la version d'Astra Trident que vous installez :
+Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.10.0` Est la version d'Astra Trident que vous installez :
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.1  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

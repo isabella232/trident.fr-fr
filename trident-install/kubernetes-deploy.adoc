@@ -16,7 +16,7 @@ Pour vérifier qu'Astra Trident peut être installé dans un grand nombre d'envi
 
 
 
-== Informations stratégiques sur Astra Trident 23.07
+== Informations stratégiques sur Astra Trident 23.10
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 

@@ -19,7 +19,54 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 23.07.1
+== Nouveautés de la version 23.10
+
+
+
+=== Correctifs
+
+* Extension de volume fixe si la nouvelle taille demandée est inférieure à la taille totale des volumes pour les pilotes de stockage ontap-nas et ontap-nas-flexgroup (link:https://github.com/NetApp/trident/issues/834["Question no 834"^]).
+* Taille de volume fixe pour afficher uniquement la taille utilisable du volume lors de l'importation pour les pilotes de stockage ontap-nas et ontap-nas-flexgroup (link:https://github.com/NetApp/trident/issues/722["Question no 722"^]).
+* Conversion de noms FlexVol fixes pour ONTAP-NAS-Economy.
+* Correction du problème d'initialisation d'Astra Trident sur un nœud Windows lors du redémarrage du nœud.
+
+
+
+
+=== Améliorations
+
+
+
+==== Kubernetes
+
+Prise en charge de Kubernetes 1.28.
+
+
+
+==== Astra Trident
+
+* Ajout de la prise en charge de l'utilisation d'ami (Azure Managed identités) avec le pilote de stockage Azure-netapp-Files.
+* Ajout de la prise en charge de NVMe over TCP pour le pilote ONTAP-SAN
+* Ajout de la possibilité de suspendre le provisionnement d'un volume lorsque le back-end est défini sur suspendu par l'utilisateur (link:https://github.com/NetApp/trident/issues/558["Question no 558"^]).
+
+
+
+
+=== Fonctionnalités avancées disponibles dans Astra Control
+
+Avec Astra Trident 23.10, un nouveau composant logiciel appelé Astra Control Provisioner est disponible pour les utilisateurs d'Astra Control sous licence. Ce mécanisme de provisionnement permet d'accéder à un ensemble de fonctionnalités avancées de gestion et de provisionnement du stockage qui vont au-delà de celles qu'Astra Trident prend en charge par elle-même. Pour la version 23.10, ces fonctionnalités comprennent :
+
+* Fonctionnalités de sauvegarde et de restauration pour les applications avec des systèmes back-end de stockage ontap-nas économiques basés sur des pilotes
+* Sécurité améliorée du back-end de stockage avec le chiffrement Kerberos 5
+* Restauration des données à l'aide d'un snapshot
+* Améliorations de SnapMirror
+
+
+link:https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.html["En savoir plus sur Astra Control Provisioner."^]
+
+
+
+== Changements en 23.07.1
 
 *Kubernetes:* Suppression fixe du démonset pour prendre en charge les mises à niveau sans temps d'arrêt (link:https://github.com/NetApp/trident/issues/740["Question no 740"^]).
 

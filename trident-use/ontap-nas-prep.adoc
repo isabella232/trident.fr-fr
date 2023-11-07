@@ -342,22 +342,24 @@ NOTE: Reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/smb-c
 
 . Lors de la création du back-end, vous devez configurer le suivant pour spécifier les volumes SMB. Pour toutes les options de configuration back-end FSX pour ONTAP, voir link:trident-fsx-examples.html["Exemples et options de configuration de FSX pour ONTAP"].
 +
-[cols="3"]
+[cols="1,2,1"]
 |===
 | Paramètre | Description | Exemple 
 
 
-| `smbShare`
-Vous pouvez indiquer l'un des éléments suivants : le nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commandes ONTAP ; un nom permettant à Astra Trident de créer le partage SMB. Vous pouvez également laisser vide le paramètre pour empêcher l'accès à un partage commun aux volumes.
+| `smbShare` | Vous pouvez indiquer l'un des éléments suivants : le nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commandes ONTAP ; un nom permettant à Astra Trident de créer le partage SMB. Vous pouvez également laisser vide le paramètre pour empêcher l'accès à un partage commun aux volumes.
 
 Ce paramètre est facultatif pour les ONTAP sur site.
 
-Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne peut pas être vide. | `smb-share` | `nasType` 
+Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne peut pas être vide. | `smb-share` 
 
 
-| *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | `smb` | `securityStyle` 
+| `nasType` | *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | `smb` 
 
 
-| Style de sécurité pour les nouveaux volumes. *Doit être défini sur `ntfs` ou `mixed` Pour les volumes SMB.* | `ntfs` ou `mixed` Pour les volumes SMB | `unixPermissions` 
+| `securityStyle` | Style de sécurité pour les nouveaux volumes. *Doit être défini sur `ntfs` ou `mixed` Pour les volumes SMB.* | `ntfs` ou `mixed` Pour les volumes SMB 
+
+
+| `unixPermissions` | Mode pour les nouveaux volumes. *Doit rester vide pour les volumes SMB.* | « » 
 |===
 

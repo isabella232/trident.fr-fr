@@ -39,22 +39,32 @@ Les systèmes Azure NetApp Files back-end proposent ces options de configuration
 | `backendName` | Nom personnalisé ou système back-end de stockage | Nom du pilote + "_" + caractères aléatoires 
 
 
-| `subscriptionID` | L'ID d'abonnement de votre abonnement Azure |  
+| `subscriptionID` | L'ID d'abonnement de votre abonnement Azure
+
+Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
 
 
-| `tenantID` | ID locataire d'un enregistrement d'application |  
+| `tenantID` | ID locataire d'un enregistrement d'application
+
+Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
 
 
-| `clientID` | L'ID client d'un enregistrement d'application |  
+| `clientID` | L'ID client d'un enregistrement d'application
+
+Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
 
 
-| `clientSecret` | Secret client d'un enregistrement d'application |  
+| `clientSecret` | Secret client d'un enregistrement d'application
+
+Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
 
 
 | `serviceLevel` | Un de `Standard`, `Premium`, ou `Ultra` | « » (aléatoire) 
 
 
-| `location` | Nom de l'emplacement Azure dans lequel les nouveaux volumes seront créés |  
+| `location` | Nom de l'emplacement Azure dans lequel les nouveaux volumes seront créés
+
+Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
 
 
 | `resourceGroups` | Liste des groupes de ressources pour le filtrage des ressources découvertes | «[] » (sans filtre) 
@@ -145,8 +155,10 @@ Vous pouvez contrôler le provisionnement de volume par défaut en spécifiant l
 
 == Exemples de configurations
 
-.Exemple 1 : configuration minimale
-[%collapsible%open]
+Les exemples suivants montrent des configurations de base qui laissent la plupart des paramètres par défaut. C'est la façon la plus simple de définir un back-end.
+
+.Configuration minimale
+[%collapsible]
 ====
 Il s'agit de la configuration back-end minimale absolue. Avec cette configuration, Astra Trident détecte tous vos comptes NetApp, pools de capacité et sous-réseaux délégués à Azure NetApp Files à l'emplacement configuré, et place de nouveaux volumes dans l'un de ces pools et sous-réseaux de manière aléatoire. Parce que `nasType` est omis, le `nfs` La valeur par défaut s'applique et le système back-end provisionne les volumes NFS.
 
@@ -164,8 +176,30 @@ clientSecret: SECRET
 location: eastus
 ----
 ====
-.Exemple 2 : configuration de niveau de service spécifique avec des filtres de pool de capacité
-[%collapsible%open]
+.Identités gérées pour AKS
+[%collapsible]
+====
+Cette configuration back-end omet `subscriptionID`, `tenantID`, `clientID`, et `clientSecret`, qui sont facultatives lors de l'utilisation d'identités gérées.
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-anf-1
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: azure-netapp-files
+  capacityPools: ["ultra-pool"]
+  resourceGroups: ["aks-ami-eastus-rg"]
+  netappAccounts: ["smb-na"]
+  virtualNetwork: eastus-prod-vnet
+  subnet: eastus-anf-subnet
+----
+====
+.Configuration de niveau de service spécifique avec filtres de pool de capacité
+[%collapsible]
 ====
 Cette configuration back-end place les volumes dans des Azure `eastus` emplacement dans un `Ultra` pool de capacité. ASTRA Trident détecte automatiquement tous les sous-réseaux délégués à Azure NetApp Files à cet emplacement et place un nouveau volume sur l'un d'entre eux de manière aléatoire.
 
@@ -185,8 +219,8 @@ capacityPools:
 - application-group-1/account-1/ultra-2
 ----
 ====
-.Exemple 3 : configuration avancée
-[%collapsible%open]
+.Configuration avancée
+[%collapsible]
 ====
 Cette configuration back-end réduit davantage l'étendue du placement des volumes sur un seul sous-réseau et modifie également certains paramètres par défaut du provisionnement des volumes.
 
@@ -217,8 +251,8 @@ defaults:
 
 ----
 ====
-.Exemple 4 : configuration de pool virtuel
-[%collapsible%open]
+.Configuration de pool virtuel
+[%collapsible]
 ====
 Cette configuration back-end définit plusieurs pools de stockage dans un seul fichier. Cette fonction est utile lorsque plusieurs pools de capacité prennent en charge différents niveaux de service, et que vous souhaitez créer des classes de stockage dans Kubernetes qui les représentent. Des étiquettes de pools virtuels ont été utilisées pour différencier les pools en fonction de `performance`.
 
@@ -307,8 +341,8 @@ allowVolumeExpansion: true
 
 À l'aide de `nasType`, `node-stage-secret-name`, et  `node-stage-secret-namespace`, Vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises.
 
-.Exemple 1 : configuration de base sur l'espace de noms par défaut
-[%collapsible%open]
+.Configuration de base sur l'espace de noms par défaut
+[%collapsible]
 ====
 [listing]
 ----
@@ -325,8 +359,8 @@ parameters:
 
 ----
 ====
-.Exemple 2 : utilisation de secrets différents par espace de noms
-[%collapsible%open]
+.Utilisation de secrets différents par espace de noms
+[%collapsible]
 ====
 [listing]
 ----
@@ -342,8 +376,8 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
 ----
 ====
-.Exemple 3 : utilisation de différents secrets par volume
-[%collapsible%open]
+.Utilisation de secrets différents par volume
+[%collapsible]
 ====
 [listing]
 ----
@@ -360,7 +394,7 @@ parameters:
 ----
 ====
 
-NOTE: `nasType: `smb` Filtres pour les pools qui prennent en charge les volumes SMB. `nasType: `nfs` ou `nasType: `null` Filtres pour pools NFS.
+NOTE: `nasType: smb` Filtres pour les pools qui prennent en charge les volumes SMB. `nasType: nfs` ou `nasType: null` Filtres pour pools NFS.
 
 
 

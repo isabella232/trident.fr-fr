@@ -68,7 +68,7 @@ Installé avec tridentctl::
 
 
 
-== Dépannage d'un échec de déploiement Trident à l'aide de l'opérateur
+== Échec du déploiement de Trident avec l'opérateur
 
 Si vous déployez Trident à l'aide de l'opérateur, le statut de `TridentOrchestrator` modifications de `Installing` à `Installed`. Si vous observez l' `Failed` status, et l'opérateur ne peut pas récupérer en lui-même, il est recommandé de vérifier les journaux de l'opérateur en exécutant la commande suivante :
 
@@ -135,7 +135,7 @@ Pour résoudre le problème, vous devez modifier le `TridentOrchestrator` CR. Vo
 
 
 
-== Dépannage d'un déploiement Trident non réussi à l'aide de `tridentctl`
+== Échec du déploiement de Trident avec `tridentctl`
 
 Pour vous aider à déterminer ce qui s'est mal passé, vous pouvez exécuter à nouveau le programme d'installation à l'aide du ``-d`` argument, qui active le mode débogage et vous aide à comprendre le problème :
 
@@ -194,3 +194,33 @@ tridentctl obliviate crd
 ----
 --
 ====
+
+
+== Échec de l'annulation du transfert de nœud NVMe avec les espaces de noms de bloc bruts RWX o Kubernetes 1.26
+
+Si vous exécutez Kubernetes 1.26, l'annulation de l'environnement de nœud peut échouer lors de l'utilisation de NVMe/TCP avec les espaces de noms de bloc bruts RWX. Les scénarios suivants offrent une solution de contournement à la défaillance. Vous pouvez également mettre à niveau Kubernetes vers la version 1.27.
+
+
+
+=== Espace de noms et pod supprimés
+
+Imaginez un espace de noms géré Astra Trident (volume persistant NVMe) attaché à un pod. Si vous supprimez l'espace de nom directement du back-end ONTAP, le processus de déstaging est bloqué après la tentative de suppression du pod. Ce scénario n'a aucun impact sur le cluster Kubernetes ou tout autre fonctionnement.
+
+.Solution de contournement
+Démontez le volume persistant (correspondant à cet espace de noms) du nœud respectif et supprimez-le.
+
+
+
+=== DataLIFs bloquées
+
+ If you block (or bring down) all the dataLIFs of the NVMe Astra Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.Solution de contournement
+Afficher les dataLIFS pour restaurer toutes les fonctionnalités.
+
+
+
+=== Mappage de l'espace de noms supprimé
+
+ If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.Solution de contournement
+Ajoutez le `hostNQN` retour au sous-système.

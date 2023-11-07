@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/prereqs-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config 
+keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
 summary: Vous devez installer et configurer les protocoles requis sur votre hôte avant de déployer Astra Trident. 
 ---
 = Conditions préalables au déploiement
@@ -25,99 +25,168 @@ Vous devez installer et configurer les protocoles requis sur votre hôte avant d
 ----
 docker --version
 ----
-* Vérifiez que les conditions préalables au protocole sont installées et configurées sur votre hôte :
-
-
-[cols="3*"]
-|===
-| Protocole | Système d'exploitation | Commandes 
-
-
-| NFS  a| 
-RHEL 8+
- a| 
-`sudo yum install -y nfs-utils`
+* Vérifiez que les prérequis de protocole sont installés et configurés sur votre hôte.
 
 
 
-| NFS  a| 
-Ubuntu
- a| 
-`sudo apt-get install -y nfs-common`
+
+=== Outils NFS
+
+Installez les outils NFS à l'aide des commandes de votre système d'exploitation.
+
+[role="tabbed-block"]
+====
+.RHEL 8+
+--
+[listing]
+----
+sudo yum install -y nfs-utils
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt-get install -y nfs-common
+----
+--
+====
+
+WARNING: Redémarrez les nœuds workers après l'installation des outils NFS afin d'éviter toute défaillance lors de la connexion des volumes aux conteneurs.
 
 
 
-| ISCSI  a| 
-RHEL 8+
- a| 
+=== Outils iSCSI
+
+Installez les outils iSCSI à l'aide des commandes de votre système d'exploitation.
+
+[role="tabbed-block"]
+====
+.RHEL 8+
+--
 . Installez les packages système suivants :
 +
-`sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath`
-
+[listing]
+----
+sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+----
 . Vérifiez que la version iscsi-initiator-utils est 6.2.0.874-2.el7 ou ultérieure :
 +
-`rpm -q iscsi-initiator-utils`
-
+[listing]
+----
+rpm -q iscsi-initiator-utils
+----
 . Définir la numérisation sur manuelle :
 +
-`sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf`
-
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
 . Activer les chemins d'accès multiples :
 +
-`sudo mpathconf --enable --with_multipathd y --find_multipaths n`
-
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
 +
 
 NOTE: Bien sûr `etc/multipath.conf` contient `find_multipaths no` sous `defaults`.
 
 . S'assurer que `iscsid` et `multipathd` sont en cours d'exécution :
 +
-`sudo systemctl enable --now iscsid multipathd`
-
+[listing]
+----
+sudo systemctl enable --now iscsid multipathd
+----
 . Activer et démarrer `iscsi`:
 +
-`sudo systemctl enable --now iscsi`
+[listing]
+----
+sudo systemctl enable --now iscsi
+----
 
 
-
-
-
-| ISCSI  a| 
-Ubuntu
- a| 
+--
+.Ubuntu
+--
 . Installez les packages système suivants :
 +
-`sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools`
-
+[listing]
+----
+sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
+----
 . Vérifiez que la version Open-iscsi est 2.0.874-5ubuntu2.10 ou ultérieure (pour bionique) ou 2.0.874-7.1ubuntu6.1 ou ultérieure (pour focaux) :
 +
-`dpkg -l open-iscsi`
-
+[listing]
+----
+dpkg -l open-iscsi
+----
 . Définir la numérisation sur manuelle :
 +
-`sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf`
-
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
 . Activer les chemins d'accès multiples :
 +
-`sudo tee /etc/multipath.conf <<-'EOF'
+[listing]
+----
+sudo tee /etc/multipath.conf <<-'EOF'
 defaults {
     user_friendly_names yes
     find_multipaths no
 }
 EOF
 sudo systemctl enable --now multipath-tools.service
-sudo service multipath-tools restart`
-
+sudo service multipath-tools restart
+----
 +
 
 NOTE: Bien sûr `etc/multipath.conf` contient `find_multipaths no` sous `defaults`.
 
 . S'assurer que `open-iscsi` et `multipath-tools` sont activées et en cours d'exécution :
 +
-`sudo systemctl status multipath-tools`
-`sudo systemctl enable --now open-iscsi.service`
-`sudo systemctl status open-iscsi`
+[listing]
+----
+sudo systemctl status multipath-tools
+sudo systemctl enable --now open-iscsi.service
+sudo systemctl status open-iscsi
+----
 
 
+--
+====
 
-|===
+
+== Outils NVMe
+
+Installez les outils NVMe à l'aide des commandes correspondant à votre système d'exploitation.
+
+[NOTE]
+====
+* NVMe requiert RHEL 9 ou version ultérieure.
+* Si la version du noyau de votre nœud Kubernetes est trop ancienne ou si le package NVMe n'est pas disponible pour votre version du noyau, vous devrez peut-être mettre à jour la version du noyau de votre nœud avec le package NVMe.
+
+
+====
+[role="tabbed-block"]
+====
+.RHEL 9
+--
+[listing]
+----
+sudo yum install nvme-cli
+sudo yum install linux-modules-extra-$(uname -r)
+sudo modprobe nvme-tcp
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt install nvme-cli
+sudo apt -y install linux-modules-extra-$(uname -r)
+sudo modprobe nvme-tcp
+----
+--
+====

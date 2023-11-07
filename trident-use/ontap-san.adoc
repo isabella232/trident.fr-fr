@@ -52,6 +52,34 @@ ROX et RWX ne sont pas disponibles en mode de volume du système de fichiers.
 
 
 
+| `ontap-san`  a| 
+NVMe/TCP
+
+Reportez-vous à la section <<Autres considérations relatives au NVMe/TCP>>.
+ a| 
+Bloc
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+Pas de système de fichiers, périphérique de bloc brut
+
+
+
+| `ontap-san`  a| 
+NVMe/TCP
+
+Reportez-vous à la section <<Autres considérations relatives au NVMe/TCP>>.
+ a| 
+Système de fichiers
+ a| 
+RWO, RWOP
+
+ROX et RWX ne sont pas disponibles en mode de volume du système de fichiers.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
 | `ontap-san-economy`  a| 
 ISCSI
  a| 
@@ -99,3 +127,24 @@ Astra Trident devrait être exécuté en tant qu'administrateur de ONTAP ou du S
 NOTE: Si vous utilisez le `limitAggregateUsage` paramètre, des autorisations d'administration du cluster sont requises. Avec Amazon FSX pour NetApp ONTAP avec Astra Trident, le `limitAggregateUsage` le paramètre ne fonctionne pas avec le `vsadmin` et `fsxadmin` comptes d'utilisateur. L'opération de configuration échoue si vous spécifiez ce paramètre.
 
 S'il est possible de créer au sein de ONTAP un rôle plus restrictif qu'un pilote Trident peut utiliser, nous ne le recommandons pas. La plupart des nouvelles versions de Trident appellent des API supplémentaires qui devront être prises en compte, ce qui complique les mises à niveau et risque d'erreurs.
+
+
+
+== Autres considérations relatives au NVMe/TCP
+
+ASTRA Trident prend en charge le protocole NVMe (non-volatile Memory Express) à l'aide du `ontap-san` pilote comprenant :
+
+* IPv6
+* Copies Snapshot et clones de volumes NVMe
+* Redimensionnement d'un volume NVMe
+* Importation d'un volume NVMe créé en dehors d'Astra Trident afin que son cycle de vie puisse être géré par Astra Trident
+* Chemins d'accès multiples natifs NVMe
+* Arrêt normal ou sans gracieuse des nœuds K8s (23.10)
+
+
+ASTRA Trident ne prend pas en charge :
+
+* DH-HMAC-CHAP pris en charge par NVMe de manière native
+* Chemins d'accès multiples du mappeur de périphériques (DM)
+* Cryptage LUKS
+

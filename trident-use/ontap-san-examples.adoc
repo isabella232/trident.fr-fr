@@ -109,8 +109,15 @@ Ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d'u
 
 
 | `useREST` | Paramètre booléen pour utiliser les API REST de ONTAP. *Aperçu technique*
+
 `useREST` est fourni sous forme d'aperçu technique ** qui est recommandé pour les environnements de test et non pour les charges de travail de production. Lorsqu'il est réglé sur `true`, Astra Trident va utiliser les API REST de ONTAP pour communiquer avec le système back-end. Cette fonctionnalité requiert ONTAP 9.11.1 et versions ultérieures. En outre, le rôle de connexion ONTAP utilisé doit avoir accès au `ontap` client supplémentaire. Ceci est satisfait par le pré-défini `vsadmin` et `cluster-admin` rôles.
-`useREST` N'est pas pris en charge par MetroCluster. | `false` 
+
+`useREST` N'est pas pris en charge par MetroCluster.
+
+`useREST` Est pleinement qualifié pour NVMe/TCP. | `false` 
+
+
+| `sanType` | Utilisez pour sélectionner `iscsi` Pour iSCSI ou `nvme` Pour NVMe/TCP. | `iscsi` si vide 
 |===
 
 
@@ -118,7 +125,7 @@ Ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d'u
 
 Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options dans `defaults` section de la configuration. Pour un exemple, voir les exemples de configuration ci-dessous.
 
-[cols="3"]
+[cols="1,3,2"]
 |===
 | Paramètre | Description | Valeur par défaut 
 
@@ -147,7 +154,9 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `encryption` | Activez NetApp Volume Encryption (NVE) sur le nouveau volume. La valeur par défaut est `false`. Pour utiliser cette option, NVE doit être sous licence et activé sur le cluster. Si NAE est activé sur le back-end, tous les volumes provisionnés dans Astra Trident seront activés par NAE. Pour plus d'informations, se reporter à : link:../trident-reco/security-reco.html["Fonctionnement d'Astra Trident avec NVE et NAE"]. | « faux » 
 
 
-| `luksEncryption` | Activez le cryptage LUKS. Reportez-vous à la section link:../trident-reco/security-luks.html["Utiliser la configuration de clé unifiée Linux (LUKS)"]. | « » 
+| `luksEncryption` | Activez le cryptage LUKS. Reportez-vous à la section link:../trident-reco/security-luks.html["Utiliser la configuration de clé unifiée Linux (LUKS)"].
+
+Le cryptage LUKS n'est pas pris en charge pour NVMe/TCP. | « » 
 
 
 | `securityStyle` | Style de sécurité pour les nouveaux volumes | `unix` 
@@ -323,6 +332,25 @@ username: vsadmin
 password: <password>
 ----
 ====
+.Exemple NVMe/TCP
+[%collapsible]
+====
+Un SVM doit être configuré avec NVMe sur votre back-end ONTAP. Il s'agit d'une configuration back-end de base pour NVMe/TCP.
+
+[listing]
+----
+---
+version: 1
+backendName: NVMeBackend
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+svm: svm_nvme
+username: vsadmin
+password: password
+sanType: nvme
+useREST: true
+----
+====
 
 
 == Exemples de systèmes back-end avec pools virtuels
@@ -438,6 +466,32 @@ storage:
     encryption: 'false'
 ----
 ====
+.Exemple NVMe/TCP
+[%collapsible]
+====
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-san
+sanType: nvme
+managementLIF: 10.0.0.1
+svm: nvme_svm
+username: vsadmin
+password: <password>
+useREST: true
+defaults:
+  spaceAllocation: 'false'
+  encryption: 'true'
+storage:
+- labels:
+    app: testApp
+    cost: '20'
+  defaults:
+    spaceAllocation: 'false'
+    encryption: 'false'
+----
+====
 
 
 == Mappage des systèmes back-end aux classes de stockage
@@ -452,7 +506,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: protection-gold
-provisioner: netapp.io/trident
+provisioner: csi.trident.netapp.io
 parameters:
   selector: "protection=gold"
   fsType: "ext4"
@@ -465,7 +519,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: protection-not-gold
-provisioner: netapp.io/trident
+provisioner: csi.trident.netapp.io
 parameters:
   selector: "protection!=gold"
   fsType: "ext4"
@@ -478,7 +532,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: app-mysqldb
-provisioner: netapp.io/trident
+provisioner: csi.trident.netapp.io
 parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
@@ -491,7 +545,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: protection-silver-creditpoints-20k
-provisioner: netapp.io/trident
+provisioner: csi.trident.netapp.io
 parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
@@ -504,9 +558,23 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: creditpoints-5k
-provisioner: netapp.io/trident
+provisioner: csi.trident.netapp.io
 parameters:
   selector: "creditpoints=5000"
+  fsType: "ext4"
+----
+* Le `my-test-app-sc` La classe de stockage est mappée sur `testAPP` pool virtuel dans `ontap-san` pilote avec `sanType: nvme`. Il s'agit de la seule offre de piscine `testApp`.
++
+[listing]
+----
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: my-test-app-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  selector: "app=testApp"
   fsType: "ext4"
 ----
 

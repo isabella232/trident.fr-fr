@@ -16,7 +16,7 @@ Vous pouvez déployer l'opérateur Trident et installer Astra Trident à l'aide 
 
 
 
-== Informations stratégiques sur Astra Trident 23.07.1
+== Informations stratégiques sur Astra Trident 23.10
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
@@ -49,11 +49,11 @@ En plus du link:../trident-get-started/kubernetes-deploy.html#before-you-deploy[
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utiliser `helm install` et spécifiez un nom pour votre déploiement comme dans l'exemple suivant où `23.07.1` Est la version d'Astra Trident que vous installez.
+. Utiliser `helm install` et spécifiez un nom pour votre déploiement comme dans l'exemple suivant où `23.10.0` Est la version d'Astra Trident que vous installez.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.1 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.10.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ Spécifiez un fichier YAML avec les remplacements. Ceci peut être spécifié pl
 Spécifiez les remplacements sur la ligne de commande.
 
 |===
-Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.07.1` Est la version d'Astra Trident que vous installez :
+Par exemple, pour modifier la valeur par défaut de `debug`, exécutez ce qui suit `--set` commande où `23.10.0` Est la version d'Astra Trident que vous installez :
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.07.1  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -95,7 +95,7 @@ helm install <name> netapp-trident/trident-operator --version 23.07.1  --create-
 
 Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fournit la liste des clés et leurs valeurs par défaut.
 
-[cols="3"]
+[cols="1,2,1"]
 |===
 | Option | Description | Valeur par défaut 
 
@@ -127,7 +127,7 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 | `tridentNodePluginTolerations` | Remplace les tolérances Kubernetes pour les pods. Reportez-vous à la section <<Présentation des pods de contrôleur et des nœuds>> pour plus d'informations. |  
 
 
-| `imageRegistry` | Identifie le registre du `trident-operator`, `trident`, et autres images. Laissez vide pour accepter la valeur par défaut. | « » 
+| `imageRegistry` | Identifie le registre du `trident-operator`, `trident`, et autres images. Laissez vide pour accepter la valeur par défaut. | `""` 
 
 
 | `imagePullPolicy` | Définit la stratégie d'extraction d'image pour le `trident-operator`. | `IfNotPresent` 
@@ -136,7 +136,7 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 | `imagePullSecrets` | Définit les secrets d'extraction d'image pour le `trident-operator`, `trident`, et autres images. |  
 
 
-| `kubeletDir` | Permet de remplacer l'emplacement hôte de l'état interne du kubelet. | '"/var/lib/kubelet"' 
+| `kubeletDir` | Permet de remplacer l'emplacement hôte de l'état interne du kubelet. | `"/var/lib/kubelet"` 
 
 
 | `operatorLogLevel` | Permet de définir le niveau du journal de l'opérateur Trident sur : `trace`, `debug`, `info`, `warn`, `error`, ou `fatal`. | `"info"` 
@@ -145,10 +145,10 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 | `operatorDebug` | Permet de définir le niveau du journal de l'opérateur Trident sur DEBUG. | `true` 
 
 
-| `operatorImage` | Permet la neutralisation complète de l'image pour `trident-operator`. | « » 
+| `operatorImage` | Permet la neutralisation complète de l'image pour `trident-operator`. | `""` 
 
 
-| `operatorImageTag` | Permet de remplacer la balise du `trident-operator` image. | « » 
+| `operatorImageTag` | Permet de remplacer la balise du `trident-operator` image. | `""` 
 
 
 | `tridentIPv6` | Permet à Astra Trident de fonctionner dans des clusters IPv6. | `false` 
@@ -166,7 +166,7 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 | `tridentAutosupportImageTag` | Permet de remplacer la balise de l'image pour le conteneur AutoSupport Astra Trident. | `<version>` 
 
 
-| `tridentAutosupportProxy` | Permet au conteneur AutoSupport Astra Trident de Phone Home via un proxy HTTP. | « » 
+| `tridentAutosupportProxy` | Permet au conteneur AutoSupport Astra Trident de Phone Home via un proxy HTTP. | `""` 
 
 
 | `tridentLogFormat` | Définit le format de journalisation d'Astra Trident (`text` ou `json`). | `"text"` 
@@ -181,19 +181,19 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 | `tridentDebug` | Permet de définir le niveau du journal d'Astra Trident sur `debug`. | `false` 
 
 
-| `tridentLogWorkflows` | Permet d'activer des workflows Astra Trident spécifiques pour la journalisation des traces ou la suppression de journaux. | « » 
+| `tridentLogWorkflows` | Permet d'activer des workflows Astra Trident spécifiques pour la journalisation des traces ou la suppression de journaux. | `""` 
 
 
-| `tridentLogLayers` | Permet d'activer des couches Astra Trident spécifiques pour la journalisation des traces ou la suppression des journaux. | « » 
+| `tridentLogLayers` | Permet d'activer des couches Astra Trident spécifiques pour la journalisation des traces ou la suppression des journaux. | `""` 
 
 
-| `tridentImage` | Permet la neutralisation complète de l'image pour Astra Trident. | « » 
+| `tridentImage` | Permet la neutralisation complète de l'image pour Astra Trident. | `""` 
 
 
-| `tridentImageTag` | Permet de remplacer la balise de l'image pour Astra Trident. | « » 
+| `tridentImageTag` | Permet de remplacer la balise de l'image pour Astra Trident. | `""` 
 
 
-| `tridentProbePort` | Permet de remplacer le port par défaut utilisé pour les sondes de disponibilité/préparation Kubernetes. | « » 
+| `tridentProbePort` | Permet de remplacer le port par défaut utilisé pour les sondes de disponibilité/préparation Kubernetes. | `""` 
 
 
 | `windows` | Permet d'installer Astra Trident sur le nœud de travail Windows. | `false` 
@@ -203,6 +203,9 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 
 
 | `excludePodSecurityPolicy` | Exclut la stratégie de sécurité du module opérateur de la création. | `false` 
+
+
+| `cloudProvider` | Réglez sur `"Azure"` Lors de l'utilisation d'identités gérées sur un cluster AKS. | `""` 
 |===
 
 

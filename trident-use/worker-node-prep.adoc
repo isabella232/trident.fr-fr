@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/worker-node-prep.html 
-keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, nfs, iscsi, kubernetes clusters, self-healing, healing 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, nfs, iscsi, kubernetes clusters, self-healing, healing, nvme, tcp 
 summary: 'Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes provisionnés pour vos pods. Si vous utilisez le pilote ONTAP-nas, ONTAP-nas-économie, ontap-nas-flexgroup pour l"un de vos systèmes back-end, vos nœuds workers ont besoin des outils NFS. Sinon, ils nécessitent les outils iSCSI.' 
 ---
 = Préparez le nœud de travail
@@ -12,22 +12,25 @@ summary: 'Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter l
 
 
 [role="lead"]
-Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes provisionnés pour vos pods. Pour préparer les nœuds workers, vous devez installer des outils NFS ou iSCSI en fonction de votre sélection de pilotes.
+Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes provisionnés pour vos pods. Pour préparer les nœuds worker, vous devez installer les outils NFS, iSCSI ou NVMe/TCP en fonction de votre sélection de pilotes.
 
 
 
 == Choisir les bons outils
 
-Si vous utilisez une combinaison de pilotes, vous devez installer les outils NFS et iSCSI.
+Si vous utilisez une combinaison de pilotes, vous devez installer tous les outils requis pour vos pilotes. Les versions récentes de RedHat CoreOS ont les outils installés par défaut.
 
 .Outils NFS
-Installez les outils NFS si vous utilisez : `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`
+Installez les outils NFS si vous utilisez : `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`.
 
 .Outils iSCSI
-Installez les outils iSCSI si vous utilisez : `ontap-san`, `ontap-san-economy`, `solidfire-san`
+Installez les outils iSCSI si vous utilisez : `ontap-san`, `ontap-san-economy`, `solidfire-san`.
+
+.Outils NVMe
+Installez les outils NVMe si vous utilisez `ontap-san` Pour le protocole NVMe (Nonvolatile Memory Express) sur TCP (NVMe/TCP).
 
 
-NOTE: Les versions récentes de RedHat CoreOS ont installé NFS et iSCSI par défaut.
+NOTE: ONTAP 9.12 ou version ultérieure est recommandé pour NVMe/TCP.
 
 
 
@@ -228,3 +231,50 @@ NOTE: Pour Ubuntu 18.04, vous devez découvrir les ports cibles avec `iscsiadm` 
 ====
 
 WARNING: Redémarrez les nœuds workers après l'installation des outils iSCSI pour éviter toute défaillance lors de la connexion des volumes aux conteneurs.
+
+
+
+== Volumes NVMe/TCP
+
+Installez les outils NVMe à l'aide des commandes correspondant à votre système d'exploitation.
+
+[NOTE]
+====
+* NVMe requiert RHEL 9 ou version ultérieure.
+* Si la version du noyau de votre nœud Kubernetes est trop ancienne ou si le package NVMe n'est pas disponible pour votre version du noyau, vous devrez peut-être mettre à jour la version du noyau de votre nœud avec le package NVMe.
+
+
+====
+[role="tabbed-block"]
+====
+.RHEL 9
+--
+[listing]
+----
+sudo yum install nvme-cli
+sudo yum install linux-modules-extra-$(uname -r)
+sudo modprobe nvme-tcp
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt install nvme-cli
+sudo apt -y install linux-modules-extra-$(uname -r)
+sudo modprobe nvme-tcp
+----
+--
+====
+
+
+=== Vérifiez l'installation
+
+Après l'installation, vérifiez que chaque nœud du cluster Kubernetes dispose d'un NQN unique via la commande :
+
+[listing]
+----
+cat /etc/nvme/hostnqn
+----
+
+WARNING: ASTRA Trident modifie le `ctrl_device_tmo` Value pour garantir que NVMe ne renonce pas au chemin en cas de panne. Ne modifiez pas ce paramètre.
