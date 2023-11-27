@@ -197,13 +197,3 @@ Pour plus d'informations sur le détachement forcé, voir link:..trident-get-sta
 tridentctl install --enable-force-detach=true -n trident
 ----
 ====
-.Identités gérées sur un cluster AKS
-[%collapsible]
-====
-Cet exemple installe Astra Trident pour activer les identités gérées.
-
-[listing]
-----
-tridentctl install --cloud-provider="Azure" -n trident
-----
-====
