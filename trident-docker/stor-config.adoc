@@ -280,7 +280,7 @@ Choisissez le `ontap-nas-flexgroup` pilote pour augmenter le parallélisme vers 
 * Requiert ONTAP version 9.2 ou supérieure
 * À ce jour, FlexGroups prend uniquement en charge NFS v3.
 * Recommandé pour activer les identifiants NFSv3 64 bits pour la SVM.
-* La taille minimale recommandée de FlexGroup est de 100 Go.
+* La taille minimale recommandée du membre/volume FlexGroup est de 100 Gio.
 * Le clonage n'est pas pris en charge pour FlexGroup volumes.
 
 

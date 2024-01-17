@@ -87,7 +87,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 === Échantillons de classe de stockage
 
-ASTRA Trident offre https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/pvc-samples["définition simple de classes de stockage pour des systèmes back-end spécifiques"^].
+ASTRA Trident offre https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["définition simple de classes de stockage pour des systèmes back-end spécifiques"^].
 
 Vous pouvez également modifier `sample-input/storage-class-csi.yaml.templ` fichier fourni avec le programme d'installation et de remplacement `__BACKEND_TYPE__` avec le nom du pilote de stockage.
 
