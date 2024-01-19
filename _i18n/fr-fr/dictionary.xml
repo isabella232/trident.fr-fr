@@ -4022,7 +4022,6 @@ ou<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-code
   <block id="92f2a092c8970a9e6a9a8f5829670977" category="paragraph">ASTRA Trident offre<block ref="78512e06e40b1d6e7b22821168623dd6" category="inline-link-rx"></block>.</block>
   <block id="20a385c1dc7ef65425669840055b5330" category="list-text">La taille minimale recommandée du membre/volume FlexGroup est de 100 Gio.</block>
   <block id="fd677451fcb2b9e12434f11dd81d463e" category="summary">Ajoutez le module d'extension Astra Trident EKS au cluster Kubernetes.</block>
-  <block id="7300036f416b8655e56df4e850a1edc1" category="doc">Configurez le complément Astra Trident EKS version 23.10 sur EKS Cluser</block>
   <block id="fde605b45abe19dca0689ef0eaa6e384" category="paragraph">ASTRA Trident simplifie la gestion du stockage Amazon FSX pour NetApp ONTAP dans Kubernetes pour que vos développeurs et administrateurs puissent donner la priorité au déploiement d'applications. Le module complémentaire Astra Trident EKS inclut les derniers correctifs de sécurité et de bogues, et il est validé par AWS pour fonctionner avec Amazon EKS. Le module complémentaire EKS vous permet de vous assurer de manière cohérente que vos clusters Amazon EKS sont sécurisés et stables et de réduire la quantité de travail à effectuer pour installer, configurer et mettre à jour des modules complémentaires.</block>
   <block id="ee68e5b99222bbc29a480fcb0d1d6ee2" category="section-title">Prérequis</block>
   <block id="2f2c25cde4f655e64149cdd745b67001" category="paragraph">Vérifiez les points suivants avant de configurer le module complémentaire Astra Trident pour AWS EKS :</block>
@@ -4050,4 +4049,5 @@ ou<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-code
   <block id="5fef1c4f3767262a0ef823aaa69e1703" category="paragraph-title">Désinstallez le module complémentaire Astra Trident EKS à l'aide de l'interface de ligne de commande :</block>
   <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">La commande suivante désinstalle le module complémentaire Astra Trident EKS :<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="c6861e88433ccd90f1ce8143d7e5fed0" category="sidebar">Configurer le module complémentaire Astra Trident EKS sur le cluster EKS</block>
+  <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">Configurez le module complémentaire Astra Trident EKS version 23.10 sur le cluster EKS</block>
 </blocks>
