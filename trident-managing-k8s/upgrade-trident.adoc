@@ -27,7 +27,7 @@ Lorsque vous mettez à niveau vers la dernière version d'Astra Trident, prenez 
 +
 ** Il s'agit d'une exigence **** pour l'application https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["contextes de sécurité"^] Pour les volumes SAN.
 ** Le répertoire d'entrée https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample^] contient des exemples, tels que https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ[`storage-class-basic.yaml.templ`^] et link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`^].
-** Pour plus d'informations, voir link:../trident-rn.html["Problèmes connus"].
+** Pour plus d'informations, reportez-vous à la section link:../trident-rn.html["Problèmes connus"].
 
 
 
@@ -38,17 +38,17 @@ Lorsque vous mettez à niveau vers la dernière version d'Astra Trident, prenez 
 
 Les versions d'Astra Trident suivent une date `YY.MM` convention de dénomination, où "YY" est les deux derniers chiffres de l'année et "MM" est le mois. Les versions point suivent un `YY.MM.X` convention, où « X » est le niveau de patch. Vous allez sélectionner la version à mettre à niveau en fonction de la version à partir de laquelle vous effectuez la mise à niveau.
 
-* Vous pouvez effectuer une mise à niveau directe vers n'importe quelle version cible située dans une fenêtre à quatre versions de la version installée. Par exemple, vous pouvez effectuer une mise à niveau directe de la version 22.10 (ou de toute version 22.10 points) vers la version 23.10.
-* Si vous effectuez une mise à niveau à partir d'une version en dehors de la fenêtre à quatre versions, effectuez une mise à niveau en plusieurs étapes. Suivez les instructions de mise à niveau du link:../earlier-versions.html["version antérieure"] vous effectuez une mise à niveau de vers la version la plus récente qui correspond à la fenêtre à quatre versions. Par exemple, si vous exécutez 21.10 et que vous souhaitez effectuer une mise à niveau vers 23.10 :
+* Vous pouvez effectuer une mise à niveau directe vers n'importe quelle version cible située dans une fenêtre à quatre versions de la version installée. Par exemple, vous pouvez effectuer une mise à niveau directe de la version 22.10 (ou de toute version 22.10 points) vers la version 24.02.
+* Si vous effectuez une mise à niveau à partir d'une version en dehors de la fenêtre à quatre versions, effectuez une mise à niveau en plusieurs étapes. Suivez les instructions de mise à niveau du link:../earlier-versions.html["version antérieure"] vous effectuez une mise à niveau de vers la version la plus récente qui correspond à la fenêtre à quatre versions. Par exemple, si vous exécutez 21.10 et que vous souhaitez effectuer une mise à niveau vers 24.02 :
 +
 .. Première mise à niveau de 21.10 à 22.10.
-.. Puis passez de 22.10 à 23.10.
+.. Puis passez de 22.10 à 24.02.
 
 
 
 
 
-NOTE: Lorsque vous effectuez une mise à niveau avec l'opérateur Trident sur OpenShift Container Platform, vous devez effectuer une mise à niveau vers Trident 21.01.1 ou une version ultérieure. L'opérateur Trident sorti avec 21.01.0 contient un problème connu qui a été résolu en 21.01.1. Pour plus de détails, consultez le https://github.com/NetApp/trident/issues/517["Consultez le document GitHub pour plus d'informations"^].
+NOTE: Lorsque vous effectuez une mise à niveau avec l'opérateur Trident sur OpenShift Container Platform, vous devez effectuer une mise à niveau vers Trident 21.01.1 ou une version ultérieure. L'opérateur Trident sorti avec 21.01.0 contient un problème connu qui a été résolu en 21.01.1. Pour plus de détails, reportez-vous au https://github.com/NetApp/trident/issues/517["Consultez le document GitHub pour plus d'informations"^].
 
 
 

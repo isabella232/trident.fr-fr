@@ -46,17 +46,17 @@ Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |
 
 | `tenantID` | ID locataire d'un enregistrement d'application
 
-Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
+Facultatif lorsque des identités gérées ou des identités de cloud sont utilisées sur un cluster AKS. |  
 
 
 | `clientID` | L'ID client d'un enregistrement d'application
 
-Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
+Facultatif lorsque des identités gérées ou des identités de cloud sont utilisées sur un cluster AKS. |  
 
 
 | `clientSecret` | Secret client d'un enregistrement d'application
 
-Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
+Facultatif lorsque des identités gérées ou des identités de cloud sont utilisées sur un cluster AKS. |  
 
 
 | `serviceLevel` | Un de `Standard`, `Premium`, ou `Ultra` | « » (aléatoire) 
@@ -196,6 +196,30 @@ spec:
   netappAccounts: ["smb-na"]
   virtualNetwork: eastus-prod-vnet
   subnet: eastus-anf-subnet
+----
+====
+.Identité cloud pour AKS
+[%collapsible]
+====
+Cette configuration back-end omet `tenantID`, `clientID`, et `clientSecret`, qui sont facultatives lors de l'utilisation d'une identité de nuage.
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-anf-1
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: azure-netapp-files
+  capacityPools: ["ultra-pool"]
+  resourceGroups: ["aks-ami-eastus-rg"]
+  netappAccounts: ["smb-na"]
+  virtualNetwork: eastus-prod-vnet
+  subnet: eastus-anf-subnet
+  location: eastus
+  subscriptionID: 9f87c765-4774-fake-ae98-a721add45451
 ----
 ====
 .Configuration de niveau de service spécifique avec filtres de pool de capacité

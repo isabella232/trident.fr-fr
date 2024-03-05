@@ -51,7 +51,7 @@ spec:
 ----
 Vous pouvez également consulter les exemples de la https://github.com/NetApp/trident/tree/stable/v21.07/trident-installer/sample-input/backends-samples["programme d'installation trident"^] répertoire des exemples de configuration pour la plate-forme/le service de stockage souhaité.
 
-Le `spec` il prend des paramètres de configuration spécifiques au back-end. Dans cet exemple, le back-end utilise le `ontap-san` pilote de stockage et utilise les paramètres de configuration qui sont présentés ici. Pour obtenir la liste des options de configuration pour le pilote de stockage souhaité, reportez-vous à la section link:backends.html["informations de configuration backend pour votre pilote de stockage"^].
+Le `spec` il prend des paramètres de configuration spécifiques au back-end. Dans cet exemple, le back-end utilise le `ontap-san` pilote de stockage et utilise les paramètres de configuration qui sont présentés ici. Pour obtenir la liste des options de configuration du pilote de stockage souhaité, reportez-vous au link:backends.html["informations de configuration backend pour votre pilote de stockage"^].
 
 Le `spec` la section inclut également `credentials` et `deletionPolicy` les champs qui viennent d'être introduits dans le `TridentBackendConfig` CR :
 

@@ -56,7 +56,7 @@ Vous aurez besoin des éléments suivants avant de créer un back-end d'élémen
 
 * Système de stockage pris en charge exécutant le logiciel Element.
 * Identifiants de locataire ou administrateur de cluster NetApp HCI/SolidFire pouvant gérer les volumes
-* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Voir link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"].
+* Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Reportez-vous à la section link:../trident-use/worker-node-prep.html["informations de préparation du nœud de travail"].
 
 
 

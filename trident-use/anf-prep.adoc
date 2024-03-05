@@ -22,9 +22,13 @@ Si vous utilisez Azure NetApp Files pour la première fois ou dans un nouvel emp
 
 Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, vous avez besoin des éléments suivants :
 
+[NOTE]
+====
+* `subscriptionID`, `tenantID`, `clientID`, `location`, et `clientSecret` Sont facultatives lors de l'utilisation d'identités gérées sur un cluster AKS.
+* `tenantID`, `clientID`, et `clientSecret` Sont facultatives lors de l'utilisation d'une identité de cloud sur un cluster AKS.
 
-NOTE: `subscriptionID`, `tenantID`, `clientID`, `location`, et `clientSecret` Sont facultatives lors de l'utilisation d'identités gérées sur un cluster AKS.
 
+====
 * Un pool de capacité. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft : créez un pool de capacité pour Azure NetApp Files"^].
 * Sous-réseau délégué à Azure NetApp Files. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft : déléguer un sous-réseau à Azure NetApp Files"^].
 * `subscriptionID` Depuis un abonnement Azure avec Azure NetApp Files activé.
@@ -81,7 +85,8 @@ NOTE: `subscriptionID`, `tenantID`, `clientID`, `location`, et `clientSecret` So
 ====
 
 
-* Azure `location` qui contient au moins un link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["sous-réseau délégué"^]. À partir de Trident 22.01, le `location` le paramètre est un champ obligatoire au niveau supérieur du fichier de configuration back-end. Les valeurs d'emplacement spécifiées dans les pools virtuels sont ignorées.
+* Azure `location` qui contient au moins un https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["sous-réseau délégué"^]. À partir de Trident 22.01, le `location` le paramètre est un champ obligatoire au niveau supérieur du fichier de configuration back-end. Les valeurs d'emplacement spécifiées dans les pools virtuels sont ignorées.
+* À utiliser `Cloud Identity`, obtenir le `client ID` a partir d'un https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["identité gérée attribuée par l'utilisateur"^] Et spécifiez cet ID dans `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`.
 
 
 

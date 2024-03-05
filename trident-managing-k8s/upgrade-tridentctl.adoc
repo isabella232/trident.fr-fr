@@ -27,7 +27,7 @@ Révision link:upgrade-trident.html#select-an-upgrade-method["Sélectionnez une 
 ----
 ./tridentctl uninstall -n <namespace>
 ----
-. Réinstallez Astra Trident. Reportez-vous à la section link:..trident-get-started/kubernetes-deploy-tridentctl.html["Installation d'Astra Trident à l'aide de tridentctl"].
+. Réinstallez Astra Trident. Reportez-vous à la section link:../trident-get-started/kubernetes-deploy-tridentctl.html["Installation d'Astra Trident à l'aide de tridentctl"].
 
 
 

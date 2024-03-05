@@ -26,8 +26,8 @@ NOTE: Pour effectuer la mise à niveau à partir d'Astra Trident qui a été ins
 .Description de la tâche
 Trident fournit un fichier bundle que vous pouvez utiliser pour installer l'opérateur et créer les objets associés pour votre version Kubernetes.
 
-* Pour les clusters exécutant Kubernetes 1.24 ou version antérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.10/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
-* Pour les clusters exécutant Kubernetes 1.25 ou version ultérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v23.10/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
+* Pour les clusters exécutant Kubernetes 1.24 ou version antérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v24.02/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
+* Pour les clusters exécutant Kubernetes 1.25 ou version ultérieure, utilisez link:https://github.com/NetApp/trident/tree/stable/v24.02/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
 
 
 .Avant de commencer
@@ -48,11 +48,11 @@ kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . Si vous avez personnalisé votre installation initiale à l'aide de `TridentOrchestrator` attributs, vous pouvez modifier le `TridentOrchestrator` objet pour modifier les paramètres d'installation. Cela peut inclure des modifications visant à spécifier les registres d'images en miroir Trident et CSI pour le mode hors ligne, à activer les journaux de débogage ou à spécifier les secrets d'extraction d'images.
 . Installez Astra Trident à l'aide du fichier YAML de bundle approprié pour votre environnement, où _<bundle.yaml>_ est
-`bundle_pre_1_25.yaml` ou `bundle_post_1_25.yaml` Basé sur votre version de Kubernetes. Par exemple, si vous installez Astra Trident 23.10, exécutez la commande suivante :
+`bundle_pre_1_25.yaml` ou `bundle_post_1_25.yaml` Basé sur votre version de Kubernetes. Par exemple, si vous installez Astra Trident 24.02, exécutez la commande suivante :
 +
 [listing]
 ----
-kubectl create -f 23.10.0/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl create -f 24.02.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 
 
@@ -66,14 +66,14 @@ Vous pouvez mettre à niveau une installation d'Astra Trident Helm.
 WARNING: Lorsque vous mettez à niveau un cluster Kubernetes de 1.24 vers 1.25 ou version ultérieure sur lequel Astra Trident est installé, vous devez mettre à jour les valeurs.yaml pour les définir `excludePodSecurityPolicy` à `true` ou ajouter `--set excludePodSecurityPolicy=true` à la `helm upgrade` commande avant de pouvoir mettre à niveau le cluster.
 
 .Étapes
-. Si vous link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["Installez Astra Trident à l'aide d'Helm - effectué"], vous pouvez utiliser `helm upgrade trident netapp-trident/trident-operator --version 23.10.0` pour mettre à niveau en une seule étape. Si vous n'avez pas ajouté le Helm repo ou si vous ne pouvez pas l'utiliser pour mettre à niveau :
+. Si vous link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-astra-trident-using-helm["Installez Astra Trident à l'aide d'Helm - effectué"], vous pouvez utiliser `helm upgrade trident netapp-trident/trident-operator --version 24.02.0` pour mettre à niveau en une seule étape. Si vous n'avez pas ajouté le Helm repo ou si vous ne pouvez pas l'utiliser pour mettre à niveau :
 +
 .. Téléchargez la dernière version d'Astra Trident sur le site link:https://github.com/NetApp/trident/releases/latest["La section _Assets_ sur GitHub"^].
-.. Utilisez le `helm upgrade` commande où `trident-operator-23.10.0.tgz` reflète la version vers laquelle vous souhaitez effectuer la mise à niveau.
+.. Utilisez le `helm upgrade` commande où `trident-operator-24.02.0.tgz` reflète la version vers laquelle vous souhaitez effectuer la mise à niveau.
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-23.10.0.tgz
+helm upgrade <name> trident-operator-24.02.0.tgz
 ----
 +
 
@@ -91,18 +91,18 @@ NOTE: Si vous définissez des options personnalisées lors de l'installation ini
 Vous pouvez effectuer la mise à niveau vers la dernière version de l'opérateur Trident à partir d'un `tridentctl` installation. Les systèmes back-end et ESV existants seront automatiquement disponibles.
 
 
-NOTE: Avant de passer d'une méthode d'installation à l'autre, consultez link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["Passage d'une méthode d'installation à l'autre"]
+NOTE: Avant de passer d'une méthode d'installation à l'autre, consultez link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["Passage d'une méthode d'installation à l'autre"].
 
 .Étapes
 . Téléchargez la dernière version d'Astra Trident.
 +
 [listing]
 ----
-# Download the release required [23.10.0]
-mkdir 23.10.0
-cd 23.10.0
-wget https://github.com/NetApp/trident/releases/download/v23.10.0/trident-installer-23.10.0.tar.gz
-tar -xf trident-installer-23.10.0.tar.gz
+# Download the release required [24.020.0]
+mkdir 24.02.0
+cd 24.02.0
+wget https://github.com/NetApp/trident/releases/download/v24.02.0/trident-installer-24.02.0.tar.gz
+tar -xf trident-installer-24.02.0.tar.gz
 cd trident-installer
 ----
 . Créer le `tridentorchestrator` CRD du manifeste.
@@ -159,6 +159,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v23.10.0
+Version:                v24.02.0
 ----
 

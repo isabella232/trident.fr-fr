@@ -223,7 +223,7 @@ Ces attributs n'ont aucun impact sur la sélection des pools de stockage/systèm
 |===
 [TIP]
 ====
-* Le `fsType` Paramètre permet de contrôler le type de système de fichiers souhaité pour les LUN SAN. Kubernetes utilise également la présence de `fsType` dans une classe de stockage pour indiquer qu'un système de fichiers existe. Vous pouvez contrôler la propriété de volume à l'aide du `fsGroup` contexte de sécurité d'un pod uniquement si `fsType` est défini. Voir link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes : configurez un contexte de sécurité pour un pod ou un conteneur"^] pour une vue d'ensemble de la définition de la propriété de volume à l'aide de l' `fsGroup` contexte. Kubernetes applique le `fsGroup` valeur uniquement si :
+* Le `fsType` Paramètre permet de contrôler le type de système de fichiers souhaité pour les LUN SAN. Kubernetes utilise également la présence de `fsType` dans une classe de stockage pour indiquer qu'un système de fichiers existe. Vous pouvez contrôler la propriété de volume à l'aide du `fsGroup` contexte de sécurité d'un pod uniquement si `fsType` est défini. Reportez-vous à la section link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes : configurez un contexte de sécurité pour un pod ou un conteneur"^] pour une vue d'ensemble de la définition de la propriété de volume à l'aide de l' `fsGroup` contexte. Kubernetes applique le `fsGroup` valeur uniquement si :
 +
 ** `fsType` est défini dans la classe de stockage.
 ** Le mode d'accès PVC est RWO.
@@ -232,7 +232,7 @@ Ces attributs n'ont aucun impact sur la sélection des pools de stockage/systèm
 +
 Pour les pilotes de stockage NFS, un système de fichiers existe déjà dans le cadre de l'exportation NFS. Pour l'utilisation `fsGroup` la classe de stockage doit toujours spécifier un `fsType`. Vous pouvez le définir sur `nfs` ou toute valeur non nulle.
 
-* Voir link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["Développement des volumes"] pour plus de détails sur l'extension du volume.
+* Reportez-vous à la section link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["Développement des volumes"] pour plus de détails sur l'extension du volume.
 * Le bundle d'installation Trident propose plusieurs exemples de définitions de classes de stockage à utiliser avec Trident dans ``sample-input/storage-class-*.yaml``. La suppression d'une classe de stockage Kubernetes entraîne également la suppression de la classe de stockage Trident correspondante.
 
 
@@ -296,7 +296,7 @@ Les CRDS sont une construction Kubernetes. Les objets des ressources définies c
 Voici quelques points à garder à l'esprit sur les CRD de Trident :
 
 * Lorsque Trident est installé, un ensemble de CRD est créé et peut être utilisé comme tout autre type de ressource.
-* Lors de la désinstallation de Trident à l'aide de `tridentctl uninstall` Les pods Trident sont supprimés, mais les CRD créés ne sont pas nettoyés. Voir link:../trident-managing-k8s/uninstall-trident.html["Désinstaller Trident"] Afin de comprendre comment Trident peut être entièrement supprimé et reconfiguré de zéro.
+* Lors de la désinstallation de Trident à l'aide de `tridentctl uninstall` Les pods Trident sont supprimés, mais les CRD créés ne sont pas nettoyés. Reportez-vous à la section link:../trident-managing-k8s/uninstall-trident.html["Désinstaller Trident"] Afin de comprendre comment Trident peut être entièrement supprimé et reconfiguré de zéro.
 
 
 
@@ -468,7 +468,7 @@ spec:
          scopeName: PriorityClass
          values: ["system-node-critical"]
 ----
-Pour plus d'informations sur les quotas de ressources, reportez-vous à la section link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes : quotas de ressources"^].
+Pour plus d'informations sur les quotas de ressources, voir link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes : quotas de ressources"^].
 
 
 

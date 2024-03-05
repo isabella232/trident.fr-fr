@@ -15,7 +15,7 @@ summary: 'Les normes de sécurité de Kubernetes Pod (PSS) et les règles de sé
 Les normes de sécurité de Kubernetes Pod (PSS) et les règles de sécurité de Pod (PSP) définissent des niveaux d'autorisation et limitent le comportement des pods. OpenShift Security Context Constraints (SCC) définit de façon similaire les restrictions de pod spécifiques à OpenShift Kubernetes Engine. Pour offrir cette personnalisation, Astra Trident autorise certaines autorisations lors de l'installation. Les sections suivantes décrivent en détail les autorisations définies par Astra Trident.
 
 
-NOTE: PSS remplace les politiques de sécurité Pod (PSP). La PSP est obsolète dans Kubernetes v1.21 et elle sera supprimée dans la version 1.25. Pour plus d'informations, voir link:https://kubernetes.io/docs/concepts/security/["Kubernetes : sécurité"].
+NOTE: PSS remplace les politiques de sécurité Pod (PSP). La PSP est obsolète dans Kubernetes v1.21 et elle sera supprimée dans la version 1.25. Pour plus d'informations, reportez-vous à la section link:https://kubernetes.io/docs/concepts/security/["Kubernetes : sécurité"].
 
 
 
@@ -26,7 +26,7 @@ NOTE: PSS remplace les politiques de sécurité Pod (PSP). La PSP est obsolète 
 | Autorisations | Description 
 
 
-| Privilégié | CSI nécessite que les points de montage soient bidirectionnels, ce qui signifie que le pod de nœud Trident doit exécuter un conteneur privilégié. Pour plus d'informations, voir link:https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation["Kubernetes : propagation du montage"]. 
+| Privilégié | CSI nécessite que les points de montage soient bidirectionnels, ce qui signifie que le pod de nœud Trident doit exécuter un conteneur privilégié. Pour plus d'informations, reportez-vous à la section link:https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation["Kubernetes : propagation du montage"]. 
 
 
 | Mise en réseau d'hôtes | Requis pour le démon iSCSI. `iscsiadm` Gère les montages iSCSI et utilise la mise en réseau hôte pour communiquer avec le démon iSCSI. 

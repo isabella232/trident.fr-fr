@@ -26,7 +26,7 @@ Avec Astra Trident, qui offre une meilleure sécurité `REST API` est limité à
 
 == Avec l'API REST
 
-Pour des exemples de la façon dont ces API sont appelées, passez le débogage (`-d`) drapeau. Pour plus d'informations, voir link:../trident-managing-k8s/tridentctl.html["Gérez Astra Trident à l'aide de tridentctl"].
+Pour des exemples de la façon dont ces API sont appelées, passez le débogage (`-d`) drapeau. Pour plus d'informations, reportez-vous à la section link:../trident-managing-k8s/tridentctl.html["Gérez Astra Trident à l'aide de tridentctl"].
 
 L'API fonctionne comme suit :
 
@@ -60,7 +60,7 @@ L'API fonctionne comme suit :
 +
 --
 
-NOTE: Les volumes associés aux systèmes back-end ou aux classes de stockage continueront d'exister. Ils doivent être supprimés séparément. Pour plus d'informations, voir link:../trident-managing-k8s/tridentctl.html["Gérez Astra Trident à l'aide de tridentctl"].
+NOTE: Les volumes associés aux systèmes back-end ou aux classes de stockage continueront d'exister. Ils doivent être supprimés séparément. Pour plus d'informations, reportez-vous à la section link:../trident-managing-k8s/tridentctl.html["Gérez Astra Trident à l'aide de tridentctl"].
 
 --
 
