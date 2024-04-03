@@ -12,12 +12,6 @@ summary: Vous pouvez utiliser le sélecteur de version pour naviguer entre la de
 
 
 [role="lead"]
-Vous pouvez utiliser le sélecteur de version pour naviguer entre la dernière version et les quatre versions précédentes ou utiliser les liens ci-dessous.
-
-
-
-== Versions antérieures
-
 Si vous n'exécutez pas Astra Trident 24.02, la documentation relative aux versions précédentes est disponible sur la base du link:get-help.html["Cycle de vie de prise en charge d'Astra Trident"].
 
 * https://docs.netapp.com/us-en/trident-2310/index.html["ASTRA Trident 23.10"^]
