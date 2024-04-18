@@ -4118,4 +4118,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="c6070eb192dc90174ef63a85c1f02d5a" category="list-text">Puis passez de 23.01 à 24.02.</block>
   <block id="23c22ef5f35b931bceb1aaeffafcb5f4" category="list-text">Si vous <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>, vous pouvez utiliser<block ref="f8055407f6b06e8c86fe98fdbd160c87" prefix=" " category="inline-code"></block> pour mettre à niveau en une seule étape. Si vous n'avez pas ajouté le Helm repo ou si vous ne pouvez pas l'utiliser pour mettre à niveau :</block>
   <block id="fabc0fa737916420805fcbdf1e73d723" category="list-text">S'il y a un boîtier opérateur, utiliser<block ref="9ce56b0c50ae80fe754522969b1c96b9" prefix=" " category="inline-code"></block> Pour déterminer si Astra Trident a été installé à l'aide d'Helm.</block>
+  <block id="f77d4be42f8ef9e2474d677786cf6d7a" category="paragraph">L'identité cloud permet aux pods Kubernetes d'accéder aux ressources Azure en s'authentifiant comme identité de workload au lieu de fournir des informations d'identification Azure explicites.</block>
+  <block id="088be2b53cfa8710d751578d273c4af0" category="paragraph">Pour tirer parti de l'identité cloud dans Azure, vous devez disposer des éléments suivants :</block>
 </blocks>
