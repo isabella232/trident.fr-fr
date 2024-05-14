@@ -22,7 +22,7 @@ Trouvez les réponses aux questions fréquemment posées concernant l'installati
 
 === À quelle fréquence Astra Trident est-il commercialisé ?
 
-Astra Trident est commercialisé tous les trois mois : janvier, avril, juillet et octobre. Ceci fait un mois après une version de Kubernetes.
+À partir de la version 24.02, Astra Trident est sorti tous les quatre mois : février, juin et octobre. Ceci fait un mois après une version de Kubernetes.
 
 
 

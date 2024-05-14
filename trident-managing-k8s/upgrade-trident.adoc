@@ -12,7 +12,7 @@ summary: 'Astra Trident suit le rythme de sa mise à jour trimestrielle, fournis
 
 
 [role="lead"]
-Astra Trident suit le rythme de sa mise à jour trimestrielle, fournissant quatre versions majeures chaque année. Chaque nouvelle version exploite les versions précédentes et fournit de nouvelles fonctionnalités, des améliorations de performances, des correctifs et des améliorations. Nous vous encourageons à effectuer une mise à niveau au moins une fois par an pour profiter des nouvelles fonctionnalités d'Astra Trident.
+À partir de la version 24.02, Astra Trident suit une publication tous les quatre mois, livrant trois versions majeures chaque année. Chaque nouvelle version exploite les versions précédentes et fournit de nouvelles fonctionnalités, des améliorations de performances, des correctifs et des améliorations. Nous vous encourageons à effectuer une mise à niveau au moins une fois par an pour profiter des nouvelles fonctionnalités d'Astra Trident.
 
 
 
