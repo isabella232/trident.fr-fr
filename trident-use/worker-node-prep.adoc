@@ -230,9 +230,6 @@ NOTE: Pour Ubuntu 18.04, vous devez découvrir les ports cibles avec `iscsiadm` 
 --
 ====
 
-WARNING: Redémarrez les nœuds workers après l'installation des outils iSCSI pour éviter toute défaillance lors de la connexion des volumes aux conteneurs.
-
-
 
 == Volumes NVMe/TCP
 
