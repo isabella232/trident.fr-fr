@@ -209,6 +209,12 @@ Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fo
 
 
 | `cloudIdentity` | Défini sur l'identité de la charge de travail (« Azure.Workload.Identity/client-ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxxxx ») lors de l'utilisation de l'identité cloud sur un cluster AKS. Définir sur le rôle IAM AWS (« eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role ») lors de l'utilisation de l'identité cloud sur un cluster EKS. | `""` 
+
+
+| `iscsiSelfHealingInterval` | Intervalle d'appel de l'auto-rétablissement iSCSI. | `5m0s` 
+
+
+| `iscsiSelfHealingWaitTime` | Durée après laquelle l'auto-rétablissement iSCSI lance une tentative de résolution d'une session obsolète en effectuant une déconnexion et une connexion ultérieure. | `7m0s` 
 |===
 
 
