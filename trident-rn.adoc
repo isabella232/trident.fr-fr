@@ -19,7 +19,54 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 24.02
+== Nouveautés de la version 24.06
+
+
+
+=== Améliorations
+
+* **IMPORTANT** : le `limitVolumeSize` paramètre limite désormais la taille qtree/LUN dans les pilotes économiques ONTAP. Utilisez le nouveau  `limitVolumePoolSize` paramètre pour contrôler les tailles de FlexVol dans ces pilotes. (link:https://github.com/NetApp/trident/issues/341["Question no 341"]).
+* Ajout de la fonctionnalité d'auto-rétablissement iSCSI pour lancer des analyses SCSI par ID de LUN exact si des igroups obsolètes sont en cours d'utilisation (link:https://github.com/NetApp/trident/issues/883["Question no 883"]).
+* Prise en charge supplémentaire des opérations de clonage de volume et de redimensionnement même lorsque le back-end est en mode suspendu.
+* Ajout de la possibilité de propager les paramètres de journaux configurés par l'utilisateur au contrôleur Trident aux pods de nœuds Astra Trident.
+* Ajout de la prise en charge dans Astra Trident pour utiliser REST par défaut au lieu de ZAPI pour ONTAP versions 9.15.1 et ultérieures.
+* Prise en charge des noms de volumes et des métadonnées personnalisés sur les systèmes back-end de stockage ONTAP pour les nouveaux volumes persistants.
+* Amélioration du `azure-netapp-files` pilote (ANF) pour activer automatiquement le répertoire de snapshots par défaut lorsque les options de montage NFS sont définies pour utiliser la version 4.x.
+* Ajout de la prise en charge de BottlerRocket pour les volumes NFS.
+* Ajout de la prise en charge des aperçus techniques de Google Cloud NetApp volumes.
+
+
+
+
+==== Kubernetes
+
+* Ajout de la capacité d'Astra Trident DemonSet à nettoyer les montages zombies et les fichiers de suivi résiduels au démarrage (link:https://github.com/NetApp/trident/issues/883["Question no 883"]).
+* Ajout d'une annotation PVC `trident.netapp.io/luksEncryption` pour l'importation dynamique de volumes LUKS (link:https://github.com/NetApp/trident/issues/849["Question no 849"]).
+* Prise en compte de la topologie du pilote ANF.
+
+
+
+
+=== Correctifs
+
+* Correction des défaillances d'installation d'Astra Trident suite à des transactions obsolètes.
+* Correction de tridentctl pour ignorer les messages d'avertissement de Kubernetes (link:https://github.com/NetApp/trident/issues/892["Question no 892"]).
+* Priorité du contrôleur Astra Trident modifiée `SecurityContextConstraint` en `0` (link:https://github.com/NetApp/trident/issues/887["Question no 887"]).
+* Les pilotes ONTAP acceptent désormais des volumes inférieurs à 20 Mio (link:https://github.com/NetApp/trident/issues/885["Problème[#885"]).
+* Correction d'Astra Trident pour empêcher la diminution des volumes FlexVol lors des opérations de redimensionnement pour le pilote ONTAP-SAN.
+* Correction de la défaillance d'importation du volume ANF avec NFS v4.1.
+
+
+
+
+=== Dérations
+
+* Suppression de la prise en charge de EOL Windows Server 2019.
+
+
+
+
+== Changements en 24.02
 
 
 

@@ -70,7 +70,7 @@ Fonctionne avec Kubernetes non-Grass Node Shutdown (NGN) pour autoriser les admi
 automatiquement | `false` 
 
 
-| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | `"netapp/trident-autosupport:24.02"` 
+| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | `"netapp/trident-autosupport:24.06"` 
 
 
 | `autosupportProxy` | Adresse/port d'un proxy pour l'envoi de AutoSupport
@@ -83,7 +83,7 @@ Télémétrie | `"http://proxy.example.com:8888"`
 | `logFormat` | Format de connexion Astra Trident à utiliser [text,json] | `"text"` 
 
 
-| `tridentImage` | Image Astra Trident à installer | `"netapp/trident:24.02"` 
+| `tridentImage` | Image Astra Trident à installer | `"netapp/trident:24.06"` 
 
 
 | `imageRegistry` | Chemin d'accès au registre interne, du format

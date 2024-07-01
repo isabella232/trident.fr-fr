@@ -139,7 +139,7 @@ ASTRA Trident prend en charge le protocole NVMe (non-volatile Memory Express) à
 * Redimensionnement d'un volume NVMe
 * Importation d'un volume NVMe créé en dehors d'Astra Trident afin que son cycle de vie puisse être géré par Astra Trident
 * Chemins d'accès multiples natifs NVMe
-* Arrêt normal ou sans gracieuse des nœuds K8s (24.02)
+* Arrêt normal ou sans gracieuse des nœuds K8s (24.06)
 
 
 ASTRA Trident ne prend pas en charge :

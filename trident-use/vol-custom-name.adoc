@@ -1,0 +1,123 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-custom-name.html 
+keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
+summary: 'ASTRA Trident prend en charge l"attribution de noms et d"étiquettes significatifs aux volumes créés pour faciliter l"identification et le contrôle de la gestion des volumes et leur mappage avec les ressources Kubernetes respectives.' 
+---
+= Personnaliser les noms et les étiquettes des volumes
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avec Astra Trident, vous pouvez attribuer des noms et des étiquettes significatifs aux volumes que vous créez. Vous pouvez ainsi identifier et mapper facilement les volumes vers leurs ressources Kubernetes respectives. Vous pouvez également définir des modèles au niveau du back-end pour créer des noms de volume personnalisés et des étiquettes personnalisées. Tous les volumes que vous créez, importez ou clonez seront conformes aux modèles.
+
+
+
+== Avant de commencer
+
+Prise en charge des noms et des libellés de volumes personnalisables :
+
+. Opérations de création, d'importation et de clonage de volumes.
+. Dans le cas du pilote ontap-nas-Economy, seul le nom du volume Qtree est conforme au modèle de nom.
+. Dans le cas d'un pilote ontap-san-Economy, seul le nom de LUN est conforme au modèle de nom.
+
+
+
+
+== Limites
+
+. Les noms de volume personnalisables sont uniquement compatibles avec les pilotes ONTAP sur site.
+. Les noms de volume personnalisables ne s'appliquent pas aux volumes existants.
+
+
+
+
+== Comportements clés des noms de volume personnalisables
+
+. Si une défaillance survient en raison d'une syntaxe incorrecte dans un modèle de nom, la création du back-end échoue. Toutefois, si l'application modèle échoue, le volume sera nommé conformément à la convention de nommage existante.
+. Le préfixe de stockage n'est pas applicable lorsqu'un volume est nommé à l'aide d'un modèle de nom de la configuration back-end. Toute valeur de préfixe souhaitée peut être directement ajoutée au modèle.
+
+
+
+
+== Exemples de configuration back-end avec modèle de nom et étiquettes
+
+Les modèles de noms personnalisés peuvent être définis au niveau de la racine et/ou du pool.
+
+.Exemple de niveau racine
+[listing]
+----
+{
+"version": 1,
+"storageDriverName": "ontap-nas",
+"backendName": "ontap-nfs-backend",
+"managementLIF": "<ip address>",
+"svm": "svm0",
+"username": "<admin>",
+"password": "<password>",
+"defaults": {
+    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
+},
+"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
+}
+
+----
+.Exemple au niveau du pool
+[listing]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "backendName": "ontap-nfs-backend",
+  "managementLIF": "<ip address>",
+  "svm": "svm0",
+ "username": "<admin>",
+  "password": "<password>",
+  "useREST": true,
+  "storage": [
+  {
+      "labels":{"labelname":"label1", "name": "{{ .volume.Name }}"},
+      "defaults":
+      {
+          "nameTemplate": "pool01_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+      }
+   },
+  {
+      "labels":{"cluster":"label2", "name": "{{ .volume.Name }}"},
+      "defaults":
+      {
+          "nameTemplate": "pool02_{{ .volume.Name }}_{{ .labels.cluster }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+      }
+}
+  ]
+}
+----
+
+
+== Exemples de modèles de noms
+
+*Exemple 1* :
+
+[listing]
+----
+"nameTemplate": "{{ .config.StoragePrefix }}_{{ .volume.Name }}_{{ .config.BackendName }}"
+----
+*Exemple 2* :
+
+[listing]
+----
+"nameTemplate": "pool_{{ .config.StoragePrefix }}_{{ .volume.Name }}_{{ slice .volume.RequestName 1 5 }}""
+----
+
+
+== Points à prendre en compte
+
+. Dans le cas des importations en volume, les étiquettes ne sont mises à jour que si le volume existant comporte des étiquettes dans un format spécifique. Par exemple : `{"provisioning":{"Cluster":"ClusterA", "PVC": "pvcname"}}`.
+. Dans le cas des importations de volume gérées, le nom du volume suit le modèle de nom défini au niveau racine dans la définition du back-end.
+. ASTRA Trident ne prend pas en charge l'utilisation d'un opérateur Slice avec le préfixe de stockage.
+. Si les modèles ne donnent pas de noms de volumes uniques, Astra Trident ajoutera quelques caractères aléatoires pour créer des noms de volumes uniques.
+. Si le nom personnalisé d'un volume économique NAS dépasse 64 caractères, Astra Trident nomtera les volumes conformément à la convention de nommage existante. Pour tous les autres pilotes ONTAP, si le nom du volume dépasse la limite de nom, le processus de création du volume échoue.
+

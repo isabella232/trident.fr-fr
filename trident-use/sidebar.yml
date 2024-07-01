@@ -71,6 +71,8 @@ entries:
     url: "/trident-use/vol-expansion.html"
   - title: Importer des volumes
     url: "/trident-use/vol-import.html"
+  - title: Personnaliser les noms des volumes
+    url: "/trident-use/vol-custom-name.html"
   - title: Partage des volumes NFS entre les espaces de noms
     url: "/trident-use/volume-share.html"
   - title: Utiliser la topologie CSI

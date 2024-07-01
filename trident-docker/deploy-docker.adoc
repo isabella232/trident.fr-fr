@@ -147,8 +147,8 @@ Ou https://docs.docker.com/engine/install/["suivez les instructions relatives à
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.02.0.tar.gz
-tar zxf trident-installer-24.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.06.0.tar.gz
+tar zxf trident-installer-24.06.0.tar.gz
 ----
 .. Déplacer vers un emplacement dans le chemin du bac :
 +

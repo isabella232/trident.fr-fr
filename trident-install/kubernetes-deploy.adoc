@@ -16,14 +16,14 @@ Pour vérifier qu'Astra Trident peut être installé dans un grand nombre d'envi
 
 
 
-== Informations stratégiques sur Astra Trident 24.02
+== Informations stratégiques sur Astra Trident 24.06
 
 *Vous devez lire les renseignements essentiels suivants sur Astra Trident.*
 
 .<strong> informations pratiques sur le Tridécouvrez Astra </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.27 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.29 est désormais pris en charge dans Astra Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
 * Astra Trident applique rigoureusement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec la valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
