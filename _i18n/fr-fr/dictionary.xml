@@ -1326,7 +1326,6 @@
   <block id="0e6ac0d7fca9c59e6545312a071555b6" category="cell">Facteurs pertinents</block>
   <block id="ae6b2a160dd2fafdee385c348edee0c1" category="cell">Version Kubernetes</block>
   <block id="7cfbb6f07899c8071ff38e69dca190e2" category="cell">Fstype</block>
-  <block id="64b6d80cc167d5c657b60054dbe396ee" category="cell">ext4, ext3, xfs, etc</block>
   <block id="7928a56d4874d982a06a59e3f30f6935" category="cell">Type de système de fichiers pour les volumes en mode bloc</block>
   <block id="b1c94ca2fbc3e78fc30069c8d0f01680" category="cell">Tout</block>
   <block id="6add71a247c8f4513060920be14857bc" category="cell">Volumeallowexpansion</block>
@@ -4200,4 +4199,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">Ajout de la prise en charge des nœuds Windows Server 2022.</block>
   <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2022. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
+  <block id="010e61d0b40eeb84b96a1321e8f0bab7" category="cell">ext4, ext3, xfs</block>
 </blocks>

@@ -213,7 +213,7 @@ Ces attributs n'ont aucun impact sur la sélection des pools de stockage/systèm
 | Attribut | Type | Valeurs | Description | Facteurs pertinents | Version Kubernetes 
 
 
-| Fstype | chaîne | ext4, ext3, xfs, etc | Type de système de fichiers pour les volumes en mode bloc | solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie | Tout 
+| Fstype | chaîne | ext4, ext3, xfs | Type de système de fichiers pour les volumes en mode bloc | solidfire-san, ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie | Tout 
 
 
 | Volumeallowexpansion | booléen | vrai, faux | Activez ou désactivez la prise en charge pour augmenter la taille de la demande de volume persistant | ontap-nas, économie ontap-nas, ontap-nas-flexgroup, ontap-san, ontap-san-économie, solidfire-san, gcp-cvs, azure-netapp-files | 1.11+ 
