@@ -96,7 +96,7 @@ Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp
 Pour créer un volume SMB, vous devez disposer des éléments suivants :
 
 * Active Directory configuré et connecté à Azure NetApp Files. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft : création et gestion des connexions Active Directory pour Azure NetApp Files"^].
-* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2019. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
+* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2022. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
 * Au moins un secret Astra Trident contenant vos informations d'identification Active Directory pour que Azure NetApp Files puisse s'authentifier auprès d'Active Directory. Pour générer un secret `smbcreds`:
 +
 [listing]

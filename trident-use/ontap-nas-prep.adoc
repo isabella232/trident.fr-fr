@@ -301,7 +301,7 @@ WARNING: On doit configurer les protocoles NFS et SMB/CIFS sur le SVM pour crée
 .Avant de commencer
 Avant de pouvoir provisionner des volumes SMB, vous devez disposer des éléments suivants :
 
-* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2019. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
+* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2022. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
 * Au moins un secret Astra Trident contenant vos identifiants Active Directory. Pour générer un secret `smbcreds`:
 +
 [listing]
