@@ -40,6 +40,7 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 ==== Kubernetes
 
+* Prise en charge de Kubernetes 1.30.
 * Ajout de la capacité d'Astra Trident DemonSet à nettoyer les montages zombies et les fichiers de suivi résiduels au démarrage (link:https://github.com/NetApp/trident/issues/883["Question no 883"]).
 * Ajout d'une annotation PVC `trident.netapp.io/luksEncryption` pour l'importation dynamique de volumes LUKS (link:https://github.com/NetApp/trident/issues/849["Question no 849"]).
 * Prise en compte de la topologie du pilote ANF.
