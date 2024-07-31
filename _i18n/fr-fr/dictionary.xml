@@ -143,7 +143,6 @@
   <block id="65840df7365892d2abe1280cb6cdb1d2" category="paragraph">Une partie de la documentation sur les meilleures pratiques est présentée ci-dessous. Rechercher dans le<block ref="4caccef7312f2c398bfbb419629c1a78" category="inline-link-rx"></block> pour les versions les plus récentes.</block>
   <block id="d911b17f4f4cdcca62a04ad77aa9403d" category="paragraph">*ONTAP*</block>
   <block id="f9dd52d280693dc59e53b6e1fb7bd801" category="inline-link">Guide des meilleures pratiques et de mise en œuvre de NFS</block>
-  <block id="40bb23d54df7f59219c18f15a346d9e5" category="list-text"><block ref="40bb23d54df7f59219c18f15a346d9e5" category="inline-link-rx"></block></block>
   <block id="a76193f5d9397d9c49ca283a20ccf649" category="inline-link">Guide d'administration DU SAN</block>
   <block id="5bc9b097037d45aff954bf9bd632d4a4" category="list-text"><block ref="c745f55eb0c9991966e63f0608541bb1" category="inline-link-rx"></block> (Pour iSCSI)</block>
   <block id="5ca34d6ffc2a555b689542e3fbeeb7af" category="inline-link">Configuration iSCSI Express pour RHEL</block>
@@ -158,15 +157,11 @@
   <block id="9d0da73b02655dd7861121905db229e2" category="list-text"><block ref="9d0da73b02655dd7861121905db229e2" category="inline-link-rx"></block></block>
   <block id="9aaca8cfd79770bc4944ccc477e37141" category="paragraph">*Information sur les pratiques exemplaires des applications*</block>
   <block id="27a5e02bc2fadee43ace94805739a0c8" category="inline-link">Bonnes pratiques pour MySQL sur ONTAP</block>
-  <block id="40d2eaf9adabe99a601c57eabf49e4d3" category="list-text"><block ref="40d2eaf9adabe99a601c57eabf49e4d3" category="inline-link-rx"></block></block>
   <block id="17efdd7d210511985714be299d595292" category="inline-link">Bonnes pratiques pour MySQL sur SolidFire</block>
   <block id="d03b53d8ec563c37e16ee8c900a75b96" category="list-text"><block ref="d03b53d8ec563c37e16ee8c900a75b96" category="inline-link-rx"></block></block>
   <block id="3aefe1a041af945f1fe8673bf775057b" category="inline-link">NetApp SolidFire et Cassandra</block>
-  <block id="7e2b19f6f6bd1332efe1f7a698984670" category="list-text"><block ref="7e2b19f6f6bd1332efe1f7a698984670" category="inline-link-rx"></block></block>
   <block id="6e580111d3a8c12cdcd9522a4d3484c6" category="inline-link">Meilleures pratiques pour Oracle sur SolidFire</block>
-  <block id="6db96715cefe9c4950ef722865494128" category="list-text"><block ref="6db96715cefe9c4950ef722865494128" category="inline-link-rx"></block></block>
   <block id="6448cf37496207be126495e5b05851de" category="inline-link">Meilleures pratiques PostgreSQL sur SolidFire</block>
-  <block id="eb2c92a9d2d39fa7191d6e84d5c33bb5" category="list-text"><block ref="eb2c92a9d2d39fa7191d6e84d5c33bb5" category="inline-link-rx"></block></block>
   <block id="b062996d6ca590abe798d3db75561f79" category="paragraph">Toutes les applications ne disposent pas d'instructions spécifiques, il est important de collaborer avec votre équipe NetApp et d'utiliser le<block ref="4caccef7312f2c398bfbb419629c1a78" category="inline-link-rx"></block> pour trouver la documentation la plus récente.</block>
   <block id="748c130a6179b02d614cf9a027294302" category="doc">Intégrez Astra Trident</block>
   <block id="1fdc23c8579638d050b7b219da011f2b" category="section-title">Choix et déploiement du conducteur</block>
@@ -1557,7 +1552,6 @@
   <block id="f1cfea5f1444de607dfa549b3aa57010" category="inline-link-macro">Partage de volumes entre les espaces de noms : dites bonjour à l'accès aux volumes situés à l'échelle d'un espace de noms</block>
   <block id="2780f690b7670efc296ac19ef3029d0c" category="list-text">Visitez <block ref="b0d29f1b2abb2cc552e4cc47177582ef" category="inline-link-macro-rx"></block>.</block>
   <block id="96e1384807331548bf745acde0fe1b73" category="inline-link-macro">NetAppTV</block>
-  <block id="414883f8b6ef58c7b3b37e66fbfd482f" category="list-text">Voir la démo <block ref="1945a2d4809e81668f29485f6ae1bbc8" category="inline-link-macro-rx"></block>.</block>
   <block id="cf13ba16f33b5f6772614929649be6c2" category="summary">Vous pouvez importer des volumes de stockage existants sous forme de volume persistant Kubernetes à l'aide de<block ref="a768f5449e3a83ac56f2fb8ab4562339" prefix=" " category="inline-code"></block>.</block>
   <block id="5f48c343984786005c9830d96c6fca87" category="doc">Importer des volumes</block>
   <block id="76057e180d7b3edcebaa935c7ccab687" category="paragraph">Une annotation est ajoutée pour la demande de volume persistant et la volume persistant, qui servent un double objectif : indiquer l'importation du volume et gérer la demande de volume persistant. Cette annotation ne doit pas être modifiée ni supprimée.</block>
@@ -1612,7 +1606,6 @@
   <block id="63b95d84cf55d169b2592f3ac621055f" category="list-text">Sauf mention contraire, Astra Trident extrait les journaux des 24 dernières heures.</block>
   <block id="5224919a4ae5ccf610fb0ee74e4e7a94" category="inline-link">AutoSupport Trident</block>
   <block id="53084cad3d11df800502598c11e2d10b" category="inline-link">CLUF</block>
-  <block id="b9a52e8d1e9b14b8825c6ea01c0ce6d6" category="list-text">Le AutoSupport Trident ne collecte pas et ne transmet pas d'informations à caractère personnel (PII) ou de données personnelles. Il est livré avec un<block ref="173a360b412944768c2ab13e6c8fd1c7" category="inline-link-rx"></block> Ce n'est pas applicable à l'image du conteneur Trident elle-même. Pour en savoir plus sur l'engagement de NetApp en matière de sécurité des données et de confiance<block ref="8470ff535916bda3f4ea4723647a7135" category="inline-link-rx"></block>.</block>
   <block id="89f0f2832f60f480805faf638848c5b7" category="paragraph">Voici un exemple de charge utile envoyée par Astra Trident :</block>
   <block id="d2ec86f126f845e79aff07e70bf89472" category="list-text">Les messages AutoSupport sont envoyés au terminal AutoSupport de NetApp. Si vous utilisez un registre privé pour stocker des images de conteneur, vous pouvez utiliser le<block ref="53b228c1c8295f49b0c35325e14fcd6a" prefix=" " category="inline-code"></block> drapeau.</block>
   <block id="86c5a11fba83815412aec79f67f2d276" category="list-text">Vous pouvez également configurer des URL proxy en générant les fichiers YAML d'installation. Pour ce faire, utilisez<block ref="758aee5ba3aed3d4e9a31a16ea04b47a" prefix=" " category="inline-code"></block> Pour créer les fichiers YAML et ajouter le<block ref="46f08f4431bbd907a039e14ddf39cf5f" prefix=" " category="inline-code"></block> argument pour le<block ref="9d80ca17f097c8e365550f4036ccf0e3" prefix=" " category="inline-code"></block> conteneur<block ref="eb6cdeddd28243c1552ea3b1061b4410" prefix=" " category="inline-code"></block>.</block>
@@ -4201,4 +4194,11 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="88a2f4201bf0a82365ef81af5f2afeac" category="cell">v1.24.0, v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0</block>
   <block id="b443358b172ce4f75319c7828483fb8b" category="list-text">Kubernetes 1.30 est désormais pris en charge dans Astra Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.</block>
   <block id="e422e290c66eca7f882976f830b781b4" category="list-text">Prise en charge de Kubernetes 1.30.</block>
+  <block id="190dbae19c88b1e68bf03f7783c5d5d1" category="list-text"><block ref="190dbae19c88b1e68bf03f7783c5d5d1" category="inline-link-rx"></block></block>
+  <block id="430c6bcb8516befc45fb8173b0ca4e1f" category="list-text"><block ref="430c6bcb8516befc45fb8173b0ca4e1f" category="inline-link-rx"></block></block>
+  <block id="d7d36869f2f4aa1eb99a10008e153f20" category="list-text"><block ref="d7d36869f2f4aa1eb99a10008e153f20" category="inline-link-rx"></block></block>
+  <block id="f8b52d963f246a75dc6c8b78c954a4fd" category="list-text"><block ref="f8b52d963f246a75dc6c8b78c954a4fd" category="inline-link-rx"></block></block>
+  <block id="b6780b7b2561935ff862fe7126cde751" category="list-text"><block ref="b6780b7b2561935ff862fe7126cde751" category="inline-link-rx"></block></block>
+  <block id="b9a641d903e611a87a5e68ac7fdb0b84" category="list-text">Le AutoSupport Trident ne collecte pas et ne transmet pas d'informations à caractère personnel (PII) ou de données personnelles. Il est fourni avec un<block ref="173a360b412944768c2ab13e6c8fd1c7" category="inline-link-rx"></block> qui ne s'applique pas à l'image du conteneur Trident. Pour en savoir plus sur l'engagement de NetApp en faveur de la sécurité et de la confiance des données<block ref="d3cc55401bc8303e01c6b0c43ba0733f" category="inline-link-rx"></block>.</block>
+  <block id="5ff83dbc70e496ea22b38ea61bb69f05" category="list-text">Regardez la démo sur <block ref="c27441bbbe62adf51ae6ecec41fde8bd" category="inline-link-macro-rx"></block>.</block>
 </blocks>

@@ -282,7 +282,7 @@ Une partie de la documentation sur les meilleures pratiques est présentée ci-d
 
 *ONTAP*
 
-* https://www.netapp.com/us/media/tr-4067.pdf["Guide des meilleures pratiques et de mise en œuvre de NFS"^]
+* https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Guide des meilleures pratiques et de mise en œuvre de NFS"^]
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Guide d'administration DU SAN"^] (Pour iSCSI)
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["Configuration iSCSI Express pour RHEL"^]
 
@@ -300,11 +300,11 @@ Une partie de la documentation sur les meilleures pratiques est présentée ci-d
 
 *Information sur les pratiques exemplaires des applications*
 
-* https://www.netapp.com/us/media/tr-4722.pdf["Bonnes pratiques pour MySQL sur ONTAP"^]
+* https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/mysql-overview.html["Bonnes pratiques pour MySQL sur ONTAP"^]
 * https://www.netapp.com/pdf.html?item=/media/10510-tr-4605.pdf["Bonnes pratiques pour MySQL sur SolidFire"^]
-* http://www.netapp.com/us/media/tr-4635.pdf["NetApp SolidFire et Cassandra"^]
-* http://www.netapp.com/us/media/tr-4606.pdf["Meilleures pratiques pour Oracle sur SolidFire"^]
-* http://www.netapp.com/us/media/tr-4610.pdf["Meilleures pratiques PostgreSQL sur SolidFire"^]
+* https://www.netapp.com/pdf.html?item=/media/10513-tr-4635pdf.pdf["NetApp SolidFire et Cassandra"^]
+* https://www.netapp.com/pdf.html?item=/media/10511-tr4606pdf.pdf["Meilleures pratiques pour Oracle sur SolidFire"^]
+* https://www.netapp.com/pdf.html?item=/media/10512-tr-4610pdf.pdf["Meilleures pratiques PostgreSQL sur SolidFire"^]
 
 
 Toutes les applications ne disposent pas d'instructions spécifiques, il est important de collaborer avec votre équipe NetApp et d'utiliser le https://www.netapp.com/search/["Bibliothèque NetApp"^] pour trouver la documentation la plus récente.
