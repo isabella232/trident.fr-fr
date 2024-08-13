@@ -40,10 +40,16 @@ entries:
     entries:
     - title: Présentation
       url: "/trident-use/trident-fsx.html"
-    - title: Intégration d'Amazon FSX pour ONTAP
-      url: "/trident-use/trident-fsx-prep.html"
-    - title: Exemples et options de configuration
-      url: "/trident-use/trident-fsx-examples.html"
+    - title: Créez un rôle IAM et le code AWS secret
+      url: "/trident-use/trident-fsx-iam-role.html"
+    - title: Installer Astra Trident
+      url: "/trident-use/trident-fsx-install-trident.html"
+    - title: Configurer le back-end de stockage
+      url: "/trident-use/trident-fsx-storage-backend.html"
+    - title: Configuration de la classe de stockage et de la PVC
+      url: "/trident-use/trident-fsx-storageclass-pvc.html"
+    - title: Déploiement de l'application exemple
+      url: "/trident-use/trident-fsx-deploy-sample.html"
     - title: Configurer le module complémentaire Astra Trident EKS sur le cluster
         EKS
       url: "/trident-use/trident-aws-addon.html"
